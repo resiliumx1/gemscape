@@ -147,7 +147,7 @@ const RentalsPreview = () => {
                 <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
                   <img
                     src={v.image}
-                    alt={v.name}
+                    alt={`${v.name} available for rental in Antigua`}
                     loading="lazy"
                     width={800}
                     height={450}
