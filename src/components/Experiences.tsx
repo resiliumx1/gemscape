@@ -76,7 +76,7 @@ const Experiences = () => {
             >
               <img
                 src={card.image}
-                alt={card.title}
+                alt={card.alt}
                 className="exp-card__img"
                 loading="lazy"
                 width={800}

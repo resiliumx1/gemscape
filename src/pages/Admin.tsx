@@ -34,6 +34,11 @@ const Admin = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Admin — Gemscape</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
     <div className="min-h-screen flex">
       {/* Sidebar */}
       <aside className="admin-sidebar">

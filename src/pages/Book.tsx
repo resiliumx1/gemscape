@@ -26,6 +26,10 @@ const Book = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Book a Private Tour in Antigua | Gemscape Travel & Tours</title>
+        <meta name="description" content="Book your private Antigua experience — island tours, flight concierge, and luxury rentals. Crafted by Gemscape Travel & Tours." />
+      </Helmet>
       <Navbar />
 
       {/* Hero */}
