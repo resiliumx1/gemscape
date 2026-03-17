@@ -111,6 +111,17 @@ const Services = () => {
               className={`services__desc-item${i === active ? " active" : ""}`}
             >
               <p>{s.description}</p>
+              <span style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
+                fontSize: '12px',
+                color: 'hsl(var(--gem-gold))',
+                display: 'block',
+                marginTop: '8px',
+                marginBottom: '12px',
+              }}>
+                from {format(s.priceUsd)}{s.priceSuffix}
+              </span>
               <a href={`#${s.title.toLowerCase().replace(/\s+/g, "-")}`} className="services__explore">
                 Explore <span className="services__arrow">→</span>
               </a>

@@ -94,6 +94,13 @@ const Hero = () => {
             Private rentals, island circumnavigation, and flight concierge — crafted for those who demand the extraordinary.
           </p>
 
+          <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
+            <span style={{ color: '#C9943A', fontSize: '13px', letterSpacing: '2px' }}>★★★★★</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '13px', color: 'rgba(255,255,255,0.62)' }}>
+              Rated 5 stars by over 200 travellers
+            </span>
+          </div>
+
           <div ref={ctaRef} className="hero__cta" style={{ opacity: 0 }}>
             <a href="#experiences" className="hero__btn-primary">
               <span className="hero__btn-shimmer" />
