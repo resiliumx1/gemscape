@@ -132,7 +132,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
         phone: phone.trim(),
         country,
         pickup_date: dateFormat(pickupDate!, "yyyy-MM-dd"),
-        return_date: format(returnDate!, "yyyy-MM-dd"),
+        return_date: dateFormat(returnDate!, "yyyy-MM-dd"),
         pickup_location: pickupLoc,
         dropoff_location: dropoffLoc,
         driver_license: driverLicense.trim(),
