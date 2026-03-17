@@ -50,6 +50,7 @@ interface BookingWizardProps {
 }
 
 const BookingWizard = ({ initialService }: BookingWizardProps) => {
+  const { format: formatPrice } = useCurrency();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
