@@ -254,7 +254,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
                   <PopoverTrigger asChild>
                     <button className={cn("rb-date-btn", errors.returnDate && "rb-input--error")}>
                       <CalendarIcon size={14} style={{ opacity: 0.5 }} />
-                      {returnDate ? format(returnDate, "PPP") : "Select date"}
+                      {returnDate ? dateFormat(returnDate, "PPP") : "Select date"}
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
