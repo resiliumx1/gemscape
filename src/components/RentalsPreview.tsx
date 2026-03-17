@@ -181,7 +181,7 @@ const RentalsPreview = () => {
                     color: "hsl(var(--gem-navy) / 0.6)",
                     marginTop: "4px",
                   }}>
-                    from {v.rate}
+                    from {formatPrice(v.rateUsd)}/day
                   </div>
                 </div>
               </div>

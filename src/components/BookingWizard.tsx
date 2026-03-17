@@ -529,7 +529,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
 
               <div className="bw-review-estimate">
                 <span className="bw-review-estimate__label">Estimated starting from:</span>
-                <span className="bw-review-estimate__value">${estimate}</span>
+                <span className="bw-review-estimate__value">{formatPrice(estimate)}</span>
               </div>
               <p className="bw-review-note">
                 Final pricing confirmed within 24 hours. No payment required now — we'll invoice you after confirmation.

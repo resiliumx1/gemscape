@@ -252,7 +252,7 @@ const Rentals = () => {
                 <div className="r-card__rate-row">
                   <div>
                     <span className="r-card__from">From</span>
-                    <span className="r-card__price">${v.daily_rate}</span>
+                    <span className="r-card__price">{formatPrice(v.daily_rate)}</span>
                     <span className="r-card__per">/ day</span>
                   </div>
                   <button
