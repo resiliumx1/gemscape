@@ -8,8 +8,37 @@ import WhyGemscape from "@/components/WhyGemscape";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import { useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
+  useEffect(() => {
+    // Refresh ScrollTrigger after all images load
+    const images = document.querySelectorAll("img");
+    let loaded = 0;
+    const total = images.length;
+    const onLoad = () => {
+      loaded++;
+      if (loaded >= total) {
+        ScrollTrigger.refresh();
+      }
+    };
+    images.forEach((img) => {
+      if (img.complete) {
+        onLoad();
+      } else {
+        img.addEventListener("load", onLoad, { once: true });
+      }
+    });
+
+    return () => {
+      images.forEach((img) => img.removeEventListener("load", onLoad));
+    };
+  }, []);
+
   return (
     <>
       <Navbar />

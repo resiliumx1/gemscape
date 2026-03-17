@@ -66,6 +66,9 @@ const Services = () => {
             src={s.image}
             alt={s.title}
             className={`services__img${i === active ? " active" : ""}`}
+            loading="lazy"
+            width={1400}
+            height={900}
           />
         ))}
         <span className="services__counter">

@@ -52,6 +52,9 @@ const CtaBanner = () => {
         src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=2000&q=85"
         alt="Aerial view of turquoise Caribbean waters meeting white sand beach"
         className="cta-banner__bg"
+        loading="lazy"
+        width={2000}
+        height={1333}
       />
       <div className="cta-banner__overlay" />
 
