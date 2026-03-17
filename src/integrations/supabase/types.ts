@@ -223,6 +223,42 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          business_name: string | null
+          created_at: string | null
+          id: string
+          owner_email: string | null
+          review_delay_hours: number | null
+          review_platforms: Json | null
+          review_reminder_enabled: boolean | null
+          updated_at: string | null
+          whatsapp_number: string | null
+        }
+        Insert: {
+          business_name?: string | null
+          created_at?: string | null
+          id?: string
+          owner_email?: string | null
+          review_delay_hours?: number | null
+          review_platforms?: Json | null
+          review_reminder_enabled?: boolean | null
+          updated_at?: string | null
+          whatsapp_number?: string | null
+        }
+        Update: {
+          business_name?: string | null
+          created_at?: string | null
+          id?: string
+          owner_email?: string | null
+          review_delay_hours?: number | null
+          review_platforms?: Json | null
+          review_reminder_enabled?: boolean | null
+          updated_at?: string | null
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
