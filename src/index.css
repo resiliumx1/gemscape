@@ -541,23 +541,24 @@ button, input, textarea, select, a {
 /* Secondary CTA */
 .hero__btn-secondary {
   display: inline-block;
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
-  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  color: rgba(255, 255, 255, 0.75);
   background: transparent;
-  padding: 16px 38px;
+  padding: 14px 28px;
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   text-decoration: none;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
 }
 
 .hero__btn-secondary:hover {
   border-color: rgba(255, 255, 255, 1);
-  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 1);
+  background: transparent;
 }
 
 /* Scroll indicator */
