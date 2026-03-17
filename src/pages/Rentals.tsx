@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import RentalBookingForm from "@/components/RentalBookingForm";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
@@ -273,23 +274,8 @@ const Rentals = () => {
         </div>
       </section>
 
-      {/* ─── BOOKING PLACEHOLDER ─── */}
-      <section id="rental-booking" className="rentals-booking-placeholder">
-        <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
-          <span className="eyebrow" style={{ justifyContent: "center" }}>Book a Rental</span>
-          <h2 style={{ fontSize: "48px", marginTop: "16px", color: "hsl(var(--gem-navy))" }}>
-            Rental booking form coming soon.
-          </h2>
-          <p style={{ color: "rgba(11,42,59,0.6)", marginTop: "12px" }}>
-            In the meantime, WhatsApp us or email info@gemscapetours.com to reserve your vehicle.
-            {selectedVehicleId && (
-              <span style={{ display: "block", marginTop: "8px", color: "hsl(var(--gem-teal))" }}>
-                Vehicle selected — we'll pre-fill your booking.
-              </span>
-            )}
-          </p>
-        </div>
-      </section>
+      {/* ─── BOOKING FORM ─── */}
+      <RentalBookingForm vehicles={vehicles} preselectedVehicleId={selectedVehicleId} />
 
       <Footer />
       <WhatsAppFab />
