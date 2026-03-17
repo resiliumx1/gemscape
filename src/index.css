@@ -127,8 +127,8 @@ button, input, textarea, select, a {
   }
 }
 
-/* Custom cursor (desktop only) */
-@media (min-width: 1024px) {
+/* Custom cursor (desktop with pointer only) */
+@media (hover: hover) and (pointer: fine) {
   html {
     cursor: none;
   }
