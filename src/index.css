@@ -1130,14 +1130,13 @@ button, input, textarea, select, a {
 }
 
 /* ========== WAVE DIVIDER ========== */
+@keyframes waveFloat {
+  0%   { transform: translateX(0px); }
+  50%  { transform: translateX(-30px); }
+  100% { transform: translateX(0px); }
+}
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes waveDrift {
-    0%   { transform: translateX(0); }
-    50%  { transform: translateX(-2.5%); }
-    100% { transform: translateX(0); }
-  }
-  .wave-svg { animation: waveDrift 14s ease-in-out infinite; }
-  .wave-layer-2 { animation: waveDrift 20s ease-in-out infinite reverse; }
+  .wave-svg { animation: waveFloat 14s ease-in-out infinite; }
 }
 
 /* ========== WHY GEMSCAPE ========== */
