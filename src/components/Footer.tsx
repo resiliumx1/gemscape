@@ -2,6 +2,8 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 
 const Footer = () => {
   const { currency } = useCurrency();
+
+  return (
     <footer className="gem-footer">
       <div className="gem-footer__grid">
         {/* Left — Brand */}
