@@ -112,6 +112,7 @@ const Hero = () => {
       <div className="hero__side-text">
         Antigua · Est. 2024 · Travel &amp; Tours
       </div>
+      <WaveDivider fillColor="#EBF8F8" />
     </section>
   );
 };

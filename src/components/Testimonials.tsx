@@ -70,6 +70,7 @@ const Testimonials = () => {
           </div>
         ))}
       </div>
+      <WaveDivider fillColor="hsl(34, 48%, 82%)" />
     </section>
   );
 };

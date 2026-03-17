@@ -1123,11 +1123,27 @@ button, input, textarea, select, a {
   color: hsl(var(--gem-navy) / 0.45);
 }
 
+/* ========== WAVE DIVIDER ========== */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes waveDrift {
+    0%   { transform: translateX(0); }
+    50%  { transform: translateX(-2.5%); }
+    100% { transform: translateX(0); }
+  }
+  .wave-svg { animation: waveDrift 14s ease-in-out infinite; }
+  .wave-layer-2 { animation: waveDrift 20s ease-in-out infinite reverse; }
+}
+
 /* Tailwind base layer */
 @layer base {
   * {
     @apply border-border;
   }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
   body {
     @apply bg-background text-foreground;
