@@ -35,6 +35,7 @@ interface RentalBookingFormProps {
 }
 
 const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingFormProps) => {
+  const { format: formatPrice } = useCurrency();
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
   const [loading, setLoading] = useState(false);
