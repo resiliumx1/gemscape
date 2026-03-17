@@ -87,6 +87,7 @@ const Navbar = () => {
 
         {/* Book Now + Hamburger */}
         <div className="gem-nav__right">
+          <CurrencyToggle />
           <a href="#book" className="gem-nav__book">
             Book Now
           </a>
