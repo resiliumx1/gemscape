@@ -148,6 +148,9 @@ const Navbar = () => {
           >
             Book Now
           </a>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+            <CurrencyToggle />
+          </div>
         </div>
       </div>
     </>

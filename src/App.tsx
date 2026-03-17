@@ -89,14 +89,13 @@ const App = () => {
 
   return (
     <HelmetProvider>
+    <CurrencyProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        {/* Custom cursor elements */}
         <div id="cursor" />
         <div id="cursor-dot" />
-        {/* Page transition overlay */}
         <div id="page-transition" />
         <BrowserRouter>
           <Routes>
@@ -110,6 +109,7 @@ const App = () => {
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
+    </CurrencyProvider>
     </HelmetProvider>
   );
 };
