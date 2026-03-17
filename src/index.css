@@ -1129,15 +1129,6 @@ button, input, textarea, select, a {
   color: hsl(var(--gem-navy) / 0.45);
 }
 
-/* ========== WAVE DIVIDER ========== */
-@keyframes waveFloat {
-  0%   { transform: translateX(0px); }
-  50%  { transform: translateX(-30px); }
-  100% { transform: translateX(0px); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .wave-svg { animation: waveFloat 14s ease-in-out infinite; }
-}
 
 /* ========== WHY GEMSCAPE ========== */
 .why-gemscape {

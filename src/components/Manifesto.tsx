@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import WaveDivider from "./WaveDivider";
+import { Wave } from "./Wave";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,7 +49,12 @@ const Manifesto = () => {
         </div>
         <p className="manifesto__attr">— Gemscape Travel &amp; Tours, St. John's, Antigua</p>
       </div>
-      <WaveDivider fillColor="#F5EFE0" />
+
+      {/* Waves */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "100px", zIndex: 10 }}>
+        <Wave color="#F0E8D8" height={100} speed={0.3} offset={200} />
+        <Wave color="#F5EFE0" height={80} speed={0.5} offset={500} />
+      </div>
     </section>
   );
 };
