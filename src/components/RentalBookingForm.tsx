@@ -491,7 +491,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
             {addOnsCost > 0 && (
               <div className="rb-summary__row">
                 <span>Add-ons</span>
-                <span>+${addOnsCost}</span>
+                <span>+{formatPrice(addOnsCost)}</span>
               </div>
             )}
             <div className="rb-summary__divider" />
