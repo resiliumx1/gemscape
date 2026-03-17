@@ -1136,16 +1136,106 @@ button, input, textarea, select, a {
   .wave-layer-2 { animation: waveDrift 20s ease-in-out infinite reverse; }
 }
 
+/* ========== WHY GEMSCAPE ========== */
+.why-gemscape {
+  background: hsl(var(--gem-sand));
+  padding: 140px 80px;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .why-gemscape {
+    padding: 80px 24px;
+  }
+}
+
+.why-gemscape__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.why-gemscape__h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 62px;
+  color: hsl(var(--gem-navy));
+  line-height: 0.95;
+  margin-top: 16px;
+}
+
+@media (max-width: 767px) {
+  .why-gemscape__h2 {
+    font-size: 40px;
+  }
+}
+
+.why-gemscape__body {
+  margin: 24px auto 0;
+  max-width: 640px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  color: hsl(var(--gem-navy) / 0.68);
+  line-height: 1.8;
+}
+
+.why-gemscape__pillars {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+}
+
+@media (max-width: 1023px) {
+  .why-gemscape__pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .why-gemscape__pillars {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pillar {
+  text-align: center;
+  max-width: 220px;
+  margin: 0 auto;
+  opacity: 0;
+}
+
+.pillar__mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 32px;
+  color: hsl(var(--gem-gold));
+}
+
+.pillar__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 22px;
+  color: hsl(var(--gem-navy));
+  margin-top: 14px;
+}
+
+.pillar__desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: hsl(var(--gem-navy) / 0.6);
+  line-height: 1.7;
+  margin-top: 8px;
+}
+
 /* Tailwind base layer */
 @layer base {
   * {
     @apply border-border;
   }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 
   body {
     @apply bg-background text-foreground;
