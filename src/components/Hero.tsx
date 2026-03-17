@@ -46,12 +46,9 @@ const Hero = () => {
       if (scrollIndRef.current) {
         ScrollTrigger.create({
           trigger: heroRef.current,
-          start: "top top",
-          end: "200px top",
-          onUpdate: (self) => {
-            if (scrollIndRef.current) {
-              scrollIndRef.current.style.opacity = String(1 - self.progress);
-            }
+          start: "250px top",
+          onEnter: () => {
+            gsap.to(scrollIndRef.current, { opacity: 0, pointerEvents: 'none', duration: 0.5 });
           },
         });
       }
