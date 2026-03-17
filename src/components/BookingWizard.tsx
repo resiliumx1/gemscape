@@ -155,7 +155,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
         email: email.trim(),
         phone: phone.trim(),
         country,
-        tour_date: format(tourDate!, "yyyy-MM-dd"),
+        tour_date: dateFormat(tourDate!, "yyyy-MM-dd"),
         party_size: partySize,
         adults,
         children: children > 0 ? children : null,
