@@ -42,44 +42,64 @@ const App = () => {
       delay: 0.1,
     });
 
-    // Custom cursor (desktop only)
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-    if (isDesktop) {
-      const xTo = gsap.quickTo("#cursor", "x", { duration: 0.4, ease: "power3" });
-      const yTo = gsap.quickTo("#cursor", "y", { duration: 0.4, ease: "power3" });
-      const dotXTo = gsap.quickTo("#cursor-dot", "x", { duration: 0.15, ease: "power3" });
-      const dotYTo = gsap.quickTo("#cursor-dot", "y", { duration: 0.15, ease: "power3" });
+    // Custom crosshair cursor (desktop only)
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const cross = document.getElementById('gc-cross');
+      const ring = document.getElementById('gc-ring');
 
-      const onMouseMove = (e: MouseEvent) => {
-        xTo(e.clientX);
-        yTo(e.clientY);
-        dotXTo(e.clientX);
-        dotYTo(e.clientY);
-      };
+      if (cross && ring) {
+        const xC = gsap.quickTo(cross, 'x', { duration: 0.08, ease: 'power2' });
+        const yC = gsap.quickTo(cross, 'y', { duration: 0.08, ease: 'power2' });
+        const xR = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3' });
+        const yR = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3' });
 
-      const cursorEl = document.getElementById("cursor");
+        const onMouseMove = (e: MouseEvent) => {
+          xC(e.clientX); yC(e.clientY);
+          xR(e.clientX); yR(e.clientY);
+        };
+        window.addEventListener('mousemove', onMouseMove);
 
-      const onMouseEnterInteractive = () => cursorEl?.classList.add("hovering");
-      const onMouseLeaveInteractive = () => cursorEl?.classList.remove("hovering");
+        const addHoverListeners = () => {
+          document.querySelectorAll('a, button, [role="button"], label').forEach((el) => {
+            el.addEventListener('mouseenter', () => {
+              gsap.to(cross, { opacity: 0, scale: 0.5, duration: 0.2 });
+              gsap.to(ring, { width: 52, height: 52, borderColor: 'rgba(201,148,58,0.65)', duration: 0.3 });
+            });
+            el.addEventListener('mouseleave', () => {
+              gsap.to(cross, { opacity: 1, scale: 1, duration: 0.2 });
+              gsap.to(ring, { width: 36, height: 36, borderColor: 'rgba(201,148,58,0.28)', duration: 0.3 });
+            });
+          });
 
-      window.addEventListener("mousemove", onMouseMove);
+          document.querySelectorAll('img, .exp-card, .r-card, .bw-svc-card').forEach((el) => {
+            el.addEventListener('mouseenter', () => {
+              gsap.to(cross, { rotation: 45, duration: 0.35, ease: 'power2' });
+              gsap.to(ring, { scale: 1.15, duration: 0.35 });
+            });
+            el.addEventListener('mouseleave', () => {
+              gsap.to(cross, { rotation: 0, duration: 0.35, ease: 'power2' });
+              gsap.to(ring, { scale: 1, duration: 0.35 });
+            });
+          });
+        };
 
-      const addHoverListeners = () => {
-        document.querySelectorAll("a, button").forEach((el) => {
-          el.addEventListener("mouseenter", onMouseEnterInteractive);
-          el.addEventListener("mouseleave", onMouseLeaveInteractive);
+        addHoverListeners();
+        const observer = new MutationObserver(addHoverListeners);
+        observer.observe(document.body, { childList: true, subtree: true });
+
+        document.addEventListener('mouseleave', () => {
+          gsap.to([cross, ring], { opacity: 0, duration: 0.2 });
         });
-      };
+        document.addEventListener('mouseenter', () => {
+          gsap.to([cross, ring], { opacity: 1, duration: 0.2 });
+        });
 
-      addHoverListeners();
-      const observer = new MutationObserver(addHoverListeners);
-      observer.observe(document.body, { childList: true, subtree: true });
-
-      return () => {
-        window.removeEventListener("mousemove", onMouseMove);
-        observer.disconnect();
-        lenis.destroy();
-      };
+        return () => {
+          window.removeEventListener('mousemove', onMouseMove);
+          observer.disconnect();
+          lenis.destroy();
+        };
+      }
     }
 
     return () => {
@@ -94,8 +114,8 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <div id="cursor" />
-        <div id="cursor-dot" />
+        <div id="gc-cross" aria-hidden="true" />
+        <div id="gc-ring" aria-hidden="true" />
         <div id="page-transition" />
         <BrowserRouter>
           <Routes>
