@@ -309,7 +309,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
                   <PopoverTrigger asChild>
                     <button className={cn("rb-date-btn", errors.tourDate && "rb-input--error")}>
                       <CalendarIcon size={14} style={{ opacity: 0.5 }} />
-                      {tourDate ? format(tourDate, "PPP") : "Select date"}
+                      {tourDate ? dateFormat(tourDate, "PPP") : "Select date"}
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
