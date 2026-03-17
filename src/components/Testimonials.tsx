@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import WaveDivider from "./WaveDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,6 +70,7 @@ const Testimonials = () => {
           </div>
         ))}
       </div>
+      <WaveDivider fillColor="hsl(34, 48%, 82%)" />
     </section>
   );
 };
