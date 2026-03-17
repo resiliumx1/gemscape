@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Experiences from "@/components/Experiences";
 import Manifesto from "@/components/Manifesto";
+import Testimonials from "@/components/Testimonials";
 
 const Index = () => {
   return (
