@@ -6,25 +6,25 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const VEHICLES = [
+const VEHICLES_DATA = [
   {
     name: "Toyota Land Cruiser",
     category: "SUV",
-    rate: "$120/day",
+    rateUsd: 120,
     image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=85",
     style: { transform: "rotate(-2deg) scale(0.92)", top: "0px", right: "0px", zIndex: 1 },
   },
   {
     name: "Jeep Wrangler",
     category: "Open-Air",
-    rate: "$95/day",
+    rateUsd: 95,
     image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=85",
     style: { transform: "rotate(1deg)", top: "40px", right: "40px", zIndex: 2 },
   },
   {
     name: "Hyundai Tucson",
     category: "Sedan / SUV",
-    rate: "$75/day",
+    rateUsd: 75,
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=85",
     style: { transform: "rotate(-0.5deg) translateY(-12px)", top: "80px", right: "80px", zIndex: 3 },
   },
