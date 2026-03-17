@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 
-const NAV_LINKS = [
+type NavItem = { label: string; href: string } | { label: string; to: string };
+
+const NAV_LINKS: NavItem[] = [
   { label: "Experiences", href: "#experiences" },
+  { label: "Rentals", to: "/rentals" },
   { label: "Circumnavigation", href: "#circumnavigation" },
   { label: "Concierge", href: "#concierge" },
   { label: "About", href: "#about" },
@@ -14,6 +18,10 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileLinksRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isRouteLink = (link: NavItem): link is { label: string; to: string } => "to" in link;
 
   // Scroll detection
   useEffect(() => {
@@ -55,11 +63,25 @@ const Navbar = () => {
 
         {/* Desktop links */}
         <div className="gem-nav__links">
-          {NAV_LINKS.map((link) => (
-            <a key={link.label} href={link.href} className="gem-nav__link">
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            isRouteLink(link) ? (
+              <a
+                key={link.label}
+                href={link.to}
+                className={`gem-nav__link${location.pathname === link.to ? " active" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(link.to);
+                }}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <a key={link.label} href={link.href} className="gem-nav__link">
+                {link.label}
+              </a>
+            )
+          )}
         </div>
 
         {/* Book Now + Hamburger */}
@@ -92,16 +114,31 @@ const Navbar = () => {
           ×
         </button>
         <div ref={mobileLinksRef} className="gem-mobile-menu__links">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="mobile-nav-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            isRouteLink(link) ? (
+              <a
+                key={link.label}
+                href={link.to}
+                className="mobile-nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileOpen(false);
+                  navigate(link.to);
+                }}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                className="mobile-nav-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <a
             href="#book"
             className="gem-mobile-menu__book mobile-nav-link"

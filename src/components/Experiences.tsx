@@ -10,18 +10,21 @@ const CARDS = [
     category: "Water & Sea",
     title: "Island Circumnavigation",
     desc: "Full-island private tour — every cove, every beach, every hidden bay.",
+    alt: "Aerial view of Antigua's turquoise Caribbean coastline",
   },
   {
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85",
     category: "Land & Culture",
     title: "Heritage & Discovery",
     desc: "History, local rum, and roads no tourist map would ever show you.",
+    alt: "Private sailing catamaran charter in Antigua waters",
   },
   {
     image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=85",
     category: "Arrival & Departure",
     title: "Flight Concierge",
     desc: "From wheels down to your first sunset drink. We handle everything.",
+    alt: "Private flight concierge service departing Antigua",
   },
 ];
 
@@ -73,7 +76,7 @@ const Experiences = () => {
             >
               <img
                 src={card.image}
-                alt={card.title}
+                alt={card.alt}
                 className="exp-card__img"
                 loading="lazy"
                 width={800}

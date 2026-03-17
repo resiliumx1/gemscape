@@ -10,6 +10,7 @@ const SERVICES = [
     number: "01",
     title: "Private Rentals",
     image: "https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1400&q=85",
+    alt: "Premium SUV available for private rental in Antigua",
     description:
       "Our rental fleet — from premium SUVs to sailing catamarans — is hand-selected for comfort, style, and the freedom to explore Antigua entirely on your own terms.",
   },
@@ -17,6 +18,7 @@ const SERVICES = [
     number: "02",
     title: "Island Circumnavigation",
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=85",
+    alt: "Private sailing catamaran charter in Antigua waters",
     description:
       "Our signature full-island journey takes you all the way around Antigua — past hidden coves, historic forts, and sleepy fishing villages that no cruise ship ever reaches.",
   },
@@ -24,6 +26,7 @@ const SERVICES = [
     number: "03",
     title: "Flight Concierge",
     image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1400&q=85",
+    alt: "Private flight concierge service departing Antigua",
     description:
       "From the moment you land at V.C. Bird International to the second your wheels lift off, we handle every detail. Private charters, VIP meet-and-greet, transfers. Not one stressful moment.",
   },
@@ -61,10 +64,10 @@ const Services = () => {
       {/* Left — Image panel */}
       <div className="services__images">
         {SERVICES.map((s, i) => (
-          <img
-            key={s.number}
-            src={s.image}
-            alt={s.title}
+            <img
+              key={s.number}
+              src={s.image}
+              alt={s.alt}
             className={`services__img${i === active ? " active" : ""}`}
             loading="lazy"
             width={1400}

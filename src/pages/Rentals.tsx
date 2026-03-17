@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
@@ -128,6 +129,10 @@ const Rentals = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Car Rental Antigua | Premium Fleet — Gemscape Travel & Tours</title>
+        <meta name="description" content="Browse Gemscape's premium rental fleet in Antigua. SUVs, Jeeps, sedans delivered to your hotel, airport or marina. Full insurance & 24/7 support included." />
+      </Helmet>
       <Navbar />
 
       {/* ─── HERO ─── */}
@@ -209,7 +214,7 @@ const Rentals = () => {
               <div className="r-card__img-wrap">
                 <img
                   src={v.image_url || "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=85"}
-                  alt={v.name}
+                  alt={`${v.name} available for rental in Antigua, Gemscape Travel`}
                   loading="lazy"
                   width={800}
                   height={500}
