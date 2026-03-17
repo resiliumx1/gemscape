@@ -517,7 +517,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
               )}
 
               <div className="bw-review-rows">
-                <div className="bw-review-row"><span>Date</span><span>{tourDate ? format(tourDate, "PPP") : "—"}</span></div>
+                <div className="bw-review-row"><span>Date</span><span>{tourDate ? dateFormat(tourDate, "PPP") : "—"}</span></div>
                 <div className="bw-review-row"><span>Party Size</span><span>{adults} adult{adults > 1 ? "s" : ""}{children > 0 ? `, ${children} child${children > 1 ? "ren" : ""}` : ""}</span></div>
                 <div className="bw-review-row"><span>Guest</span><span>{fullName}</span></div>
                 <div className="bw-review-row"><span>Email</span><span>{email}</span></div>
