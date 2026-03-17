@@ -189,6 +189,225 @@ button, input, textarea, select, a {
   border-radius: 2px;
 }
 
+/* ========== NAVBAR ========== */
+.gem-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 72px;
+  background: transparent;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gem-nav.scrolled {
+  background: rgba(11, 42, 59, 0.90);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border-bottom: 1px solid rgba(201, 148, 58, 0.12);
+}
+
+@media (max-width: 1023px) {
+  .gem-nav {
+    height: 60px;
+    padding: 0 24px;
+  }
+}
+
+/* Logo */
+.gem-nav__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.gem-nav__logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Desktop links */
+.gem-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+@media (max-width: 1023px) {
+  .gem-nav__links {
+    display: none;
+  }
+}
+
+.gem-nav__link {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.80);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.gem-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: hsl(var(--gem-gold));
+  transition: width 0.4s ease;
+}
+
+.gem-nav__link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.gem-nav__link:hover::after {
+  width: 100%;
+}
+
+/* Right side */
+.gem-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Book Now button */
+.gem-nav__book {
+  border: 1px solid hsl(var(--gem-gold));
+  color: hsl(var(--gem-gold));
+  background: transparent;
+  padding: 10px 26px;
+  border-radius: 0 !important;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+.gem-nav__book:hover {
+  background: hsl(var(--gem-gold));
+  color: hsl(var(--gem-navy));
+}
+
+@media (max-width: 1023px) {
+  .gem-nav__book {
+    display: none;
+  }
+}
+
+/* Hamburger */
+.gem-nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.gem-nav__hamburger span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 1);
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 1023px) {
+  .gem-nav__hamburger {
+    display: flex;
+  }
+}
+
+/* ========== MOBILE MENU ========== */
+.gem-mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: hsl(var(--gem-navy));
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.gem-mobile-menu.open {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.gem-mobile-menu__close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1;
+  padding: 8px;
+  transition: color 0.3s ease;
+}
+
+.gem-mobile-menu__close:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.gem-mobile-menu__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.mobile-nav-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 46px;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+  opacity: 0;
+  transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  color: hsl(var(--gem-gold));
+}
+
+.gem-mobile-menu__book {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: 13px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 20px;
+  color: hsl(var(--gem-gold)) !important;
+}
+
 /* Tailwind base layer */
 @layer base {
   * {
