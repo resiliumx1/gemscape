@@ -9,6 +9,7 @@ import WhatsAppFab from "@/components/WhatsAppFab";
 import RentalBookingForm from "@/components/RentalBookingForm";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
