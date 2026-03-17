@@ -13,6 +13,7 @@ const Hero = () => {
   const line2Ref = useRef<HTMLDivElement>(null);
   const line3Ref = useRef<HTMLDivElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
+  const trustRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollIndRef = useRef<HTMLDivElement>(null);
 
@@ -38,18 +39,16 @@ const Hero = () => {
       gsap.fromTo(line2Ref.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: 0.95 });
       gsap.fromTo(line3Ref.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: 1.15 });
       gsap.fromTo(subRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 1.4 });
+      gsap.fromTo(trustRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 1.55 });
       gsap.fromTo(ctaRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 1.7 });
       gsap.fromTo(scrollIndRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power3.out", delay: 2.1 });
 
       if (scrollIndRef.current) {
         ScrollTrigger.create({
           trigger: heroRef.current,
-          start: "top top",
-          end: "200px top",
-          onUpdate: (self) => {
-            if (scrollIndRef.current) {
-              scrollIndRef.current.style.opacity = String(1 - self.progress);
-            }
+          start: "250px top",
+          onEnter: () => {
+            gsap.to(scrollIndRef.current, { opacity: 0, pointerEvents: 'none', duration: 0.5 });
           },
         });
       }
@@ -91,6 +90,13 @@ const Hero = () => {
           <p ref={subRef} className="hero__sub" style={{ opacity: 0 }}>
             Private rentals, island circumnavigation, and flight concierge — crafted for those who demand the extraordinary.
           </p>
+
+          <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
+            <span style={{ color: '#C9943A', fontSize: '13px', letterSpacing: '2px' }}>★★★★★</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '13px', color: 'rgba(255,255,255,0.62)' }}>
+              Rated 5 stars by over 200 travellers
+            </span>
+          </div>
 
           <div ref={ctaRef} className="hero__cta" style={{ opacity: 0 }}>
             <a href="#experiences" className="hero__btn-primary">

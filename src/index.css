@@ -513,12 +513,12 @@ button, input, textarea, select, a {
   overflow: hidden;
   display: inline-block;
   background: hsl(var(--gem-coral));
-  color: rgba(255, 255, 255, 1);
-  padding: 16px 38px;
+  color: #ffffff;
+  padding: 16px 40px;
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -541,23 +541,24 @@ button, input, textarea, select, a {
 /* Secondary CTA */
 .hero__btn-secondary {
   display: inline-block;
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
-  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  color: rgba(255, 255, 255, 0.75);
   background: transparent;
-  padding: 16px 38px;
+  padding: 14px 28px;
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   text-decoration: none;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
 }
 
 .hero__btn-secondary:hover {
   border-color: rgba(255, 255, 255, 1);
-  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 1);
+  background: transparent;
 }
 
 /* Scroll indicator */
@@ -1408,7 +1409,7 @@ button, input, textarea, select, a {
   font-weight: 300;
   font-style: italic;
   font-size: 17px;
-  color: rgba(255,255,255,0.50);
+  color: rgba(255,255,255,0.78);
   margin-top: 18px;
   line-height: 1.5;
 }
@@ -1420,7 +1421,7 @@ button, input, textarea, select, a {
 }
 
 .gem-footer__social-link {
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.78);
   text-decoration: none;
   transition: color 0.3s ease;
   display: flex;
@@ -1453,7 +1454,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 14px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.78);
   text-decoration: none;
   line-height: 2.6;
   transition: color 0.3s ease;
@@ -1473,7 +1474,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 14px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.78);
   text-decoration: none;
   line-height: 2.4;
   transition: color 0.3s ease;
@@ -1497,7 +1498,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 12px;
-  color: rgba(255,255,255,0.30);
+  color: rgba(255,255,255,0.55);
 }
 
 /* ========== WHATSAPP FAB ========== */
