@@ -104,7 +104,7 @@ const Services = () => {
           ))}
         </div>
       </div>
-      <WaveDivider fillColor="hsl(40, 60%, 97%)" />
+      <WaveDivider fillColor="#FDFAF4" />
     </section>
   );
 };
