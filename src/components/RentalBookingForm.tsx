@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
-import { format, differenceInDays } from "date-fns";
+import { format as dateFormat, differenceInDays } from "date-fns";
 import { CalendarIcon, Loader2, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { Tables } from "@/integrations/supabase/types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const PICKUP_LOCATIONS = [
   { value: "airport", label: "Airport (V.C. Bird International)" },
