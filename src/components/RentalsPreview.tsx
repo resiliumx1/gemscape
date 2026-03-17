@@ -37,6 +37,7 @@ const STATS = [
 ];
 
 const RentalsPreview = () => {
+  const { format: formatPrice } = useCurrency();
   const sectionRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
