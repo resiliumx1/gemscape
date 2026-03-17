@@ -484,7 +484,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
               <span>Base rate</span>
               <span>
                 {totalDays > 0 && selectedVehicle
-                  ? `$${dailyRate}/day × ${totalDays} = $${baseTotal}`
+                  ? `${formatPrice(dailyRate)}/day × ${totalDays} = ${formatPrice(baseTotal)}`
                   : "—"}
               </span>
             </div>
