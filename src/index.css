@@ -513,12 +513,12 @@ button, input, textarea, select, a {
   overflow: hidden;
   display: inline-block;
   background: hsl(var(--gem-coral));
-  color: rgba(255, 255, 255, 1);
-  padding: 16px 38px;
+  color: #ffffff;
+  padding: 16px 40px;
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   text-decoration: none;
