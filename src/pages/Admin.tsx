@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import type { User } from "@supabase/supabase-js";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import AdminTourBookings from "@/components/admin/AdminTourBookings";
 import AdminRentalBookings from "@/components/admin/AdminRentalBookings";
@@ -19,39 +17,8 @@ const NAV_ITEMS = [
 ];
 
 const Admin = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("dashboard");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        if (!session) navigate("/admin/login");
-        else setUser(session.user);
-        setLoading(false);
-      }
-    );
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) navigate("/admin/login");
-      else setUser(session.user);
-      setLoading(false);
-    });
-    return () => subscription.unsubscribe();
-  }, [navigate]);
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/admin/login");
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "hsl(var(--gem-cream))" }}>
-        <p style={{ color: "hsl(var(--gem-navy))", opacity: 0.5 }}>Loading…</p>
-      </div>
-    );
-  }
 
   const renderContent = () => {
     switch (activeTab) {
