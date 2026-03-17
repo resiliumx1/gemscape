@@ -605,6 +605,190 @@ button, input, textarea, select, a {
   }
 }
 
+/* ========== SERVICES ========== */
+.services {
+  min-height: 100vh;
+  display: flex;
+}
+
+.services__images {
+  width: 60%;
+  position: relative;
+  overflow: hidden;
+}
+
+.services__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.services__img.active {
+  opacity: 1;
+}
+
+.services__counter {
+  position: absolute;
+  bottom: 32px;
+  left: 36px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.1em;
+  z-index: 2;
+}
+
+.services__nav {
+  width: 40%;
+  background: hsl(var(--gem-cream));
+  padding: 80px 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.services__nav .eyebrow {
+  margin-bottom: 48px;
+}
+
+.services__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.services__row {
+  padding: 28px 0;
+  border-bottom: 1px solid hsl(var(--gem-sand));
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.services__row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: hsl(var(--gem-gold));
+  transition: width 0.35s ease;
+}
+
+.services__row.active::before {
+  width: 2px;
+}
+
+.services__row-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 52px;
+  line-height: 1;
+  color: hsl(var(--gem-sand));
+  transition: color 0.4s ease;
+  display: block;
+  padding-left: 16px;
+}
+
+.services__row.active .services__row-num {
+  color: hsl(var(--gem-gold));
+  font-weight: 600;
+}
+
+.services__row-title {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: hsl(var(--gem-navy));
+  margin-top: 4px;
+  display: block;
+  padding-left: 16px;
+}
+
+.services__desc {
+  padding-top: 40px;
+  position: relative;
+  min-height: 140px;
+}
+
+.services__desc-item {
+  opacity: 0;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.services__desc-item.active {
+  opacity: 1;
+  position: relative;
+  top: 0;
+  pointer-events: auto;
+}
+
+.services__desc-item p {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.8;
+  color: hsl(var(--gem-navy) / 0.7);
+  max-width: 340px;
+}
+
+.services__explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: hsl(var(--gem-teal));
+  text-decoration: none;
+  margin-top: 20px;
+  transition: color 0.3s ease;
+}
+
+.services__arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.services__explore:hover .services__arrow {
+  transform: translateX(5px);
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .services {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .services__images {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+  }
+
+  .services__nav {
+    width: 100%;
+    padding: 48px 24px;
+  }
+
+  .services__row-num {
+    font-size: 40px;
+  }
+}
+
 /* Tailwind base layer */
 @layer base {
   * {
