@@ -65,6 +65,8 @@ const Hero = () => {
         <div
           ref={bgRef}
           className="hero__bg"
+          role="img"
+          aria-label="Aerial view of Antigua's turquoise Caribbean coastline"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=2000&q=85')`,
           }}

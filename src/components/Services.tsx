@@ -64,10 +64,10 @@ const Services = () => {
       {/* Left — Image panel */}
       <div className="services__images">
         {SERVICES.map((s, i) => (
-          <img
-            key={s.number}
-            src={s.image}
-            alt={s.title}
+            <img
+              key={s.number}
+              src={s.image}
+              alt={s.alt}
             className={`services__img${i === active ? " active" : ""}`}
             loading="lazy"
             width={1400}
