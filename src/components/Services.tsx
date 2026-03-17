@@ -43,6 +43,7 @@ const Services = () => {
   const [active, setActive] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
+  const { format } = useCurrency();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
