@@ -62,13 +62,10 @@ const Admin = () => {
 
         <div className="px-3 pb-6">
           <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "8px 0 16px" }} />
-          <button onClick={handleSignOut} className="admin-nav-item" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <button onClick={() => navigate("/")} className="admin-nav-item" style={{ color: "rgba(255,255,255,0.45)" }}>
             <span className="mr-3">↩</span>
-            Sign Out
+            Back to Site
           </button>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 16, paddingLeft: 12 }}>
-            {user?.email}
-          </p>
         </div>
       </aside>
 
