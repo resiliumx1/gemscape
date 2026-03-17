@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
-import { format, differenceInDays, addDays, addYears } from "date-fns";
+import { format as dateFormat, differenceInDays, addDays, addYears } from "date-fns";
 import { CalendarIcon, Loader2, Check, Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 /* ── constants ── */
 const SERVICES = [
