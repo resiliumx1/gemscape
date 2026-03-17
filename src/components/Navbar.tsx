@@ -63,11 +63,25 @@ const Navbar = () => {
 
         {/* Desktop links */}
         <div className="gem-nav__links">
-          {NAV_LINKS.map((link) => (
-            <a key={link.label} href={link.href} className="gem-nav__link">
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            isRouteLink(link) ? (
+              <a
+                key={link.label}
+                href={link.to}
+                className={`gem-nav__link${location.pathname === link.to ? " active" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(link.to);
+                }}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <a key={link.label} href={link.href} className="gem-nav__link">
+                {link.label}
+              </a>
+            )
+          )}
         </div>
 
         {/* Book Now + Hamburger */}
