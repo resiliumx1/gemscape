@@ -1,13 +1,15 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Services from "@/components/Services";
 
 const Index = () => {
   return (
     <>
       <Navbar />
       <Hero />
-      {/* Scroll space to test parallax and nav transition */}
-      <div className="section-pad" style={{ minHeight: "100vh" }}>
+      <Services />
+      {/* Scroll space */}
+      <div className="section-pad" style={{ minHeight: "60vh" }}>
         <div className="text-center">
           <span className="eyebrow mx-auto justify-center">Coming Soon</span>
           <h2 className="font-display text-4xl mt-4">More sections on the way</h2>
