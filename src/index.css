@@ -3048,3 +3048,296 @@ button, input, textarea, select, a {
     @apply bg-background text-foreground;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN DASHBOARD STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.admin-sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background-color: hsl(var(--gem-navy));
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.admin-main {
+  flex: 1;
+  background-color: hsl(var(--gem-cream));
+  padding: 48px 56px;
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 2px;
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  color: rgba(255,255,255,0.65);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.admin-nav-item:hover {
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.03);
+}
+
+.admin-nav-item.active {
+  color: white;
+  border-left-color: hsl(var(--gem-gold));
+  background: rgba(255,255,255,0.05);
+}
+
+.admin-page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: hsl(var(--gem-navy));
+  line-height: 1;
+}
+
+.admin-page-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(11,42,59,0.50);
+  margin-top: 4px;
+}
+
+.admin-section-title {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: hsl(var(--gem-navy));
+}
+
+.admin-metric-card {
+  background: white;
+  border: 1px solid hsl(var(--gem-sand));
+  padding: 28px;
+}
+
+.admin-metric-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 52px;
+  color: hsl(var(--gem-navy));
+  line-height: 1;
+}
+
+.admin-metric-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: rgba(11,42,59,0.55);
+  margin-top: 8px;
+}
+
+.admin-table-wrap {
+  background: white;
+  border: 1px solid hsl(var(--gem-sand));
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+}
+
+.admin-table th {
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--gem-gold));
+  padding: 16px 16px;
+  text-align: left;
+  border-bottom: 1px solid hsl(var(--gem-sand));
+}
+
+.admin-table td {
+  padding: 14px 16px;
+  color: hsl(var(--gem-navy));
+  border-bottom: 1px solid hsl(var(--gem-sand));
+  font-weight: 300;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(201,148,58,0.03);
+}
+
+.admin-link {
+  background: none;
+  border: none;
+  color: hsl(var(--gem-teal));
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.admin-link:hover {
+  text-decoration: underline;
+}
+
+.admin-btn-outline {
+  background: none;
+  border: 1px solid hsl(var(--gem-sand));
+  color: hsl(var(--gem-navy));
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-btn-outline:hover {
+  border-color: hsl(var(--gem-navy));
+}
+
+.admin-btn-primary {
+  background: hsl(var(--gem-navy));
+  border: none;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.admin-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.admin-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-filter-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid hsl(var(--gem-sand));
+  padding: 10px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: hsl(var(--gem-navy));
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.admin-filter-input:focus {
+  border-bottom-color: hsl(var(--gem-gold));
+}
+
+.admin-form-label {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: hsl(var(--gem-gold));
+  margin-bottom: 4px;
+}
+
+.admin-detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,42,59,0.5);
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-detail-panel {
+  width: 520px;
+  max-width: 90vw;
+  background: white;
+  padding: 40px;
+  height: 100vh;
+  overflow-y: auto;
+  animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.admin-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.admin-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid hsl(var(--gem-sand));
+}
+
+.admin-detail-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: hsl(var(--gem-gold));
+}
+
+.admin-detail-value {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: hsl(var(--gem-navy));
+  text-align: right;
+  max-width: 60%;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    display: none;
+  }
+  .admin-main {
+    padding: 24px 16px;
+  }
+  .admin-page-title {
+    font-size: 28px;
+  }
+  .admin-metric-value {
+    font-size: 36px;
+  }
+}
