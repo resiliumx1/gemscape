@@ -672,6 +672,11 @@ button, input, textarea, select, a {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.services__row:hover .services__row-num {
+  color: hsl(var(--gem-gold));
 }
 
 .services__row::before {
