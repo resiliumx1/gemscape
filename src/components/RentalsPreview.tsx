@@ -132,7 +132,7 @@ const RentalsPreview = () => {
         {/* Right column */}
         <div className="rentals-preview__right">
           <div className="rentals-preview__cards">
-            {VEHICLES.map((v, i) => (
+            {VEHICLES_DATA.map((v, i) => (
               <div
                 key={v.name}
                 ref={(el) => { cardRefs.current[i] = el; }}
