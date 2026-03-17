@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
-import { format, differenceInDays, addDays, addYears } from "date-fns";
+import { format as dateFormat, differenceInDays, addDays, addYears } from "date-fns";
 import { CalendarIcon, Loader2, Check, Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 /* ── constants ── */
 const SERVICES = [
@@ -49,6 +50,7 @@ interface BookingWizardProps {
 }
 
 const BookingWizard = ({ initialService }: BookingWizardProps) => {
+  const { format: formatPrice } = useCurrency();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
@@ -153,7 +155,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
         email: email.trim(),
         phone: phone.trim(),
         country,
-        tour_date: format(tourDate!, "yyyy-MM-dd"),
+        tour_date: dateFormat(tourDate!, "yyyy-MM-dd"),
         party_size: partySize,
         adults,
         children: children > 0 ? children : null,
@@ -284,7 +286,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
                   <div className="bw-svc-card__body">
                     <h3 className="bw-svc-card__name">{svc.name}</h3>
                     <p className="bw-svc-card__desc">{svc.desc}</p>
-                    <span className="bw-svc-card__price">{svc.price}</span>
+                    <span className="bw-svc-card__price">{`From ${formatPrice(svc.basePrice)}${svc.id === 'concierge' ? ' per person' : svc.id === 'charter' ? ' per charter' : ' per group'}`}</span>
                   </div>
                 </button>
               ))}
@@ -307,7 +309,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
                   <PopoverTrigger asChild>
                     <button className={cn("rb-date-btn", errors.tourDate && "rb-input--error")}>
                       <CalendarIcon size={14} style={{ opacity: 0.5 }} />
-                      {tourDate ? format(tourDate, "PPP") : "Select date"}
+                      {tourDate ? dateFormat(tourDate, "PPP") : "Select date"}
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -515,7 +517,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
               )}
 
               <div className="bw-review-rows">
-                <div className="bw-review-row"><span>Date</span><span>{tourDate ? format(tourDate, "PPP") : "—"}</span></div>
+                <div className="bw-review-row"><span>Date</span><span>{tourDate ? dateFormat(tourDate, "PPP") : "—"}</span></div>
                 <div className="bw-review-row"><span>Party Size</span><span>{adults} adult{adults > 1 ? "s" : ""}{children > 0 ? `, ${children} child${children > 1 ? "ren" : ""}` : ""}</span></div>
                 <div className="bw-review-row"><span>Guest</span><span>{fullName}</span></div>
                 <div className="bw-review-row"><span>Email</span><span>{email}</span></div>
@@ -527,7 +529,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
 
               <div className="bw-review-estimate">
                 <span className="bw-review-estimate__label">Estimated starting from:</span>
-                <span className="bw-review-estimate__value">${estimate}</span>
+                <span className="bw-review-estimate__value">{formatPrice(estimate)}</span>
               </div>
               <p className="bw-review-note">
                 Final pricing confirmed within 24 hours. No payment required now — we'll invoice you after confirmation.

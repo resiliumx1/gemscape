@@ -1,4 +1,8 @@
+import { useCurrency } from "@/contexts/CurrencyContext";
+
 const Footer = () => {
+  const { currency } = useCurrency();
+
   return (
     <footer className="gem-footer">
       <div className="gem-footer__grid">
@@ -55,6 +59,18 @@ const Footer = () => {
       <div className="gem-footer__bottom">
         <span>© 2025 Gemscape Travel and Tours. All rights reserved.</span>
         <span>Built with pride in Antigua</span>
+      </div>
+      <div style={{
+        textAlign: 'center',
+        fontFamily: "'DM Sans', sans-serif",
+        fontWeight: 300,
+        fontSize: '11px',
+        color: 'rgba(255,255,255,0.28)',
+        paddingBottom: '24px',
+      }}>
+        {currency === 'XCD'
+          ? 'Prices shown in Eastern Caribbean Dollars (EC$). 1 USD = 2.70 XCD.'
+          : 'Prices shown in US Dollars (USD). Toggle to EC$ above.'}
       </div>
     </footer>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
+import { CurrencyToggle } from "@/components/CurrencyToggle";
 
 type NavItem = { label: string; href: string } | { label: string; to: string };
 
@@ -86,6 +87,7 @@ const Navbar = () => {
 
         {/* Book Now + Hamburger */}
         <div className="gem-nav__right">
+          <CurrencyToggle />
           <a href="#book" className="gem-nav__book">
             Book Now
           </a>
@@ -146,6 +148,9 @@ const Navbar = () => {
           >
             Book Now
           </a>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+            <CurrencyToggle />
+          </div>
         </div>
       </div>
     </>

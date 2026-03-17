@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -88,14 +89,13 @@ const App = () => {
 
   return (
     <HelmetProvider>
+    <CurrencyProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        {/* Custom cursor elements */}
         <div id="cursor" />
         <div id="cursor-dot" />
-        {/* Page transition overlay */}
         <div id="page-transition" />
         <BrowserRouter>
           <Routes>
@@ -109,6 +109,7 @@ const App = () => {
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
+    </CurrencyProvider>
     </HelmetProvider>
   );
 };

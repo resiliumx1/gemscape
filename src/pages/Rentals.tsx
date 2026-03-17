@@ -9,6 +9,7 @@ import WhatsAppFab from "@/components/WhatsAppFab";
 import RentalBookingForm from "@/components/RentalBookingForm";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,7 @@ const CATEGORIES = ["All", "SUV", "Jeep", "Sedan", "Van", "Convertible"];
 
 const Rentals = () => {
   const location = useLocation();
+  const { format: formatPrice } = useCurrency();
   const [vehicles, setVehicles] = useState<Tables<"vehicles">[]>([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
@@ -250,7 +252,7 @@ const Rentals = () => {
                 <div className="r-card__rate-row">
                   <div>
                     <span className="r-card__from">From</span>
-                    <span className="r-card__price">${v.daily_rate}</span>
+                    <span className="r-card__price">{formatPrice(v.daily_rate)}</span>
                     <span className="r-card__per">/ day</span>
                   </div>
                   <button

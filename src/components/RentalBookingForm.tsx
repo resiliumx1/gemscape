@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
-import { format, differenceInDays } from "date-fns";
+import { format as dateFormat, differenceInDays } from "date-fns";
 import { CalendarIcon, Loader2, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { Tables } from "@/integrations/supabase/types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const PICKUP_LOCATIONS = [
   { value: "airport", label: "Airport (V.C. Bird International)" },
@@ -34,6 +35,7 @@ interface RentalBookingFormProps {
 }
 
 const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingFormProps) => {
+  const { format: formatPrice } = useCurrency();
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
   const [loading, setLoading] = useState(false);
@@ -129,8 +131,8 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
         email: email.trim(),
         phone: phone.trim(),
         country,
-        pickup_date: format(pickupDate!, "yyyy-MM-dd"),
-        return_date: format(returnDate!, "yyyy-MM-dd"),
+        pickup_date: dateFormat(pickupDate!, "yyyy-MM-dd"),
+        return_date: dateFormat(returnDate!, "yyyy-MM-dd"),
         pickup_location: pickupLoc,
         dropoff_location: dropoffLoc,
         driver_license: driverLicense.trim(),
@@ -212,7 +214,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
                 <option value="">Select a vehicle</option>
                 {vehicles.map((v) => (
                   <option key={v.id} value={v.id}>
-                    {v.name} — {v.category} — from ${v.daily_rate}/day
+                    {v.name} — {v.category} — from {formatPrice(v.daily_rate)}/day
                   </option>
                 ))}
               </select>
@@ -230,7 +232,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
                   <PopoverTrigger asChild>
                     <button className={cn("rb-date-btn", errors.pickupDate && "rb-input--error")}>
                       <CalendarIcon size={14} style={{ opacity: 0.5 }} />
-                      {pickupDate ? format(pickupDate, "PPP") : "Select date"}
+                      {pickupDate ? dateFormat(pickupDate, "PPP") : "Select date"}
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -252,7 +254,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
                   <PopoverTrigger asChild>
                     <button className={cn("rb-date-btn", errors.returnDate && "rb-input--error")}>
                       <CalendarIcon size={14} style={{ opacity: 0.5 }} />
-                      {returnDate ? format(returnDate, "PPP") : "Select date"}
+                      {returnDate ? dateFormat(returnDate, "PPP") : "Select date"}
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -272,7 +274,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
 
             {totalDays > 0 && selectedVehicle && (
               <div className="rb-estimate-inline">
-                Estimated Total: ${estimatedTotal}
+                Estimated Total: {formatPrice(estimatedTotal)}
               </div>
             )}
 
@@ -432,7 +434,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
                     className={cn("rb-addon-chip", active && "rb-addon-chip--active")}
                     onClick={() => toggleAddOn(addon.id)}
                   >
-                    {addon.label} — +${addon.perDay}/day
+                    {addon.label} — +{formatPrice(addon.perDay)}/day
                   </button>
                 );
               })}
@@ -482,20 +484,20 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
               <span>Base rate</span>
               <span>
                 {totalDays > 0 && selectedVehicle
-                  ? `$${dailyRate}/day × ${totalDays} = $${baseTotal}`
+                  ? `${formatPrice(dailyRate)}/day × ${totalDays} = ${formatPrice(baseTotal)}`
                   : "—"}
               </span>
             </div>
             {addOnsCost > 0 && (
               <div className="rb-summary__row">
                 <span>Add-ons</span>
-                <span>+${addOnsCost}</span>
+                <span>+{formatPrice(addOnsCost)}</span>
               </div>
             )}
             <div className="rb-summary__divider" />
             <div className="rb-summary__total-row">
               <span>Estimated Total</span>
-              <span className="rb-summary__total">${estimatedTotal > 0 ? estimatedTotal : "—"}</span>
+              <span className="rb-summary__total">{estimatedTotal > 0 ? formatPrice(estimatedTotal) : "—"}</span>
             </div>
           </div>
         </div>
