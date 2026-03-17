@@ -89,6 +89,84 @@ export type Database = {
         }
         Relationships: []
       }
+      customer_notes: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          note: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          note: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          note?: string
+        }
+        Relationships: []
+      }
+      customer_tags: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          tag: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          tag: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          tag?: string
+        }
+        Relationships: []
+      }
+      email_log: {
+        Row: {
+          booking_ref: string | null
+          created_at: string
+          email_type: string
+          id: string
+          recipient_email: string
+          recipient_name: string | null
+          resend_id: string | null
+          status: string
+          subject: string | null
+        }
+        Insert: {
+          booking_ref?: string | null
+          created_at?: string
+          email_type: string
+          id?: string
+          recipient_email: string
+          recipient_name?: string | null
+          resend_id?: string | null
+          status?: string
+          subject?: string | null
+        }
+        Update: {
+          booking_ref?: string | null
+          created_at?: string
+          email_type?: string
+          id?: string
+          recipient_email?: string
+          recipient_name?: string | null
+          resend_id?: string | null
+          status?: string
+          subject?: string | null
+        }
+        Relationships: []
+      }
       rental_bookings: {
         Row: {
           add_ons: string[] | null
@@ -276,6 +354,44 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      vehicle_maintenance: {
+        Row: {
+          cost: number | null
+          created_at: string
+          id: string
+          maintenance_date: string
+          notes: string | null
+          type: string
+          vehicle_id: string
+        }
+        Insert: {
+          cost?: number | null
+          created_at?: string
+          id?: string
+          maintenance_date?: string
+          notes?: string | null
+          type?: string
+          vehicle_id: string
+        }
+        Update: {
+          cost?: number | null
+          created_at?: string
+          id?: string
+          maintenance_date?: string
+          notes?: string | null
+          type?: string
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicle_maintenance_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       vehicles: {
         Row: {
