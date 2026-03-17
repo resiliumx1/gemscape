@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
+import { CurrencyToggle } from "@/components/CurrencyToggle";
 
 type NavItem = { label: string; href: string } | { label: string; to: string };
 
