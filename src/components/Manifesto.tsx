@@ -49,7 +49,7 @@ const Manifesto = () => {
         </div>
         <p className="manifesto__attr">— Gemscape Travel &amp; Tours, St. John's, Antigua</p>
       </div>
-      <WaveDivider fillColor="hsl(37, 47%, 92%)" />
+      <WaveDivider fillColor="#F5EFE0" />
     </section>
   );
 };
