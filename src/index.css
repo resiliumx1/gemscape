@@ -789,6 +789,133 @@ button, input, textarea, select, a {
   }
 }
 
+/* ========== EXPERIENCES ========== */
+.experiences {
+  background: hsl(var(--gem-white));
+  padding: 140px 80px;
+}
+
+@media (max-width: 767px) {
+  .experiences {
+    padding: 80px 24px;
+  }
+}
+
+.experiences__header {
+  max-width: 560px;
+  margin-bottom: 80px;
+}
+
+.experiences__h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 72px;
+  color: hsl(var(--gem-navy));
+  line-height: 0.93;
+  margin-top: 16px;
+}
+
+.experiences__dot {
+  color: hsl(var(--gem-aqua));
+}
+
+.experiences__intro {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.8;
+  color: hsl(var(--gem-navy) / 0.65);
+  margin-top: 20px;
+}
+
+.experiences__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1280px;
+}
+
+@media (max-width: 767px) {
+  .experiences__grid {
+    grid-template-columns: 1fr;
+  }
+  .experiences__h2 {
+    font-size: 48px;
+  }
+}
+
+/* Card */
+.exp-card__img-wrap {
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  position: relative;
+  clip-path: inset(100% 0 0 0);
+}
+
+.exp-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exp-card:hover .exp-card__img {
+  transform: scale(1.0);
+}
+
+.exp-card__body {
+  padding-top: 24px;
+}
+
+.exp-card__cat {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: hsl(var(--gem-gold));
+}
+
+.exp-card__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 30px;
+  color: hsl(var(--gem-navy));
+  line-height: 1.05;
+  margin-top: 10px;
+}
+
+.exp-card__desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: hsl(var(--gem-navy) / 0.6);
+  line-height: 1.7;
+  margin-top: 8px;
+}
+
+.exp-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: hsl(var(--gem-teal));
+  text-decoration: none;
+  margin-top: 18px;
+}
+
+.exp-card__arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.exp-card__link:hover .exp-card__arrow {
+  transform: translateX(6px);
+}
+
 /* Tailwind base layer */
 @layer base {
   * {
@@ -798,4 +925,5 @@ button, input, textarea, select, a {
   body {
     @apply bg-background text-foreground;
   }
+}
 }
