@@ -609,6 +609,7 @@ button, input, textarea, select, a {
 .services {
   min-height: 100vh;
   display: flex;
+  position: relative;
 }
 
 .services__images {
