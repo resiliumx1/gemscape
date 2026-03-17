@@ -286,7 +286,7 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
                   <div className="bw-svc-card__body">
                     <h3 className="bw-svc-card__name">{svc.name}</h3>
                     <p className="bw-svc-card__desc">{svc.desc}</p>
-                    <span className="bw-svc-card__price">{svc.price}</span>
+                    <span className="bw-svc-card__price">{`From ${formatPrice(svc.basePrice)}${svc.id === 'concierge' ? ' per person' : svc.id === 'charter' ? ' per charter' : ' per group'}`}</span>
                   </div>
                 </button>
               ))}
