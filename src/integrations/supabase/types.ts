@@ -14,16 +14,313 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          add_ons: string[] | null
+          adults: number | null
+          booking_ref: string | null
+          children: number | null
+          country: string | null
+          created_at: string | null
+          email: string
+          flight_details: string | null
+          full_name: string
+          id: string
+          notes: string | null
+          party_size: number
+          phone: string
+          pickup_location: string | null
+          review_response: string | null
+          review_sent_at: string | null
+          reviewed: boolean | null
+          service_type: string
+          special_requests: string | null
+          status: string | null
+          total_estimate: number | null
+          tour_date: string
+        }
+        Insert: {
+          add_ons?: string[] | null
+          adults?: number | null
+          booking_ref?: string | null
+          children?: number | null
+          country?: string | null
+          created_at?: string | null
+          email: string
+          flight_details?: string | null
+          full_name: string
+          id?: string
+          notes?: string | null
+          party_size: number
+          phone: string
+          pickup_location?: string | null
+          review_response?: string | null
+          review_sent_at?: string | null
+          reviewed?: boolean | null
+          service_type: string
+          special_requests?: string | null
+          status?: string | null
+          total_estimate?: number | null
+          tour_date: string
+        }
+        Update: {
+          add_ons?: string[] | null
+          adults?: number | null
+          booking_ref?: string | null
+          children?: number | null
+          country?: string | null
+          created_at?: string | null
+          email?: string
+          flight_details?: string | null
+          full_name?: string
+          id?: string
+          notes?: string | null
+          party_size?: number
+          phone?: string
+          pickup_location?: string | null
+          review_response?: string | null
+          review_sent_at?: string | null
+          reviewed?: boolean | null
+          service_type?: string
+          special_requests?: string | null
+          status?: string | null
+          total_estimate?: number | null
+          tour_date?: string
+        }
+        Relationships: []
+      }
+      rental_bookings: {
+        Row: {
+          add_ons: string[] | null
+          booking_ref: string | null
+          country: string | null
+          created_at: string | null
+          daily_rate: number | null
+          driver_license: string
+          dropoff_location: string
+          email: string
+          full_name: string
+          id: string
+          license_country: string
+          notes: string | null
+          phone: string
+          pickup_date: string
+          pickup_location: string
+          return_date: string
+          review_sent_at: string | null
+          reviewed: boolean | null
+          special_requests: string | null
+          status: string | null
+          total_days: number | null
+          total_estimate: number | null
+          vehicle_id: string | null
+        }
+        Insert: {
+          add_ons?: string[] | null
+          booking_ref?: string | null
+          country?: string | null
+          created_at?: string | null
+          daily_rate?: number | null
+          driver_license: string
+          dropoff_location: string
+          email: string
+          full_name: string
+          id?: string
+          license_country: string
+          notes?: string | null
+          phone: string
+          pickup_date: string
+          pickup_location: string
+          return_date: string
+          review_sent_at?: string | null
+          reviewed?: boolean | null
+          special_requests?: string | null
+          status?: string | null
+          total_days?: number | null
+          total_estimate?: number | null
+          vehicle_id?: string | null
+        }
+        Update: {
+          add_ons?: string[] | null
+          booking_ref?: string | null
+          country?: string | null
+          created_at?: string | null
+          daily_rate?: number | null
+          driver_license?: string
+          dropoff_location?: string
+          email?: string
+          full_name?: string
+          id?: string
+          license_country?: string
+          notes?: string | null
+          phone?: string
+          pickup_date?: string
+          pickup_location?: string
+          return_date?: string
+          review_sent_at?: string | null
+          reviewed?: boolean | null
+          special_requests?: string | null
+          status?: string | null
+          total_days?: number | null
+          total_estimate?: number | null
+          vehicle_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rental_bookings_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      review_queue: {
+        Row: {
+          booking_id: string | null
+          booking_type: string | null
+          clicked: boolean | null
+          created_at: string | null
+          customer_email: string
+          customer_name: string
+          id: string
+          opened: boolean | null
+          review_left: boolean | null
+          scheduled_send: string | null
+          sent_at: string | null
+          service_type: string | null
+          tour_date: string | null
+        }
+        Insert: {
+          booking_id?: string | null
+          booking_type?: string | null
+          clicked?: boolean | null
+          created_at?: string | null
+          customer_email: string
+          customer_name: string
+          id?: string
+          opened?: boolean | null
+          review_left?: boolean | null
+          scheduled_send?: string | null
+          sent_at?: string | null
+          service_type?: string | null
+          tour_date?: string | null
+        }
+        Update: {
+          booking_id?: string | null
+          booking_type?: string | null
+          clicked?: boolean | null
+          created_at?: string | null
+          customer_email?: string
+          customer_name?: string
+          id?: string
+          opened?: boolean | null
+          review_left?: boolean | null
+          scheduled_send?: string | null
+          sent_at?: string | null
+          service_type?: string | null
+          tour_date?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          ac: boolean | null
+          available: boolean | null
+          category: string
+          created_at: string | null
+          daily_rate: number
+          description: string | null
+          features: string[] | null
+          fuel_type: string
+          id: string
+          image_url: string | null
+          image_url_2: string | null
+          image_url_3: string | null
+          luggage_capacity: number | null
+          name: string
+          seats: number
+          sort_order: number | null
+          transmission: string
+          weekly_rate: number | null
+        }
+        Insert: {
+          ac?: boolean | null
+          available?: boolean | null
+          category: string
+          created_at?: string | null
+          daily_rate: number
+          description?: string | null
+          features?: string[] | null
+          fuel_type: string
+          id?: string
+          image_url?: string | null
+          image_url_2?: string | null
+          image_url_3?: string | null
+          luggage_capacity?: number | null
+          name: string
+          seats: number
+          sort_order?: number | null
+          transmission: string
+          weekly_rate?: number | null
+        }
+        Update: {
+          ac?: boolean | null
+          available?: boolean | null
+          category?: string
+          created_at?: string | null
+          daily_rate?: number
+          description?: string | null
+          features?: string[] | null
+          fuel_type?: string
+          id?: string
+          image_url?: string | null
+          image_url_2?: string | null
+          image_url_3?: string | null
+          luggage_capacity?: number | null
+          name?: string
+          seats?: number
+          sort_order?: number | null
+          transmission?: string
+          weekly_rate?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_booking_ref: { Args: { prefix: string }; Returns: string }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +447,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
