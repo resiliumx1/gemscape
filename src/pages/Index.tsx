@@ -46,6 +46,7 @@ const Index = () => {
       <Hero />
       <Services />
       <Experiences />
+      <RentalsPreview />
       <Manifesto />
       <Testimonials />
       <WhyGemscape />
