@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 Deno.serve(async (req) => {
@@ -31,10 +31,40 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Fetch review platform settings
+    const { data: settings } = await supabase
+      .from("site_settings")
+      .select("review_platforms")
+      .limit(1)
+      .single();
+
+    const platforms = settings?.review_platforms || {};
+
     let processed = 0;
 
     for (const item of pending) {
-      // Send review request email
+      // Fetch the original booking for full details
+      let bookingData: Record<string, any> = {
+        customer_name: item.customer_name,
+        customer_email: item.customer_email,
+        email: item.customer_email,
+        full_name: item.customer_name,
+        service_type: item.service_type,
+        booking_ref: "",
+      };
+
+      if (item.booking_id) {
+        const table = item.booking_type === "rental" ? "rental_bookings" : "bookings";
+        const { data: booking } = await supabase
+          .from(table)
+          .select("*")
+          .eq("id", item.booking_id)
+          .single();
+        if (booking) {
+          bookingData = { ...booking, email: booking.email || item.customer_email };
+        }
+      }
+
       const emailRes = await fetch(
         `${supabaseUrl}/functions/v1/send-booking-email`,
         {
@@ -44,28 +74,21 @@ Deno.serve(async (req) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            booking: {
-              customer_name: item.customer_name,
-              customer_email: item.customer_email,
-              email: item.customer_email,
-              service_type: item.service_type,
-            },
+            booking: bookingData,
             emailType: "review_request",
+            platforms,
           }),
         }
       );
 
       if (emailRes.ok) {
-        // Update review_queue
         await supabase
           .from("review_queue")
           .update({ sent_at: new Date().toISOString() })
           .eq("id", item.id);
 
-        // Update parent booking
-        const table =
-          item.booking_type === "rental" ? "rental_bookings" : "bookings";
         if (item.booking_id) {
+          const table = item.booking_type === "rental" ? "rental_bookings" : "bookings";
           await supabase
             .from(table)
             .update({
