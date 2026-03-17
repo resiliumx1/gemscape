@@ -926,7 +926,7 @@ button, input, textarea, select, a {
 .manifesto {
   min-height: 420px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: hsl(var(--gem-navy));
   display: flex;
   align-items: center;

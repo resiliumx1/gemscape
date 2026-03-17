@@ -22,7 +22,7 @@ const Hero = () => {
       if (bgRef.current && heroRef.current) {
         gsap.to(bgRef.current, {
           scale: 1.0,
-          y: -80,
+          y: -60,
           ease: "none",
           scrollTrigger: {
             trigger: heroRef.current,
