@@ -6,19 +6,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CARDS = [
   {
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=85",
     category: "Water & Sea",
     title: "Island Circumnavigation",
     desc: "Full-island private tour — every cove, every beach, every hidden bay.",
   },
   {
-    image: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85",
     category: "Land & Culture",
     title: "Heritage & Discovery",
     desc: "History, local rum, and roads no tourist map would ever show you.",
   },
   {
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=85",
     category: "Arrival & Departure",
     title: "Flight Concierge",
     desc: "From wheels down to your first sunset drink. We handle everything.",
@@ -71,7 +71,14 @@ const Experiences = () => {
               ref={(el) => { wrapperRefs.current[i] = el; }}
               className="exp-card__img-wrap"
             >
-              <img src={card.image} alt={card.title} className="exp-card__img" />
+              <img
+                src={card.image}
+                alt={card.title}
+                className="exp-card__img"
+                loading="lazy"
+                width={800}
+                height={1200}
+              />
             </div>
             <div className="exp-card__body">
               <span className="exp-card__cat">{card.category}</span>

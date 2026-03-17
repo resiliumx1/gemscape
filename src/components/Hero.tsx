@@ -32,6 +32,7 @@ const Hero = () => {
         });
       }
 
+      // Page load sequence — exact timing
       gsap.fromTo(eyebrowRef.current, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 1.0, ease: "power3.out", delay: 0.4 });
       gsap.fromTo(line1Ref.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: 0.7 });
       gsap.fromTo(line2Ref.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: 0.95 });
