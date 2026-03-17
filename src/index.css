@@ -1002,6 +1002,7 @@ button, input, textarea, select, a {
 .testimonials {
   background: hsl(var(--gem-cream));
   padding: 140px 80px;
+  position: relative;
 }
 
 @media (max-width: 767px) {
