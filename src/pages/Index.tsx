@@ -17,6 +17,7 @@ const Index = () => {
       <Testimonials />
       <WhyGemscape />
     </>
+  );
 };
 
 export default Index;
