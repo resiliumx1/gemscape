@@ -31,6 +31,7 @@ const CATEGORIES = ["All", "SUV", "Jeep", "Sedan", "Van", "Convertible"];
 
 const Rentals = () => {
   const location = useLocation();
+  const { format: formatPrice } = useCurrency();
   const [vehicles, setVehicles] = useState<Tables<"vehicles">[]>([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
