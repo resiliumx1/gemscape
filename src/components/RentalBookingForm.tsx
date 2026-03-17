@@ -214,7 +214,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
                 <option value="">Select a vehicle</option>
                 {vehicles.map((v) => (
                   <option key={v.id} value={v.id}>
-                    {v.name} — {v.category} — from ${v.daily_rate}/day
+                    {v.name} — {v.category} — from {formatPrice(v.daily_rate)}/day
                   </option>
                 ))}
               </select>
