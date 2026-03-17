@@ -274,7 +274,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
 
             {totalDays > 0 && selectedVehicle && (
               <div className="rb-estimate-inline">
-                Estimated Total: ${estimatedTotal}
+                Estimated Total: {formatPrice(estimatedTotal)}
               </div>
             )}
 
