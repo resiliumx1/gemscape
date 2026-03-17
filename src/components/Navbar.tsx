@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 
-const NAV_LINKS = [
+type NavItem = { label: string; href: string } | { label: string; to: string };
+
+const NAV_LINKS: NavItem[] = [
   { label: "Experiences", href: "#experiences" },
+  { label: "Rentals", to: "/rentals" },
   { label: "Circumnavigation", href: "#circumnavigation" },
   { label: "Concierge", href: "#concierge" },
   { label: "About", href: "#about" },
