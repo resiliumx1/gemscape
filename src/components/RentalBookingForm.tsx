@@ -434,7 +434,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
                     className={cn("rb-addon-chip", active && "rb-addon-chip--active")}
                     onClick={() => toggleAddOn(addon.id)}
                   >
-                    {addon.label} — +${addon.perDay}/day
+                    {addon.label} — +{formatPrice(addon.perDay)}/day
                   </button>
                 );
               })}
