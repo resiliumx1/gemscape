@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
