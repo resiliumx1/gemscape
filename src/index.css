@@ -1519,6 +1519,36 @@ button, input, textarea, select, a {
   }
 }
 
+/* ========== MOBILE POLISH ========== */
+@media (max-width: 767px) {
+  /* Touch-friendly buttons */
+  .hero__btn-primary,
+  .hero__btn-secondary,
+  .cta-banner__btn-primary,
+  .cta-banner__btn-whatsapp,
+  .gem-nav__book {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Cap all h2 at 42px on mobile (hero h1 already 56px) */
+  .experiences__h2,
+  .testimonials__h2,
+  .cta-banner__h2 {
+    font-size: 42px;
+  }
+
+  /* Horizontal padding safety */
+  .experiences,
+  .testimonials,
+  .why-gemscape {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 /* Tailwind base layer */
 @layer base {
   * {
