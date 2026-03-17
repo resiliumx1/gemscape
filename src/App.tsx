@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound.tsx";
 import Admin from "./pages/Admin.tsx";
 import AdminLogin from "./pages/AdminLogin.tsx";
 import Rentals from "./pages/Rentals.tsx";
+import Book from "./pages/Book.tsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -98,6 +99,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/rentals" element={<Rentals />} />
+            <Route path="/book" element={<Book />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
