@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import gsap from "gsap";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";

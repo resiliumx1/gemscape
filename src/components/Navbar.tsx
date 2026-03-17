@@ -114,16 +114,31 @@ const Navbar = () => {
           ×
         </button>
         <div ref={mobileLinksRef} className="gem-mobile-menu__links">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="mobile-nav-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            isRouteLink(link) ? (
+              <a
+                key={link.label}
+                href={link.to}
+                className="mobile-nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileOpen(false);
+                  navigate(link.to);
+                }}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                className="mobile-nav-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <a
             href="#book"
             className="gem-mobile-menu__book mobile-nav-link"

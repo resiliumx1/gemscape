@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import AdminTourBookings from "@/components/admin/AdminTourBookings";
 import AdminRentalBookings from "@/components/admin/AdminRentalBookings";
