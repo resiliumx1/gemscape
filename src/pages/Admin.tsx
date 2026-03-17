@@ -80,6 +80,7 @@ const Admin = () => {
         {renderContent()}
       </main>
     </div>
+    </>
   );
 };
 
