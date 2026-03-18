@@ -73,7 +73,7 @@ const Hero = () => {
           <h1 className="hero__headline">
             <div ref={line1Ref} style={{ opacity: 0 }}>Where Every Journey</div>
             <div ref={line2Ref} style={{ opacity: 0 }}>Becomes a</div>
-            <div ref={line3Ref} className="hero__gem" style={{ opacity: 0 }}><span className="gem-text-effect italic font-light">Gem.</span></div>
+            <div ref={line3Ref} className="hero__gem" style={{ opacity: 0 }}><span className="gem-text-effect" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontWeight: 300 }}>Gem.</span></div>
           </h1>
 
           <p ref={subRef} className="hero__sub" style={{ opacity: 0 }}>
