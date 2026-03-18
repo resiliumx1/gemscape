@@ -140,7 +140,7 @@ const Navbar = () => {
           </div>
           <a
             href="/book"
-            className="shimmer-button book-now-btn gem-nav__book-btn"
+            className="gem-nav__book-btn"
             onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
           >
             Book Now
