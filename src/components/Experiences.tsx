@@ -89,7 +89,7 @@ const Experiences = () => {
               <a
                 href="/book"
                 className="exp-card__link"
-                onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+                onClick={(e) => { e.preventDefault(); navigateTo("/book", "tidal"); }}
               >
                 Discover <span className="exp-card__arrow">→</span>
               </a>

@@ -90,7 +90,7 @@ const Hero = () => {
             <a
               href="/book"
               className="hero__btn-primary shimmer-button"
-              onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
             >
               <span className="hero__btn-shimmer" />
               Explore Experiences

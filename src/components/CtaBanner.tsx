@@ -53,7 +53,7 @@ const CtaBanner = () => {
           <a
             href="/book"
             className="cta-banner__btn-primary shimmer-button"
-            onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+            onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
           >
             <span className="cta-banner__btn-shimmer" />
             Start Planning

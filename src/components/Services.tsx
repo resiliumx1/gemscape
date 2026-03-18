@@ -116,7 +116,7 @@ const Services = () => {
               <a
                 href="/book"
                 className="services__explore"
-                onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+                onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
               >
                 Explore <span className="services__arrow">→</span>
               </a>
