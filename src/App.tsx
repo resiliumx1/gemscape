@@ -16,6 +16,7 @@ import Admin from "./pages/Admin.tsx";
 import AdminLogin from "./pages/AdminLogin.tsx";
 import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
+import Concierge from "./pages/Concierge.tsx";
 import { WaveTransitionProvider } from "@/components/GemscapeWave";
 
 gsap.registerPlugin(ScrollTrigger);
