@@ -1419,6 +1419,7 @@ button, input, textarea, select, a {
   background: hsl(var(--gem-navy));
   border-top: 1px solid rgba(184, 150, 90, 0.18);
   padding: 88px 80px 44px;
+  margin-top: 0;
 }
 
 @media (max-width: 767px) {
