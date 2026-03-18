@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { WaveTransitionProvider } from "@/components/WaveTransition";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -118,14 +119,16 @@ const App = () => {
         <div id="gc-ring" aria-hidden="true" />
         <div id="page-transition" />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/rentals" element={<Rentals />} />
-            <Route path="/book" element={<Book />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <WaveTransitionProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/rentals" element={<Rentals />} />
+              <Route path="/book" element={<Book />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </WaveTransitionProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
