@@ -1261,7 +1261,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 18px;
-  color: hsl(var(--gem-navy) / 0.68);
+  color: var(--text-secondary);
   line-height: 1.8;
 }
 
