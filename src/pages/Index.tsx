@@ -98,8 +98,8 @@ const Index = () => {
         <WhyGemscape />
         <CtaBanner />
         <Footer />
-        <WhatsAppFab />
       </motion.div>
+      <WhatsAppFab />
     </div>
   );
 };
