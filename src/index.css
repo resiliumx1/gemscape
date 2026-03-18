@@ -1095,7 +1095,7 @@ button, input, textarea, select, a {
 
 /* ========== TESTIMONIALS ========== */
 .testimonials {
-  background: hsl(var(--gem-cream));
+  background: var(--bg-primary);
   padding: 140px 80px;
   position: relative;
 }
