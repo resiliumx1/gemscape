@@ -70,7 +70,7 @@ const button = (text: string, href: string, bgColor = "#D4523A") => `
 
 const summaryRow = (label: string, value: string) => `
 <tr>
-  <td style="padding:10px 0;border-bottom:1px solid #EAD9BB;font-family:Arial,sans-serif;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#C9943A;width:140px;vertical-align:top;">${label}</td>
+  <td style="padding:10px 0;border-bottom:1px solid #EAD9BB;font-family:Arial,sans-serif;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#B8965A;width:140px;vertical-align:top;">${label}</td>
   <td style="padding:10px 0 10px 16px;border-bottom:1px solid #EAD9BB;font-family:Arial,sans-serif;font-size:14px;color:#0B2A3B;font-weight:300;">${value}</td>
 </tr>`;
 
