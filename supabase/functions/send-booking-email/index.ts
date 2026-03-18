@@ -126,7 +126,7 @@ function buildTourCustomerConfirmation(b: Record<string, any>): { subject: strin
       </h2>
       <table role="presentation" style="width:100%;margin:0 0 24px;">
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;width:28px;">1.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;width:28px;">1.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">Our team reviews your booking and confirms availability (within 24 hours)</td>
         </tr>
         <tr>
