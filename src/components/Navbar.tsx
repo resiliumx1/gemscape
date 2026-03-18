@@ -95,7 +95,7 @@ const Navbar = () => {
           className="gem-nav__logo"
           aria-label="Gemscape home"
           onClick={(e) => { e.preventDefault(); navigateTo("/", "dual"); }}
-          style={{ paddingLeft: "40px" }}
+          style={{ paddingLeft: "16px" }}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
         </a>
