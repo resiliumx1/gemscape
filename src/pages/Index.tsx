@@ -44,11 +44,13 @@ const Index = () => {
   return (
     <div className="min-h-screen relative overflow-x-hidden flex flex-col">
       <WaveTransition />
-      <motion.div
+      <div
         className="relative z-10 flex flex-col min-h-screen"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5, delay: 2.2, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{
+          opacity: 0,
+          animation: 'fadeIn 0.6s ease forwards',
+          animationDelay: '0.9s',
+        }}
       >
         <Navbar />
         <Hero />

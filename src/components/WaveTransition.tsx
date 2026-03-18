@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Diamond } from 'lucide-react';
 
 const WaveSVG = ({ className }: { className?: string }) => (
@@ -9,60 +8,40 @@ const WaveSVG = ({ className }: { className?: string }) => (
 );
 
 export function WaveTransition() {
-  const [isVisible, setIsVisible] = useState(true);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(false), 4500);
-    return () => clearTimeout(timer);
+    const el = overlayRef.current;
+    if (!el) return;
+
+    // Force GPU layer promotion to prevent repaint stall
+    el.style.willChange = 'transform';
+    el.style.transform = 'translateY(0)';
+
+    // Use requestAnimationFrame to ensure paint is complete before animating
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.style.transition = 'transform 1.1s cubic-bezier(0.76, 0, 0.24, 1)';
+        el.style.transform = 'translateY(-100%)';
+
+        // Remove from DOM after animation — don't use display:none early
+        setTimeout(() => {
+          el.style.display = 'none';
+          el.style.willChange = 'auto';
+        }, 1150);
+      });
+    });
   }, []);
 
-  if (!isVisible) return null;
-
-  const waveVariants = {
-    initial: { y: "0%" },
-    animate: { y: "-100%" }
-  };
-
-  const transitionEase: [number, number, number, number] = [0.45, 0, 0.55, 1];
-
   return (
-    <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden">
-      {/* Layer 1: Teal */}
-      <motion.div
-        className="absolute inset-0 w-full h-full bg-[#0d9488]"
-        variants={waveVariants}
-        initial="initial"
-        animate="animate"
-        transition={{ duration: 1.8, ease: transitionEase, delay: 1.2 }}
-      >
-        <WaveSVG className="absolute top-full left-0 w-full h-[15vh] text-[#0d9488]" />
-      </motion.div>
-
-      {/* Layer 2: Emerald */}
-      <motion.div
-        className="absolute inset-0 w-full h-full bg-[#059669]"
-        variants={waveVariants}
-        initial="initial"
-        animate="animate"
-        transition={{ duration: 1.8, ease: transitionEase, delay: 1.4 }}
-      >
-        <WaveSVG className="absolute top-full left-0 w-full h-[20vh] text-[#059669] scale-x-[-1]" />
-      </motion.div>
-
-      {/* Layer 3: Deep Gem/Black */}
-      <motion.div
-        className="absolute inset-0 w-full h-full bg-[#022c22] flex items-center justify-center"
-        variants={waveVariants}
-        initial="initial"
-        animate="animate"
-        transition={{ duration: 1.8, ease: transitionEase, delay: 1.6 }}
-      >
-        <motion.div
-          className="flex flex-col items-center justify-center relative z-10"
-          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-        >
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 pointer-events-none overflow-hidden"
+      style={{ zIndex: 9999 }}
+    >
+      {/* Deep Gem/Black base layer with branding */}
+      <div className="absolute inset-0 w-full h-full bg-[#022c22] flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center relative z-10">
           <div className="flex flex-col items-center">
             <Diamond size={64} className="text-[#81e6d9] mb-4 drop-shadow-[0_0_15px_rgba(45,212,191,0.5)]" />
             <h1 className="text-5xl md:text-7xl font-serif text-white tracking-wide mb-2" style={{ fontStyle: 'italic' }}>
@@ -73,10 +52,20 @@ export function WaveTransition() {
               Travel and Tours
             </p>
           </div>
-        </motion.div>
+        </div>
 
         <WaveSVG className="absolute top-full left-0 w-full h-[25vh] text-[#022c22]" />
-      </motion.div>
+      </div>
+
+      {/* Emerald accent layer */}
+      <div className="absolute inset-0 w-full h-full bg-[#059669]" style={{ zIndex: -1 }}>
+        <WaveSVG className="absolute top-full left-0 w-full h-[20vh] text-[#059669] scale-x-[-1]" />
+      </div>
+
+      {/* Teal accent layer */}
+      <div className="absolute inset-0 w-full h-full bg-[#0d9488]" style={{ zIndex: -2 }}>
+        <WaveSVG className="absolute top-full left-0 w-full h-[15vh] text-[#0d9488]" />
+      </div>
     </div>
   );
 }
