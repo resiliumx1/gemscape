@@ -32,7 +32,7 @@ const CARDS = [
 const Experiences = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const navigate = useNavigate();
+  const { navigateTo } = useWave();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
