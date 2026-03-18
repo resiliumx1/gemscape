@@ -38,8 +38,6 @@ const Navbar = () => {
     }
   }, []);
 
-  // toggleTheme is now handled inline by SkyToggle
-
   // Scroll detection
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -69,6 +67,17 @@ const Navbar = () => {
     } else {
       const id = href.replace("#", "");
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const toggleTheme = (checked: boolean) => {
+    setIsDark(checked);
+    if (checked) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('gem-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('gem-theme', 'light');
     }
   };
 
@@ -123,23 +132,15 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Right side */}
+        {/* Right side — desktop only toggles */}
         <div className="gem-nav__right" style={{ paddingRight: "40px", gap: "16px" }}>
-          <CurrencyToggle />
-          <SkyToggle checked={isDark} onChange={(checked) => {
-            setIsDark(checked);
-            if (checked) {
-              document.documentElement.classList.add('dark');
-              localStorage.setItem('gem-theme', 'dark');
-            } else {
-              document.documentElement.classList.remove('dark');
-              localStorage.setItem('gem-theme', 'light');
-            }
-          }} />
+          <div className="gem-nav__desktop-toggles">
+            <CurrencyToggle />
+            <SkyToggle checked={isDark} onChange={toggleTheme} />
+          </div>
           <a
             href="/book"
-            className="shimmer-button book-now-btn border border-white/30 px-5 py-2 text-xs font-semibold tracking-widest uppercase text-white"
-            style={{ marginLeft: '8px', whiteSpace: 'nowrap', background: 'rgba(184,150,90,0.15)', borderColor: '#B8965A' }}
+            className="shimmer-button book-now-btn gem-nav__book-btn"
             onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
           >
             Book Now
@@ -205,18 +206,9 @@ const Navbar = () => {
           >
             Book Now
           </a>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px', gap: '16px', alignItems: 'center' }}>
+          <div className="gem-mobile-menu__controls">
             <CurrencyToggle />
-            <SkyToggle checked={isDark} onChange={(checked) => {
-              setIsDark(checked);
-              if (checked) {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('gem-theme', 'dark');
-              } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('gem-theme', 'light');
-              }
-            }} />
+            <SkyToggle checked={isDark} onChange={toggleTheme} />
           </div>
         </div>
       </div>
