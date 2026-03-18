@@ -2,16 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
+import { Sparkles, Diamond, Gem } from "lucide-react";
 
-type NavItem = { label: string; href: string } | { label: string; to: string };
+type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
+
+const iconClass = "text-[#2dd4bf] opacity-60 group-hover:opacity-100 group-hover:text-[#81e6d9] transition-all duration-300";
 
 const NAV_LINKS: NavItem[] = [
-  { label: "Experiences", href: "#experiences" },
-  { label: "Rentals", to: "/rentals" },
-  { label: "Circumnavigation", href: "#circumnavigation" },
-  { label: "Concierge", href: "#concierge" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Experiences", href: "#experiences", icon: <Sparkles size={12} className={iconClass} /> },
+  { label: "Rentals", to: "/rentals", icon: <Diamond size={12} className={iconClass} /> },
+  { label: "Circumnavigation", href: "#circumnavigation", icon: <Sparkles size={12} className={iconClass} /> },
+  { label: "Concierge", href: "#concierge", icon: <Gem size={12} className={iconClass} /> },
+  { label: "About", href: "#about", icon: <Sparkles size={12} className={iconClass} /> },
+  { label: "Contact", href: "#contact", icon: <Sparkles size={12} className={iconClass} /> },
 ];
 
 const Navbar = () => {
@@ -22,7 +25,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isRouteLink = (link: NavItem): link is { label: string; to: string } => "to" in link;
+  const isRouteLink = (link: NavItem): link is { label: string; to: string; icon: React.ReactNode } => "to" in link;
 
   // Scroll detection
   useEffect(() => {
@@ -69,17 +72,19 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.to}
-                className={`gem-nav__link${location.pathname === link.to ? " active" : ""}`}
+                className={`group flex items-center gap-1.5 gem-nav__link${location.pathname === link.to ? " active" : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(link.to);
                 }}
               >
-                {link.label}
+                {link.icon}
+                <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
               </a>
             ) : (
-              <a key={link.label} href={link.href} className="gem-nav__link">
-                {link.label}
+              <a key={link.label} href={link.href} className="group flex items-center gap-1.5 gem-nav__link">
+                {link.icon}
+                <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
               </a>
             )
           )}
@@ -88,7 +93,7 @@ const Navbar = () => {
         {/* Book Now + Hamburger */}
         <div className="gem-nav__right">
           <CurrencyToggle />
-          <a href="#book" className="gem-nav__book">
+          <a href="#book" className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white">
             Book Now
           </a>
           <button

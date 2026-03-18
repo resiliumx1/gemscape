@@ -65,7 +65,7 @@ const CtaBanner = () => {
           Tell us what you're dreaming of. We'll make it happen.
         </p>
         <div className="cta-banner__buttons">
-          <a href="#contact" className="cta-banner__btn-primary">
+          <a href="#contact" className="cta-banner__btn-primary shimmer-button">
             <span className="cta-banner__btn-shimmer" />
             Start Planning
           </a>

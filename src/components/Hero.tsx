@@ -84,7 +84,7 @@ const Hero = () => {
           <h1 className="hero__headline">
             <div ref={line1Ref} style={{ opacity: 0 }}>Where Every Journey</div>
             <div ref={line2Ref} style={{ opacity: 0 }}>Becomes a</div>
-            <div ref={line3Ref} className="hero__gem" style={{ opacity: 0 }}>Gem.</div>
+            <div ref={line3Ref} className="hero__gem" style={{ opacity: 0 }}><span className="gem-text-effect italic font-light">Gem.</span></div>
           </h1>
 
           <p ref={subRef} className="hero__sub" style={{ opacity: 0 }}>
@@ -99,7 +99,7 @@ const Hero = () => {
           </div>
 
           <div ref={ctaRef} className="hero__cta" style={{ opacity: 0 }}>
-            <a href="#experiences" className="hero__btn-primary">
+            <a href="#experiences" className="hero__btn-primary shimmer-button">
               <span className="hero__btn-shimmer" />
               Explore Experiences
             </a>
