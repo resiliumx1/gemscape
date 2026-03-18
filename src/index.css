@@ -189,7 +189,7 @@ button, input, textarea, select, a {
     position: fixed;
     top: 0; left: 0;
     width: 36px; height: 36px;
-    border: 1px solid rgba(201,148,58,0.28);
+    border: 1px solid rgba(184,150,90,0.28);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
