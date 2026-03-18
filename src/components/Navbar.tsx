@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
+import { useWave } from "@/components/GemscapeWave";
 import { Sparkles, Diamond, Gem, Sun, Moon } from "lucide-react";
 
 type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
