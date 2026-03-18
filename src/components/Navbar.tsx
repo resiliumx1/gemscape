@@ -136,13 +136,16 @@ const Navbar = () => {
         {/* Right side */}
         <div className="gem-nav__right" style={{ paddingRight: "40px" }}>
           <CurrencyToggle />
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-            style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center" }}
-          >
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+          <SkyToggle checked={isDark} onChange={(checked) => {
+            setIsDark(checked);
+            if (checked) {
+              document.documentElement.classList.add('dark');
+              localStorage.setItem('gem-theme', 'dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+              localStorage.setItem('gem-theme', 'light');
+            }
+          }} />
           <a
             href="/book"
             className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white"
