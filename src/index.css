@@ -736,7 +736,7 @@ button, input, textarea, select, a {
 
 .services__nav {
   width: 40%;
-  background: hsl(var(--gem-cream));
+  background: var(--card-bg);
   padding: 80px 72px;
   display: flex;
   flex-direction: column;
