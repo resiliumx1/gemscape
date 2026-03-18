@@ -44,66 +44,6 @@ const App = () => {
       delay: 0.1,
     });
 
-    // Custom crosshair cursor (desktop only)
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      const cross = document.getElementById('gc-cross');
-      const ring = document.getElementById('gc-ring');
-
-      if (cross && ring) {
-        const xC = gsap.quickTo(cross, 'x', { duration: 0.08, ease: 'power2' });
-        const yC = gsap.quickTo(cross, 'y', { duration: 0.08, ease: 'power2' });
-        const xR = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3' });
-        const yR = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3' });
-
-        const onMouseMove = (e: MouseEvent) => {
-          xC(e.clientX); yC(e.clientY);
-          xR(e.clientX); yR(e.clientY);
-        };
-        window.addEventListener('mousemove', onMouseMove);
-
-        const addHoverListeners = () => {
-          document.querySelectorAll('a, button, [role="button"], label').forEach((el) => {
-            el.addEventListener('mouseenter', () => {
-              gsap.to(cross, { opacity: 0, scale: 0.5, duration: 0.2 });
-              gsap.to(ring, { width: 52, height: 52, borderColor: 'rgba(201,148,58,0.65)', duration: 0.3 });
-            });
-            el.addEventListener('mouseleave', () => {
-              gsap.to(cross, { opacity: 1, scale: 1, duration: 0.2 });
-              gsap.to(ring, { width: 36, height: 36, borderColor: 'rgba(201,148,58,0.28)', duration: 0.3 });
-            });
-          });
-
-          document.querySelectorAll('img, .exp-card, .r-card, .bw-svc-card').forEach((el) => {
-            el.addEventListener('mouseenter', () => {
-              gsap.to(cross, { rotation: 45, duration: 0.35, ease: 'power2' });
-              gsap.to(ring, { scale: 1.15, duration: 0.35 });
-            });
-            el.addEventListener('mouseleave', () => {
-              gsap.to(cross, { rotation: 0, duration: 0.35, ease: 'power2' });
-              gsap.to(ring, { scale: 1, duration: 0.35 });
-            });
-          });
-        };
-
-        addHoverListeners();
-        const observer = new MutationObserver(addHoverListeners);
-        observer.observe(document.body, { childList: true, subtree: true });
-
-        document.addEventListener('mouseleave', () => {
-          gsap.to([cross, ring], { opacity: 0, duration: 0.2 });
-        });
-        document.addEventListener('mouseenter', () => {
-          gsap.to([cross, ring], { opacity: 1, duration: 0.2 });
-        });
-
-        return () => {
-          window.removeEventListener('mousemove', onMouseMove);
-          observer.disconnect();
-          lenis.destroy();
-        };
-      }
-    }
-
     return () => {
       lenis.destroy();
     };
