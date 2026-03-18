@@ -802,7 +802,7 @@ button, input, textarea, select, a {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   margin-top: 4px;
   display: block;
   padding-left: 16px;
