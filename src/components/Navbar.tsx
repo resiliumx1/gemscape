@@ -75,7 +75,7 @@ const Navbar = () => {
                 className={`group flex items-center gap-1.5 gem-nav__link${location.pathname === link.to ? " active" : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo(link.to, "dual");
+                  navigate(link.to);
                 }}
               >
                 {link.icon}
