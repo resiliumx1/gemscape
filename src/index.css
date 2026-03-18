@@ -171,7 +171,7 @@ button, input, textarea, select, a {
   #gc-cross::before, #gc-cross::after {
     content: '';
     position: absolute;
-    background: #C9943A;
+    background: #B8965A;
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
   #gc-cross::before {
