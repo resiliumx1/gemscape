@@ -94,7 +94,7 @@ const Navbar = () => {
         {/* Book Now + Hamburger */}
         <div className="gem-nav__right">
           <CurrencyToggle />
-          <a href="#book" className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white">
+          <a href="/book" className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white" onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}>
             Book Now
           </a>
           <button
