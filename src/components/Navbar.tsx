@@ -13,7 +13,7 @@ const iconClass = "text-[#2dd4bf] opacity-60 group-hover:opacity-100 group-hover
 const NAV_LINKS: NavItem[] = [
   { label: "Experiences", href: "#experiences", icon: <Sparkles size={12} className={iconClass} /> },
   { label: "Rentals", to: "/rentals", icon: <Diamond size={12} className={iconClass} /> },
-  { label: "Concierge", href: "#flight-concierge", icon: <Gem size={12} className={iconClass} /> },
+  { label: "Concierge", to: "/concierge", icon: <Gem size={12} className={iconClass} /> },
   { label: "About", href: "#why-gemscape", icon: <Sparkles size={12} className={iconClass} /> },
   { label: "Contact", href: "#contact", icon: <Sparkles size={12} className={iconClass} /> },
 ];
