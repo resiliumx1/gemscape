@@ -145,7 +145,7 @@ const Navbar = () => {
           <a
             href="/book"
             className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white"
-            onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+            onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
           >
             Book Now
           </a>
