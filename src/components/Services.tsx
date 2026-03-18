@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useWave } from "@/components/GemscapeWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Wave } from "./Wave";
@@ -45,7 +45,7 @@ const Services = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const { format } = useCurrency();
-  const navigate = useNavigate();
+  const { navigateTo } = useWave();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -116,7 +116,7 @@ const Services = () => {
               <a
                 href="/book"
                 className="services__explore"
-                onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+                onClick={(e) => { e.preventDefault(); navigateTo("/book", "tidal"); }}
               >
                 Explore <span className="services__arrow">→</span>
               </a>

@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { WaveTransitionProvider } from "@/components/GemscapeWave";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -119,6 +120,7 @@ const App = () => {
         <div id="gc-ring" aria-hidden="true" />
         <div id="page-transition" />
         <BrowserRouter>
+          <WaveTransitionProvider>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/rentals" element={<Rentals />} />
@@ -127,6 +129,7 @@ const App = () => {
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+          </WaveTransitionProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
