@@ -124,7 +124,7 @@ const Navbar = () => {
         </div>
 
         {/* Right side */}
-        <div className="gem-nav__right" style={{ paddingRight: "40px" }}>
+        <div className="gem-nav__right" style={{ paddingRight: "40px", gap: "16px" }}>
           <CurrencyToggle />
           <SkyToggle checked={isDark} onChange={(checked) => {
             setIsDark(checked);
