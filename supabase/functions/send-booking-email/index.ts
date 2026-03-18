@@ -134,7 +134,7 @@ function buildTourCustomerConfirmation(b: Record<string, any>): { subject: strin
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">We'll send your final itinerary and meeting point details</td>
         </tr>
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;">3.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;">3.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">On your tour day, your guide will meet you at the specified location</td>
         </tr>
       </table>
