@@ -56,9 +56,6 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <div id="gc-cross" aria-hidden="true" />
-        <div id="gc-ring" aria-hidden="true" />
-        <div id="page-transition" />
         <BrowserRouter>
           <WaveTransitionProvider>
             <Routes>
