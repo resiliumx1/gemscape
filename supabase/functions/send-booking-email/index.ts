@@ -244,7 +244,7 @@ function buildRentalCustomerConfirmation(b: Record<string, any>): { subject: str
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">On pickup day, our team meets you at ${b.pickup_location || "the pickup location"} with the vehicle</td>
         </tr>
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;">3.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;">3.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">Return the vehicle to ${b.dropoff_location || "the return location"} by ${formatDate(b.return_date)} at the agreed time</td>
         </tr>
       </table>
