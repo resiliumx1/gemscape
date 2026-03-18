@@ -1223,7 +1223,7 @@ button, input, textarea, select, a {
 
 /* ========== WHY GEMSCAPE ========== */
 .why-gemscape {
-  background: hsl(var(--gem-sand));
+  background: var(--bg-secondary);
   padding: 140px 80px;
   position: relative;
 }
