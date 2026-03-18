@@ -105,7 +105,7 @@ const AdminLoyalty = () => {
           <div className="flex justify-center">
             <PieChart width={200} height={200}>
               <Pie data={[{ name: "New", value: newCount }, { name: "Repeat", value: repeatCount }]} cx={100} cy={100} innerRadius={55} outerRadius={85} dataKey="value" stroke="none">
-                <Cell fill="#C9943A" /><Cell fill="#1A6B6B" />
+                <Cell fill="#B8965A" /><Cell fill="#1A6B6B" />
               </Pie>
               <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }} />
             </PieChart>
