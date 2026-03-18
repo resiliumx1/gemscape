@@ -1261,6 +1261,7 @@ button, input, textarea, select, a {
   max-width: 220px;
   margin: 0 auto;
   opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
 }
 
 .pillar__mark {
