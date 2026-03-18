@@ -1,269 +1,82 @@
-// WaveTransition.tsx
-// Drop this file into src/components/WaveTransition.tsx in your Lovable project.
-// Then wrap your router pages with <WaveTransitionProvider> and trigger via useWave().
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { Diamond } from 'lucide-react';
 
-import { useRef, useCallback, createContext, useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+const WaveSVG = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path fill="currentColor" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,122.7C672,96,768,96,864,117.3C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+  </svg>
+);
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-type WaveVariant = "tidal" | "crash" | "dual";
-
-interface WaveContextValue {
-  navigateTo: (path: string, variant?: WaveVariant) => void;
-}
-
-// ─── Context ──────────────────────────────────────────────────────────────────
-const WaveContext = createContext<WaveContextValue>({ navigateTo: () => {} });
-export const useWave = () => useContext(WaveContext);
-
-// ─── Canvas wave painters ─────────────────────────────────────────────────────
-
-function paintTidal(
-  ctx: CanvasRenderingContext2D,
-  W: number, H: number,
-  waveX: number, t: number
-) {
-  ctx.clearRect(0, 0, W, H);
-
-  // Deep layer
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(0, H + 2);
-  for (let y = H; y >= 0; y--) {
-    const x = waveX + Math.sin(y * 0.02 + t * 0.1) * 32;
-    ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-  ctx.fillStyle = "#0f5e72";
-  ctx.fill();
-  ctx.restore();
-
-  // Mid layer
-  ctx.save();
-  ctx.globalAlpha = 0.75;
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(0, H + 2);
-  for (let y = H; y >= 0; y--) {
-    const x = waveX + 10 + Math.sin(y * 0.028 + t * 0.12) * 22;
-    ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-  ctx.fillStyle = "#1a9aaa";
-  ctx.fill();
-  ctx.restore();
-
-  // Foam crest
-  ctx.save();
-  ctx.globalAlpha = 0.45;
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(0, H + 2);
-  for (let y = H; y >= 0; y--) {
-    const x = waveX + 28 + Math.sin(y * 0.036 + t * 0.15) * 14;
-    ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-  ctx.fillStyle = "#8ae8f0";
-  ctx.fill();
-  ctx.restore();
-}
-
-function paintCrash(
-  ctx: CanvasRenderingContext2D,
-  W: number, H: number,
-  frame: number, total: number
-) {
-  ctx.clearRect(0, 0, W, H);
-  const p = frame / total;
-  let riseY: number, alpha = 1;
-
-  if (p < 0.55) {
-    riseY = H * (1 - p / 0.55);
-  } else {
-    const rp = (p - 0.55) / 0.45;
-    riseY = H * rp;
-    alpha = 1 - rp * 0.7;
-  }
-
-  // Base
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.beginPath();
-  ctx.moveTo(0, H + 2);
-  for (let x = 0; x <= W; x++) {
-    ctx.lineTo(x, riseY + Math.sin(x * 0.018 + frame * 0.15) * 26);
-  }
-  ctx.lineTo(W, H + 2);
-  ctx.closePath();
-  ctx.fillStyle = "#0e7890";
-  ctx.fill();
-  ctx.restore();
-
-  // Foam
-  const foamY = riseY - 14;
-  if (foamY > -30) {
-    ctx.save();
-    ctx.globalAlpha = 0.6 * alpha;
-    ctx.beginPath();
-    ctx.moveTo(0, H + 2);
-    for (let x = 0; x <= W; x++) {
-      ctx.lineTo(x, foamY + Math.sin(x * 0.026 + frame * 0.18) * 16);
-    }
-    ctx.lineTo(W, H + 2);
-    ctx.closePath();
-    ctx.fillStyle = "#5de0f0";
-    ctx.fill();
-    ctx.restore();
-  }
-}
-
-function paintDual(
-  ctx: CanvasRenderingContext2D,
-  W: number, H: number,
-  waveX: number, t: number
-) {
-  ctx.clearRect(0, 0, W, H);
-
-  const layers = [
-    { color: "#0a3d4a", offset: 0,   amp: 38, freq: 0.018, alpha: 1.0   },
-    { color: "#1a8fa0", offset: 14,  amp: 26, freq: 0.024, alpha: 0.80  },
-    { color: "#3dd0e0", offset: 32,  amp: 16, freq: 0.032, alpha: 0.55  },
-    { color: "#a0eef5", offset: 48,  amp: 10, freq: 0.042, alpha: 0.30  },
-  ];
-
-  for (const l of layers) {
-    ctx.save();
-    ctx.globalAlpha = l.alpha;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, H + 2);
-    for (let y = H; y >= 0; y--) {
-      const x = waveX + l.offset + Math.sin(y * l.freq + t * 0.1) * l.amp;
-      ctx.lineTo(x, y);
-    }
-    ctx.closePath();
-    ctx.fillStyle = l.color;
-    ctx.fill();
-    ctx.restore();
-  }
-}
-
-// ─── Main canvas overlay ──────────────────────────────────────────────────────
-interface WaveOverlayProps {
-  variant: WaveVariant;
-  onMidpoint: () => void;
-  onComplete: () => void;
-}
-
-function WaveOverlay({ variant, onMidpoint, onComplete }: WaveOverlayProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef    = useRef<number>(0);
-  const midFired  = useRef(false);
+export function WaveTransition() {
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const cvs = canvasRef.current;
-    if (!cvs) return;
-    const ctx = cvs.getContext("2d")!;
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-    cvs.width  = W;
-    cvs.height = H;
-
-    let waveX = -(W * 0.35);
-    let frame = 0;
-    const CRASH_TOTAL = 80;
-    let t = 0;
-
-    function tick() {
-      t++;
-      if (variant === "tidal") {
-        waveX += 18;
-        paintTidal(ctx, W, H, waveX, t);
-        if (!midFired.current && waveX > W * 0.4) {
-          midFired.current = true;
-          onMidpoint();
-        }
-        if (waveX < W + 160) {
-          rafRef.current = requestAnimationFrame(tick);
-        } else {
-          ctx.clearRect(0, 0, W, H);
-          onComplete();
-        }
-      } else if (variant === "crash") {
-        frame++;
-        paintCrash(ctx, W, H, frame, CRASH_TOTAL);
-        if (!midFired.current && frame === Math.floor(CRASH_TOTAL * 0.45)) {
-          midFired.current = true;
-          onMidpoint();
-        }
-        if (frame < CRASH_TOTAL) {
-          rafRef.current = requestAnimationFrame(tick);
-        } else {
-          ctx.clearRect(0, 0, W, H);
-          onComplete();
-        }
-      } else {
-        // dual
-        waveX += 16;
-        paintDual(ctx, W, H, waveX, t);
-        if (!midFired.current && waveX > W * 0.4) {
-          midFired.current = true;
-          onMidpoint();
-        }
-        if (waveX < W + 200) {
-          rafRef.current = requestAnimationFrame(tick);
-        } else {
-          ctx.clearRect(0, 0, W, H);
-          onComplete();
-        }
-      }
-    }
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    const timer = setTimeout(() => setIsVisible(false), 4500);
+    return () => clearTimeout(timer);
   }, []);
+
+  if (!isVisible) return null;
+
+  const waveVariants = {
+    initial: { y: "0%" },
+    animate: { y: "-100%" }
+  };
+
+  const transitionEase: [number, number, number, number] = [0.45, 0, 0.55, 1];
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        pointerEvents: "none",
-      }}
-    />
-  );
-}
+    <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden">
+      {/* Layer 1: Teal */}
+      <motion.div
+        className="absolute inset-0 w-full h-full bg-[#0d9488]"
+        variants={waveVariants}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 1.8, ease: transitionEase, delay: 1.2 }}
+      >
+        <WaveSVG className="absolute top-full left-0 w-full h-[15vh] text-[#0d9488]" />
+      </motion.div>
 
-// ─── Provider ─────────────────────────────────────────────────────────────────
-export function WaveTransitionProvider({ children }: { children: React.ReactNode }) {
-  const navigate = useNavigate();
-  const [overlay, setOverlay] = useState<{ path: string; variant: WaveVariant } | null>(null);
+      {/* Layer 2: Emerald */}
+      <motion.div
+        className="absolute inset-0 w-full h-full bg-[#059669]"
+        variants={waveVariants}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 1.8, ease: transitionEase, delay: 1.4 }}
+      >
+        <WaveSVG className="absolute top-full left-0 w-full h-[20vh] text-[#059669] scale-x-[-1]" />
+      </motion.div>
 
-  const navigateTo = useCallback((path: string, variant: WaveVariant = "dual") => {
-    setOverlay({ path, variant });
-  }, []);
+      {/* Layer 3: Deep Gem/Black */}
+      <motion.div
+        className="absolute inset-0 w-full h-full bg-[#022c22] flex items-center justify-center"
+        variants={waveVariants}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 1.8, ease: transitionEase, delay: 1.6 }}
+      >
+        <motion.div
+          className="flex flex-col items-center justify-center relative z-10"
+          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+        >
+          <div className="flex flex-col items-center">
+            <Diamond size={64} className="text-[#81e6d9] mb-4 drop-shadow-[0_0_15px_rgba(45,212,191,0.5)]" />
+            <h1 className="text-5xl md:text-7xl font-serif text-white tracking-wide mb-2" style={{ fontStyle: 'italic' }}>
+              Gemscape
+            </h1>
+            <div className="h-[1px] w-3/4 bg-gradient-to-r from-transparent via-[#81e6d9] to-transparent my-2 opacity-50"></div>
+            <p className="text-[#e2e8f0] tracking-[0.3em] text-sm md:text-base font-medium uppercase mt-2" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+              Travel and Tours
+            </p>
+          </div>
+        </motion.div>
 
-  const handleMidpoint = useCallback(() => {
-    if (overlay) navigate(overlay.path);
-  }, [overlay, navigate]);
-
-  const handleComplete = useCallback(() => {
-    setOverlay(null);
-  }, []);
-
-  return (
-    <WaveContext.Provider value={{ navigateTo }}>
-      {children}
-      {overlay && (
-        <WaveOverlay
-          variant={overlay.variant}
-          onMidpoint={handleMidpoint}
-          onComplete={handleComplete}
-        />
-      )}
-    </WaveContext.Provider>
+        <WaveSVG className="absolute top-full left-0 w-full h-[25vh] text-[#022c22]" />
+      </motion.div>
+    </div>
   );
 }

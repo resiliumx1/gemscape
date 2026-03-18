@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -9,6 +10,7 @@ import WhyGemscape from "@/components/WhyGemscape";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import { WaveTransition } from "@/components/WaveTransition";
 import { useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
@@ -17,7 +19,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
   useEffect(() => {
-    // Refresh ScrollTrigger after all images load
     const images = document.querySelectorAll("img");
     let loaded = 0;
     const total = images.length;
@@ -41,19 +42,27 @@ const Index = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Services />
-      <Experiences />
-      <RentalsPreview />
-      <Manifesto />
-      <Testimonials />
-      <WhyGemscape />
-      <CtaBanner />
-      <Footer />
-      <WhatsAppFab />
-    </>
+    <div className="min-h-screen relative overflow-x-hidden flex flex-col">
+      <WaveTransition />
+      <motion.div
+        className="relative z-10 flex flex-col min-h-screen"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.5, delay: 2.2, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <Navbar />
+        <Hero />
+        <Services />
+        <Experiences />
+        <RentalsPreview />
+        <Manifesto />
+        <Testimonials />
+        <WhyGemscape />
+        <CtaBanner />
+        <Footer />
+        <WhatsAppFab />
+      </motion.div>
+    </div>
   );
 };
 
