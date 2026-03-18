@@ -2776,7 +2776,7 @@ button, input, textarea, select, a {
 
 .bw-svc-card--selected {
   border: 2px solid hsl(var(--gem-gold));
-  background: rgba(201,148,58,0.04);
+  background: rgba(184,150,90,0.04);
 }
 
 .bw-svc-card__check {
