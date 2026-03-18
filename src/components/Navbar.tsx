@@ -206,7 +206,7 @@ const Navbar = () => {
           <a
             href="/book"
             className="gem-mobile-menu__book mobile-nav-link"
-            onClick={(e) => { e.preventDefault(); setMobileOpen(false); navigate("/book"); }}
+            onClick={(e) => { e.preventDefault(); setMobileOpen(false); navigateTo("/book", "crash"); }}
           >
             Book Now
           </a>
