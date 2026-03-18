@@ -31,7 +31,7 @@ export function WaveTransition() {
     animate: { y: "-100%" }
   };
 
-  const transitionEase = [0.45, 0, 0.55, 1];
+  const transitionEase = [0.45, 0, 0.55, 1] as [number, number, number, number];
 
   return (
     <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden">
