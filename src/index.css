@@ -1876,6 +1876,16 @@ button, input, textarea, select, a {
   transition: all 0.3s ease;
 }
 
+.dark .rentals-fleet__pill {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.dark .rentals-fleet__pill:hover {
+  color: rgba(255,255,255,0.9);
+  border-color: rgba(255,255,255,0.4);
+}
+
 .rentals-fleet__pill--active {
   background: hsl(var(--gem-navy));
   color: #fff;
