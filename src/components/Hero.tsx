@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useWave } from "@/components/GemscapeWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Wave } from "./Wave";
@@ -17,7 +17,7 @@ const Hero = () => {
   const trustRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollIndRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const { navigateTo } = useWave();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -90,7 +90,7 @@ const Hero = () => {
             <a
               href="/book"
               className="hero__btn-primary shimmer-button"
-              onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
             >
               <span className="hero__btn-shimmer" />
               Explore Experiences
