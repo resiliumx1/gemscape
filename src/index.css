@@ -1183,7 +1183,7 @@ button, input, textarea, select, a {
   font-weight: 300;
   font-style: italic;
   font-size: 26px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   line-height: 1.65;
 }
 
