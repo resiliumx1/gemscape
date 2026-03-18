@@ -14,7 +14,7 @@ const PERIODS: { key: Period; label: string }[] = [
   { key: "year", label: "This Year" },
 ];
 
-const DONUT_COLORS = ["#C9943A", "#4EC9C9", "#1A6B6B", "#0B2A3B"];
+const DONUT_COLORS = ["#B8965A", "#4EC9C9", "#1A6B6B", "#0B2A3B"];
 
 interface UpcomingBooking {
   id: string; date: string; guest: string; service: string; status: string; value: number; type: "tour" | "rental";
