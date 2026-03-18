@@ -2,16 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
+import { Sparkles, Diamond, Gem } from "lucide-react";
 
-type NavItem = { label: string; href: string } | { label: string; to: string };
+type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
+
+const iconClass = "text-[#2dd4bf] opacity-60 group-hover:opacity-100 group-hover:text-[#81e6d9] transition-all duration-300";
 
 const NAV_LINKS: NavItem[] = [
-  { label: "Experiences", href: "#experiences" },
-  { label: "Rentals", to: "/rentals" },
-  { label: "Circumnavigation", href: "#circumnavigation" },
-  { label: "Concierge", href: "#concierge" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Experiences", href: "#experiences", icon: <Sparkles size={12} className={iconClass} /> },
+  { label: "Rentals", to: "/rentals", icon: <Diamond size={12} className={iconClass} /> },
+  { label: "Circumnavigation", href: "#circumnavigation", icon: <Sparkles size={12} className={iconClass} /> },
+  { label: "Concierge", href: "#concierge", icon: <Gem size={12} className={iconClass} /> },
+  { label: "About", href: "#about", icon: <Sparkles size={12} className={iconClass} /> },
+  { label: "Contact", href: "#contact", icon: <Sparkles size={12} className={iconClass} /> },
 ];
 
 const Navbar = () => {
