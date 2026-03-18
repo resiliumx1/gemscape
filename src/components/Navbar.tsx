@@ -72,17 +72,19 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.to}
-                className={`gem-nav__link${location.pathname === link.to ? " active" : ""}`}
+                className={`group flex items-center gap-1.5 gem-nav__link${location.pathname === link.to ? " active" : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(link.to);
                 }}
               >
-                {link.label}
+                {link.icon}
+                <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
               </a>
             ) : (
-              <a key={link.label} href={link.href} className="gem-nav__link">
-                {link.label}
+              <a key={link.label} href={link.href} className="group flex items-center gap-1.5 gem-nav__link">
+                {link.icon}
+                <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
               </a>
             )
           )}
