@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { Diamond } from "lucide-react";
 
 interface Customer {
   email: string; name: string; country: string; totalBookings: number; totalSpend: number; lastBooking: string; firstBooking: string;
@@ -11,12 +12,22 @@ interface Customer {
 const LTV_BUCKETS = ["$0–100", "$100–300", "$300–600", "$600–1,000", "$1,000+"];
 const LTV_RANGES = [[0, 100], [100, 300], [300, 600], [600, 1000], [1000, Infinity]];
 
+const EmptyState = ({ title, sub }: { title: string; sub: string }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', textAlign: 'center' }}>
+    <Diamond size={40} style={{ color: 'rgba(184,150,90,0.4)', marginBottom: 20 }} />
+    <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 28, color: 'var(--text-primary)', margin: 0 }}>{title}</h3>
+    <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: 'var(--text-secondary)', marginTop: 10, maxWidth: 360 }}>{sub}</p>
+  </div>
+);
+
 const AdminLoyalty = () => {
   const { format: fmt } = useCurrency();
   const [customers, setCustomers] = useState<Customer[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       const [tours, rentals] = await Promise.all([
         supabase.from("bookings").select("*"),
         supabase.from("rental_bookings").select("*"),
@@ -33,22 +44,23 @@ const AdminLoyalty = () => {
         map.set(b.email, e);
       });
       setCustomers(Array.from(map.values()).sort((a, b) => b.totalSpend - a.totalSpend));
+      setLoaded(true);
     };
-    fetch();
+    fetchData();
+
+    const timer = setTimeout(() => setTimedOut(true), 3000);
+    return () => clearTimeout(timer);
   }, []);
 
-  // LTV Distribution
   const ltvData = useMemo(() => LTV_BUCKETS.map((label, i) => ({
     name: label,
     count: customers.filter(c => c.totalSpend >= LTV_RANGES[i][0] && c.totalSpend < LTV_RANGES[i][1]).length,
   })), [customers]);
 
-  // Repeat vs New
   const repeatCount = customers.filter(c => c.totalBookings >= 2).length;
   const newCount = customers.length - repeatCount;
   const repeatPct = customers.length > 0 ? Math.round((repeatCount / customers.length) * 100) : 0;
 
-  // Geographic
   const geoData = useMemo(() => {
     const map: Record<string, number> = {};
     customers.forEach(c => { map[c.country] = (map[c.country] || 0) + c.totalBookings; });
@@ -57,12 +69,33 @@ const AdminLoyalty = () => {
 
   const top10 = customers.slice(0, 10);
 
+  if (!loaded && !timedOut) {
+    return (
+      <div>
+        <h1 className="admin-page-title">Loyalty & LTV</h1>
+        <p className="admin-page-sub">Customer lifetime value intelligence</p>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 0' }}>
+          <div className="animate-spin" style={{ width: 24, height: 24, border: '2px solid rgba(184,150,90,0.3)', borderTopColor: '#B8965A', borderRadius: '50%' }} />
+        </div>
+      </div>
+    );
+  }
+
+  if (customers.length === 0) {
+    return (
+      <div>
+        <h1 className="admin-page-title">Loyalty & LTV</h1>
+        <p className="admin-page-sub">Customer lifetime value intelligence</p>
+        <EmptyState title="No data yet" sub="Loyalty metrics and lifetime value analysis will appear here after your first bookings are confirmed." />
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1 className="admin-page-title">Loyalty & LTV</h1>
       <p className="admin-page-sub">Customer lifetime value intelligence</p>
 
-      {/* LTV Distribution */}
       <div className="mt-8 p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
         <p className="admin-section-title mb-4">Customer Lifetime Value Distribution</p>
         <ResponsiveContainer width="100%" height={220}>
@@ -76,7 +109,6 @@ const AdminLoyalty = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Top Customers */}
       <div className="mt-6 p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
         <p className="admin-section-title mb-4">Top Customers Leaderboard</p>
         <div className="admin-table-wrap" style={{ border: "none" }}>
@@ -98,7 +130,6 @@ const AdminLoyalty = () => {
         </div>
       </div>
 
-      {/* Repeat vs New + Geographic */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <div className="p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
           <p className="admin-section-title mb-4">Repeat vs New Customers</p>

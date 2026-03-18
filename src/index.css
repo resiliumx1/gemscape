@@ -9,6 +9,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @layer base {
   /* 1. The Default Pointer (Sleek 3D Gem Shard) */
   * {
@@ -985,7 +990,8 @@ button, input, textarea, select, a {
   min-height: 420px;
   position: relative;
   overflow: visible;
-  background: hsl(var(--gem-navy));
+  background: #0B2A3B !important;
+}
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1256,6 +1262,7 @@ button, input, textarea, select, a {
   max-width: 220px;
   margin: 0 auto;
   opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
 }
 
 .pillar__mark {
@@ -1413,6 +1420,7 @@ button, input, textarea, select, a {
   background: hsl(var(--gem-navy));
   border-top: 1px solid rgba(184, 150, 90, 0.18);
   padding: 88px 80px 44px;
+  margin-top: 0;
 }
 
 @media (max-width: 767px) {
@@ -1564,7 +1572,7 @@ button, input, textarea, select, a {
 .whatsapp-fab:hover {
   transform: scale(1.08);
   background: #1ea952;
-  box-shadow: 0 4px 20px rgba(30,169,82,0.4);
+  box-shadow: none;
 }
 
 @media (max-width: 767px) {
