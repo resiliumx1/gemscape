@@ -3882,9 +3882,15 @@ button, input, textarea, select, a {
 /* ========== CURRENCY TOGGLE ========== */
 .currency-toggle {
   display: inline-flex;
-  border: 1px solid rgba(184,150,90,0.4);
+  border: 1.5px solid hsla(var(--gem-teal) / 0.5);
+  border-radius: 6px;
   overflow: hidden;
   position: relative;
+  transition: border-color 0.3s ease;
+}
+
+.currency-toggle:hover {
+  border-color: hsl(var(--gem-teal));
 }
 
 .currency-toggle::before {
@@ -3895,9 +3901,9 @@ button, input, textarea, select, a {
     120deg,
     transparent 0%,
     transparent 35%,
-    rgba(184,150,90,0.12) 42%,
-    rgba(184,150,90,0.25) 50%,
-    rgba(184,150,90,0.12) 58%,
+    hsla(var(--gem-teal) / 0.1) 42%,
+    hsla(var(--gem-teal) / 0.2) 50%,
+    hsla(var(--gem-teal) / 0.1) 58%,
     transparent 65%,
     transparent 100%
   );
@@ -3922,30 +3928,35 @@ button, input, textarea, select, a {
   border: none;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.7);
+  background: transparent;
+  color: hsla(var(--gem-teal) / 0.7);
   position: relative;
   z-index: 1;
 }
 
+.currency-toggle__btn:hover {
+  color: hsl(var(--gem-teal));
+}
+
 .currency-toggle__btn--active {
-  background: linear-gradient(135deg, hsl(var(--gem-gold)), hsl(var(--gem-gold-light)));
+  background: linear-gradient(135deg, hsl(var(--gem-teal)), hsl(var(--gem-aqua)));
   color: hsl(var(--gem-navy));
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px hsla(var(--gem-teal) / 0.3);
 }
 
 /* Admin variant */
 .currency-toggle[data-admin] {
-  border-color: rgba(184,150,90,0.35);
+  border-color: hsla(var(--gem-teal) / 0.35);
 }
 
 .currency-toggle[data-admin] .currency-toggle__btn {
-  background: rgba(11,42,59,0.06);
-  color: rgba(11,42,59,0.6);
+  background: transparent;
+  color: hsla(var(--gem-teal) / 0.6);
 }
 
 .currency-toggle[data-admin] .currency-toggle__btn--active {
-  background: linear-gradient(135deg, hsl(var(--gem-gold)), hsl(var(--gem-gold-light)));
+  background: linear-gradient(135deg, hsl(var(--gem-teal)), hsl(var(--gem-aqua)));
   color: #fff;
 }
 
