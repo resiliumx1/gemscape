@@ -3,6 +3,7 @@ import { useWave } from "@/components/GemscapeWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Wave } from "./Wave";
+import heroImage from "@/assets/hero-antigua-sunset.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
