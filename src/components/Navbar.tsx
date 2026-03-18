@@ -25,7 +25,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isRouteLink = (link: NavItem): link is { label: string; to: string } => "to" in link;
+  const isRouteLink = (link: NavItem): link is { label: string; to: string; icon: React.ReactNode } => "to" in link;
 
   // Scroll detection
   useEffect(() => {
