@@ -1208,7 +1208,7 @@ button, input, textarea, select, a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
 }
 
 .testimonial__origin {
