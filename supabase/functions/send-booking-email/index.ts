@@ -249,7 +249,7 @@ function buildRentalCustomerConfirmation(b: Record<string, any>): { subject: str
         </tr>
       </table>
 
-      <div style="background-color:rgba(201,148,58,0.08);padding:16px 20px;margin:0 0 24px;">
+      <div style="background-color:rgba(184,150,90,0.08);padding:16px 20px;margin:0 0 24px;">
         <p style="font-family:Arial,sans-serif;font-size:14px;color:#0B2A3B;font-weight:400;margin:0;line-height:1.5;">
           📋 Your driver's license and a credit card will be required at pickup.
         </p>
