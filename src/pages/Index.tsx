@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { WaveOverlay } from "@/components/WaveTransition";
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { WaveTransition, hasPlayedIntro } from "@/components/WaveTransition";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -17,21 +17,8 @@ import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const INTRO_KEY = "gem_intro_seen";
-
 const Index = () => {
-  const [showWave, setShowWave] = useState(() => {
-    return !sessionStorage.getItem(INTRO_KEY);
-  });
-  const [revealed, setRevealed] = useState(() => {
-    return !!sessionStorage.getItem(INTRO_KEY);
-  });
-
-  useEffect(() => {
-    if (showWave) {
-      sessionStorage.setItem(INTRO_KEY, "1");
-    }
-  }, [showWave]);
+  const contentDelay = hasPlayedIntro ? 0 : 3.2;
 
   useEffect(() => {
     const images = document.querySelectorAll("img");
@@ -56,37 +43,19 @@ const Index = () => {
     };
   }, []);
 
-  const handleMidpoint = useCallback(() => {
-    setRevealed(true);
-  }, []);
-
-  const handleComplete = useCallback(() => {
-    setShowWave(false);
-  }, []);
-
   return (
-    <div
-      className="min-h-screen relative overflow-x-hidden flex flex-col"
-      style={{
-        backgroundColor: revealed ? 'transparent' : '#0a3d4a',
-        transition: 'background-color 0.4s ease 1.5s',
-      }}
-    >
-      <AnimatePresence>
-        {showWave && (
-          <WaveOverlay
-            variant="dual"
-            onMidpoint={handleMidpoint}
-            onComplete={handleComplete}
-          />
-        )}
-      </AnimatePresence>
+    <div className="min-h-screen relative overflow-x-hidden flex flex-col bg-[#022c22]">
+      <WaveTransition />
 
       <motion.div
         className="relative z-10 flex flex-col min-h-screen"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: revealed ? 1 : 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 1.5,
+          delay: contentDelay,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
       >
         <Navbar />
         <Hero />
