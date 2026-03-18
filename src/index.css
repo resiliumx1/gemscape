@@ -205,7 +205,8 @@ button, input, textarea, select, a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 72px;
+  padding: 0 72px 0 72px;
+  padding-left: calc(72px + 1rem);
   background: transparent;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
