@@ -3270,7 +3270,7 @@ button, input, textarea, select, a {
 }
 
 .admin-table tbody tr:hover {
-  background: rgba(201,148,58,0.03);
+  background: rgba(184,150,90,0.03);
 }
 
 .admin-link {
