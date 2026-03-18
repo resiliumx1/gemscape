@@ -97,13 +97,12 @@ const Hero = () => {
               Explore Experiences
             </a>
             <a
-              href="https://wa.me/12680000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero__btn-secondary"
-              style={{ background: 'rgba(37,211,102,0.15)', borderColor: '#25D366', color: '#25D366' }}
+              href="/book"
+              className="hero__btn-secondary book-now-btn"
+              onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+              style={{ borderColor: 'hsl(var(--gem-gold))', color: 'hsl(var(--gem-gold))', background: 'rgba(184,150,90,0.1)' }}
             >
-              WhatsApp Us
+              Book Now
             </a>
           </div>
         </div>
