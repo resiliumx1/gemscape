@@ -99,7 +99,7 @@ const Hero = () => {
           </div>
 
           <div ref={ctaRef} className="hero__cta" style={{ opacity: 0 }}>
-            <a href="#experiences" className="hero__btn-primary">
+            <a href="#experiences" className="hero__btn-primary shimmer-button">
               <span className="hero__btn-shimmer" />
               Explore Experiences
             </a>
