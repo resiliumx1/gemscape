@@ -236,7 +236,7 @@ function buildRentalCustomerConfirmation(b: Record<string, any>): { subject: str
       </h2>
       <table role="presentation" style="width:100%;margin:0 0 16px;">
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;width:28px;">1.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;width:28px;">1.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">We'll confirm vehicle availability and send your rental agreement</td>
         </tr>
         <tr>
