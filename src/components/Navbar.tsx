@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
-import { Sparkles, Diamond, Gem, Sun, Moon } from "lucide-react";
+import { Sparkles, Diamond, Gem } from "lucide-react";
 import { useWave } from "@/components/GemscapeWave";
+import SkyToggle from "@/components/ui/sky-toggle";
 
 type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
 
@@ -37,17 +38,7 @@ const Navbar = () => {
     }
   }, []);
 
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    if (next) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('gem-theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('gem-theme', 'light');
-    }
-  };
+  // toggleTheme is now handled inline by SkyToggle
 
   // Scroll detection
   useEffect(() => {
@@ -94,7 +85,7 @@ const Navbar = () => {
           className="gem-nav__logo"
           aria-label="Gemscape home"
           onClick={(e) => { e.preventDefault(); navigateTo("/", "dual"); }}
-          style={{ paddingLeft: "40px" }}
+          style={{ paddingLeft: "16px" }}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
         </a>
@@ -135,13 +126,16 @@ const Navbar = () => {
         {/* Right side */}
         <div className="gem-nav__right" style={{ paddingRight: "40px" }}>
           <CurrencyToggle />
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-            style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center" }}
-          >
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+          <SkyToggle checked={isDark} onChange={(checked) => {
+            setIsDark(checked);
+            if (checked) {
+              document.documentElement.classList.add('dark');
+              localStorage.setItem('gem-theme', 'dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+              localStorage.setItem('gem-theme', 'light');
+            }
+          }} />
           <a
             href="/book"
             className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white"
@@ -212,13 +206,16 @@ const Navbar = () => {
           </a>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px', gap: '16px', alignItems: 'center' }}>
             <CurrencyToggle />
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle dark mode"
-              style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center" }}
-            >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
+            <SkyToggle checked={isDark} onChange={(checked) => {
+              setIsDark(checked);
+              if (checked) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('gem-theme', 'dark');
+              } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('gem-theme', 'light');
+              }
+            }} />
           </div>
         </div>
       </div>
