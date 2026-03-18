@@ -143,7 +143,7 @@ const Rentals = () => {
           ref={bgRef}
           className="rentals-hero__bg"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=2000&q=85')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000&q=85')`,
           }}
         />
         <div className="rentals-hero__gradient-bottom" />
@@ -215,7 +215,7 @@ const Rentals = () => {
             >
               <div className="r-card__img-wrap">
                 <img
-                  src={v.image_url || "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=85"}
+                  src={v.image_url || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85"}
                   alt={`${v.name} available for rental in Antigua, Gemscape Travel`}
                   loading="lazy"
                   width={800}

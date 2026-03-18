@@ -205,7 +205,8 @@ button, input, textarea, select, a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 72px;
+  padding: 0 72px 0 72px;
+  padding-left: calc(72px + 1rem);
   background: transparent;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -221,6 +222,7 @@ button, input, textarea, select, a {
   .gem-nav {
     height: 60px;
     padding: 0 24px;
+    padding-left: calc(24px + 1rem);
   }
 }
 
@@ -1872,6 +1874,16 @@ button, input, textarea, select, a {
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.dark .rentals-fleet__pill {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.dark .rentals-fleet__pill:hover {
+  color: rgba(255,255,255,0.9);
+  border-color: rgba(255,255,255,0.4);
 }
 
 .rentals-fleet__pill--active {
@@ -4061,4 +4073,170 @@ button, input, textarea, select, a {
 
 .dark .testimonial__origin {
   color: #C4BBA8 !important;
+}
+
+/* Footer z-index fix */
+.gem-footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Shadcn select in rental form */
+.rb-shadcn-select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid hsl(var(--gem-sand));
+  border-radius: 0 !important;
+  padding: 14px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: hsl(var(--gem-navy));
+  height: auto;
+  min-height: 48px;
+  box-shadow: none;
+  transition: border-color 0.3s ease;
+}
+
+.rb-shadcn-select:focus,
+.rb-shadcn-select[data-state="open"] {
+  border-bottom-color: hsl(var(--gem-gold));
+  box-shadow: none;
+  outline: none;
+  ring: none;
+}
+
+.rb-shadcn-select.rb-input--error {
+  border-bottom-color: hsl(var(--gem-gold)) !important;
+}
+
+.dark .rb-shadcn-select {
+  background: var(--bg-elevated);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark .rb-shadcn-select:focus,
+.dark .rb-shadcn-select[data-state="open"] {
+  border-color: hsl(var(--gem-gold));
+}
+
+/* Concierge form styles */
+.concierge-form {
+  border: 1px solid rgba(184,150,90,0.25);
+  padding: 40px;
+  text-align: left;
+}
+
+.concierge-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 639px) {
+  .concierge-form__grid {
+    grid-template-columns: 1fr;
+  }
+  .concierge-form {
+    padding: 24px;
+  }
+}
+
+.concierge-form__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.concierge-form__label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: hsl(var(--gem-gold));
+  margin-bottom: 8px;
+}
+
+.concierge-form__input,
+.concierge-form__textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(184,150,90,0.2);
+  padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.3s ease;
+  border-radius: 0 !important;
+}
+
+.concierge-form__input::placeholder,
+.concierge-form__textarea::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+.concierge-form__input:focus,
+.concierge-form__textarea:focus {
+  border-color: hsl(var(--gem-gold));
+}
+
+.concierge-form__textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.concierge-form__submit {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  border: 1px solid hsl(var(--gem-gold));
+  color: hsl(var(--gem-gold));
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.concierge-form__submit:hover {
+  background: hsl(var(--gem-gold));
+  color: hsl(var(--gem-navy));
+}
+
+.concierge-whatsapp-card {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1px solid rgba(37,211,102,0.3);
+  background: rgba(37,211,102,0.06);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.concierge-whatsapp-card:hover {
+  background: rgba(37,211,102,0.12);
+  border-color: rgba(37,211,102,0.5);
+}
+
+.concierge-whatsapp-card svg {
+  color: #25D366;
+  flex-shrink: 0;
+}
+
+/* SkyToggle compact override */
+.gem-nav__desktop-toggles .theme-switch {
+  --toggle-size: 12px;
 }
