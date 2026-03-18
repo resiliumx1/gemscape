@@ -14,7 +14,7 @@ const PERIODS: { key: Period; label: string }[] = [
   { key: "year", label: "This Year" },
 ];
 
-const DONUT_COLORS = ["#C9943A", "#4EC9C9", "#1A6B6B", "#0B2A3B"];
+const DONUT_COLORS = ["#B8965A", "#4EC9C9", "#1A6B6B", "#0B2A3B"];
 
 interface UpcomingBooking {
   id: string; date: string; guest: string; service: string; status: string; value: number; type: "tour" | "rental";
@@ -207,7 +207,7 @@ const AdminDashboard = () => {
             <YAxis tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fill: "rgba(11,42,59,0.45)" }} />
             <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, border: "1px solid hsl(var(--gem-sand))" }} />
             <Legend wrapperStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }} />
-            <Line type="monotone" dataKey="tours" name="Tour Revenue" stroke="#C9943A" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="tours" name="Tour Revenue" stroke="#B8965A" strokeWidth={2} dot={false} />
             <Line type="monotone" dataKey="rentals" name="Rental Revenue" stroke="#4EC9C9" strokeWidth={2} dot={false} />
           </LineChart>
         </ResponsiveContainer>

@@ -27,7 +27,7 @@ export const CurrencyToggle = () => {
             border: 'none',
             cursor: 'pointer',
             transition: 'background 0.25s ease, color 0.25s ease',
-            background: currency === opt ? '#C9943A' : 'transparent',
+            background: currency === opt ? '#B8965A' : 'transparent',
             color: currency === opt ? '#0B2A3B' : 'rgba(255,255,255,0.60)',
           }}
           aria-pressed={currency === opt}

@@ -10,12 +10,21 @@
     --gem-navy: 200 70% 14%;
     --gem-teal: 180 62% 26%;
     --gem-aqua: 180 56% 55%;
-    --gem-gold: 37 55% 51%;
-    --gem-gold-light: 40 70% 69%;
+    --gem-gold: 37 38% 54%;
+    --gem-gold-light: 40 38% 68%;
     --gem-cream: 37 47% 92%;
     --gem-sand: 34 48% 82%;
     --gem-white: 40 60% 97%;
     --gem-coral: 10 62% 53%;
+
+    /* Theme variables */
+    --bg-primary: #F5EFE0;
+    --bg-secondary: #EAD9BB;
+    --bg-tertiary: #FDFAF4;
+    --text-primary: #0B2A3B;
+    --text-secondary: rgba(11,42,59,0.65);
+    --border-color: rgba(11,42,59,0.12);
+    --card-bg: #FDFAF4;
 
     /* Map to shadcn tokens */
     --background: var(--gem-cream);
@@ -48,6 +57,20 @@
     --sidebar-border: var(--gem-sand);
     --sidebar-ring: var(--gem-gold);
   }
+
+  .dark {
+    --bg-primary: #161612;
+    --bg-secondary: #1E1E1A;
+    --bg-tertiary: #222220;
+    --text-primary: #F0EAD6;
+    --text-secondary: rgba(240,234,214,0.65);
+    --border-color: rgba(255,255,255,0.10);
+    --card-bg: #1E1E1A;
+
+    --gem-cream: 40 10% 10%;
+    --gem-sand: 40 8% 16%;
+    --gem-white: 40 6% 14%;
+  }
 }
 
 /* Global resets */
@@ -62,8 +85,8 @@ html {
 body {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
-  background-color: hsl(var(--gem-cream));
-  color: hsl(var(--gem-navy));
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
   margin: 0;
 }
@@ -148,7 +171,7 @@ button, input, textarea, select, a {
   #gc-cross::before, #gc-cross::after {
     content: '';
     position: absolute;
-    background: #C9943A;
+    background: #B8965A;
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
   #gc-cross::before {
@@ -166,7 +189,7 @@ button, input, textarea, select, a {
     position: fixed;
     top: 0; left: 0;
     width: 36px; height: 36px;
-    border: 1px solid rgba(201,148,58,0.28);
+    border: 1px solid rgba(184,150,90,0.28);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
@@ -219,7 +242,7 @@ button, input, textarea, select, a {
   background: rgba(11, 42, 59, 0.90);
   backdrop-filter: blur(14px) saturate(180%);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
-  border-bottom: 1px solid rgba(201, 148, 58, 0.12);
+  border-bottom: 1px solid rgba(184, 150, 90, 0.12);
 }
 
 @media (max-width: 1023px) {
@@ -277,9 +300,9 @@ button, input, textarea, select, a {
     120deg,
     transparent 0%,
     transparent 35%,
-    rgba(201, 148, 58, 0.18) 42%,
-    rgba(201, 148, 58, 0.35) 50%,
-    rgba(201, 148, 58, 0.18) 58%,
+    rgba(184, 150, 90, 0.18) 42%,
+    rgba(184, 150, 90, 0.35) 50%,
+    rgba(184, 150, 90, 0.18) 58%,
     transparent 65%,
     transparent 100%
   );
@@ -574,9 +597,9 @@ button, input, textarea, select, a {
     120deg,
     transparent 0%,
     transparent 30%,
-    rgba(201, 148, 58, 0.08) 38%,
-    rgba(201, 148, 58, 0.22) 50%,
-    rgba(201, 148, 58, 0.08) 62%,
+    rgba(184, 150, 90, 0.08) 38%,
+    rgba(184, 150, 90, 0.22) 50%,
+    rgba(184, 150, 90, 0.08) 62%,
     transparent 70%,
     transparent 100%
   );
@@ -713,7 +736,7 @@ button, input, textarea, select, a {
 
 .services__nav {
   width: 40%;
-  background: hsl(var(--gem-cream));
+  background: var(--card-bg);
   padding: 80px 72px;
   display: flex;
   flex-direction: column;
@@ -779,7 +802,7 @@ button, input, textarea, select, a {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   margin-top: 4px;
   display: block;
   padding-left: 16px;
@@ -813,7 +836,7 @@ button, input, textarea, select, a {
   font-weight: 300;
   font-size: 15px;
   line-height: 1.8;
-  color: hsl(var(--gem-navy) / 0.7);
+  color: var(--text-secondary);
   max-width: 340px;
 }
 
@@ -864,7 +887,7 @@ button, input, textarea, select, a {
 
 /* ========== EXPERIENCES ========== */
 .experiences {
-  background: hsl(var(--gem-white));
+  background: var(--bg-tertiary);
   padding: 140px 80px;
 }
 
@@ -883,7 +906,7 @@ button, input, textarea, select, a {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   font-size: 72px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   line-height: 0.93;
   margin-top: 16px;
 }
@@ -897,7 +920,7 @@ button, input, textarea, select, a {
   font-weight: 300;
   font-size: 17px;
   line-height: 1.8;
-  color: hsl(var(--gem-navy) / 0.65);
+  color: var(--text-secondary);
   margin-top: 20px;
 }
 
@@ -954,7 +977,7 @@ button, input, textarea, select, a {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   font-size: 30px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   line-height: 1.05;
   margin-top: 10px;
 }
@@ -963,7 +986,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 15px;
-  color: hsl(var(--gem-navy) / 0.6);
+  color: var(--text-secondary);
   line-height: 1.7;
   margin-top: 8px;
 }
@@ -1067,12 +1090,12 @@ button, input, textarea, select, a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: rgba(201, 148, 58, 0.65);
+  color: rgba(184, 150, 90, 0.65);
 }
 
 /* ========== TESTIMONIALS ========== */
 .testimonials {
-  background: hsl(var(--gem-cream));
+  background: var(--bg-primary);
   padding: 140px 80px;
   position: relative;
 }
@@ -1091,7 +1114,7 @@ button, input, textarea, select, a {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   font-size: 72px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   line-height: 0.92;
   margin-top: 16px;
 }
@@ -1160,7 +1183,7 @@ button, input, textarea, select, a {
   font-weight: 300;
   font-style: italic;
   font-size: 26px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   line-height: 1.65;
 }
 
@@ -1174,7 +1197,7 @@ button, input, textarea, select, a {
   margin-top: 24px;
   width: 48px;
   height: 1px;
-  background: rgba(201, 148, 58, 0.60);
+  background: rgba(184, 150, 90, 0.60);
 }
 
 .testimonial__name {
@@ -1185,7 +1208,7 @@ button, input, textarea, select, a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
 }
 
 .testimonial__origin {
@@ -1194,13 +1217,13 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 12px;
-  color: hsl(var(--gem-navy) / 0.45);
+  color: var(--text-secondary);
 }
 
 
 /* ========== WHY GEMSCAPE ========== */
 .why-gemscape {
-  background: hsl(var(--gem-sand));
+  background: var(--bg-secondary);
   padding: 140px 80px;
   position: relative;
 }
@@ -1221,7 +1244,7 @@ button, input, textarea, select, a {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   font-size: 62px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   line-height: 0.95;
   margin-top: 16px;
 }
@@ -1238,7 +1261,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 18px;
-  color: hsl(var(--gem-navy) / 0.68);
+  color: var(--text-secondary);
   line-height: 1.8;
 }
 
@@ -1280,7 +1303,7 @@ button, input, textarea, select, a {
   font-weight: 600;
   font-style: italic;
   font-size: 22px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   margin-top: 14px;
 }
 
@@ -1288,7 +1311,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 14px;
-  color: hsl(var(--gem-navy) / 0.6);
+  color: var(--text-secondary);
   line-height: 1.7;
   margin-top: 8px;
 }
@@ -1421,7 +1444,7 @@ button, input, textarea, select, a {
 /* ========== FOOTER ========== */
 .gem-footer {
   background: hsl(var(--gem-navy));
-  border-top: 1px solid rgba(201, 148, 58, 0.18);
+  border-top: 1px solid rgba(184, 150, 90, 0.18);
   padding: 88px 80px 44px;
 }
 
@@ -1550,7 +1573,7 @@ button, input, textarea, select, a {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 12px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.78);
 }
 
 /* ========== WHATSAPP FAB ========== */
@@ -2753,7 +2776,7 @@ button, input, textarea, select, a {
 
 .bw-svc-card--selected {
   border: 2px solid hsl(var(--gem-gold));
-  background: rgba(201,148,58,0.04);
+  background: rgba(184,150,90,0.04);
 }
 
 .bw-svc-card__check {
@@ -3247,7 +3270,7 @@ button, input, textarea, select, a {
 }
 
 .admin-table tbody tr:hover {
-  background: rgba(201,148,58,0.03);
+  background: rgba(184,150,90,0.03);
 }
 
 .admin-link {

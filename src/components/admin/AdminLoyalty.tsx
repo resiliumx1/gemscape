@@ -71,7 +71,7 @@ const AdminLoyalty = () => {
             <XAxis dataKey="name" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
             <YAxis tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
             <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, border: "1px solid hsl(var(--gem-sand))" }} />
-            <Bar dataKey="count" fill="#C9943A" name="Customers" />
+            <Bar dataKey="count" fill="#B8965A" name="Customers" />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -105,7 +105,7 @@ const AdminLoyalty = () => {
           <div className="flex justify-center">
             <PieChart width={200} height={200}>
               <Pie data={[{ name: "New", value: newCount }, { name: "Repeat", value: repeatCount }]} cx={100} cy={100} innerRadius={55} outerRadius={85} dataKey="value" stroke="none">
-                <Cell fill="#C9943A" /><Cell fill="#1A6B6B" />
+                <Cell fill="#B8965A" /><Cell fill="#1A6B6B" />
               </Pie>
               <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }} />
             </PieChart>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
-import { Sparkles, Diamond, Gem } from "lucide-react";
+import { Sparkles, Diamond, Gem, Sun, Moon } from "lucide-react";
 
 type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
 
@@ -11,21 +11,42 @@ const iconClass = "text-[#2dd4bf] opacity-60 group-hover:opacity-100 group-hover
 const NAV_LINKS: NavItem[] = [
   { label: "Experiences", href: "#experiences", icon: <Sparkles size={12} className={iconClass} /> },
   { label: "Rentals", to: "/rentals", icon: <Diamond size={12} className={iconClass} /> },
-  { label: "Circumnavigation", href: "#circumnavigation", icon: <Sparkles size={12} className={iconClass} /> },
-  { label: "Concierge", href: "#concierge", icon: <Gem size={12} className={iconClass} /> },
-  { label: "About", href: "#about", icon: <Sparkles size={12} className={iconClass} /> },
+  { label: "Concierge", href: "#flight-concierge", icon: <Gem size={12} className={iconClass} /> },
+  { label: "About", href: "#why-gemscape", icon: <Sparkles size={12} className={iconClass} /> },
   { label: "Contact", href: "#contact", icon: <Sparkles size={12} className={iconClass} /> },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileLinksRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
   const isRouteLink = (link: NavItem): link is { label: string; to: string; icon: React.ReactNode } => "to" in link;
+
+  // Dark mode init
+  useEffect(() => {
+    const saved = localStorage.getItem('gem-theme');
+    if (saved === 'dark') {
+      document.documentElement.classList.add('dark');
+      setIsDark(true);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    if (next) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('gem-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('gem-theme', 'light');
+    }
+  };
 
   // Scroll detection
   useEffect(() => {
@@ -41,17 +62,23 @@ const Navbar = () => {
       gsap.fromTo(
         links,
         { opacity: 0, x: 40 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.5,
-          stagger: 0.07,
-          ease: "power3.out",
-          delay: 0.2,
-        }
+        { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: "power3.out", delay: 0.2 }
       );
     }
   }, [mobileOpen]);
+
+  const handleNavClick = (href: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const id = href.replace("#", "");
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }, 500);
+    } else {
+      const id = href.replace("#", "");
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -61,7 +88,13 @@ const Navbar = () => {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <a href="/" className="gem-nav__logo" aria-label="Gemscape home">
+        <a
+          href="/"
+          className="gem-nav__logo"
+          aria-label="Gemscape home"
+          onClick={(e) => { e.preventDefault(); navigate("/"); }}
+          style={{ paddingLeft: "40px" }}
+        >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
         </a>
 
@@ -82,7 +115,15 @@ const Navbar = () => {
                 <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
               </a>
             ) : (
-              <a key={link.label} href={link.href} className="group flex items-center gap-1.5 gem-nav__link">
+              <a
+                key={link.label}
+                href={link.href}
+                className="group flex items-center gap-1.5 gem-nav__link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(link.href);
+                }}
+              >
                 {link.icon}
                 <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
               </a>
@@ -90,10 +131,21 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Book Now + Hamburger */}
-        <div className="gem-nav__right">
+        {/* Right side */}
+        <div className="gem-nav__right" style={{ paddingRight: "40px" }}>
           <CurrencyToggle />
-          <a href="/book" className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white" onClick={(e) => { e.preventDefault(); navigate("/book"); }}>
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle dark mode"
+            style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center" }}
+          >
+            {isDark ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <a
+            href="/book"
+            className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white"
+            onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+          >
             Book Now
           </a>
           <button
@@ -140,7 +192,11 @@ const Navbar = () => {
                 key={link.label}
                 href={link.href}
                 className="mobile-nav-link"
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileOpen(false);
+                  handleNavClick(link.href);
+                }}
               >
                 {link.label}
               </a>
@@ -153,8 +209,15 @@ const Navbar = () => {
           >
             Book Now
           </a>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px', gap: '16px', alignItems: 'center' }}>
             <CurrencyToggle />
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+              style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center" }}
+            >
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
           </div>
         </div>
       </div>

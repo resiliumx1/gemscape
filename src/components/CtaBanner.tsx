@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -8,45 +9,29 @@ const CtaBanner = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (imgRef.current && sectionRef.current) {
         gsap.to(imgRef.current, {
-          yPercent: -20,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
+          yPercent: -20, ease: "none",
+          scrollTrigger: { trigger: sectionRef.current, start: "top bottom", end: "bottom top", scrub: true },
         });
       }
-
       if (contentRef.current) {
         gsap.fromTo(
           contentRef.current,
           { opacity: 0, y: 60 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 65%",
-            },
-          }
+          { opacity: 1, y: 0, duration: 1.2, ease: "power4.out", scrollTrigger: { trigger: sectionRef.current, start: "top 65%" } }
         );
       }
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="cta-banner">
+    <section ref={sectionRef} id="contact" className="cta-banner">
       <img
         ref={imgRef}
         src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=2000&q=85"
@@ -65,14 +50,18 @@ const CtaBanner = () => {
           Tell us what you're dreaming of. We'll make it happen.
         </p>
         <div className="cta-banner__buttons">
-          <a href="#contact" className="cta-banner__btn-primary shimmer-button">
+          <a
+            href="/book"
+            className="cta-banner__btn-primary shimmer-button"
+            onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+          >
             <span className="cta-banner__btn-shimmer" />
             Start Planning
           </a>
           <a
-            href="https://wa.me/1268XXXXXXX"
+            href="https://wa.me/12680000000"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             className="cta-banner__btn-whatsapp"
           >
             WhatsApp Us Now

@@ -62,7 +62,7 @@ const AdminForecasting = () => {
             <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }} />
             <Legend wrapperStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }} />
             <Bar dataKey="confirmed" fill="#0B2A3B" name="Confirmed" />
-            <Bar dataKey="pending" fill="#C9943A" name="Pending" />
+            <Bar dataKey="pending" fill="#B8965A" name="Pending" />
           </BarChart>
         </ResponsiveContainer>
       </div>

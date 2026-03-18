@@ -70,7 +70,7 @@ const button = (text: string, href: string, bgColor = "#D4523A") => `
 
 const summaryRow = (label: string, value: string) => `
 <tr>
-  <td style="padding:10px 0;border-bottom:1px solid #EAD9BB;font-family:Arial,sans-serif;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#C9943A;width:140px;vertical-align:top;">${label}</td>
+  <td style="padding:10px 0;border-bottom:1px solid #EAD9BB;font-family:Arial,sans-serif;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#B8965A;width:140px;vertical-align:top;">${label}</td>
   <td style="padding:10px 0 10px 16px;border-bottom:1px solid #EAD9BB;font-family:Arial,sans-serif;font-size:14px;color:#0B2A3B;font-weight:300;">${value}</td>
 </tr>`;
 
@@ -106,7 +106,7 @@ function buildTourCustomerConfirmation(b: Record<string, any>): { subject: strin
 
       <!-- Booking Summary Box -->
       <div style="background-color:#ffffff;border:1px solid #EAD9BB;padding:28px;margin:0 0 32px;">
-        <h2 style="font-family:Georgia,serif;font-style:italic;font-size:20px;color:#C9943A;margin:0 0 16px;font-weight:400;">
+        <h2 style="font-family:Georgia,serif;font-style:italic;font-size:20px;color:#B8965A;margin:0 0 16px;font-weight:400;">
           Booking Summary
         </h2>
         <table role="presentation" style="width:100%;border-collapse:collapse;">
@@ -126,15 +126,15 @@ function buildTourCustomerConfirmation(b: Record<string, any>): { subject: strin
       </h2>
       <table role="presentation" style="width:100%;margin:0 0 24px;">
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;width:28px;">1.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;width:28px;">1.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">Our team reviews your booking and confirms availability (within 24 hours)</td>
         </tr>
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;">2.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;">2.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">We'll send your final itinerary and meeting point details</td>
         </tr>
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;">3.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;">3.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">On your tour day, your guide will meet you at the specified location</td>
         </tr>
       </table>
@@ -215,7 +215,7 @@ function buildRentalCustomerConfirmation(b: Record<string, any>): { subject: str
       </p>
 
       <div style="background-color:#ffffff;border:1px solid #EAD9BB;padding:28px;margin:0 0 32px;">
-        <h2 style="font-family:Georgia,serif;font-style:italic;font-size:20px;color:#C9943A;margin:0 0 16px;font-weight:400;">
+        <h2 style="font-family:Georgia,serif;font-style:italic;font-size:20px;color:#B8965A;margin:0 0 16px;font-weight:400;">
           Rental Summary
         </h2>
         <table role="presentation" style="width:100%;border-collapse:collapse;">
@@ -236,20 +236,20 @@ function buildRentalCustomerConfirmation(b: Record<string, any>): { subject: str
       </h2>
       <table role="presentation" style="width:100%;margin:0 0 16px;">
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;width:28px;">1.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;width:28px;">1.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">We'll confirm vehicle availability and send your rental agreement</td>
         </tr>
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;">2.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;">2.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">On pickup day, our team meets you at ${b.pickup_location || "the pickup location"} with the vehicle</td>
         </tr>
         <tr>
-          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#C9943A;font-weight:600;">3.</td>
+          <td style="padding:8px 12px 8px 0;vertical-align:top;font-family:Georgia,serif;font-size:20px;color:#B8965A;font-weight:600;">3.</td>
           <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.6;">Return the vehicle to ${b.dropoff_location || "the return location"} by ${formatDate(b.return_date)} at the agreed time</td>
         </tr>
       </table>
 
-      <div style="background-color:rgba(201,148,58,0.08);padding:16px 20px;margin:0 0 24px;">
+      <div style="background-color:rgba(184,150,90,0.08);padding:16px 20px;margin:0 0 24px;">
         <p style="font-family:Arial,sans-serif;font-size:14px;color:#0B2A3B;font-weight:400;margin:0;line-height:1.5;">
           📋 Your driver's license and a credit card will be required at pickup.
         </p>
@@ -366,7 +366,7 @@ function buildReviewRequest(b: Record<string, any>, platforms: Record<string, { 
       <div style="margin:32px 0 0;padding:20px 0 0;border-top:1px solid #EAD9BB;">
         <p style="font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.7;margin:0 0 4px;">
           Not everything went as planned?
-          <a href="mailto:${OWNER_EMAIL}?subject=Feedback%3A%20${encodeURIComponent(ref)}" style="color:#C9943A;text-decoration:underline;">Please tell us.</a>
+          <a href="mailto:${OWNER_EMAIL}?subject=Feedback%3A%20${encodeURIComponent(ref)}" style="color:#B8965A;text-decoration:underline;">Please tell us.</a>
         </p>
         <p style="font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.7;margin:0;">
           We're always working to make every experience exceptional.
@@ -375,7 +375,7 @@ function buildReviewRequest(b: Record<string, any>, platforms: Record<string, { 
 
       <!-- Sign-off -->
       <div style="margin:32px 0 0;">
-        <p style="font-family:Georgia,serif;font-style:italic;font-size:18px;color:#C9943A;margin:0;line-height:1.4;">
+        <p style="font-family:Georgia,serif;font-style:italic;font-size:18px;color:#B8965A;margin:0;line-height:1.4;">
           With warmth,<br/>
           The Gemscape Team
         </p>
