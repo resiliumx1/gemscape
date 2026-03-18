@@ -74,17 +74,26 @@
   }
 
   .dark {
-    --bg-primary: #161612;
-    --bg-secondary: #1E1E1A;
-    --bg-tertiary: #222220;
-    --text-primary: #F0EAD6;
-    --text-secondary: rgba(240,234,214,0.65);
-    --border-color: rgba(255,255,255,0.10);
-    --card-bg: #1E1E1A;
+    /* Deep ocean backgrounds */
+    --bg-primary: #0D1F2D;
+    --bg-secondary: #122435;
+    --bg-tertiary: #162B3D;
+    --bg-elevated: #1A3045;
 
-    --gem-cream: 40 10% 10%;
-    --gem-sand: 40 8% 16%;
-    --gem-white: 40 6% 14%;
+    /* Warm readable text */
+    --text-primary: #EDE8DC;
+    --text-secondary: #C4BBA8;
+    --text-tertiary: #8A8070;
+
+    /* Gold-tinted borders */
+    --border-color: rgba(184,150,90,0.18);
+    --border-hover: rgba(184,150,90,0.35);
+    --card-bg: #162B3D;
+
+    /* Remap shadcn tokens for dark */
+    --gem-cream: 207 47% 11%;
+    --gem-sand: 207 44% 14%;
+    --gem-white: 207 41% 16%;
   }
 }
 
