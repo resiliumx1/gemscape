@@ -74,17 +74,26 @@
   }
 
   .dark {
-    --bg-primary: #161612;
-    --bg-secondary: #1E1E1A;
-    --bg-tertiary: #222220;
-    --text-primary: #F0EAD6;
-    --text-secondary: rgba(240,234,214,0.65);
-    --border-color: rgba(255,255,255,0.10);
-    --card-bg: #1E1E1A;
+    /* Deep ocean backgrounds */
+    --bg-primary: #0D1F2D;
+    --bg-secondary: #122435;
+    --bg-tertiary: #162B3D;
+    --bg-elevated: #1A3045;
 
-    --gem-cream: 40 10% 10%;
-    --gem-sand: 40 8% 16%;
-    --gem-white: 40 6% 14%;
+    /* Warm readable text */
+    --text-primary: #EDE8DC;
+    --text-secondary: #C4BBA8;
+    --text-tertiary: #8A8070;
+
+    /* Gold-tinted borders */
+    --border-color: rgba(184,150,90,0.18);
+    --border-hover: rgba(184,150,90,0.35);
+    --card-bg: #162B3D;
+
+    /* Remap shadcn tokens for dark */
+    --gem-cream: 207 47% 11%;
+    --gem-sand: 207 44% 14%;
+    --gem-white: 207 41% 16%;
   }
 }
 
@@ -1611,6 +1620,8 @@ button, input, textarea, select, a {
 
 .whatsapp-fab:hover {
   transform: scale(1.08);
+  background: #1ea952;
+  box-shadow: 0 4px 20px rgba(30,169,82,0.4);
 }
 
 @media (max-width: 767px) {
@@ -3528,3 +3539,190 @@ button, input, textarea, select, a {
 @keyframes goldShimmer {
   100% { left: 200%; }
 }
+
+/* ========== DARK MODE OVERRIDES ========== */
+
+/* Booking wizard */
+.dark .bw-stepper {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-color);
+}
+.dark .bw-stepper__step {
+  color: var(--text-tertiary);
+}
+.dark .bw-stepper__step--active {
+  color: var(--text-primary);
+}
+.dark .bw-stepper__step--complete {
+  color: hsl(var(--gem-aqua));
+}
+.dark .bw-body {
+  background: var(--bg-primary);
+}
+.dark .bw-instruction {
+  color: var(--text-primary);
+}
+.dark .bw-svc-card {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+.dark .bw-svc-card--selected {
+  background: rgba(184,150,90,0.08);
+  border-color: hsl(var(--gem-gold));
+}
+.dark .bw-svc-card__name {
+  color: var(--text-primary);
+}
+.dark .bw-svc-card__desc {
+  color: var(--text-secondary);
+}
+.dark .bw-review-card {
+  background: var(--bg-tertiary);
+}
+.dark .bw-review-row span:first-child {
+  color: var(--text-secondary);
+}
+.dark .bw-review-row span:last-child {
+  color: var(--text-primary);
+}
+.dark .bw-review-badge {
+  color: var(--text-primary);
+}
+.dark .bw-btn--ghost {
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+.dark .bw-btn--ghost:hover {
+  border-color: var(--border-hover);
+}
+
+/* Booking wizard form inputs */
+.dark .bw-step label,
+.dark .bw-step .rb-label {
+  color: var(--text-secondary);
+}
+.dark .bw-step input,
+.dark .bw-step select,
+.dark .bw-step textarea {
+  background: var(--bg-elevated);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.dark .bw-step input::placeholder,
+.dark .bw-step textarea::placeholder {
+  color: var(--text-tertiary);
+}
+.dark .bw-step input:focus,
+.dark .bw-step select:focus,
+.dark .bw-step textarea:focus {
+  border-color: hsl(var(--gem-gold));
+}
+.dark .bw-stepper-btn {
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+.dark .bw-stepper-value {
+  color: var(--text-primary);
+}
+.dark .bw-guests-total {
+  color: var(--text-secondary);
+}
+
+/* Rental booking form card */
+.dark .rb-card {
+  background: var(--bg-tertiary);
+}
+.dark .rb-legend {
+  color: var(--text-primary);
+}
+.dark .rb-label {
+  color: hsl(var(--gem-gold));
+}
+.dark .rb-input,
+.dark .rb-select,
+.dark .rb-textarea,
+.dark .rb-date-btn {
+  background: var(--bg-elevated);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.dark .rb-input::placeholder,
+.dark .rb-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+.dark .rb-input:focus,
+.dark .rb-select:focus,
+.dark .rb-textarea:focus,
+.dark .rb-date-btn:focus {
+  border-color: hsl(var(--gem-gold));
+}
+.dark .rb-select {
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23C4BBA8' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+.dark .rb-addon-chip {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+.dark .rb-addon-chip--active {
+  background: hsl(var(--gem-navy));
+  color: #fff;
+}
+.dark .rb-estimate-inline {
+  color: var(--text-primary);
+}
+.dark .rb-success-title {
+  color: var(--text-primary);
+}
+.dark .rb-success-desc {
+  color: var(--text-secondary);
+}
+
+/* Rental summary panel */
+.dark .rb-summary__inner {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+}
+.dark .rb-summary__title {
+  color: var(--text-primary);
+}
+.dark .rb-summary__row {
+  color: var(--text-secondary);
+}
+.dark .rb-summary__row span:last-child {
+  color: var(--text-primary);
+}
+.dark .rb-summary__divider {
+  background: var(--border-color);
+}
+.dark .rb-summary__total-row > span:first-child {
+  color: var(--text-secondary);
+}
+
+/* Rentals preview cards (inline styles need CSS override) */
+.dark .rentals-preview__card {
+  background: var(--bg-tertiary) !important;
+}
+
+/* Book hero */
+.dark .book-hero__content {
+  color: var(--text-primary);
+}
+
+/* Admin panel */
+.dark .admin-main-content {
+  background: var(--bg-primary);
+}
+.dark .admin-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+}
+.dark .admin-table tr:hover {
+  background: rgba(184,150,90,0.06);
+}
+
+/* Popover/calendar in dark mode */
+.dark [data-radix-popper-content-wrapper] {
+  --popover: var(--bg-elevated);
+}
+
