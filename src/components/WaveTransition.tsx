@@ -91,6 +91,6 @@ export function WaveTransition() {
 
         <WaveSVG className="absolute top-full left-0 w-full h-[25vh] text-[#022c22]" />
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
