@@ -24,7 +24,7 @@ const Navbar = () => {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileLinksRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const navigate = useNavigate();
+  const { navigateTo } = useWave();
 
   const isRouteLink = (link: NavItem): link is { label: string; to: string; icon: React.ReactNode } => "to" in link;
 
