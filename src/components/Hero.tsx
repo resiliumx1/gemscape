@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Wave } from "./Wave";
@@ -16,24 +17,17 @@ const Hero = () => {
   const trustRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollIndRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (bgRef.current && heroRef.current) {
         gsap.to(bgRef.current, {
-          scale: 1.0,
-          y: -60,
-          ease: "none",
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-          },
+          scale: 1.0, y: -60, ease: "none",
+          scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: 1 },
         });
       }
 
-      // Page load sequence — exact timing
       gsap.fromTo(eyebrowRef.current, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 1.0, ease: "power3.out", delay: 0.4 });
       gsap.fromTo(line1Ref.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: 0.7 });
       gsap.fromTo(line2Ref.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: 0.95 });
@@ -60,22 +54,16 @@ const Hero = () => {
   return (
     <div style={{ position: "relative" }}>
       <section ref={heroRef} className="hero">
-        {/* Background image with parallax */}
         <div
           ref={bgRef}
           className="hero__bg"
           role="img"
           aria-label="Aerial view of Antigua's turquoise Caribbean coastline"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=2000&q=85')`,
-          }}
+          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=2000&q=85')` }}
         />
-
-        {/* Gradient overlays */}
         <div className="hero__gradient-bottom" />
         <div className="hero__gradient-top" />
 
-        {/* Content */}
         <div className="hero__content">
           <span ref={eyebrowRef} className="eyebrow" style={{ opacity: 0 }}>
             Antigua · Caribbean
@@ -92,36 +80,42 @@ const Hero = () => {
           </p>
 
           <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
-            <span style={{ color: '#C9943A', fontSize: '13px', letterSpacing: '2px' }}>★★★★★</span>
+            <span style={{ color: '#B8965A', fontSize: '13px', letterSpacing: '2px' }}>★★★★★</span>
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '13px', color: 'rgba(255,255,255,0.62)' }}>
               Rated 5 stars by over 200 travellers
             </span>
           </div>
 
           <div ref={ctaRef} className="hero__cta" style={{ opacity: 0 }}>
-            <a href="#experiences" className="hero__btn-primary shimmer-button">
+            <a
+              href="/book"
+              className="hero__btn-primary shimmer-button"
+              onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+            >
               <span className="hero__btn-shimmer" />
               Explore Experiences
             </a>
-            <a href="#contact" className="hero__btn-secondary">
+            <a
+              href="https://wa.me/12680000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero__btn-secondary"
+            >
               WhatsApp Us
             </a>
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div ref={scrollIndRef} className="hero__scroll" style={{ opacity: 0 }}>
           <span>scroll</span>
           <div className="hero__scroll-line" />
         </div>
 
-        {/* Vertical side text (desktop) */}
         <div className="hero__side-text">
           Antigua · Est. 2024 · Travel &amp; Tours
         </div>
       </section>
 
-      {/* Waves sit OUTSIDE hero overflow:hidden */}
       <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "120px", zIndex: 10 }}>
         <Wave color="#D6EAE9" height={120} speed={0.3} offset={0} />
         <Wave color="#F5EFE0" height={100} speed={0.5} offset={300} />

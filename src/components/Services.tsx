@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Wave } from "./Wave";
@@ -44,6 +45,7 @@ const Services = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const { format } = useCurrency();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -51,16 +53,7 @@ const Services = () => {
         gsap.fromTo(
           rightRef.current,
           { opacity: 0, x: 40 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 1.0,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 70%",
-            },
-          }
+          { opacity: 1, x: 0, duration: 1.0, ease: "power3.out", scrollTrigger: { trigger: sectionRef.current, start: "top 70%" } }
         );
       }
     }, sectionRef);
@@ -69,13 +62,12 @@ const Services = () => {
 
   return (
     <section ref={sectionRef} id="services" className="services">
-      {/* Left — Image panel */}
       <div className="services__images">
         {SERVICES.map((s, i) => (
-            <img
-              key={s.number}
-              src={s.image}
-              alt={s.alt}
+          <img
+            key={s.number}
+            src={s.image}
+            alt={s.alt}
             className={`services__img${i === active ? " active" : ""}`}
             loading="lazy"
             width={1400}
@@ -87,7 +79,6 @@ const Services = () => {
         </span>
       </div>
 
-      {/* Right — Navigation panel */}
       <div ref={rightRef} className="services__nav">
         <span className="eyebrow">Our Services</span>
 
@@ -122,7 +113,11 @@ const Services = () => {
               }}>
                 from {format(s.priceUsd)}{s.priceSuffix}
               </span>
-              <a href={`#${s.title.toLowerCase().replace(/\s+/g, "-")}`} className="services__explore">
+              <a
+                href="/book"
+                className="services__explore"
+                onClick={(e) => { e.preventDefault(); navigate("/book"); }}
+              >
                 Explore <span className="services__arrow">→</span>
               </a>
             </div>
@@ -130,7 +125,6 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Waves */}
       <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "100px", zIndex: 10 }}>
         <Wave color="#EFF8F6" height={100} speed={0.3} offset={100} />
         <Wave color="#FDFAF4" height={80} speed={0.5} offset={400} />
