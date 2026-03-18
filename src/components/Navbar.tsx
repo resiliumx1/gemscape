@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
-import { useWave } from "@/components/GemscapeWave";
 import { Sparkles, Diamond, Gem, Sun, Moon } from "lucide-react";
 
 type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
@@ -24,7 +23,7 @@ const Navbar = () => {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileLinksRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const { navigateTo } = useWave();
+  const navigate = useNavigate();
 
   const isRouteLink = (link: NavItem): link is { label: string; to: string; icon: React.ReactNode } => "to" in link;
 
@@ -70,11 +69,11 @@ const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     if (location.pathname !== "/") {
-      navigateTo("/", "dual");
+      navigate("/");
       setTimeout(() => {
         const id = href.replace("#", "");
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      }, 1200);
+      }, 500);
     } else {
       const id = href.replace("#", "");
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -93,7 +92,7 @@ const Navbar = () => {
           href="/"
           className="gem-nav__logo"
           aria-label="Gemscape home"
-          onClick={(e) => { e.preventDefault(); navigateTo("/", "dual"); }}
+          onClick={(e) => { e.preventDefault(); navigate("/"); }}
           style={{ paddingLeft: "40px" }}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
@@ -109,7 +108,7 @@ const Navbar = () => {
                 className={`group flex items-center gap-1.5 gem-nav__link${location.pathname === link.to ? " active" : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo(link.to, "dual");
+                  navigate(link.to);
                 }}
               >
                 {link.icon}
@@ -145,7 +144,7 @@ const Navbar = () => {
           <a
             href="/book"
             className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white"
-            onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+            onClick={(e) => { e.preventDefault(); navigate("/book"); }}
           >
             Book Now
           </a>
@@ -183,7 +182,7 @@ const Navbar = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileOpen(false);
-                  navigateTo(link.to, "dual");
+                  navigate(link.to);
                 }}
               >
                 {link.label}
@@ -206,7 +205,7 @@ const Navbar = () => {
           <a
             href="/book"
             className="gem-mobile-menu__book mobile-nav-link"
-            onClick={(e) => { e.preventDefault(); setMobileOpen(false); navigateTo("/book", "crash"); }}
+            onClick={(e) => { e.preventDefault(); setMobileOpen(false); navigate("/book"); }}
           >
             Book Now
           </a>

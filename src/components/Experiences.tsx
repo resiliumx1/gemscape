@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useWave } from "@/components/GemscapeWave";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -32,7 +32,7 @@ const CARDS = [
 const Experiences = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const { navigateTo } = useWave();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -89,7 +89,7 @@ const Experiences = () => {
               <a
                 href="/book"
                 className="exp-card__link"
-                onClick={(e) => { e.preventDefault(); navigateTo("/book", "tidal"); }}
+                onClick={(e) => { e.preventDefault(); navigate("/book"); }}
               >
                 Discover <span className="exp-card__arrow">→</span>
               </a>
