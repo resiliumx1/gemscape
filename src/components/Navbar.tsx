@@ -70,11 +70,11 @@ const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     if (location.pathname !== "/") {
-      navigate("/");
+      navigateTo("/", "dual");
       setTimeout(() => {
         const id = href.replace("#", "");
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      }, 500);
+      }, 1200);
     } else {
       const id = href.replace("#", "");
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
