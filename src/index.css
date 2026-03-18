@@ -85,8 +85,8 @@ html {
 body {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
-  background-color: hsl(var(--gem-cream));
-  color: hsl(var(--gem-navy));
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
   margin: 0;
 }
