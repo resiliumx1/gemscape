@@ -62,7 +62,7 @@ const Index = () => {
         <CtaBanner />
         <Footer />
         <WhatsAppFab />
-      </motion.div>
+      </div>
     </div>
   );
 };
