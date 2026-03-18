@@ -71,7 +71,7 @@ const AdminLoyalty = () => {
             <XAxis dataKey="name" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
             <YAxis tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
             <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, border: "1px solid hsl(var(--gem-sand))" }} />
-            <Bar dataKey="count" fill="#C9943A" name="Customers" />
+            <Bar dataKey="count" fill="#B8965A" name="Customers" />
           </BarChart>
         </ResponsiveContainer>
       </div>
