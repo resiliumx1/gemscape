@@ -94,7 +94,6 @@ const Navbar = () => {
           className="gem-nav__logo"
           aria-label="Gemscape home"
           onClick={(e) => { e.preventDefault(); navigateTo("/", "dual"); }}
-          style={{ paddingLeft: "0px", marginLeft: "-8px" }}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
         </a>
@@ -133,10 +132,9 @@ const Navbar = () => {
         </div>
 
         {/* Right side — desktop only toggles */}
-        <div className="gem-nav__right" style={{ paddingRight: "40px", gap: "16px" }}>
+        <div className="gem-nav__right">
           <div className="gem-nav__desktop-toggles">
             <CurrencyToggle />
-            <SkyToggle checked={isDark} onChange={toggleTheme} />
           </div>
           <a
             href="/book"
@@ -145,6 +143,9 @@ const Navbar = () => {
           >
             Book Now
           </a>
+          <div className="gem-nav__desktop-toggles">
+            <SkyToggle checked={isDark} onChange={toggleTheme} />
+          </div>
           <button
             className="gem-nav__hamburger"
             onClick={() => setMobileOpen(true)}

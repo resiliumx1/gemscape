@@ -5,6 +5,13 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { Tables } from "@/integrations/supabase/types";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
@@ -206,18 +213,21 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
             <legend className="rb-legend">Your Vehicle</legend>
             <div className="rb-field">
               <label className="rb-label">Vehicle</label>
-              <select
-                className={cn("rb-select", errors.vehicleId && "rb-input--error")}
+              <Select
                 value={vehicleId}
-                onChange={(e) => { setVehicleId(e.target.value); setErrors((p) => ({ ...p, vehicleId: "" })); }}
+                onValueChange={(val) => { setVehicleId(val); setErrors((p) => ({ ...p, vehicleId: "" })); }}
               >
-                <option value="">Select a vehicle</option>
-                {vehicles.map((v) => (
-                  <option key={v.id} value={v.id}>
-                    {v.name} — {v.category} — from {formatPrice(v.daily_rate)}/day
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger className={cn("rb-shadcn-select", errors.vehicleId && "rb-input--error")}>
+                  <SelectValue placeholder="Select a vehicle" />
+                </SelectTrigger>
+                <SelectContent>
+                  {vehicles.map((v) => (
+                    <SelectItem key={v.id} value={v.id}>
+                      {v.name} — {v.category} — from {formatPrice(v.daily_rate)}/day
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.vehicleId && <span className="rb-error">{errors.vehicleId}</span>}
             </div>
           </fieldset>
@@ -281,30 +291,36 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
             <div className="rb-row">
               <div className="rb-field">
                 <label className="rb-label">Pickup Location</label>
-                <select
-                  className={cn("rb-select", errors.pickupLocation && "rb-input--error")}
+                <Select
                   value={pickupLocation}
-                  onChange={(e) => { setPickupLocation(e.target.value); setErrors((p) => ({ ...p, pickupLocation: "" })); }}
+                  onValueChange={(val) => { setPickupLocation(val); setErrors((p) => ({ ...p, pickupLocation: "" })); }}
                 >
-                  <option value="">Select location</option>
-                  {PICKUP_LOCATIONS.map((l) => (
-                    <option key={l.value} value={l.value}>{l.label}</option>
-                  ))}
-                </select>
+                  <SelectTrigger className={cn("rb-shadcn-select", errors.pickupLocation && "rb-input--error")}>
+                    <SelectValue placeholder="Select location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PICKUP_LOCATIONS.map((l) => (
+                      <SelectItem key={l.value} value={l.value}>{l.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {errors.pickupLocation && <span className="rb-error">{errors.pickupLocation}</span>}
               </div>
               <div className="rb-field">
                 <label className="rb-label">Dropoff Location</label>
-                <select
-                  className={cn("rb-select", errors.dropoffLocation && "rb-input--error")}
+                <Select
                   value={dropoffLocation}
-                  onChange={(e) => { setDropoffLocation(e.target.value); setErrors((p) => ({ ...p, dropoffLocation: "" })); }}
+                  onValueChange={(val) => { setDropoffLocation(val); setErrors((p) => ({ ...p, dropoffLocation: "" })); }}
                 >
-                  <option value="">Select location</option>
-                  {PICKUP_LOCATIONS.map((l) => (
-                    <option key={l.value} value={l.value}>{l.label}</option>
-                  ))}
-                </select>
+                  <SelectTrigger className={cn("rb-shadcn-select", errors.dropoffLocation && "rb-input--error")}>
+                    <SelectValue placeholder="Select location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PICKUP_LOCATIONS.map((l) => (
+                      <SelectItem key={l.value} value={l.value}>{l.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {errors.dropoffLocation && <span className="rb-error">{errors.dropoffLocation}</span>}
               </div>
             </div>
@@ -379,16 +395,19 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
               </div>
               <div className="rb-field">
                 <label className="rb-label">Country of Residence</label>
-                <select
-                  className={cn("rb-select", errors.country && "rb-input--error")}
+                <Select
                   value={country}
-                  onChange={(e) => { setCountry(e.target.value); setErrors((p) => ({ ...p, country: "" })); }}
+                  onValueChange={(val) => { setCountry(val); setErrors((p) => ({ ...p, country: "" })); }}
                 >
-                  <option value="">Select country</option>
-                  {COUNTRIES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
+                  <SelectTrigger className={cn("rb-shadcn-select", errors.country && "rb-input--error")}>
+                    <SelectValue placeholder="Select country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COUNTRIES.map((c) => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {errors.country && <span className="rb-error">{errors.country}</span>}
               </div>
             </div>
@@ -406,16 +425,19 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
               </div>
               <div className="rb-field">
                 <label className="rb-label">License Issuing Country</label>
-                <select
-                  className={cn("rb-select", errors.licenseCountry && "rb-input--error")}
+                <Select
                   value={licenseCountry}
-                  onChange={(e) => { setLicenseCountry(e.target.value); setErrors((p) => ({ ...p, licenseCountry: "" })); }}
+                  onValueChange={(val) => { setLicenseCountry(val); setErrors((p) => ({ ...p, licenseCountry: "" })); }}
                 >
-                  <option value="">Select country</option>
-                  {COUNTRIES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
+                  <SelectTrigger className={cn("rb-shadcn-select", errors.licenseCountry && "rb-input--error")}>
+                    <SelectValue placeholder="Select country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COUNTRIES.map((c) => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {errors.licenseCountry && <span className="rb-error">{errors.licenseCountry}</span>}
               </div>
             </div>
@@ -476,6 +498,12 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: RentalBookingForm
               <span>Vehicle</span>
               <span>{selectedVehicle?.name || "—"}</span>
             </div>
+            {selectedVehicle && (
+              <div className="rb-summary__row">
+                <span>Daily Rate</span>
+                <span>{formatPrice(dailyRate)}/day</span>
+              </div>
+            )}
             <div className="rb-summary__row">
               <span>Duration</span>
               <span>{totalDays > 0 ? `${totalDays} day${totalDays > 1 ? "s" : ""}` : "—"}</span>
