@@ -101,6 +101,7 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="hero__btn-secondary"
+              style={{ background: 'rgba(37,211,102,0.15)', borderColor: '#25D366', color: '#25D366' }}
             >
               WhatsApp Us
             </a>
