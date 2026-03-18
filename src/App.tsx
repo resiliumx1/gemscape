@@ -119,14 +119,16 @@ const App = () => {
         <div id="gc-ring" aria-hidden="true" />
         <div id="page-transition" />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/rentals" element={<Rentals />} />
-            <Route path="/book" element={<Book />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <WaveTransitionProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/rentals" element={<Rentals />} />
+              <Route path="/book" element={<Book />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </WaveTransitionProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
