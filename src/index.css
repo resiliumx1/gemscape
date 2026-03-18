@@ -299,7 +299,44 @@ button, input, textarea, select, a {
 .gem-nav__right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
+}
+
+/* Desktop toggles container */
+.gem-nav__desktop-toggles {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 1023px) {
+  .gem-nav__desktop-toggles {
+    display: none;
+  }
+}
+
+/* Book Now button in navbar */
+.gem-nav__book-btn {
+  border: 1px solid hsl(var(--gem-gold));
+  background: rgba(184,150,90,0.12);
+  color: hsl(var(--gem-gold));
+  padding: 10px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 1023px) {
+  .gem-nav__book-btn {
+    padding: 8px 16px;
+    font-size: 10px;
+  }
 }
 
 /* Book Now button */
@@ -322,12 +359,6 @@ button, input, textarea, select, a {
 .gem-nav__book:hover {
   background: hsl(var(--gem-gold));
   color: hsl(var(--gem-navy));
-}
-
-@media (max-width: 1023px) {
-  .gem-nav__book {
-    display: none;
-  }
 }
 
 /* Hamburger */
