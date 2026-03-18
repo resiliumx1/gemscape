@@ -1244,7 +1244,7 @@ button, input, textarea, select, a {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   font-size: 62px;
-  color: hsl(var(--gem-navy));
+  color: var(--text-primary);
   line-height: 0.95;
   margin-top: 16px;
 }
