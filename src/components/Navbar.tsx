@@ -130,7 +130,7 @@ const Navbar = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileOpen(false);
-                  navigateTo(link.to, "dual");
+                  navigate(link.to);
                 }}
               >
                 {link.label}
