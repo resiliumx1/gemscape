@@ -3192,10 +3192,17 @@ button, input, textarea, select, a {
   color: hsl(var(--gem-navy));
 }
 
-.admin-metric-card {
+.admin-metric-card,
+.admin-card-elevated {
   background: white;
-  border: 1px solid hsl(var(--gem-sand));
+  border: 1px solid rgba(184,150,90,0.15);
   padding: 28px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+}
+
+.admin-card-elevated:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
 }
 
 .admin-metric-value {
