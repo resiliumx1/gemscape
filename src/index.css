@@ -991,7 +991,6 @@ button, input, textarea, select, a {
   position: relative;
   overflow: visible;
   background: #0B2A3B !important;
-}
   display: flex;
   align-items: center;
   justify-content: center;
