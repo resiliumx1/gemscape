@@ -43,6 +43,7 @@ const Index = () => {
   return (
     <div className="min-h-screen relative overflow-x-hidden flex flex-col">
       <WaveTransition />
+      <Navbar />
       <div
         className="relative z-10 flex flex-col min-h-screen"
         style={{
@@ -51,7 +52,6 @@ const Index = () => {
           animationDelay: '0.9s',
         }}
       >
-        <Navbar />
         <Hero />
         <Services />
         <Experiences />
