@@ -20,7 +20,7 @@ export function WaveTransition() {
     
     hasPlayedIntro = true;
 
-    const timer = setTimeout(() => setIsVisible(false), 5500);
+    const timer = setTimeout(() => setIsVisible(false), 4800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -34,7 +34,12 @@ export function WaveTransition() {
   const transitionEase = [0.45, 0, 0.55, 1] as [number, number, number, number];
 
   return (
-    <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden">
+    <motion.div
+      className="fixed inset-0 z-[100] pointer-events-none overflow-hidden"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      transition={{ duration: 0.4, delay: 4.3, ease: "easeOut" }}
+    >
       {/* Layer 1: Teal */}
       <motion.div
         className="absolute inset-0 w-full h-full bg-[#0d9488]"
@@ -86,6 +91,6 @@ export function WaveTransition() {
 
         <WaveSVG className="absolute top-full left-0 w-full h-[25vh] text-[#022c22]" />
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
