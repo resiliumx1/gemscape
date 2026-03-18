@@ -317,9 +317,9 @@ button, input, textarea, select, a {
 
 /* Book Now button in navbar */
 .gem-nav__book-btn {
-  border: 1px solid hsl(var(--gem-gold));
-  background: rgba(184,150,90,0.12);
-  color: hsl(var(--gem-gold));
+  border: 1.5px solid hsl(var(--gem-teal));
+  background: transparent;
+  color: hsl(var(--gem-teal));
   padding: 10px 22px;
   font-family: 'DM Sans', sans-serif;
   font-weight: 600;
@@ -330,6 +330,14 @@ button, input, textarea, select, a {
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
+  border-radius: 6px;
+  transition: all 0.35s ease;
+}
+.gem-nav__book-btn:hover {
+  background: hsla(var(--gem-teal) / 0.15);
+  box-shadow: 0 0 18px hsla(var(--gem-teal) / 0.35), inset 0 0 8px hsla(var(--gem-teal) / 0.15);
+  border-color: hsl(var(--gem-aqua));
+  color: hsl(var(--gem-aqua));
 }
 
 @media (max-width: 1023px) {
