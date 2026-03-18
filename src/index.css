@@ -3676,3 +3676,87 @@ button, input, textarea, select, a {
   --popover: var(--bg-elevated);
 }
 
+/* ========== COMPREHENSIVE DARK MODE ========== */
+
+/* Sections with cream/sand backgrounds */
+.dark .services,
+.dark .experiences,
+.dark .testimonials,
+.dark .why-gemscape,
+.dark .rentals-preview {
+  background: var(--bg-primary) !important;
+}
+
+/* All headings */
+.dark .services__h2,
+.dark .experiences__h2,
+.dark .testimonials__h2,
+.dark .why-gemscape__h2,
+.dark .rentals-preview h2 {
+  color: #EDE8DC !important;
+}
+
+/* All body/paragraph text */
+.dark .services p,
+.dark .experiences p,
+.dark .why-gemscape__body,
+.dark .pillar__title,
+.dark .pillar__desc {
+  color: #C4BBA8 !important;
+}
+
+/* Eyebrow labels */
+.dark .eyebrow {
+  color: #C4BBA8 !important;
+}
+.dark .eyebrow::before {
+  background: rgba(184,150,90,0.4) !important;
+}
+
+/* Experience cards */
+.dark .exp-card {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+.dark .exp-card__title {
+  color: #EDE8DC !important;
+}
+.dark .exp-card__desc,
+.dark .exp-card__link {
+  color: #C4BBA8 !important;
+}
+
+/* Testimonial cards */
+.dark .testi-card {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+.dark .testi-card__quote,
+.dark .testi-card__name {
+  color: #EDE8DC !important;
+}
+.dark .testi-card__role {
+  color: #C4BBA8 !important;
+}
+
+/* Services section cards */
+.dark .svc-card {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+.dark .svc-card__title {
+  color: #EDE8DC !important;
+}
+.dark .svc-card__desc {
+  color: #C4BBA8 !important;
+}
+
+/* Rentals preview */
+.dark .rentals-preview__title {
+  color: #EDE8DC !important;
+}
+.dark .rentals-preview__desc {
+  color: #C4BBA8 !important;
+}
+
+/* Footer stays navy — no change needed */

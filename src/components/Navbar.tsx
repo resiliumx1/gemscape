@@ -138,7 +138,8 @@ const Navbar = () => {
           }} />
           <a
             href="/book"
-            className="shimmer-button book-now-btn border border-white/30 px-6 py-2 text-xs font-semibold tracking-widest uppercase text-white"
+            className="shimmer-button book-now-btn border border-white/30 px-5 py-2 text-xs font-semibold tracking-widest uppercase text-white"
+            style={{ marginLeft: '8px', whiteSpace: 'nowrap', background: 'rgba(184,150,90,0.15)', borderColor: '#B8965A' }}
             onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
           >
             Book Now
