@@ -83,7 +83,7 @@ const Hero = () => {
           <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
             <span style={{ color: '#B8965A', fontSize: '13px', letterSpacing: '2px' }}>★★★★★</span>
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '13px', color: 'rgba(255,255,255,0.62)' }}>
-              Rated 5 stars by over 200 travellers
+              Rated 5 stars by over 500 travellers
             </span>
           </div>
 
