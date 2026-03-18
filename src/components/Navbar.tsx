@@ -38,17 +38,7 @@ const Navbar = () => {
     }
   }, []);
 
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    if (next) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('gem-theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('gem-theme', 'light');
-    }
-  };
+  // toggleTheme is now handled inline by SkyToggle
 
   // Scroll detection
   useEffect(() => {
