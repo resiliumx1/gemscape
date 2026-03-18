@@ -215,7 +215,7 @@ function buildRentalCustomerConfirmation(b: Record<string, any>): { subject: str
       </p>
 
       <div style="background-color:#ffffff;border:1px solid #EAD9BB;padding:28px;margin:0 0 32px;">
-        <h2 style="font-family:Georgia,serif;font-style:italic;font-size:20px;color:#C9943A;margin:0 0 16px;font-weight:400;">
+        <h2 style="font-family:Georgia,serif;font-style:italic;font-size:20px;color:#B8965A;margin:0 0 16px;font-weight:400;">
           Rental Summary
         </h2>
         <table role="presentation" style="width:100%;border-collapse:collapse;">
