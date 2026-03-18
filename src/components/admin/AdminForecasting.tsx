@@ -3,20 +3,37 @@ import { supabase } from "@/integrations/supabase/client";
 import { format, addDays, eachDayOfInterval, eachMonthOfInterval, startOfYear, startOfMonth } from "date-fns";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LineChart, Line } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { Diamond } from "lucide-react";
+
+const EmptyState = ({ title, sub }: { title: string; sub: string }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', textAlign: 'center' }}>
+    <Diamond size={40} style={{ color: 'rgba(184,150,90,0.4)', marginBottom: 20 }} />
+    <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 28, color: 'var(--text-primary)', margin: 0 }}>{title}</h3>
+    <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: 'var(--text-secondary)', marginTop: 10, maxWidth: 360 }}>{sub}</p>
+  </div>
+);
 
 const AdminForecasting = () => {
   const { format: fmt } = useCurrency();
   const [tours, setTours] = useState<any[]>([]);
   const [rentals, setRentals] = useState<any[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
 
   useEffect(() => {
     Promise.all([
-      supabase.from("bookings").select("*").then(r => setTours(r.data || [])),
-      supabase.from("rental_bookings").select("*").then(r => setRentals(r.data || [])),
-    ]);
+      supabase.from("bookings").select("*").then(r => r.data || []),
+      supabase.from("rental_bookings").select("*").then(r => r.data || []),
+    ]).then(([t, r]) => {
+      setTours(t);
+      setRentals(r);
+      setLoaded(true);
+    });
+
+    const timer = setTimeout(() => setTimedOut(true), 3000);
+    return () => clearTimeout(timer);
   }, []);
 
-  // Next 30 days pipeline
   const today = new Date();
   const next30 = eachDayOfInterval({ start: today, end: addDays(today, 30) });
 
@@ -29,14 +46,12 @@ const AdminForecasting = () => {
     return { name: format(day, "d"), confirmed, pending };
   }), [tours, rentals, next30]);
 
-  // Projected revenue
   const monthStart = format(startOfMonth(today), "yyyy-MM-dd");
   const confirmedRev = [...tours, ...rentals].filter(b => (b.tour_date || b.pickup_date) >= monthStart && b.status === "confirmed").reduce((s, b) => s + (Number(b.total_estimate) || 0), 0);
   const pendingRev = [...tours, ...rentals].filter(b => (b.tour_date || b.pickup_date) >= monthStart && b.status === "pending").reduce((s, b) => s + (Number(b.total_estimate) || 0), 0);
   const closeRate = 0.75;
   const projectedTotal = confirmedRev + Math.round(pendingRev * closeRate);
 
-  // Seasonal demand
   const seasonalData = useMemo(() => {
     const months = eachMonthOfInterval({ start: startOfYear(today), end: today });
     return months.map(m => {
@@ -46,12 +61,35 @@ const AdminForecasting = () => {
     });
   }, [tours, rentals]);
 
+  const hasData = tours.length > 0 || rentals.length > 0;
+
+  if (!loaded && !timedOut) {
+    return (
+      <div>
+        <h1 className="admin-page-title">Forecasting</h1>
+        <p className="admin-page-sub">Forward-looking business intelligence</p>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 0' }}>
+          <div className="animate-spin" style={{ width: 24, height: 24, border: '2px solid rgba(184,150,90,0.3)', borderTopColor: '#B8965A', borderRadius: '50%' }} />
+        </div>
+      </div>
+    );
+  }
+
+  if (!hasData) {
+    return (
+      <div>
+        <h1 className="admin-page-title">Forecasting</h1>
+        <p className="admin-page-sub">Forward-looking business intelligence</p>
+        <EmptyState title="No data yet" sub="Revenue forecasts and pipeline data will appear here after your first bookings are recorded." />
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1 className="admin-page-title">Forecasting</h1>
       <p className="admin-page-sub">Forward-looking business intelligence</p>
 
-      {/* Pipeline */}
       <div className="mt-8 p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
         <p className="admin-section-title mb-4">Next 30 Days Pipeline</p>
         <ResponsiveContainer width="100%" height={240}>
@@ -67,7 +105,6 @@ const AdminForecasting = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Projected Revenue */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-6">
         <div className="admin-metric-card">
           <p className="admin-metric-value" style={{ fontSize: 36 }}>{fmt(confirmedRev)}</p>
@@ -83,7 +120,6 @@ const AdminForecasting = () => {
         </div>
       </div>
 
-      {/* Seasonal Demand */}
       <div className="mt-6 p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
         <p className="admin-section-title mb-4">Seasonal Demand</p>
         <ResponsiveContainer width="100%" height={220}>

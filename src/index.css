@@ -990,7 +990,8 @@ button, input, textarea, select, a {
   min-height: 420px;
   position: relative;
   overflow: visible;
-  background: hsl(var(--gem-navy));
+  background: #0B2A3B !important;
+}
   display: flex;
   align-items: center;
   justify-content: center;

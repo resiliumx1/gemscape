@@ -16,6 +16,7 @@ const Manifesto = () => {
     const ctx = gsap.context(() => {
       if (!wordsRef.current) return;
       const words = wordsRef.current.querySelectorAll(".manifesto__word");
+
       gsap.fromTo(
         words,
         { opacity: 0.12, color: "rgba(255,255,255,0.12)" },
@@ -26,17 +27,27 @@ const Manifesto = () => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 60%",
-            end: "bottom 40%",
+            end: "bottom 30%",
             scrub: 1.5,
           },
         }
       );
+
+      // Fallback: after 3s ensure all words are visible
+      const fallbackTimer = setTimeout(() => {
+        words.forEach((w) => {
+          (w as HTMLElement).style.opacity = "1";
+          (w as HTMLElement).style.color = "white";
+        });
+      }, 3000);
+
+      return () => clearTimeout(fallbackTimer);
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="manifesto">
+    <section ref={sectionRef} className="manifesto" style={{ background: '#0B2A3B' }}>
       <div className="manifesto__watermark" aria-hidden="true">ANTIGUA</div>
       <div className="manifesto__content">
         <span className="manifesto__mark">{"\u201C"}</span>
