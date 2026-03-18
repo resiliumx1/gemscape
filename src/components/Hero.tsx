@@ -59,7 +59,7 @@ const Hero = () => {
           className="hero__bg"
           role="img"
           aria-label="Aerial view of Antigua's turquoise Caribbean coastline"
-          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=2000&q=85')` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div className="hero__gradient-bottom" />
         <div className="hero__gradient-top" />
