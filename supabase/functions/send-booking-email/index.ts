@@ -366,7 +366,7 @@ function buildReviewRequest(b: Record<string, any>, platforms: Record<string, { 
       <div style="margin:32px 0 0;padding:20px 0 0;border-top:1px solid #EAD9BB;">
         <p style="font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.7;margin:0 0 4px;">
           Not everything went as planned?
-          <a href="mailto:${OWNER_EMAIL}?subject=Feedback%3A%20${encodeURIComponent(ref)}" style="color:#C9943A;text-decoration:underline;">Please tell us.</a>
+          <a href="mailto:${OWNER_EMAIL}?subject=Feedback%3A%20${encodeURIComponent(ref)}" style="color:#B8965A;text-decoration:underline;">Please tell us.</a>
         </p>
         <p style="font-family:Arial,sans-serif;font-size:15px;color:#0B2A3B;font-weight:300;line-height:1.7;margin:0;">
           We're always working to make every experience exceptional.
