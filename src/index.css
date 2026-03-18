@@ -1571,7 +1571,7 @@ button, input, textarea, select, a {
 .whatsapp-fab:hover {
   transform: scale(1.08);
   background: #1ea952;
-  box-shadow: 0 4px 20px rgba(30,169,82,0.4);
+  box-shadow: none;
 }
 
 @media (max-width: 767px) {
