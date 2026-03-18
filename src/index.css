@@ -300,9 +300,9 @@ button, input, textarea, select, a {
     120deg,
     transparent 0%,
     transparent 35%,
-    rgba(201, 148, 58, 0.18) 42%,
-    rgba(201, 148, 58, 0.35) 50%,
-    rgba(201, 148, 58, 0.18) 58%,
+    rgba(184, 150, 90, 0.18) 42%,
+    rgba(184, 150, 90, 0.35) 50%,
+    rgba(184, 150, 90, 0.18) 58%,
     transparent 65%,
     transparent 100%
   );
