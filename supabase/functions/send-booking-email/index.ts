@@ -375,7 +375,7 @@ function buildReviewRequest(b: Record<string, any>, platforms: Record<string, { 
 
       <!-- Sign-off -->
       <div style="margin:32px 0 0;">
-        <p style="font-family:Georgia,serif;font-style:italic;font-size:18px;color:#C9943A;margin:0;line-height:1.4;">
+        <p style="font-family:Georgia,serif;font-style:italic;font-size:18px;color:#B8965A;margin:0;line-height:1.4;">
           With warmth,<br/>
           The Gemscape Team
         </p>
