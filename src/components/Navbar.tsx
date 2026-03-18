@@ -85,7 +85,7 @@ const Navbar = () => {
           className="gem-nav__logo"
           aria-label="Gemscape home"
           onClick={(e) => { e.preventDefault(); navigateTo("/", "dual"); }}
-          style={{ paddingLeft: "16px" }}
+          style={{ paddingLeft: "0px", marginLeft: "-8px" }}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
         </a>
@@ -124,7 +124,7 @@ const Navbar = () => {
         </div>
 
         {/* Right side */}
-        <div className="gem-nav__right" style={{ paddingRight: "40px" }}>
+        <div className="gem-nav__right" style={{ paddingRight: "40px", gap: "16px" }}>
           <CurrencyToggle />
           <SkyToggle checked={isDark} onChange={(checked) => {
             setIsDark(checked);

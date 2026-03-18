@@ -1,17 +1,23 @@
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { useLocation } from 'react-router-dom';
 
 const options = ['USD', 'XCD'] as const;
 
 export const CurrencyToggle = () => {
   const { currency, setCurrency } = useCurrency();
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
 
   return (
     <div
       style={{
         display: 'inline-flex',
-        border: '1px solid rgba(255,255,255,0.30)',
+        border: isAdmin
+          ? '1px solid rgba(184,150,90,0.35)'
+          : '1px solid rgba(255,255,255,0.30)',
         borderRadius: '4px',
         overflow: 'hidden',
+        marginLeft: '8px',
       }}
     >
       {options.map((opt) => (
@@ -28,8 +34,12 @@ export const CurrencyToggle = () => {
             border: 'none',
             cursor: 'pointer',
             transition: 'background 0.25s ease, color 0.25s ease',
-            background: currency === opt ? '#B8965A' : 'rgba(255,255,255,0.10)',
-            color: currency === opt ? '#0B2A3B' : 'rgba(255,255,255,0.85)',
+            background: currency === opt
+              ? (isAdmin ? 'hsl(37 38% 54%)' : '#B8965A')
+              : (isAdmin ? 'rgba(11,42,59,0.06)' : 'rgba(255,255,255,0.10)'),
+            color: currency === opt
+              ? (isAdmin ? '#fff' : '#0B2A3B')
+              : (isAdmin ? 'rgba(11,42,59,0.6)' : 'rgba(255,255,255,0.85)'),
           }}
           aria-pressed={currency === opt}
           aria-label={`Switch to ${opt === 'USD' ? 'US Dollars' : 'Eastern Caribbean Dollars'}`}
