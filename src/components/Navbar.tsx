@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
 import { Sparkles, Diamond, Gem } from "lucide-react";
-import { useWave } from "@/components/GemscapeWave";
+import { useWaveNav } from "@/components/PageTransitionWave";
 import SkyToggle from "@/components/ui/sky-toggle";
 
 type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
@@ -25,7 +25,7 @@ const Navbar = () => {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileLinksRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const { navigateTo } = useWave();
+  const { navigateTo } = useWaveNav();
 
   const isRouteLink = (link: NavItem): link is { label: string; to: string; icon: React.ReactNode } => "to" in link;
 
@@ -59,7 +59,7 @@ const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     if (location.pathname !== "/") {
-      navigateTo("/", "dual");
+      navigateTo("/");
       setTimeout(() => {
         const id = href.replace("#", "");
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -93,7 +93,7 @@ const Navbar = () => {
           href="/"
           className="gem-nav__logo"
           aria-label="Gemscape home"
-          onClick={(e) => { e.preventDefault(); navigateTo("/", "dual"); }}
+          onClick={(e) => { e.preventDefault(); navigateTo("/"); }}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
         </a>
@@ -108,7 +108,7 @@ const Navbar = () => {
                 className={`group flex items-center gap-1.5 gem-nav__link${location.pathname === link.to ? " active" : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo(link.to, "dual");
+                  navigateTo(link.to);
                 }}
               >
                 {link.icon}
@@ -139,7 +139,7 @@ const Navbar = () => {
           <a
             href="/book"
             className="gem-nav__book-btn"
-            onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+            onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
           >
             Book Now
           </a>
@@ -180,7 +180,7 @@ const Navbar = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileOpen(false);
-                  navigateTo(link.to, "dual");
+                  navigateTo(link.to);
                 }}
               >
                 {link.label}
@@ -203,7 +203,7 @@ const Navbar = () => {
           <a
             href="/book"
             className="gem-mobile-menu__book mobile-nav-link"
-            onClick={(e) => { e.preventDefault(); setMobileOpen(false); navigateTo("/book", "crash"); }}
+            onClick={(e) => { e.preventDefault(); setMobileOpen(false); navigateTo("/book"); }}
           >
             Book Now
           </a>

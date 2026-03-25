@@ -17,7 +17,7 @@ import AdminLogin from "./pages/AdminLogin.tsx";
 import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
-import { WaveTransitionProvider } from "@/components/GemscapeWave";
+import { PageTransitionProvider } from "@/components/PageTransitionWave";
 import IntroSplash from "@/components/IntroSplash";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -68,7 +68,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <WaveTransitionProvider>
+          <PageTransitionProvider>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/rentals" element={<Rentals />} />
@@ -78,7 +78,7 @@ const App = () => {
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </WaveTransitionProvider>
+          </PageTransitionProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

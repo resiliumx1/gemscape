@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useWaveNav } from "@/components/PageTransitionWave";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -38,6 +38,7 @@ const STATS = [
 
 const RentalsPreview = () => {
   const { format: formatPrice } = useCurrency();
+  const { navigateTo } = useWaveNav();
   const sectionRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -120,12 +121,12 @@ const RentalsPreview = () => {
           </div>
 
           <div className="rentals-preview__ctas">
-            <Link to="/rentals" className="rentals-preview__btn rentals-preview__btn--primary">
+            <a href="/rentals" className="rentals-preview__btn rentals-preview__btn--primary" onClick={(e) => { e.preventDefault(); navigateTo("/rentals"); }}>
               Browse the Fleet
-            </Link>
-            <Link to="/rentals#book" className="rentals-preview__btn rentals-preview__btn--ghost">
+            </a>
+            <a href="/rentals" className="rentals-preview__btn rentals-preview__btn--ghost" onClick={(e) => { e.preventDefault(); navigateTo("/rentals"); }}>
               Book a Rental
-            </Link>
+            </a>
           </div>
         </div>
 

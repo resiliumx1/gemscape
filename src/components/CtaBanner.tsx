@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useWave } from "@/components/GemscapeWave";
+import { useWaveNav } from "@/components/PageTransitionWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,7 +9,7 @@ const CtaBanner = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { navigateTo } = useWave();
+  const { navigateTo } = useWaveNav();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -53,7 +53,7 @@ const CtaBanner = () => {
           <a
             href="/book"
             className="cta-banner__btn-primary shimmer-button"
-            onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+            onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
           >
             <span className="cta-banner__btn-shimmer" />
             Start Planning
