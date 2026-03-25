@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
@@ -18,12 +18,21 @@ import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
 import { WaveTransitionProvider } from "@/components/GemscapeWave";
+import IntroSplash from "@/components/IntroSplash";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [showIntro, setShowIntro] = useState(
+    () => sessionStorage.getItem("introPlayed") !== "true"
+  );
+
+  const handleIntroComplete = useCallback(() => {
+    setShowIntro(false);
+  }, []);
+
   useEffect(() => {
     // Lenis smooth scroll
     const lenis = new Lenis({
@@ -55,6 +64,7 @@ const App = () => {
     <CurrencyProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        {showIntro && <IntroSplash onComplete={handleIntroComplete} />}
         <Toaster />
         <Sonner />
         <BrowserRouter>

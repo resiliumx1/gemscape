@@ -4,7 +4,7 @@ import { Diamond } from 'lucide-react';
 
 // Resets to false ONLY on hard-refresh or first visit.
 // Internal navigation won't reset it.
-export let hasPlayedIntro = false;
+export let hasPlayedIntro = true; // Now handled by IntroSplash
 
 const WaveSVG = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 1440 320" preserveAspectRatio="none">
