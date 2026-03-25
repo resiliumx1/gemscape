@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Wave } from "./Wave";
+import WaveDivider from "./WaveDivider";
 import heroImage from "@/assets/hero-antigua-sunset.png";
 
 gsap.registerPlugin(ScrollTrigger);
