@@ -18,7 +18,7 @@ import gsap from "gsap";
 gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
-  const contentDelay = hasPlayedIntro ? 0 : 3.2;
+  const contentDelay = 0; // Intro handled by IntroSplash
 
   useEffect(() => {
     const images = document.querySelectorAll("img");
