@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useWaveNav } from "@/components/PageTransitionWave";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
