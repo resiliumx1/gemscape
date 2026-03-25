@@ -59,7 +59,7 @@ const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     if (location.pathname !== "/") {
-      navigateTo("/", "dual");
+      navigateTo("/");
       setTimeout(() => {
         const id = href.replace("#", "");
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
