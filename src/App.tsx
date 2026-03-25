@@ -68,7 +68,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <WaveTransitionProvider>
+          <PageTransitionProvider>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/rentals" element={<Rentals />} />
