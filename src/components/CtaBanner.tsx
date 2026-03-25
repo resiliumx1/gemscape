@@ -9,7 +9,7 @@ const CtaBanner = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { navigateTo } = useWave();
+  const { navigateTo } = useWaveNav();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
