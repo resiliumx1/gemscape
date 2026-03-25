@@ -17,7 +17,7 @@ import AdminLogin from "./pages/AdminLogin.tsx";
 import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
-import { PageTransitionProvider } from "@/components/PageTransitionWave";
+import { PageTransitionProvider, PageWrapper } from "@/components/PageTransitionWave";
 import IntroSplash from "@/components/IntroSplash";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -70,10 +70,10 @@ const App = () => {
         <BrowserRouter>
           <PageTransitionProvider>
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/rentals" element={<Rentals />} />
-              <Route path="/book" element={<Book />} />
-              <Route path="/concierge" element={<Concierge />} />
+              <Route path="/" element={<PageWrapper><Index /></PageWrapper>} />
+              <Route path="/rentals" element={<PageWrapper><Rentals /></PageWrapper>} />
+              <Route path="/book" element={<PageWrapper><Book /></PageWrapper>} />
+              <Route path="/concierge" element={<PageWrapper><Concierge /></PageWrapper>} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />

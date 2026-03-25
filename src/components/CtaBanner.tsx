@@ -50,14 +50,13 @@ const CtaBanner = () => {
           Tell us what you're dreaming of. We'll make it happen.
         </p>
         <div className="cta-banner__buttons">
-          <a
-            href="/book"
+          <button
             className="cta-banner__btn-primary shimmer-button"
-            onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
+            onClick={() => navigateTo("/book")}
           >
             <span className="cta-banner__btn-shimmer" />
             Start Planning
-          </a>
+          </button>
           <a
             href="https://wa.me/12680000000"
             target="_blank"
