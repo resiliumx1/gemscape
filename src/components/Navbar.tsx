@@ -93,7 +93,7 @@ const Navbar = () => {
           href="/"
           className="gem-nav__logo"
           aria-label="Gemscape home"
-          onClick={(e) => { e.preventDefault(); navigateTo("/", "dual"); }}
+          onClick={(e) => { e.preventDefault(); navigateTo("/"); }}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
         </a>
