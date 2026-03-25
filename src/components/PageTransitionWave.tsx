@@ -57,7 +57,6 @@ const PALETTES: Record<string, PaletteEntry[]> = {
 };
 
 function getPalette(path: string): PaletteEntry[] {
-  // Strip hash/query, try exact then fallback
   const clean = path.split("?")[0].split("#")[0];
   return PALETTES[clean] || PALETTES["/"];
 }
@@ -73,13 +72,7 @@ const LAYER_CONFIG = [
 
 const FREQ = 0.004;
 
-function waveY(
-  x: number,
-  t: number,
-  amp: number,
-  speed: number,
-  offset: number
-): number {
+function waveY(x: number, t: number, amp: number, speed: number, offset: number): number {
   return (
     Math.sin(x * FREQ + t * speed + offset) * amp +
     Math.sin(x * FREQ * 1.65 - t * speed * 0.68 + offset * 1.3) * amp * 0.38 +
@@ -90,209 +83,54 @@ function waveY(
 // ─── Foam ─────────────────────────────────────────────────────────────────────
 const FOAM_COUNT = 30;
 const foamXs = Array.from({ length: FOAM_COUNT }, () => Math.random());
-const foamRadii = Array.from(
-  { length: FOAM_COUNT },
-  () => 1 + Math.random() * 2
-);
-const foamPhases = Array.from(
-  { length: FOAM_COUNT },
-  () => Math.random() * Math.PI * 2
-);
+const foamRadii = Array.from({ length: FOAM_COUNT }, () => 1 + Math.random() * 2);
+const foamPhases = Array.from({ length: FOAM_COUNT }, () => Math.random() * Math.PI * 2);
+
+// ─── Transition state ─────────────────────────────────────────────────────────
+type TransitionState = "idle" | "covering" | "holding" | "revealing";
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 interface WaveNavContextValue {
   navigateTo: (path: string) => void;
+  transitionState: TransitionState;
 }
 
 const WaveNavContext = createContext<WaveNavContextValue>({
   navigateTo: () => {},
+  transitionState: "idle",
 });
 
 export const useWaveNav = () => useContext(WaveNavContext);
 
 // ─── Easing ───────────────────────────────────────────────────────────────────
-function cubicBezier(
-  p1x: number,
-  p1y: number,
-  p2x: number,
-  p2y: number,
-  t: number
-): number {
-  // Simple approximation via binary search
-  let lo = 0,
-    hi = 1;
-  for (let i = 0; i < 12; i++) {
+function easeInOut(t: number): number {
+  // cubic-bezier(0.76, 0, 0.24, 1) approximation
+  const clamped = Math.max(0, Math.min(1, t));
+  let lo = 0, hi = 1;
+  for (let i = 0; i < 14; i++) {
     const mid = (lo + hi) / 2;
-    const bx =
-      3 * p1x * mid * (1 - mid) ** 2 +
-      3 * p2x * mid ** 2 * (1 - mid) +
-      mid ** 3;
-    if (bx < t) lo = mid;
-    else hi = mid;
+    const bx = 3 * 0.76 * mid * (1 - mid) ** 2 + 3 * 0.24 * mid ** 2 * (1 - mid) + mid ** 3;
+    if (bx < clamped) lo = mid; else hi = mid;
   }
   const mt = (lo + hi) / 2;
-  return (
-    3 * p1y * mt * (1 - mt) ** 2 +
-    3 * p2y * mt ** 2 * (1 - mt) +
-    mt ** 3
-  );
+  return 3 * 0 * mt * (1 - mt) ** 2 + 3 * 1 * mt ** 2 * (1 - mt) + mt ** 3;
 }
 
-function easeInOut(t: number): number {
-  return cubicBezier(0.76, 0, 0.24, 1, t);
-}
-
-// ─── Provider ─────────────────────────────────────────────────────────────────
-export function PageTransitionProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef = useRef<number>(0);
-  const [transitioning, setTransitioning] = useState(false);
-  const transRef = useRef<{
-    path: string;
-    palette: PaletteEntry[];
-    startTime: number;
-    phase: 1 | 2 | 3;
-    routeFired: boolean;
-  } | null>(null);
-
-  // Handle popstate (back/forward)
-  useEffect(() => {
-    const handlePop = () => {
-      // location already updated by react-router, trigger reveal wave
-      const palette = getPalette(window.location.pathname);
-      startTransition(window.location.pathname, palette, true);
-    };
-    window.addEventListener("popstate", handlePop);
-    return () => window.removeEventListener("popstate", handlePop);
-  }, []);
-
-  const startTransition = useCallback(
-    (path: string, palette: PaletteEntry[], isPopState = false) => {
-      if (transitioning) return;
-      setTransitioning(true);
-
-      transRef.current = {
-        path,
-        palette,
-        startTime: performance.now(),
-        phase: 1,
-        routeFired: isPopState, // popstate already changed the route
-      };
-
-      const cvs = canvasRef.current;
-      if (!cvs) return;
-      const ctx = cvs.getContext("2d")!;
-      const dpr = window.devicePixelRatio || 1;
-      const W = window.innerWidth;
-      const H = window.innerHeight;
-      cvs.width = W * dpr;
-      cvs.height = H * dpr;
-      cvs.style.width = `${W}px`;
-      cvs.style.height = `${H}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      let t = 0;
-
-      function tick() {
-        const tr = transRef.current;
-        if (!tr) return;
-
-        const elapsed = performance.now() - tr.startTime;
-        t += 0.016;
-
-        // Phase timing
-        if (elapsed < 650) {
-          // Phase 1: Cover — wave rises from bottom
-          tr.phase = 1;
-          const progress = easeInOut(elapsed / 650);
-          const offsetY = H * (1 - progress); // H → 0
-          paintWave(ctx, W, H, tr.palette, t, offsetY);
-        } else if (elapsed < 850) {
-          // Phase 2: Hold — fully covered, fire route
-          tr.phase = 2;
-          if (!tr.routeFired) {
-            tr.routeFired = true;
-            navigate(tr.path);
-          }
-          paintWave(ctx, W, H, tr.palette, t, 0);
-          // No RAF during hold, just schedule the next check
-        } else if (elapsed < 1500) {
-          // Phase 3: Reveal — wave lifts off upward
-          tr.phase = 3;
-          const revealProgress = easeInOut((elapsed - 850) / 650);
-          const offsetY = -H * revealProgress; // 0 → -H
-          paintWave(ctx, W, H, tr.palette, t, offsetY);
-        } else {
-          // Done
-          ctx.clearRect(0, 0, W, H);
-          transRef.current = null;
-          setTransitioning(false);
-          return;
-        }
-
-        rafRef.current = requestAnimationFrame(tick);
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    },
-    [transitioning, navigate]
-  );
-
-  const navigateTo = useCallback(
-    (path: string) => {
-      if (path === location.pathname) return;
-      const palette = getPalette(path);
-      startTransition(path, palette);
-    },
-    [location.pathname, startTransition]
-  );
-
-  // Cleanup
-  useEffect(() => {
-    return () => cancelAnimationFrame(rafRef.current);
-  }, []);
-
-  return (
-    <WaveNavContext.Provider value={{ navigateTo }}>
-      {children}
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: "fixed",
-          inset: 0,
-          width: "100vw",
-          height: "100vh",
-          zIndex: 9000,
-          pointerEvents: "none",
-          display: transitioning ? "block" : "none",
-        }}
-      />
-    </WaveNavContext.Provider>
-  );
-}
+const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 // ─── Paint function ───────────────────────────────────────────────────────────
 function paintWave(
   ctx: CanvasRenderingContext2D,
-  W: number,
-  H: number,
+  W: number, H: number,
   palette: PaletteEntry[],
   t: number,
   offsetY: number
 ) {
   ctx.clearRect(0, 0, W, H);
 
-  // 5 layers
   for (let li = 0; li < 5; li++) {
     const cfg = LAYER_CONFIG[li];
     const color = palette[li];
-    // Each layer's base y distributes across 50%-88% of H
     const baseY = H * (0.5 + li * 0.095) + offsetY;
 
     ctx.save();
@@ -317,11 +155,8 @@ function paintWave(
   const foamBaseY = H * (0.5 + 2 * 0.095) + offsetY;
   for (let fi = 0; fi < FOAM_COUNT; fi++) {
     const fx = foamXs[fi] * W;
-    const fy =
-      foamBaseY +
-      waveY(fx, t, foamCfg.amp, foamCfg.speed, foamCfg.offset);
-    const pulse =
-      0.12 + 0.16 * (0.5 + 0.5 * Math.sin(t * 3.5 + foamPhases[fi]));
+    const fy = foamBaseY + waveY(fx, t, foamCfg.amp, foamCfg.speed, foamCfg.offset);
+    const pulse = 0.12 + 0.16 * (0.5 + 0.5 * Math.sin(t * 3.5 + foamPhases[fi]));
     ctx.save();
     ctx.globalAlpha = pulse;
     ctx.fillStyle = "#ffffff";
@@ -330,4 +165,193 @@ function paintWave(
     ctx.fill();
     ctx.restore();
   }
+}
+
+// ─── Provider ─────────────────────────────────────────────────────────────────
+export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rafRef = useRef<number>(0);
+  const [transitionState, setTransitionState] = useState<TransitionState>("idle");
+  const busyRef = useRef(false);
+  const navigateRef = useRef(navigate);
+  navigateRef.current = navigate;
+
+  // Canvas sizing
+  const sizeCanvas = useCallback(() => {
+    const cvs = canvasRef.current;
+    if (!cvs) return;
+    const dpr = window.devicePixelRatio || 1;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    cvs.width = W * dpr;
+    cvs.height = H * dpr;
+    cvs.style.width = `${W}px`;
+    cvs.style.height = `${H}px`;
+    const ctx = cvs.getContext("2d");
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }, []);
+
+  useEffect(() => {
+    sizeCanvas();
+    window.addEventListener("resize", sizeCanvas);
+    return () => window.removeEventListener("resize", sizeCanvas);
+  }, [sizeCanvas]);
+
+  // Cleanup RAF on unmount
+  useEffect(() => {
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const runCoverAnimation = useCallback((palette: PaletteEntry[]): Promise<void> => {
+    return new Promise((resolve) => {
+      const cvs = canvasRef.current;
+      if (!cvs) { resolve(); return; }
+      const ctx = cvs.getContext("2d")!;
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+      const startTime = performance.now();
+      const DURATION = 650;
+
+      function loop(now: number) {
+        const elapsed = now - startTime;
+        const t = (now - startTime) / 1000; // live time for sine
+        const progress = easeInOut(Math.min(elapsed / DURATION, 1));
+        const offsetY = H * (1 - progress); // H → 0
+
+        paintWave(ctx, W, H, palette, t, offsetY);
+
+        if (elapsed < DURATION) {
+          rafRef.current = requestAnimationFrame(loop);
+        } else {
+          cancelAnimationFrame(rafRef.current);
+          resolve();
+        }
+      }
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(loop);
+    });
+  }, []);
+
+  const runRevealAnimation = useCallback((palette: PaletteEntry[]): Promise<void> => {
+    return new Promise((resolve) => {
+      const cvs = canvasRef.current;
+      if (!cvs) { resolve(); return; }
+      const ctx = cvs.getContext("2d")!;
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+      const startTime = performance.now();
+      const DURATION = 700;
+
+      function loop(now: number) {
+        const elapsed = now - startTime;
+        const t = (now - startTime) / 1000;
+        const progress = easeInOut(Math.min(elapsed / DURATION, 1));
+        const offsetY = -H * progress; // 0 → -H
+
+        paintWave(ctx, W, H, palette, t, offsetY);
+
+        if (elapsed < DURATION) {
+          rafRef.current = requestAnimationFrame(loop);
+        } else {
+          cancelAnimationFrame(rafRef.current);
+          ctx.clearRect(0, 0, W, H);
+          resolve();
+        }
+      }
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(loop);
+    });
+  }, []);
+
+  const handleNav = useCallback(async (destination: string) => {
+    if (busyRef.current) return;
+    busyRef.current = true;
+
+    const palette = getPalette(destination);
+    sizeCanvas();
+
+    // 1. Cover
+    setTransitionState("covering");
+    await runCoverAnimation(palette);
+
+    // 2. Hold — paint a static fully-covered frame while route mounts
+    setTransitionState("holding");
+    const cvs = canvasRef.current;
+    if (cvs) {
+      const ctx = cvs.getContext("2d")!;
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+      paintWave(ctx, W, H, palette, performance.now() / 1000, 0);
+    }
+
+    // 3. Navigate — new page mounts behind wave
+    navigateRef.current(destination);
+    await wait(80);
+
+    // 4. Reveal
+    setTransitionState("revealing");
+    await runRevealAnimation(palette);
+
+    // 5. Done
+    setTransitionState("idle");
+    busyRef.current = false;
+  }, [sizeCanvas, runCoverAnimation, runRevealAnimation]);
+
+  const navigateTo = useCallback((path: string) => {
+    if (path === location.pathname) return;
+    handleNav(path);
+  }, [location.pathname, handleNav]);
+
+  // Handle popstate (back/forward)
+  useEffect(() => {
+    const handlePop = () => {
+      const palette = getPalette(window.location.pathname);
+      sizeCanvas();
+      setTransitionState("revealing");
+      runRevealAnimation(palette).then(() => {
+        setTransitionState("idle");
+        busyRef.current = false;
+      });
+    };
+    window.addEventListener("popstate", handlePop);
+    return () => window.removeEventListener("popstate", handlePop);
+  }, [sizeCanvas, runRevealAnimation]);
+
+  return (
+    <WaveNavContext.Provider value={{ navigateTo, transitionState }}>
+      {children}
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 9000,
+          pointerEvents: "none",
+          display: transitionState !== "idle" ? "block" : "none",
+        }}
+      />
+    </WaveNavContext.Provider>
+  );
+}
+
+// ─── PageWrapper ──────────────────────────────────────────────────────────────
+export function PageWrapper({ children }: { children: React.ReactNode }) {
+  const { transitionState } = useWaveNav();
+  const visible = transitionState === "revealing" || transitionState === "idle";
+
+  return (
+    <div
+      style={{
+        opacity: visible ? 1 : 0,
+        transition: "opacity 0.4s ease",
+        minHeight: "100vh",
+      }}
+    >
+      {children}
+    </div>
+  );
 }

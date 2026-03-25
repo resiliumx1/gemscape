@@ -63,7 +63,7 @@ const Navbar = () => {
       setTimeout(() => {
         const id = href.replace("#", "");
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      }, 1200);
+      }, 1600);
     } else {
       const id = href.replace("#", "");
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -89,44 +89,35 @@ const Navbar = () => {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <a
-          href="/"
+        <button
           className="gem-nav__logo"
           aria-label="Gemscape home"
-          onClick={(e) => { e.preventDefault(); navigateTo("/"); }}
+          onClick={() => navigateTo("/")}
         >
           <span className="gem-nav__logo-text">GEMSCAPE</span>
-        </a>
+        </button>
 
         {/* Desktop links */}
         <div className="gem-nav__links">
           {NAV_LINKS.map((link) =>
             isRouteLink(link) ? (
-              <a
+              <button
                 key={link.label}
-                href={link.to}
                 className={`group flex items-center gap-1.5 gem-nav__link${location.pathname === link.to ? " active" : ""}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(link.to);
-                }}
+                onClick={() => navigateTo(link.to)}
               >
                 {link.icon}
                 <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
-              </a>
+              </button>
             ) : (
-              <a
+              <button
                 key={link.label}
-                href={link.href}
                 className="group flex items-center gap-1.5 gem-nav__link"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link.href);
-                }}
+                onClick={() => handleNavClick(link.href)}
               >
                 {link.icon}
                 <span className="nav-link text-xs font-semibold tracking-widest uppercase">{link.label}</span>
-              </a>
+              </button>
             )
           )}
         </div>
@@ -136,13 +127,12 @@ const Navbar = () => {
           <div className="gem-nav__desktop-toggles">
             <CurrencyToggle />
           </div>
-          <a
-            href="/book"
+          <button
             className="gem-nav__book-btn"
-            onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
+            onClick={() => navigateTo("/book")}
           >
             Book Now
-          </a>
+          </button>
           <div className="gem-nav__desktop-toggles">
             <SkyToggle checked={isDark} onChange={toggleTheme} />
           </div>
@@ -173,40 +163,35 @@ const Navbar = () => {
         <div ref={mobileLinksRef} className="gem-mobile-menu__links">
           {NAV_LINKS.map((link) =>
             isRouteLink(link) ? (
-              <a
+              <button
                 key={link.label}
-                href={link.to}
                 className="mobile-nav-link"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   setMobileOpen(false);
                   navigateTo(link.to);
                 }}
               >
                 {link.label}
-              </a>
+              </button>
             ) : (
-              <a
+              <button
                 key={link.label}
-                href={link.href}
                 className="mobile-nav-link"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   setMobileOpen(false);
                   handleNavClick(link.href);
                 }}
               >
                 {link.label}
-              </a>
+              </button>
             )
           )}
-          <a
-            href="/book"
+          <button
             className="gem-mobile-menu__book mobile-nav-link"
-            onClick={(e) => { e.preventDefault(); setMobileOpen(false); navigateTo("/book"); }}
+            onClick={() => { setMobileOpen(false); navigateTo("/book"); }}
           >
             Book Now
-          </a>
+          </button>
           <div className="gem-mobile-menu__controls">
             <CurrencyToggle />
             <SkyToggle checked={isDark} onChange={toggleTheme} />

@@ -50,14 +50,8 @@ const RentalsPreview = () => {
           leftRef.current,
           { opacity: 0, x: -40 },
           {
-            opacity: 1,
-            x: 0,
-            duration: 1.0,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: leftRef.current,
-              start: "top 72%",
-            },
+            opacity: 1, x: 0, duration: 1.0, ease: "power3.out",
+            scrollTrigger: { trigger: leftRef.current, start: "top 72%" },
           }
         );
       }
@@ -68,15 +62,8 @@ const RentalsPreview = () => {
           el,
           { opacity: 0, y: 40 },
           {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            delay: i * 0.15,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 72%",
-            },
+            opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: i * 0.15,
+            scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
           }
         );
       });
@@ -88,23 +75,14 @@ const RentalsPreview = () => {
     <section
       ref={sectionRef}
       id="rentals-preview"
-      style={{
-        background: "hsl(var(--gem-navy))",
-        padding: "140px 80px",
-      }}
+      style={{ background: "hsl(var(--gem-navy))", padding: "140px 80px" }}
       className="rentals-preview"
     >
       <div className="rentals-preview__grid">
         {/* Left column */}
         <div ref={leftRef} className="rentals-preview__left">
           <span className="eyebrow eyebrow--aqua">Private Rentals</span>
-
-          <h2 className="rentals-preview__h2">
-            Your Island.
-            <br />
-            Your Wheels.
-          </h2>
-
+          <h2 className="rentals-preview__h2">Your Island.<br />Your Wheels.</h2>
           <p className="rentals-preview__body">
             From luxury SUVs built for Antigua's rugged interior to open-air Jeeps made for
             chasing the coast — our fleet is hand-curated for the kind of freedom that no
@@ -121,12 +99,12 @@ const RentalsPreview = () => {
           </div>
 
           <div className="rentals-preview__ctas">
-            <a href="/rentals" className="rentals-preview__btn rentals-preview__btn--primary" onClick={(e) => { e.preventDefault(); navigateTo("/rentals"); }}>
+            <button className="rentals-preview__btn rentals-preview__btn--primary" onClick={() => navigateTo("/rentals")}>
               Browse the Fleet
-            </a>
-            <a href="/rentals" className="rentals-preview__btn rentals-preview__btn--ghost" onClick={(e) => { e.preventDefault(); navigateTo("/rentals"); }}>
+            </button>
+            <button className="rentals-preview__btn rentals-preview__btn--ghost" onClick={() => navigateTo("/rentals")}>
               Book a Rental
-            </a>
+            </button>
           </div>
         </div>
 
