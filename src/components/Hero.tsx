@@ -117,10 +117,7 @@ const Hero = () => {
         </div>
       </section>
 
-      <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "120px", zIndex: 10 }}>
-        <Wave color="#D6EAE9" height={120} speed={0.3} offset={0} />
-        <Wave color="#F5EFE0" height={100} speed={0.5} offset={300} />
-      </div>
+      <WaveDivider variant="sand" height={160} />
     </div>
   );
 };
