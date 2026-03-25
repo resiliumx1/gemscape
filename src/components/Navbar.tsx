@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
 import { Sparkles, Diamond, Gem } from "lucide-react";
-import { useWave } from "@/components/GemscapeWave";
+import { useWaveNav } from "@/components/PageTransitionWave";
 import SkyToggle from "@/components/ui/sky-toggle";
 
 type NavItem = { label: string; href: string; icon: React.ReactNode } | { label: string; to: string; icon: React.ReactNode };
