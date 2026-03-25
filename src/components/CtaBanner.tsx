@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useWave } from "@/components/GemscapeWave";
+import { useWaveNav } from "@/components/PageTransitionWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
