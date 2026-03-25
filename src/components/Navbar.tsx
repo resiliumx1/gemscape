@@ -108,7 +108,7 @@ const Navbar = () => {
                 className={`group flex items-center gap-1.5 gem-nav__link${location.pathname === link.to ? " active" : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo(link.to, "dual");
+                  navigateTo(link.to);
                 }}
               >
                 {link.icon}
@@ -180,7 +180,7 @@ const Navbar = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileOpen(false);
-                  navigateTo(link.to, "dual");
+                  navigateTo(link.to);
                 }}
               >
                 {link.label}
