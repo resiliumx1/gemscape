@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Wave } from "./Wave";
+import WaveDivider from "./WaveDivider";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 gsap.registerPlugin(ScrollTrigger);
