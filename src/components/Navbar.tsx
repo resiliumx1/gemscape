@@ -139,7 +139,7 @@ const Navbar = () => {
           <a
             href="/book"
             className="gem-nav__book-btn"
-            onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+            onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
           >
             Book Now
           </a>
