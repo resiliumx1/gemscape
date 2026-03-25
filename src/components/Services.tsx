@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Wave } from "./Wave";
+import WaveDivider from "./WaveDivider";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -125,10 +125,7 @@ const Services = () => {
         </div>
       </div>
 
-      <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "100px", zIndex: 10 }}>
-        <Wave color="#EFF8F6" height={100} speed={0.3} offset={100} />
-        <Wave color="#FDFAF4" height={80} speed={0.5} offset={400} />
-      </div>
+      <WaveDivider variant="sand" height={120} />
     </section>
   );
 };

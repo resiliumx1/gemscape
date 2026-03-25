@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Wave } from "./Wave";
+import WaveDivider from "./WaveDivider";
 import heroImage from "@/assets/hero-antigua-sunset.png";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -117,10 +117,7 @@ const Hero = () => {
         </div>
       </section>
 
-      <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "120px", zIndex: 10 }}>
-        <Wave color="#D6EAE9" height={120} speed={0.3} offset={0} />
-        <Wave color="#F5EFE0" height={100} speed={0.5} offset={300} />
-      </div>
+      <WaveDivider variant="sand" height={160} />
     </div>
   );
 };

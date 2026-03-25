@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Wave } from "./Wave";
+import WaveDivider from "./WaveDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,10 +72,7 @@ const Testimonials = () => {
       </div>
 
       {/* Waves */}
-      <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "100px", zIndex: 10 }}>
-        <Wave color="#D9CEAE" height={100} speed={0.3} offset={150} />
-        <Wave color="#EAD9BB" height={80} speed={0.5} offset={450} />
-      </div>
+      <WaveDivider variant="sand" height={120} />
     </section>
   );
 };
