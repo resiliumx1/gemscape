@@ -154,26 +154,11 @@ const Admin = () => {
         {/* Sidebar */}
         <aside className="admin-sidebar">
           <div style={{ padding: "20px 16px 16px" }}>
-            <div className="flex items-center gap-3">
-              <div style={{
-                width: 32, height: 32, borderRadius: 8,
-                background: "#1a8a9e", display: "flex",
-                alignItems: "center", justifyContent: "center"
-              }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2L2 9L12 16L22 9L12 2Z" fill="white" opacity="0.9" />
-                  <path d="M2 17L12 24L22 17" stroke="white" strokeWidth="1.5" fill="none" opacity="0.6" />
-                  <path d="M2 13L12 20L22 13" stroke="white" strokeWidth="1.5" fill="none" opacity="0.3" />
-                </svg>
-              </div>
-              <div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: "white", lineHeight: 1 }}>
-                  Gemscape
-                </p>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>
-                  Admin Portal
-                </p>
-              </div>
+            <div className="flex flex-col items-center gap-1">
+              <img src="/images/gemscape-logo.png" alt="Gemscape" style={{ height: 40, width: "auto", objectFit: "contain", filter: "brightness(1.1)" }} />
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginTop: 4 }}>
+                Admin Portal
+              </p>
             </div>
           </div>
 
