@@ -15,21 +15,30 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
     return () => clearTimeout(t);
   }, []);
 
+  // Auto-dismiss if video never loads within 4s
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (stage === "playing") {
+        sessionStorage.setItem("introPlayed", "true");
+        setStage("done");
+        onComplete();
+      }
+    }, 4000);
+    return () => clearTimeout(timeout);
+  }, [stage, onComplete]);
+
   const triggerExit = useCallback(() => {
     if (stage !== "playing") return;
     setStage("fadeVideo");
 
-    // Stage 1: fade video (400ms), Stage 2: ripple simultaneously (300ms)
     setTimeout(() => {
       setStage("ripple");
     }, 50);
 
-    // Stage 3: curtain up after fade+ripple
     setTimeout(() => {
       setStage("curtain");
     }, 700);
 
-    // Done — remove from DOM
     setTimeout(() => {
       sessionStorage.setItem("introPlayed", "true");
       setStage("done");
@@ -44,6 +53,13 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
       setStage("done");
       onComplete();
     }, 950);
+  }, [onComplete]);
+
+  const handleVideoError = useCallback(() => {
+    console.error("IntroSplash: video failed to load, skipping intro");
+    sessionStorage.setItem("introPlayed", "true");
+    setStage("done");
+    onComplete();
   }, [onComplete]);
 
   if (stage === "done") return null;
@@ -113,6 +129,10 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
         muted
         playsInline
         onEnded={triggerExit}
+        onError={handleVideoError}
+        onLoadedData={() => {
+          // Video loaded successfully, it will play
+        }}
         style={{
           position: "relative",
           zIndex: 2,
@@ -124,7 +144,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
           transition: "opacity 0.4s ease-out",
         }}
       >
-        <source src="/intro.mp4" type="video/mp4" />
+        <source src="/videos/intro.mp4" type="video/mp4" />
       </video>
 
       {/* Skip button */}

@@ -304,26 +304,48 @@ const AdminDashboard = () => {
           className="lg:col-span-2 admin-card-elevated p-6"
         >
           <p className="admin-section-title mb-4">Service Breakdown</p>
-          <div className="flex justify-center">
-            <PieChart width={200} height={200}>
-              <Pie data={serviceBreakdown} cx={100} cy={100} innerRadius={55} outerRadius={85} dataKey="value" stroke="none">
-                {serviceBreakdown.map((_, i) => <Cell key={i} fill={DONUT_COLORS[i % DONUT_COLORS.length]} />)}
-              </Pie>
-              <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, border: "1px solid rgba(184,150,90,0.25)", borderRadius: 0 }} />
-            </PieChart>
-          </div>
-          <p style={{ textAlign: "center", fontFamily: "'Cormorant Garamond', serif", fontSize: 36, fontWeight: 600, color: "hsl(var(--gem-navy))", marginTop: -120, position: "relative", zIndex: 1, pointerEvents: "none" }}>{totalServiceCount}</p>
-          <div className="mt-16 space-y-2">
-            {serviceBreakdown.map((s, i) => (
-              <div key={s.name} className="flex justify-between items-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400 }}>
-                <span className="flex items-center gap-2">
-                  <span style={{ width: 10, height: 10, background: DONUT_COLORS[i % DONUT_COLORS.length], display: "inline-block" }} />
-                  {s.name}
-                </span>
-                <span style={{ color: "rgba(11,42,59,0.55)", fontWeight: 500 }}>{s.value} ({totalServiceCount > 0 ? Math.round((s.value / totalServiceCount) * 100) : 0}%)</span>
+          {serviceBreakdown.length > 0 ? (
+            <>
+              <div className="flex justify-center">
+                <PieChart width={200} height={200}>
+                  <Pie data={serviceBreakdown} cx={100} cy={100} innerRadius={55} outerRadius={85} dataKey="value" stroke="none">
+                    {serviceBreakdown.map((_, i) => <Cell key={i} fill={DONUT_COLORS[i % DONUT_COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, border: "1px solid rgba(184,150,90,0.25)", borderRadius: 0 }} />
+                </PieChart>
               </div>
-            ))}
-          </div>
+              <p style={{ textAlign: "center", fontFamily: "'Cormorant Garamond', serif", fontSize: 36, fontWeight: 600, color: "hsl(var(--gem-navy))", marginTop: -120, position: "relative", zIndex: 1, pointerEvents: "none" }}>{totalServiceCount}</p>
+              <div className="mt-16 space-y-2">
+                {serviceBreakdown.map((s, i) => (
+                  <div key={s.name} className="flex justify-between items-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400 }}>
+                    <span className="flex items-center gap-2">
+                      <span style={{ width: 10, height: 10, background: DONUT_COLORS[i % DONUT_COLORS.length], display: "inline-block" }} />
+                      {s.name}
+                    </span>
+                    <span style={{ color: "rgba(11,42,59,0.55)", fontWeight: 500 }}>{s.value} ({totalServiceCount > 0 ? Math.round((s.value / totalServiceCount) * 100) : 0}%)</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="space-y-3 mt-2">
+              <div className="flex items-center gap-3" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>
+                <span style={{ width: 4, height: 36, background: "#4EC9C9", display: "inline-block", borderRadius: 2 }} />
+                <div>
+                  <p style={{ fontWeight: 500, color: "hsl(var(--gem-navy))" }}>Tours</p>
+                  <p style={{ color: "rgba(11,42,59,0.5)", fontSize: 13 }}>0 bookings</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>
+                <span style={{ width: 4, height: 36, background: "#B8965A", display: "inline-block", borderRadius: 2 }} />
+                <div>
+                  <p style={{ fontWeight: 500, color: "hsl(var(--gem-navy))" }}>Rentals</p>
+                  <p style={{ color: "rgba(11,42,59,0.5)", fontSize: 13 }}>0 bookings</p>
+                </div>
+              </div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(11,42,59,0.35)", marginTop: 12, fontStyle: "italic" }}>Data will appear once bookings are created.</p>
+            </div>
+          )}
         </motion.div>
       </div>
 
