@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import GemHero from "@/components/GemHero";
 import { useWave } from "@/components/GemscapeWave";
 
