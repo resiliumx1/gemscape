@@ -767,7 +767,7 @@ button, input, textarea, select, a {
 
 .services__row {
   padding: 28px 0;
-  border-bottom: 1px solid hsl(var(--gem-sand));
+  border-bottom: none;
   cursor: pointer;
   position: relative;
   overflow: hidden;
