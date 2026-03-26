@@ -62,7 +62,7 @@ const Manifesto = () => {
       </div>
 
       {/* Waves */}
-      <WaveDivider variant="sand" height={120} />
+      <WaveDivider variant="ocean" height={120} />
     </section>
   );
 };

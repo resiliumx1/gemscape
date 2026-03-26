@@ -125,7 +125,7 @@ const Services = () => {
         </div>
       </div>
 
-      <WaveDivider variant="sand" height={120} />
+      <WaveDivider variant="ocean" height={120} />
     </section>
   );
 };
