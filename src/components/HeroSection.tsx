@@ -165,6 +165,9 @@ const HeroSection = () => {
         <GemHero />
       </div>
 
+      {/* Animated wave separator */}
+      <HeroWaveDivider />
+
       {/* Responsive styles */}
       <style>{`
         @media (max-width: 768px) {
