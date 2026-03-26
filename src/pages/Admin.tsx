@@ -2,10 +2,12 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { motion } from "framer-motion";
 import {
   LayoutDashboard, Map, Car, CalendarDays, Users, TrendingUp,
   BarChart2, LineChart, Star, ArrowLeft, Settings, Mail, Truck,
-  Calendar, Search, Plus, Download
+  Calendar, Search, Plus, Download, X
 } from "lucide-react";
 
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
