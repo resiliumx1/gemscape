@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 
-type WaveDividerVariant = "teal" | "sand" | "flip";
+type WaveDividerVariant = "teal" | "sand" | "flip" | "ocean";
 
 interface WaveDividerProps {
   variant?: WaveDividerVariant;
   height?: number;
 }
 
-const PALETTES: Record<"teal" | "sand", { colors: string[]; opacities: number[] }> = {
+const PALETTES: Record<"teal" | "sand" | "ocean", { colors: string[]; opacities: number[] }> = {
   teal: {
     colors: ["#0d2a35", "#114050", "#15606e", "#187a8e", "#1a8a9e"],
     opacities: [0.95, 0.75, 0.55, 0.4, 0.25],
@@ -15,6 +15,10 @@ const PALETTES: Record<"teal" | "sand", { colors: string[]; opacities: number[] 
   sand: {
     colors: ["#dcc8a5", "#e4d4b5", "#eaddc4", "#f2e8d5", "#fff8eb"],
     opacities: [0.95, 0.78, 0.6, 0.42, 0.28],
+  },
+  ocean: {
+    colors: ["rgba(3,14,20,1)", "rgba(5,22,32,1)", "rgba(8,40,55,1)", "rgba(13,72,88,1)", "rgba(26,138,158,1)"],
+    opacities: [0.97, 0.92, 0.82, 0.65, 0.35],
   },
 };
 
