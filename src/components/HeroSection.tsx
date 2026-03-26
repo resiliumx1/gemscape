@@ -6,6 +6,7 @@ const HeroSection = () => {
 
   return (
     <section
+      className="hero-split-wrapper"
       style={{
         width: "100vw",
         height: "100vh",
