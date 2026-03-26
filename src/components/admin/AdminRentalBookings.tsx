@@ -29,16 +29,33 @@ interface RentalBooking {
 
 const AdminRentalBookings = () => {
   const [bookings, setBookings] = useState<RentalBooking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selected, setSelected] = useState<RentalBooking | null>(null);
   const [notes, setNotes] = useState("");
 
-  useEffect(() => { fetchBookings(); }, []);
+  useEffect(() => {
+    fetchBookings();
+    const timeout = setTimeout(() => setLoading(false), 6000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const fetchBookings = async () => {
-    const { data } = await supabase.from("rental_bookings").select("*, vehicles(name)").order("created_at", { ascending: false });
-    setBookings((data as any) || []);
+    try {
+      const { data, error: err } = await supabase.from("rental_bookings").select("*, vehicles(name)").order("created_at", { ascending: false });
+      if (err) {
+        console.error("Rental bookings fetch error:", err);
+        setError(err.message);
+      }
+      setBookings((data as any) || []);
+    } catch (e: any) {
+      console.error("Rental bookings exception:", e);
+      setError(e.message || "Failed to load bookings");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const filtered = useMemo(() => {
@@ -75,6 +92,18 @@ const AdminRentalBookings = () => {
     const a = document.createElement("a"); a.href = url; a.download = "rental-bookings.csv"; a.click();
   };
 
+  if (error) {
+    return (
+      <div className="relative">
+        <h1 className="admin-page-title">Rental Bookings</h1>
+        <div className="admin-card-elevated p-8 mt-6 text-center">
+          <p style={{ color: "#D4523A", fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>Error: {error}</p>
+          <button onClick={() => { setError(null); setLoading(true); fetchBookings(); }} className="admin-btn-outline mt-4">Retry</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       <div className="flex items-center justify-between mb-6">
@@ -101,10 +130,11 @@ const AdminRentalBookings = () => {
             </tr>
           </thead>
           <tbody>
-            {filtered.length === 0 && (
+            {loading ? (
+              <tr><td colSpan={8} className="text-center py-8" style={{ color: "rgba(11,42,59,0.4)" }}>Loading…</td></tr>
+            ) : filtered.length === 0 ? (
               <tr><td colSpan={8} className="text-center py-8" style={{ color: "rgba(11,42,59,0.4)" }}>No bookings found</td></tr>
-            )}
-            {filtered.map((b) => (
+            ) : filtered.map((b) => (
               <tr key={b.id}>
                 <td style={{ fontWeight: 500, color: "hsl(var(--gem-gold))" }}>{b.booking_ref}</td>
                 <td>{format(new Date(b.pickup_date), "MMM d")} – {format(new Date(b.return_date), "MMM d")}</td>

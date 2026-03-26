@@ -13,33 +13,53 @@ interface UnifiedBooking {
 const AdminAllBookings = () => {
   const { format: fmt } = useCurrency();
   const [bookings, setBookings] = useState<UnifiedBooking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selected, setSelected] = useState<UnifiedBooking | null>(null);
   const [notes, setNotes] = useState("");
 
-  useEffect(() => { fetchAll(); }, []);
+  useEffect(() => {
+    fetchAll();
+    const timeout = setTimeout(() => setLoading(false), 6000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const fetchAll = async () => {
-    const [tours, rentals] = await Promise.all([
-      supabase.from("bookings").select("*").order("created_at", { ascending: false }),
-      supabase.from("rental_bookings").select("*, vehicles(name)").order("created_at", { ascending: false }),
-    ]);
-    const combined: UnifiedBooking[] = [
-      ...(tours.data || []).map((b: any) => ({
-        id: b.id, ref: b.booking_ref || "", date: b.tour_date, guest: b.full_name,
-        email: b.email, phone: b.phone, service: b.service_type,
-        type: "tour" as const, status: b.status || "pending", value: b.total_estimate || 0,
-        details: b,
-      })),
-      ...(rentals.data || []).map((r: any) => ({
-        id: r.id, ref: r.booking_ref || "", date: r.pickup_date, guest: r.full_name,
-        email: r.email, phone: r.phone, service: r.vehicles?.name || "Rental",
-        type: "rental" as const, status: r.status || "pending", value: r.total_estimate || 0,
-        details: r,
-      })),
-    ].sort((a, b) => (b.details.created_at || "").localeCompare(a.details.created_at || ""));
-    setBookings(combined);
+    try {
+      const [tours, rentals] = await Promise.all([
+        supabase.from("bookings").select("*").order("created_at", { ascending: false }),
+        supabase.from("rental_bookings").select("*, vehicles(name)").order("created_at", { ascending: false }),
+      ]);
+      if (tours.error) console.error("All bookings - tours error:", tours.error);
+      if (rentals.error) console.error("All bookings - rentals error:", rentals.error);
+      if (tours.error && rentals.error) {
+        setError(tours.error.message);
+        setLoading(false);
+        return;
+      }
+      const combined: UnifiedBooking[] = [
+        ...(tours.data || []).map((b: any) => ({
+          id: b.id, ref: b.booking_ref || "", date: b.tour_date, guest: b.full_name,
+          email: b.email, phone: b.phone, service: b.service_type,
+          type: "tour" as const, status: b.status || "pending", value: b.total_estimate || 0,
+          details: b,
+        })),
+        ...(rentals.data || []).map((r: any) => ({
+          id: r.id, ref: r.booking_ref || "", date: r.pickup_date, guest: r.full_name,
+          email: r.email, phone: r.phone, service: r.vehicles?.name || "Rental",
+          type: "rental" as const, status: r.status || "pending", value: r.total_estimate || 0,
+          details: r,
+        })),
+      ].sort((a, b) => (b.details.created_at || "").localeCompare(a.details.created_at || ""));
+      setBookings(combined);
+    } catch (e: any) {
+      console.error("All bookings exception:", e);
+      setError(e.message || "Failed to load bookings");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const filtered = useMemo(() => bookings.filter(b => {
@@ -64,6 +84,18 @@ const AdminAllBookings = () => {
     await supabase.from(table).update({ notes }).eq("id", selected.id);
   };
 
+  if (error) {
+    return (
+      <div className="relative">
+        <h1 className="admin-page-title">All Bookings</h1>
+        <div className="admin-card-elevated p-8 mt-6 text-center">
+          <p style={{ color: "#D4523A", fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>Error: {error}</p>
+          <button onClick={() => { setError(null); setLoading(true); fetchAll(); }} className="admin-btn-outline mt-4">Retry</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       <h1 className="admin-page-title">All Bookings</h1>
@@ -84,8 +116,11 @@ const AdminAllBookings = () => {
         <table className="admin-table">
           <thead><tr><th>Type</th><th>Ref</th><th>Date</th><th>Guest</th><th>Service</th><th>Value</th><th>Status</th><th>Actions</th></tr></thead>
           <tbody>
-            {filtered.length === 0 && <tr><td colSpan={8}><EmptyState /></td></tr>}
-            {filtered.map(b => (
+            {loading ? (
+              <tr><td colSpan={8} className="text-center py-8" style={{ color: "rgba(11,42,59,0.4)" }}>Loading…</td></tr>
+            ) : filtered.length === 0 ? (
+              <tr><td colSpan={8}><EmptyState /></td></tr>
+            ) : filtered.map(b => (
               <tr key={b.id}>
                 <td><span style={{ padding: "3px 10px", fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.08em", background: b.type === "tour" ? "rgba(11,42,59,0.08)" : "rgba(78,201,201,0.12)", color: b.type === "tour" ? "hsl(var(--gem-navy))" : "hsl(var(--gem-teal))" }}>{b.type}</span></td>
                 <td style={{ fontWeight: 500, color: "hsl(var(--gem-gold))" }}>{b.ref}</td>
