@@ -779,18 +779,11 @@ button, input, textarea, select, a {
 }
 
 .services__row::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  background: hsl(var(--gem-gold));
-  transition: width 0.35s ease;
+  display: none;
 }
 
 .services__row.active::before {
-  width: 2px;
+  display: none;
 }
 
 .services__row-num {

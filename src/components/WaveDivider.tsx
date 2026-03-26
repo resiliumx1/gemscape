@@ -45,7 +45,7 @@ const WaveDivider = ({ variant = "sand", height = 120 }: WaveDividerProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
 
-  const paletteKey = variant === "flip" ? "teal" : variant;
+  const paletteKey = variant === "flip" ? "teal" : variant === "ocean" ? "ocean" : variant;
 
   useEffect(() => {
     const cvs = canvasRef.current;
