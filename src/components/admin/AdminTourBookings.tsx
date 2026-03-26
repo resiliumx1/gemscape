@@ -26,6 +26,8 @@ const AdminTourBookings = () => {
 
   useEffect(() => {
     fetchBookings();
+    const timeout = setTimeout(() => setLoading(false), 6000);
+    return () => clearTimeout(timeout);
   }, []);
 
   const fetchBookings = async () => {

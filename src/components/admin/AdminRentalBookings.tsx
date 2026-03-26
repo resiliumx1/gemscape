@@ -27,7 +27,11 @@ const AdminRentalBookings = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [selected, setSelected] = useState<RentalBooking | null>(null);
 
-  useEffect(() => { fetchBookings(); }, []);
+  useEffect(() => {
+    fetchBookings();
+    const timeout = setTimeout(() => setLoading(false), 6000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const fetchBookings = async () => {
     try {
