@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { WaveTransition, hasPlayedIntro } from "@/components/WaveTransition";
 import Navbar from "@/components/Navbar";
-import GemHero from "@/components/GemHero";
+import HeroSection from "@/components/HeroSection";
 import Services from "@/components/Services";
 import Experiences from "@/components/Experiences";
 import RentalsPreview from "@/components/RentalsPreview";
@@ -58,7 +58,7 @@ const Index = () => {
         }}
       >
         <Navbar />
-        <GemHero />
+        <HeroSection />
         <Services />
         <Experiences />
         <RentalsPreview />
