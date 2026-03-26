@@ -5,7 +5,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import './GemHero.css';
 
-export default function GemHero() {
+export default function GemHero({ width = 800, height = 700 }) {
   const canvasRef     = useRef(null);
   const anamorphicRef = useRef(null);
   const sparkleRef    = useRef(null);
