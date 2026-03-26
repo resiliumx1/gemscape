@@ -4,7 +4,7 @@ import { format, eachMonthOfInterval, startOfYear, subYears } from "date-fns";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LineChart, Line, PieChart, Pie, Cell } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
-const DONUT_COLORS = ["#C9943A", "#4EC9C9", "#1A6B6B", "#0B2A3B"];
+const DONUT_COLORS = ["#1a8a9e", "#C9A84C", "#0f172a", "#3b6d11"];
 
 const AdminRevenue = () => {
   const { format: fmt } = useCurrency();
@@ -20,7 +20,6 @@ const AdminRevenue = () => {
 
   const months = eachMonthOfInterval({ start: subYears(startOfYear(new Date()), 0), end: new Date() });
 
-  // Monthly revenue trend
   const monthlyData = useMemo(() => months.map(m => {
     const ms = format(m, "yyyy-MM");
     const tRev = tours.filter(b => b.created_at?.startsWith(ms) && b.status !== "cancelled").reduce((s, b) => s + (Number(b.total_estimate) || 0), 0);
@@ -30,7 +29,6 @@ const AdminRevenue = () => {
 
   const bestMonth = monthlyData.reduce((best, m) => m.total > best.total ? m : best, { name: "", total: 0, tours: 0, rentals: 0 });
 
-  // Revenue by service
   const serviceRevenue = useMemo(() => {
     const map: Record<string, number> = {};
     tours.filter(b => b.status !== "cancelled").forEach(b => { map[b.service_type] = (map[b.service_type] || 0) + (Number(b.total_estimate) || 0); });
@@ -38,7 +36,8 @@ const AdminRevenue = () => {
     return Object.entries(map).filter(([, v]) => v > 0).map(([name, value]) => ({ name, value }));
   }, [tours, rentals]);
 
-  // ABV trend
+  const totalServiceRev = serviceRevenue.reduce((s, e) => s + e.value, 0);
+
   const abvData = useMemo(() => months.map(m => {
     const ms = format(m, "yyyy-MM");
     const allInMonth = [...tours, ...rentals].filter(b => b.created_at?.startsWith(ms) && b.status !== "cancelled");
@@ -46,97 +45,90 @@ const AdminRevenue = () => {
     return { name: format(m, "MMM"), abv: allInMonth.length > 0 ? Math.round(total / allInMonth.length) : 0 };
   }), [tours, rentals, months]);
 
-  // Add-on revenue
-  const addOnRevenue = useMemo(() => {
-    const map: Record<string, { count: number; revenue: number }> = {};
-    [...tours, ...rentals].forEach(b => {
-      (b.add_ons || []).forEach((addon: string) => {
-        const name = addon.replace(/^[^:]+:/, "");
-        if (!map[name]) map[name] = { count: 0, revenue: 0 };
-        map[name].count++;
-      });
-    });
-    return Object.entries(map).map(([name, data]) => ({ name, ...data })).sort((a, b) => b.count - a.count);
-  }, [tours, rentals]);
-
-  // Cancellations
   const cancelled = [...tours, ...rentals].filter(b => b.status === "cancelled");
   const totalAll = tours.length + rentals.length;
   const cancelRate = totalAll > 0 ? Math.round((cancelled.length / totalAll) * 100) : 0;
   const lostRevenue = cancelled.reduce((s, b) => s + (Number(b.total_estimate) || 0), 0);
 
+  const currencyFormatter = (v: number) => "$" + v.toLocaleString();
+
   return (
     <div>
-      <h1 className="admin-page-title">Revenue Analytics</h1>
-      <p className="admin-page-sub">Financial intelligence for your business</p>
-
       {/* Monthly Revenue */}
-      <div className="mt-8 p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
-        <p className="admin-section-title mb-1">Monthly Revenue Trend</p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "rgba(11,42,59,0.45)", marginBottom: 16 }}>Best month: {bestMonth.name} ({fmt(bestMonth.total)})</p>
-        <ResponsiveContainer width="100%" height={280}>
+      <div className="admin-card-elevated p-5 mb-5">
+        <p style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6b7280", marginBottom: 4 }}>Monthly Revenue Trend</p>
+        <p style={{ fontSize: 11, color: "#94a3b8", marginBottom: 16 }}>Best month: {bestMonth.name} ({fmt(bestMonth.total)})</p>
+        <ResponsiveContainer width="100%" height={260}>
           <BarChart data={monthlyData}>
-            <CartesianGrid stroke="rgba(11,42,59,0.06)" strokeDasharray="4 4" />
-            <XAxis dataKey="name" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
-            <YAxis tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
-            <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, border: "1px solid hsl(var(--gem-sand))" }} />
-            <Legend wrapperStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }} />
-            <Bar dataKey="tours" stackId="a" fill="#C9943A" name="Tours" />
-            <Bar dataKey="rentals" stackId="a" fill="#4EC9C9" name="Rentals" />
+            <CartesianGrid stroke="#f1f5f9" strokeDasharray="4 4" />
+            <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#94a3b8" }} />
+            <YAxis tickFormatter={currencyFormatter} tick={{ fontSize: 11, fill: "#94a3b8" }} domain={[0, "auto"]} />
+            <Tooltip formatter={(v: number) => fmt(v)} contentStyle={{ fontSize: 13, border: "0.5px solid #e5e7eb" }} />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+            <Bar dataKey="tours" stackId="a" fill="#1a8a9e" name="Tours" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="rentals" stackId="a" fill="#C9A84C" name="Rentals" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        {/* Revenue by Service */}
-        <div className="p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
-          <p className="admin-section-title mb-4">Revenue by Service</p>
-          <PieChart width={220} height={200}>
-            <Pie data={serviceRevenue} cx={110} cy={100} innerRadius={50} outerRadius={80} dataKey="value" stroke="none">
-              {serviceRevenue.map((_, i) => <Cell key={i} fill={DONUT_COLORS[i % DONUT_COLORS.length]} />)}
-            </Pie>
-            <Tooltip formatter={(v: number) => fmt(v)} contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }} />
-          </PieChart>
-          <div className="space-y-2 mt-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
+        {/* Revenue by Service — Donut + Legend */}
+        <div className="admin-card-elevated p-5">
+          <p style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6b7280", marginBottom: 12 }}>Revenue by Service</p>
+          <div className="flex justify-center">
+            <PieChart width={200} height={200}>
+              <Pie data={serviceRevenue} cx={100} cy={100} innerRadius={50} outerRadius={80} dataKey="value" stroke="none">
+                {serviceRevenue.map((_, i) => <Cell key={i} fill={DONUT_COLORS[i % DONUT_COLORS.length]} />)}
+              </Pie>
+              <Tooltip formatter={(v: number) => fmt(v)} contentStyle={{ fontSize: 13 }} />
+            </PieChart>
+          </div>
+          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 8 }}>
             {serviceRevenue.map((s, i) => (
-              <div key={s.name} className="flex justify-between" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }}>
-                <span className="flex items-center gap-2"><span style={{ width: 8, height: 8, background: DONUT_COLORS[i % DONUT_COLORS.length], display: "inline-block" }} />{s.name}</span>
-                <span>{fmt(s.value)}</span>
+              <div key={s.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: 2, background: DONUT_COLORS[i % DONUT_COLORS.length] }} />
+                  <span style={{ color: "#334155" }}>{s.name}</span>
+                </div>
+                <div style={{ display: "flex", gap: 12 }}>
+                  <span style={{ fontWeight: 600, color: "#0f172a" }}>{fmt(s.value)}</span>
+                  <span style={{ color: "#94a3b8" }}>{totalServiceRev > 0 ? Math.round((s.value / totalServiceRev) * 100) : 0}%</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         {/* ABV Trend */}
-        <div className="p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
-          <p className="admin-section-title mb-4">Average Booking Value Trend</p>
+        <div className="admin-card-elevated p-5">
+          <p style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6b7280", marginBottom: 12 }}>Average Booking Value Trend</p>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={abvData}>
-              <CartesianGrid stroke="rgba(11,42,59,0.06)" strokeDasharray="4 4" />
-              <XAxis dataKey="name" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
-              <YAxis tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(11,42,59,0.45)" }} />
-              <Tooltip contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }} />
-              <Line type="monotone" dataKey="abv" name="ABV" stroke="#1A6B6B" strokeWidth={2} dot={false} />
+              <CartesianGrid stroke="#f1f5f9" strokeDasharray="4 4" />
+              <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#94a3b8" }} />
+              <YAxis tickFormatter={currencyFormatter} tick={{ fontSize: 11, fill: "#94a3b8" }} domain={[0, "auto"]} />
+              <Tooltip formatter={(v: number) => fmt(v)} contentStyle={{ fontSize: 13 }} />
+              <Line type="monotone" dataKey="abv" name="ABV" stroke="#1a8a9e" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {/* Cancellation Analysis */}
-      <div className="mt-6 p-6" style={{ background: "white", border: "1px solid hsl(var(--gem-sand))" }}>
-        <p className="admin-section-title mb-4">Cancellation Analysis</p>
+      <div className="admin-card-elevated p-5">
+        <p style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6b7280", marginBottom: 12 }}>Cancellation Analysis</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <div className="admin-metric-card" style={{ border: "none", padding: 0 }}>
-            <p className="admin-metric-value" style={{ fontSize: 36 }}>{cancelled.length}</p>
-            <p className="admin-metric-label">Cancelled Bookings</p>
+          <div>
+            <p style={{ fontSize: 28, fontWeight: 700, color: "#0f172a" }}>{cancelled.length}</p>
+            <p style={{ fontSize: 11, color: "#94a3b8" }}>Cancelled Bookings</p>
           </div>
-          <div className="admin-metric-card" style={{ border: "none", padding: 0 }}>
-            <p className="admin-metric-value" style={{ fontSize: 36, color: "hsl(var(--gem-coral))" }}>{cancelRate}%</p>
-            <p className="admin-metric-label">Cancellation Rate</p>
+          <div>
+            <p style={{ fontSize: 28, fontWeight: 700, color: "#991b1b" }}>{cancelRate}%</p>
+            <p style={{ fontSize: 11, color: "#94a3b8" }}>Cancellation Rate</p>
           </div>
-          <div className="admin-metric-card" style={{ border: "none", padding: 0 }}>
-            <p className="admin-metric-value" style={{ fontSize: 36, color: "hsl(var(--gem-coral))" }}>{fmt(lostRevenue)}</p>
-            <p className="admin-metric-label">Revenue Lost</p>
+          <div>
+            <p style={{ fontSize: 28, fontWeight: 700, color: "#991b1b" }}>{fmt(lostRevenue)}</p>
+            <p style={{ fontSize: 11, color: "#94a3b8" }}>Revenue Lost</p>
           </div>
         </div>
       </div>
