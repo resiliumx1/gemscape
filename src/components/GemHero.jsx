@@ -92,7 +92,7 @@ export default function GemHero({ width = 800, height = 700 }) {
     // ── POST-PROCESSING COMPOSER ──
     const composer = new EffectComposer(renderer);
     
-    const aspect = 800 / 700;
+    const aspect = width / height;
     const camH = 3.2;
     const camera = new THREE.OrthographicCamera(-camH * aspect, camH * aspect, camH, -camH, 0.1, 100);
     camera.position.set(0, 0.1, 8);
