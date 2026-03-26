@@ -166,9 +166,14 @@ const HeroSection = () => {
       {/* Responsive styles */}
       <style>{`
         @media (max-width: 768px) {
+          .hero-split-wrapper {
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: 100vh;
+          }
           .hero-left {
             width: 100% !important;
-            padding: 32px 24px !important;
+            padding: 100px 24px 32px !important;
             text-align: left;
           }
           .hero-right {
