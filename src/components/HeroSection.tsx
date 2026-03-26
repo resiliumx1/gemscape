@@ -116,6 +116,7 @@ function HeroWaveDivider() {
   );
 }
 
+const HeroSection = () => {
   const { navigateTo } = useWave();
 
   return (
