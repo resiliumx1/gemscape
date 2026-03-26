@@ -1,6 +1,12 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  LayoutDashboard, Map, Car, CalendarDays, Users, TrendingUp,
+  BarChart2, LineChart, Star, ArrowLeft, Settings, Mail, Truck,
+  Calendar, Search, Plus, Download
+} from "lucide-react";
 
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
 const AdminTourBookings = lazy(() => import("@/components/admin/AdminTourBookings"));
@@ -16,70 +22,95 @@ const AdminCalendar = lazy(() => import("@/components/admin/AdminCalendar"));
 const AdminEmailHistory = lazy(() => import("@/components/admin/AdminEmailHistory"));
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 
-interface NavSection {
-  label: string;
-  items: { key: string; label: string; icon: string }[];
-}
+const ICON_PROPS = { size: 16, strokeWidth: 1.5 };
+
+interface NavItem { key: string; label: string; icon: React.ReactNode }
+interface NavSection { label: string; items: NavItem[] }
 
 const NAV_SECTIONS: NavSection[] = [
   {
     label: "Overview",
-    items: [{ key: "dashboard", label: "Dashboard", icon: "📊" }],
+    items: [{ key: "dashboard", label: "Dashboard", icon: <LayoutDashboard {...ICON_PROPS} /> }],
   },
   {
     label: "Bookings",
     items: [
-      { key: "tour-bookings", label: "Tour Bookings", icon: "🗓" },
-      { key: "rental-bookings", label: "Rental Bookings", icon: "🚗" },
-      { key: "all-bookings", label: "All Bookings", icon: "📋" },
+      { key: "tour-bookings", label: "Tour Bookings", icon: <Map {...ICON_PROPS} /> },
+      { key: "rental-bookings", label: "Rental Bookings", icon: <Car {...ICON_PROPS} /> },
+      { key: "all-bookings", label: "All Bookings", icon: <CalendarDays {...ICON_PROPS} /> },
     ],
   },
   {
     label: "Customers",
     items: [
-      { key: "customers", label: "Customer Directory", icon: "👥" },
-      { key: "loyalty", label: "Loyalty & LTV", icon: "♦" },
+      { key: "customers", label: "Customer Directory", icon: <Users {...ICON_PROPS} /> },
+      { key: "loyalty", label: "Loyalty & LTV", icon: <TrendingUp {...ICON_PROPS} /> },
     ],
   },
   {
     label: "Revenue",
     items: [
-      { key: "revenue", label: "Revenue Analytics", icon: "💰" },
-      { key: "forecasting", label: "Forecasting", icon: "📈" },
+      { key: "revenue", label: "Revenue Analytics", icon: <BarChart2 {...ICON_PROPS} /> },
+      { key: "forecasting", label: "Forecasting", icon: <LineChart {...ICON_PROPS} /> },
     ],
   },
   {
     label: "Operations",
     items: [
-      { key: "reviews", label: "Review Requests", icon: "🌟" },
-      { key: "fleet", label: "Fleet Manager", icon: "🚙" },
-      { key: "calendar", label: "Calendar View", icon: "📅" },
+      { key: "reviews", label: "Review Requests", icon: <Star {...ICON_PROPS} /> },
+      { key: "fleet", label: "Fleet Manager", icon: <Truck {...ICON_PROPS} /> },
+      { key: "calendar", label: "Calendar View", icon: <Calendar {...ICON_PROPS} /> },
     ],
   },
   {
     label: "Communications",
     items: [
-      { key: "email-history", label: "Email History", icon: "✉️" },
+      { key: "email-history", label: "Email History", icon: <Mail {...ICON_PROPS} /> },
     ],
   },
   {
     label: "Settings",
     items: [
-      { key: "settings", label: "Business Settings", icon: "⚙️" },
+      { key: "settings", label: "Business Settings", icon: <Settings {...ICON_PROPS} /> },
     ],
   },
 ];
 
+const PAGE_TITLES: Record<string, string> = {
+  dashboard: "Dashboard",
+  "tour-bookings": "Tour Bookings",
+  "rental-bookings": "Rental Bookings",
+  "all-bookings": "All Bookings",
+  customers: "Customer Directory",
+  loyalty: "Loyalty & LTV",
+  revenue: "Revenue Analytics",
+  forecasting: "Forecasting",
+  reviews: "Review Requests",
+  fleet: "Fleet Manager",
+  calendar: "Calendar View",
+  "email-history": "Email History",
+  settings: "Business Settings",
+};
+
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [pendingCount, setPendingCount] = useState(0);
+  const [showNewBooking, setShowNewBooking] = useState(false);
   const navigate = useNavigate();
 
-  // Keyboard shortcuts
+  useEffect(() => {
+    const fetchPending = async () => {
+      const [tours, rentals] = await Promise.all([
+        supabase.from("bookings").select("id", { count: "exact", head: true }).eq("status", "pending"),
+        supabase.from("rental_bookings").select("id", { count: "exact", head: true }).eq("status", "pending"),
+      ]);
+      setPendingCount((tours.count || 0) + (rentals.count || 0));
+    };
+    fetchPending();
+  }, [activeTab]);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        // Close panels handled by child components
-      }
       if ((e.metaKey || e.ctrlKey) && e.key === "b") {
         e.preventDefault();
         setActiveTab("all-bookings");
@@ -91,7 +122,7 @@ const Admin = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case "dashboard": return <AdminDashboard />;
+      case "dashboard": return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
       case "tour-bookings": return <AdminTourBookings />;
       case "rental-bookings": return <AdminRentalBookings />;
       case "all-bookings": return <AdminAllBookings />;
@@ -104,9 +135,12 @@ const Admin = () => {
       case "calendar": return <AdminCalendar />;
       case "email-history": return <AdminEmailHistory />;
       case "settings": return <AdminSettings />;
-      default: return <AdminDashboard />;
+      default: return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
     }
   };
+
+  // Badge keys that should show pending count
+  const badgeKeys = new Set(["tour-bookings", "rental-bookings", "all-bookings"]);
 
   return (
     <>
@@ -117,24 +151,36 @@ const Admin = () => {
       <div className="min-h-screen flex">
         {/* Sidebar */}
         <aside className="admin-sidebar">
-          <div className="p-6">
-            <h2 style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
-              fontSize: 22,
-              color: "white",
-              lineHeight: 1,
-            }}>Gemscape</h2>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.12em", marginTop: 4 }}>Admin</p>
+          <div style={{ padding: "20px 16px 16px" }}>
+            <div className="flex items-center gap-3">
+              <div style={{
+                width: 32, height: 32, borderRadius: 8,
+                background: "#1a8a9e", display: "flex",
+                alignItems: "center", justifyContent: "center"
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L2 9L12 16L22 9L12 2Z" fill="white" opacity="0.9" />
+                  <path d="M2 17L12 24L22 17" stroke="white" strokeWidth="1.5" fill="none" opacity="0.6" />
+                  <path d="M2 13L12 20L22 13" stroke="white" strokeWidth="1.5" fill="none" opacity="0.3" />
+                </svg>
+              </div>
+              <div>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: "white", lineHeight: 1 }}>
+                  Gemscape
+                </p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>
+                  Admin Portal
+                </p>
+              </div>
+            </div>
           </div>
 
-          <nav className="flex-1 px-3 mt-2" style={{ overflowY: "auto" }}>
+          <nav className="flex-1 px-3 mt-1" style={{ overflowY: "auto" }}>
             {NAV_SECTIONS.map((section) => (
-              <div key={section.label} className="mb-4">
+              <div key={section.label} className="mb-3">
                 <p style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  fontSize: 9,
-                  fontWeight: 500,
+                  fontSize: 10, fontWeight: 500,
                   textTransform: "uppercase",
                   letterSpacing: "0.16em",
                   color: "rgba(255,255,255,0.25)",
@@ -146,28 +192,60 @@ const Admin = () => {
                     onClick={() => setActiveTab(item.key)}
                     className={`admin-nav-item ${activeTab === item.key ? "active" : ""}`}
                   >
-                    <span className="mr-3" style={{ fontSize: 14 }}>{item.icon}</span>
+                    <span className="mr-3 flex-shrink-0" style={{ display: "flex" }}>{item.icon}</span>
                     {item.label}
+                    {badgeKeys.has(item.key) && pendingCount > 0 && (
+                      <span className="admin-nav-badge">{pendingCount}</span>
+                    )}
                   </button>
                 ))}
               </div>
             ))}
           </nav>
 
-          <div className="px-3 pb-6">
-            <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "8px 0 16px" }} />
-            <button onClick={() => navigate("/")} className="admin-nav-item" style={{ color: "rgba(255,255,255,0.45)" }}>
-              <span className="mr-3">↩</span>
+          <div className="px-3 pb-4">
+            <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.08)", margin: "8px 0 12px" }} />
+            <button onClick={() => navigate("/")} className="admin-nav-item" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <span className="mr-3 flex-shrink-0" style={{ display: "flex" }}><ArrowLeft {...ICON_PROPS} /></span>
               Back to Site
             </button>
+            <div className="flex items-center gap-3 mt-3 px-3">
+              <div className="admin-avatar">GA</div>
+              <div>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.8)" }}>Gemscape Admin</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: "rgba(255,255,255,0.35)" }}>Admin</p>
+              </div>
+            </div>
           </div>
         </aside>
 
-        {/* Main Content */}
+        {/* Main */}
         <main className="admin-main">
-          <Suspense fallback={<div className="admin-loading">Loading…</div>}>
-            {renderContent()}
-          </Suspense>
+          {/* Topbar */}
+          <div className="admin-topbar">
+            <span className="admin-topbar-title">{PAGE_TITLES[activeTab] || "Dashboard"}</span>
+            <div className="admin-topbar-right">
+              <div style={{ position: "relative" }}>
+                <Search size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }} />
+                <input className="admin-topbar-search" placeholder="Search bookings..." style={{ paddingLeft: 30 }} />
+              </div>
+              <button className="admin-topbar-btn-export">
+                <Download size={14} />
+                Export
+              </button>
+              <button className="admin-topbar-btn-new" onClick={() => setShowNewBooking(true)}>
+                <Plus size={14} />
+                New Booking
+              </button>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="admin-content">
+            <Suspense fallback={<div style={{ padding: 40, textAlign: "center", color: "#94a3b8", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading…</div>}>
+              {renderContent()}
+            </Suspense>
+          </div>
         </main>
       </div>
     </>
