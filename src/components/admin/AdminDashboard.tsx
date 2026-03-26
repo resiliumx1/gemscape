@@ -267,6 +267,33 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
         ))}
       </div>
 
+      {/* Service Breakdown */}
+      <div className="admin-card-elevated" style={{ marginTop: 14, padding: 16 }}>
+        <p className="admin-section-title" style={{ marginBottom: 12 }}>Service Breakdown</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 3, height: 28, borderRadius: 2, background: "#1a8a9e" }} />
+            <div style={{ flex: 1 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500, color: "#0f172a" }}>Tours</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "#94a3b8" }}>
+                {periodTours.length} booking{periodTours.length !== 1 ? "s" : ""} &middot; {formatPrice(tourRevenue)}
+              </p>
+            </div>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>{periodTours.length}</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 3, height: 28, borderRadius: 2, background: "#C9A84C" }} />
+            <div style={{ flex: 1 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500, color: "#0f172a" }}>Rentals</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "#94a3b8" }}>
+                {periodRentals.length} booking{periodRentals.length !== 1 ? "s" : ""} &middot; {formatPrice(rentalRevenue)}
+              </p>
+            </div>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>{periodRentals.length}</span>
+          </div>
+        </div>
+      </div>
+
       {/* Revenue Chart */}
       <div className="admin-card-elevated" style={{ marginTop: 14, padding: "16px 16px 8px" }}>
         <p className="admin-section-title" style={{ marginBottom: 12 }}>Revenue Overview</p>

@@ -25,7 +25,11 @@ const AdminAllBookings = () => {
   const [typeFilter, setTypeFilter] = useState("all");
   const [selected, setSelected] = useState<UnifiedBooking | null>(null);
 
-  useEffect(() => { fetchAll(); }, []);
+  useEffect(() => {
+    fetchAll();
+    const timeout = setTimeout(() => setLoading(false), 6000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const fetchAll = async () => {
     try {

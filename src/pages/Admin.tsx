@@ -2,10 +2,12 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { motion } from "framer-motion";
 import {
   LayoutDashboard, Map, Car, CalendarDays, Users, TrendingUp,
   BarChart2, LineChart, Star, ArrowLeft, Settings, Mail, Truck,
-  Calendar, Search, Plus, Download
+  Calendar, Search, Plus, Download, X
 } from "lucide-react";
 
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
@@ -248,7 +250,181 @@ const Admin = () => {
           </div>
         </main>
       </div>
+
+      {/* Global New Booking Modal */}
+      {showNewBooking && (
+        <NewBookingModal onClose={() => setShowNewBooking(false)} />
+      )}
     </>
+  );
+};
+
+/* ── New Booking Modal ── */
+const NewBookingModal = ({ onClose }: { onClose: () => void }) => {
+  const [bookingType, setBookingType] = useState<"tour" | "rental">("tour");
+  const [vehicles, setVehicles] = useState<{ id: string; name: string; daily_rate: number }[]>([]);
+  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    supabase.from("vehicles").select("id, name, daily_rate").then(r => setVehicles(r.data || []));
+  }, []);
+
+  const set = (key: string, val: string) => setFormData(prev => ({ ...prev, [key]: val }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      if (bookingType === "tour") {
+        const { error } = await supabase.from("bookings").insert({
+          full_name: formData.full_name,
+          email: formData.email,
+          phone: formData.phone || "",
+          service_type: formData.service_type || "Circumnavigation Tour",
+          tour_date: formData.start_date,
+          party_size: Number(formData.party_size) || 1,
+          total_estimate: Number(formData.total_amount) || null,
+          special_requests: formData.special_requests || null,
+          status: "confirmed",
+        });
+        if (error) throw error;
+      } else {
+        const vehicle = vehicles.find(v => v.id === formData.vehicle_id);
+        const { error } = await supabase.from("rental_bookings").insert({
+          full_name: formData.full_name,
+          email: formData.email,
+          phone: formData.phone || "",
+          vehicle_id: formData.vehicle_id || null,
+          pickup_date: formData.start_date,
+          return_date: formData.end_date || formData.start_date,
+          pickup_location: "Hotel",
+          dropoff_location: "Hotel",
+          driver_license: "N/A",
+          license_country: "N/A",
+          daily_rate: vehicle?.daily_rate || null,
+          total_estimate: Number(formData.total_amount) || null,
+          status: "confirmed",
+        });
+        if (error) throw error;
+      }
+      toast.success("Booking created successfully.");
+      onClose();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to create booking");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="admin-detail-overlay" onClick={onClose}>
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        transition={{ type: "spring", damping: 28, stiffness: 300 }}
+        className="admin-detail-panel"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-6">
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>New Booking</h3>
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8" }}><X size={18} /></button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Booking Type */}
+          <div>
+            <label className="admin-form-label">Booking Type</label>
+            <div className="flex gap-2 mt-1">
+              {(["tour", "rental"] as const).map(t => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setBookingType(t)}
+                  className={`admin-period-btn ${bookingType === t ? "active" : ""}`}
+                  style={{ textTransform: "capitalize" }}
+                >{t}</button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="admin-form-label">Guest Name *</label>
+            <input className="admin-filter-input w-full" required value={formData.full_name || ""} onChange={e => set("full_name", e.target.value)} />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="admin-form-label">Email *</label>
+              <input type="email" className="admin-filter-input w-full" required value={formData.email || ""} onChange={e => set("email", e.target.value)} />
+            </div>
+            <div>
+              <label className="admin-form-label">WhatsApp</label>
+              <input className="admin-filter-input w-full" value={formData.phone || ""} onChange={e => set("phone", e.target.value)} />
+            </div>
+          </div>
+
+          {bookingType === "tour" ? (
+            <>
+              <div>
+                <label className="admin-form-label">Service *</label>
+                <select className="admin-filter-input w-full" required value={formData.service_type || ""} onChange={e => set("service_type", e.target.value)}>
+                  <option value="">Select…</option>
+                  <option>Circumnavigation Tour</option>
+                  <option>Flight Concierge</option>
+                  <option>Private Charter</option>
+                  <option>Half-Day Tour</option>
+                </select>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="admin-form-label">Tour Date *</label>
+                  <input type="date" className="admin-filter-input w-full" required value={formData.start_date || ""} onChange={e => set("start_date", e.target.value)} />
+                </div>
+                <div>
+                  <label className="admin-form-label">Party Size</label>
+                  <input type="number" min="1" className="admin-filter-input w-full" value={formData.party_size || ""} onChange={e => set("party_size", e.target.value)} />
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <label className="admin-form-label">Vehicle *</label>
+                <select className="admin-filter-input w-full" required value={formData.vehicle_id || ""} onChange={e => set("vehicle_id", e.target.value)}>
+                  <option value="">Select…</option>
+                  {vehicles.map(v => <option key={v.id} value={v.id}>{v.name} — ${v.daily_rate}/day</option>)}
+                </select>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="admin-form-label">Pickup Date *</label>
+                  <input type="date" className="admin-filter-input w-full" required value={formData.start_date || ""} onChange={e => set("start_date", e.target.value)} />
+                </div>
+                <div>
+                  <label className="admin-form-label">Return Date *</label>
+                  <input type="date" className="admin-filter-input w-full" required value={formData.end_date || ""} onChange={e => set("end_date", e.target.value)} />
+                </div>
+              </div>
+            </>
+          )}
+
+          <div>
+            <label className="admin-form-label">Total Amount ($)</label>
+            <input type="number" min="0" className="admin-filter-input w-full" value={formData.total_amount || ""} onChange={e => set("total_amount", e.target.value)} />
+          </div>
+          <div>
+            <label className="admin-form-label">Special Requests</label>
+            <textarea className="admin-filter-input w-full" style={{ minHeight: 64, resize: "vertical" }} value={formData.special_requests || ""} onChange={e => set("special_requests", e.target.value)} />
+          </div>
+
+          <div className="pt-3">
+            <button type="submit" disabled={submitting} className="admin-btn-primary w-full">
+              {submitting ? "Creating…" : "Create Booking"}
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </div>
   );
 };
 
