@@ -94,7 +94,7 @@ const Navbar = () => {
           aria-label="Gemscape home"
           onClick={() => navigateTo("/")}
         >
-          <span className="gem-nav__logo-text">GEMSCAPE</span>
+          <img src="/images/gemscape-logo.png" alt="Gemscape Travel and Tours" style={{ height: 52, width: "auto", objectFit: "contain" }} />
         </button>
 
         {/* Desktop links */}

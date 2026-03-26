@@ -122,6 +122,22 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
         />
       </div>
 
+      {/* Logo fallback — shows until video loads */}
+      <img
+        src="/images/gemscape-logo.png"
+        alt="Gemscape Travel and Tours"
+        style={{
+          position: "absolute",
+          top: "50%", left: "50%",
+          transform: "translate(-50%, -50%)",
+          height: 80, width: "auto",
+          zIndex: 1,
+          opacity: stage === "playing" ? 1 : 0,
+          transition: "opacity 0.4s ease-out",
+          pointerEvents: "none",
+        }}
+      />
+
       {/* Video */}
       <video
         ref={videoRef}
