@@ -1,68 +1,112 @@
 
 
-# Polish All Admin Interior Pages
+# Multi-Prompt Implementation Plan
 
-## Overview
-Upgrade all admin interior pages to match the redesigned dashboard quality: consistent card styles, avatar circles, status pills, booking count labels, status filter pills, enhanced drawers with status timeline and action buttons, and fixes for Review Requests bars and Revenue charts.
+This plan covers 4 prompts: hero wave colour fix, section divider removal, rentals page fixes, and complete concierge page rebuild.
 
-## Files to Modify
+---
 
-### 1. `src/components/admin/AdminTourBookings.tsx` — Full rewrite
-- Remove page title (topbar handles it), add booking count label ("X bookings" muted text)
-- Replace `<select>` filters with pill-style filter buttons (All / Pending / Confirmed / Completed / Cancelled) using `admin-period-btn` class
-- Add avatar circles with initials + Map icon for type column
-- Use colored status pills (`admin-status-*` classes)
-- Row click opens enhanced drawer (420px, fixed right, white bg, border-left, box-shadow)
-- Drawer contents: avatar + name + contact, Map icon + service name, date, pickup location, special requests, total amount large bold, status timeline (Enquiry → Confirmed → Active → Completed with teal highlight), action buttons: Confirm (teal filled), Send Confirmation Email (outline), Mark Active, Mark Completed, Cancel (red outline)
-- Search filters in real time by guest name or booking ref
+## PROMPT 2 — Wave Colours + Section Divider Lines
 
-### 2. `src/components/admin/AdminRentalBookings.tsx` — Full rewrite
-- Same treatment as Tour Bookings but with Car icon, vehicle name, date range (pickup–return)
-- Drawer shows vehicle info, pickup/return locations, license details
-- Same status timeline and action buttons
+### Issue 1: Wave colours
+The `WaveDivider` component uses a `sand` palette (cream tones) everywhere. Add a new `"ocean"` variant to `WaveDivider.tsx` with these 5 layer colours:
+- `rgba(3,14,20,0.97)`, `rgba(5,22,32,0.92)`, `rgba(8,40,55,0.82)`, `rgba(13,72,88,0.65)`, `rgba(26,138,158,0.35)`
 
-### 3. `src/components/admin/AdminAllBookings.tsx` — Full rewrite
-- Same table design with combined tour+rental data
-- Type column shows Map or Car icon with label
-- Same drawer, same status timeline, same action buttons
+Then update all homepage WaveDivider usages to use `variant="ocean"`:
+- `Services.tsx` line 128
+- `Manifesto.tsx` line 65
+- `Testimonials.tsx` line 75
+- `Hero.tsx` line 120 (if still used)
 
-### 4. `src/components/admin/AdminCustomerDirectory.tsx` — Polish
-- Replace card grid with a searchable sortable table: avatar initials, full name, email, phone, flag emoji for country, booking count, total spend (bold, sorted descending), last booking date, "View →" button
-- Guest profile panel (drawer): booking timeline, total spend, first booking date, preferred service type, WhatsApp button opening `https://wa.me/[phone]`
+**Files**: `WaveDivider.tsx`, `Services.tsx`, `Manifesto.tsx`, `Testimonials.tsx`, `Hero.tsx`
 
-### 5. `src/components/admin/AdminLoyalty.tsx` — Polish empty state
-- Add 4 metric cards above charts: Repeat Booking Rate, Average Lifetime Value, Top Guest by Spend, Average Bookings Per Guest — showing "—" with "Awaiting data" when empty, real values when data exists
-- Empty state for Top 10 table: Gemscape gem icon + styled message "Your top guests will appear here after your first confirmed bookings."
+### Issue 2: Section divider lines
+Remove these specific borders/lines in `index.css`:
+1. `.services__row` — remove `border-bottom: 1px solid hsl(var(--gem-sand))` (line 770)
+2. `.services__row::before` — remove the gold left-border indicator (lines 781-794, set `display: none` or remove)
+3. `.eyebrow::before` — the gold dash before "OUR SERVICES" etc. Keep this globally but verify no `<hr>` elements exist
+4. `.testimonial__sep` — keep this (it's inside a testimonial card, not a section divider)
 
-### 6. `src/components/admin/AdminReviewRequests.tsx` — Fix bars + send button
-- Change funnel bars from thin 6px to proper horizontal bars: height 32px, border-radius 6px, count label inside/beside
-- Keep existing Send Now on review_queue items
+Ensure each major section has `padding: 100px 0` minimum and its own background colour for natural separation.
 
-### 7. `src/components/admin/AdminRevenue.tsx` — Fix charts
-- Revenue by Service donut: add proper legend below with color swatch, label, count, and percentage
-- ABV Trend chart Y-axis: add `tickFormatter={(v) => '$' + v.toLocaleString()}` and `domain={[0, 'auto']}`
-- Monthly Revenue chart Y-axis: same currency formatter
-- Update all card borders from `hsl(var(--gem-sand))` to `#e5e7eb` and border-radius to 10px
+---
 
-### 8. Global style cleanup across ALL pages
-- Replace `border: "1px solid hsl(var(--gem-sand))"` with `border: "0.5px solid #e5e7eb"` everywhere
-- Replace `fontFamily: "'Cormorant Garamond', serif"` with DM Sans in admin contexts
-- All cards use `admin-card-elevated` class (10px radius, 0.5px border)
-- No emoji icons remain (replace ◆ markers with Lucide Diamond or remove)
-- Remove any warm cream/sand background references
+## PROMPT 3 — Rentals Page Fixes
 
-## Technical Details
-- Shared `BookingDrawer` component pattern used across all 3 booking pages to avoid duplication
-- Status timeline component: 4 stages rendered as connected dots, current stage highlighted teal
-- Action buttons in drawer use existing `admin-btn-teal`, `admin-btn-outline`, and a new red outline variant
-- Customer table sort: click column headers to toggle ascending/descending
-- WhatsApp link: strip non-digits from phone, prepend `https://wa.me/`
-- Flag emoji: map country code to flag using regional indicator symbols or show country text
+### Fix 1: Vehicle photos
+Update `RentalsPreview.tsx` VEHICLES_DATA images to Caribbean/tropical Unsplash URLs:
+- Toyota Land Cruiser: `https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=85` (already decent) → replace with beach SUV
+- Jeep Wrangler: tropical jeep image
+- Hyundai Tucson: coastal road image
+- Replace the laptop screenshot image (`photo-1488590528505-98d2b5aba04b`) with a proper vehicle photo
+
+Add `{/* REPLACE WITH REAL VEHICLE PHOTO */}` comments.
+
+**File**: `RentalsPreview.tsx`
+
+### Fix 2: Vehicle pricing visible
+Already implemented — `Rentals.tsx` line 252-257 shows "From $X / day" with `formatPrice(v.daily_rate)`. The data comes from Supabase `vehicles` table. No change needed here.
+
+### Fix 3: Booking summary reactive
+Already implemented — `RentalBookingForm.tsx` lines 72-89 calculate `totalDays`, `baseTotal`, `estimatedTotal` reactively. The summary sidebar (lines 494-531) already shows real values when vehicle + dates are selected and "—" otherwise. This is working correctly. No change needed.
+
+### Fix 4: Vehicle dropdown
+Already implemented — `RentalBookingForm.tsx` lines 216-231 use Shadcn `Select` component. May need styling refinement for dark background. Update the `.rb-shadcn-select` CSS class to match specified styles: `background: rgba(255,255,255,0.06); border: 1px solid rgba(201,168,76,0.3); color: white; border-radius: 4px`.
+
+**Files**: `RentalsPreview.tsx`, `index.css` (minor styling)
+
+---
+
+## PROMPT 4 — Complete Concierge Page
+
+### Database migration
+Create `concierge_enquiries` table:
+```sql
+CREATE TABLE public.concierge_enquiries (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at timestamptz DEFAULT now(),
+  name text NOT NULL,
+  email text NOT NULL,
+  whatsapp text,
+  arrival_date date,
+  departure_date date,
+  flight_number text,
+  guests integer,
+  requirements text,
+  status text DEFAULT 'new'
+);
+ALTER TABLE public.concierge_enquiries ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Anyone can submit enquiries" ON public.concierge_enquiries FOR INSERT TO public WITH CHECK (true);
+CREATE POLICY "Admins can view enquiries" ON public.concierge_enquiries FOR SELECT TO authenticated USING (public.is_admin());
+CREATE POLICY "Admins can manage enquiries" ON public.concierge_enquiries FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
+```
+
+### Full page rewrite: `Concierge.tsx`
+Replace "Coming Soon" placeholder with 4 sections:
+
+**Section 1 — Hero**: Full-bleed photo (private jet/luxury airport Unsplash), gradient overlay left-to-right, eyebrow "FLIGHT CONCIERGE", headline "Your Arrival, Handled Perfectly." in Cormorant Garamond 64px, subtext, two CTAs (ENQUIRE NOW gold filled, WHATSAPP US gold outline).
+
+**Section 2 — What's Included**: Dark `#061418` background, 4-column grid of service cards with Lucide icons (Plane, Star, Car, Key), gold icon colour, white titles, muted descriptions. Card styles: `background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 32px 24px`. Hover: border brightens.
+
+**Section 3 — How It Works**: 3 horizontal steps with gold numbers, bold titles, muted descriptions, connected by dashed gold line. Background `#071e28`.
+
+**Section 4 — Enquiry Form**: Two-column layout. Left: heading + contact info. Right: form with Name, Email, WhatsApp, Arrival Date (Shadcn date picker), Departure Date, Flight Number, Guests, Requirements textarea. Submit inserts into `concierge_enquiries` table. Success message shown on submit.
+
+### CSS additions
+Add concierge section styles to `index.css`:
+- `.concierge-hero`, `.concierge-services`, `.concierge-steps`, `.concierge-enquiry` section styles
+- Service card hover effects
+- Step connector dashed line styles
+
+**Files**: `Concierge.tsx` (full rewrite), `index.css` (new styles), database migration
+
+---
 
 ## Implementation Order
-1. Update AdminTourBookings, AdminRentalBookings, AdminAllBookings (largest changes)
-2. Update AdminCustomerDirectory (table conversion)
-3. Update AdminLoyalty (metric cards + empty state)
-4. Update AdminReviewRequests (bar fix)
-5. Update AdminRevenue (chart fixes + style cleanup)
+1. Database migration for `concierge_enquiries`
+2. `WaveDivider.tsx` — add ocean variant
+3. `index.css` — remove section divider lines, add concierge styles, fix select styling
+4. `Services.tsx`, `Manifesto.tsx`, `Testimonials.tsx` — change wave variant to ocean
+5. `RentalsPreview.tsx` — fix vehicle images
+6. `Concierge.tsx` — full page rewrite
 
