@@ -1082,7 +1082,7 @@ export default function GemHero({ width = 800, height = 700 }) {
           <div className="logo-subtitle">Travel and Tours</div>
         </div>
 
-        <canvas ref={canvasRef} id="gem-canvas" />
+        <canvas ref={canvasRef} id="gem-canvas" style={{ pointerEvents: 'auto' }} />
 
         <div ref={anamorphicRef} className="anamorphic-layer" id="anamorphic-layer" />
         <div ref={sparkleRef} className="sparkle-layer" id="sparkle-layer">
