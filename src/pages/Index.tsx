@@ -58,7 +58,7 @@ const Index = () => {
         }}
       >
         <Navbar />
-        <Hero />
+        <GemHero />
         <Services />
         <Experiences />
         <RentalsPreview />
