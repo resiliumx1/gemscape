@@ -1048,7 +1048,7 @@ export default function GemHero({ width = 800, height = 700 }) {
       renderer.dispose();
       if (typeof streaks !== 'undefined') streaks.forEach(s => s.el && s.el.remove());
     };
-  }, []);
+  }, [width, height]);
 
   return (
     <section className="gem-hero">
