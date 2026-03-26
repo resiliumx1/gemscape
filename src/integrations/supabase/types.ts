@@ -89,6 +89,48 @@ export type Database = {
         }
         Relationships: []
       }
+      concierge_enquiries: {
+        Row: {
+          arrival_date: string | null
+          created_at: string | null
+          departure_date: string | null
+          email: string
+          flight_number: string | null
+          guests: number | null
+          id: string
+          name: string
+          requirements: string | null
+          status: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          arrival_date?: string | null
+          created_at?: string | null
+          departure_date?: string | null
+          email: string
+          flight_number?: string | null
+          guests?: number | null
+          id?: string
+          name: string
+          requirements?: string | null
+          status?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          arrival_date?: string | null
+          created_at?: string | null
+          departure_date?: string | null
+          email?: string
+          flight_number?: string | null
+          guests?: number | null
+          id?: string
+          name?: string
+          requirements?: string | null
+          status?: string | null
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
       customer_notes: {
         Row: {
           created_at: string
