@@ -5,7 +5,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import './GemHero.css';
 
-export default function GemHero() {
+export default function GemHero({ width = 800, height = 700 }) {
   const canvasRef     = useRef(null);
   const anamorphicRef = useRef(null);
   const sparkleRef    = useRef(null);
@@ -22,7 +22,7 @@ export default function GemHero() {
     
     const canvas = canvasEl;
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setSize(800, 700);
+    renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.6;
@@ -92,7 +92,7 @@ export default function GemHero() {
     // ── POST-PROCESSING COMPOSER ──
     const composer = new EffectComposer(renderer);
     
-    const aspect = 800 / 700;
+    const aspect = width / height;
     const camH = 3.2;
     const camera = new THREE.OrthographicCamera(-camH * aspect, camH * aspect, camH, -camH, 0.1, 100);
     camera.position.set(0, 0.1, 8);
@@ -1048,7 +1048,7 @@ export default function GemHero() {
       renderer.dispose();
       if (typeof streaks !== 'undefined') streaks.forEach(s => s.el && s.el.remove());
     };
-  }, []);
+  }, [width, height]);
 
   return (
     <section className="gem-hero">
@@ -1082,7 +1082,7 @@ export default function GemHero() {
           <div className="logo-subtitle">Travel and Tours</div>
         </div>
 
-        <canvas ref={canvasRef} id="gem-canvas" />
+        <canvas ref={canvasRef} id="gem-canvas" style={{ pointerEvents: 'auto' }} />
 
         <div ref={anamorphicRef} className="anamorphic-layer" id="anamorphic-layer" />
         <div ref={sparkleRef} className="sparkle-layer" id="sparkle-layer">
