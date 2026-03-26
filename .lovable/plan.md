@@ -1,57 +1,68 @@
 
 
-# Admin Dashboard Redesign — Implementation Plan
+# Polish All Admin Interior Pages
 
 ## Overview
-Complete redesign of the admin panel into a world-class operations centre with a refined sidebar, white topbar, new metric cards, two-column dashboard layout with bookings table + right panels, and clean #f8f9fa background.
+Upgrade all admin interior pages to match the redesigned dashboard quality: consistent card styles, avatar circles, status pills, booking count labels, status filter pills, enhanced drawers with status timeline and action buttons, and fixes for Review Requests bars and Revenue charts.
 
 ## Files to Modify
 
-### 1. `src/pages/Admin.tsx` — Full rewrite
-- Replace emoji-based NAV_SECTIONS with Lucide icon components (LayoutDashboard, Map, Car, CalendarDays, Users, TrendingUp, BarChart2, LineChart, Star, ArrowLeft, etc.)
-- New sidebar structure:
-  - Top: Gemscape gem SVG in teal rounded square + "Gemscape" bold 14px + "Admin Portal" 11px muted
-  - Nav items: Lucide icons at 16x16, strokeWidth 1.5. Active = teal bg rgba(26,138,158,0.12) + teal text. Inactive = rgba(255,255,255,0.5)
-  - Section labels: 10px uppercase tracking
-  - Amber badge counts on sections with pending items (from Supabase data)
-  - Bottom: user avatar circle (initials, teal bg), name, "Admin" role label
-- New white topbar (52px, border-bottom 0.5px #e5e7eb):
-  - Left: page title from activeTab mapping
-  - Right: search input (200px, #f9fafb bg), Export outline button, "+ New Booking" teal button (appears on ALL pages)
-- Main content background changed to #f8f9fa
+### 1. `src/components/admin/AdminTourBookings.tsx` — Full rewrite
+- Remove page title (topbar handles it), add booking count label ("X bookings" muted text)
+- Replace `<select>` filters with pill-style filter buttons (All / Pending / Confirmed / Completed / Cancelled) using `admin-period-btn` class
+- Add avatar circles with initials + Map icon for type column
+- Use colored status pills (`admin-status-*` classes)
+- Row click opens enhanced drawer (420px, fixed right, white bg, border-left, box-shadow)
+- Drawer contents: avatar + name + contact, Map icon + service name, date, pickup location, special requests, total amount large bold, status timeline (Enquiry → Confirmed → Active → Completed with teal highlight), action buttons: Confirm (teal filled), Send Confirmation Email (outline), Mark Active, Mark Completed, Cancel (red outline)
+- Search filters in real time by guest name or booking ref
 
-### 2. `src/components/admin/AdminDashboard.tsx` — Major rewrite
-- **Metric cards**: 4-card grid (not 6) with colored top borders:
-  - Total Revenue (teal #1a8a9e), Active Bookings (gold #C9A84C), Pending Approval (amber #f59e0b with tint), Fleet Utilisation (green #3b6d11)
-  - Each card: white bg, 0.5px #e5e7eb border, 10px radius, 14px 16px padding, 3px top accent
-  - Progress bar (3px height) and delta line under each value
-- **Two-column content below metrics**:
-  - Left (flex:1): Bookings table card with filter pills (All/Rentals/Tours/Concierge), avatar+initials per guest, type icon+label, dates, bold amount, status pills with specified colors, row hover #f9fafb, row click opens 420px detail drawer
-  - Right (320px): 3 stacked panels:
-    1. Booking pipeline — 5 horizontal bars (Enquiry/Pending/Confirmed/Active/Completed) with color coding
-    2. Live activity — last 5 actions feed with colored dots and timestamps
-    3. Quick actions — 2x2 grid (New Booking, Send Confirmation, Fleet Status, View Calendar)
-- **Revenue chart Y-axis fix**: Add `domain={[0, 'auto']}` and `tickFormatter` for currency formatting on the YAxis component
+### 2. `src/components/admin/AdminRentalBookings.tsx` — Full rewrite
+- Same treatment as Tour Bookings but with Car icon, vehicle name, date range (pickup–return)
+- Drawer shows vehicle info, pickup/return locations, license details
+- Same status timeline and action buttons
 
-### 3. `src/index.css` — Admin styles update
-- `.admin-sidebar`: width 220px, background #05181e
-- `.admin-main`: background #f8f9fa (not cream)
-- `.admin-nav-item`: remove text-transform uppercase, font-size 13px normal case, remove border-left indicator
-- `.admin-nav-item.active`: background rgba(26,138,158,0.12), color #1a8a9e
-- New classes: `.admin-topbar`, `.admin-metric-card-new`, `.admin-status-pill`, `.admin-pipeline-bar`, `.admin-activity-feed`, `.admin-quick-action`
-- Card styles: border-radius 10px, border 0.5px solid #e5e7eb (replace gold-tinted borders)
+### 3. `src/components/admin/AdminAllBookings.tsx` — Full rewrite
+- Same table design with combined tour+rental data
+- Type column shows Map or Car icon with label
+- Same drawer, same status timeline, same action buttons
+
+### 4. `src/components/admin/AdminCustomerDirectory.tsx` — Polish
+- Replace card grid with a searchable sortable table: avatar initials, full name, email, phone, flag emoji for country, booking count, total spend (bold, sorted descending), last booking date, "View →" button
+- Guest profile panel (drawer): booking timeline, total spend, first booking date, preferred service type, WhatsApp button opening `https://wa.me/[phone]`
+
+### 5. `src/components/admin/AdminLoyalty.tsx` — Polish empty state
+- Add 4 metric cards above charts: Repeat Booking Rate, Average Lifetime Value, Top Guest by Spend, Average Bookings Per Guest — showing "—" with "Awaiting data" when empty, real values when data exists
+- Empty state for Top 10 table: Gemscape gem icon + styled message "Your top guests will appear here after your first confirmed bookings."
+
+### 6. `src/components/admin/AdminReviewRequests.tsx` — Fix bars + send button
+- Change funnel bars from thin 6px to proper horizontal bars: height 32px, border-radius 6px, count label inside/beside
+- Keep existing Send Now on review_queue items
+
+### 7. `src/components/admin/AdminRevenue.tsx` — Fix charts
+- Revenue by Service donut: add proper legend below with color swatch, label, count, and percentage
+- ABV Trend chart Y-axis: add `tickFormatter={(v) => '$' + v.toLocaleString()}` and `domain={[0, 'auto']}`
+- Monthly Revenue chart Y-axis: same currency formatter
+- Update all card borders from `hsl(var(--gem-sand))` to `#e5e7eb` and border-radius to 10px
+
+### 8. Global style cleanup across ALL pages
+- Replace `border: "1px solid hsl(var(--gem-sand))"` with `border: "0.5px solid #e5e7eb"` everywhere
+- Replace `fontFamily: "'Cormorant Garamond', serif"` with DM Sans in admin contexts
+- All cards use `admin-card-elevated` class (10px radius, 0.5px border)
+- No emoji icons remain (replace ◆ markers with Lucide Diamond or remove)
+- Remove any warm cream/sand background references
 
 ## Technical Details
-
-- Lucide imports: `import { LayoutDashboard, Map, Car, CalendarDays, Users, TrendingUp, BarChart2, LineChart, Star, ArrowLeft, Settings, Mail, Truck, Calendar, Search, Plus, Download } from "lucide-react"`
-- The "+ New Booking" button in topbar triggers the existing `showNewBooking` state — will need to lift this state up to Admin.tsx or use a callback prop
-- Booking detail drawer: use existing QuickFormModal pattern but read-only, slide from right
-- Pipeline data computed from existing booking statuses (pending/confirmed/completed/cancelled)
-- Fleet utilisation: `(vehicles rented today / total vehicles) * 100`
-- Live activity: derived from most recent bookings + rental_bookings ordered by created_at
+- Shared `BookingDrawer` component pattern used across all 3 booking pages to avoid duplication
+- Status timeline component: 4 stages rendered as connected dots, current stage highlighted teal
+- Action buttons in drawer use existing `admin-btn-teal`, `admin-btn-outline`, and a new red outline variant
+- Customer table sort: click column headers to toggle ascending/descending
+- WhatsApp link: strip non-digits from phone, prepend `https://wa.me/`
+- Flag emoji: map country code to flag using regional indicator symbols or show country text
 
 ## Implementation Order
-1. Update CSS admin styles first (sidebar width, backgrounds, card styles)
-2. Rewrite Admin.tsx (sidebar + topbar + Lucide icons)
-3. Rewrite AdminDashboard.tsx (metric cards, table, right panels, chart fix)
+1. Update AdminTourBookings, AdminRentalBookings, AdminAllBookings (largest changes)
+2. Update AdminCustomerDirectory (table conversion)
+3. Update AdminLoyalty (metric cards + empty state)
+4. Update AdminReviewRequests (bar fix)
+5. Update AdminRevenue (chart fixes + style cleanup)
 
