@@ -22,7 +22,7 @@ export default function GemHero({ width = 800, height = 700 }) {
     
     const canvas = canvasEl;
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setSize(800, 700);
+    renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.6;
