@@ -1,58 +1,38 @@
 
 
-# Admin Overhaul + Page Transitions — Implementation Plan
+# Fix Logo Transparency
 
-## Assessment
+## Problem
+The screenshot clearly shows a **dark rectangular box** on the left side of the logo in the intro splash. The current `gemscape-logo.png` file has a partially opaque background baked into the image itself — no amount of CSS `background: transparent` will fix this.
 
-After reviewing the codebase, **most of Prompt 5 and all of Prompt 6 are already implemented**:
-- Sidebar already uses Lucide icons with correct sizes
-- Topbar exists with search, export, and "+ New Booking" button
-- Metric cards are properly styled with color accents and progress bars
-- Revenue chart has Y-axis currency formatter and auto-scale
-- Booking detail drawer exists in Dashboard
-- Page transitions (PageTransitionWave.tsx) already implement the exact canvas-based cover/reveal system with route palettes
-- IntroSplash already has video at `/videos/intro.mp4` with autoPlay/muted/playsInline and error fallback
+The user previously uploaded a new file (`gemscape_logo_transparent.png`) which was copied over the old one, but the issue persists — meaning either the copy didn't work correctly, or the new file also has transparency issues.
 
-## What Actually Needs Fixing
+## Root Cause
+The PNG asset itself contains a non-transparent matte/background region. This is an **image file problem**, not a CSS problem.
 
-### 1. "+ New Booking" button is broken from topbar (Admin.tsx)
-The topbar button sets `showNewBooking` state in `Admin.tsx` (line 236), but **no modal is rendered** there. The `QuickFormModal` only exists inside `AdminDashboard.tsx`. When on any page other than Dashboard, clicking "+ New Booking" does nothing.
+## Solution
 
-**Fix**: Add a `NewBookingModal` render in `Admin.tsx` that uses the existing `QuickFormModal` pattern. It should support Tour/Rental/Concierge booking types via radio buttons, insert into the correct table, and show a success toast.
+### 1. Re-upload the user's transparent logo
+Copy the user's latest upload (`user-uploads://gemscape_logo_transparent.png`) to `public/images/gemscape-logo.png` again, overwriting the current file.
 
-### 2. No loading timeout on booking pages
-`AdminTourBookings`, `AdminRentalBookings`, `AdminAllBookings` have try/catch but no timeout fallback. If Supabase hangs, the spinner runs forever.
+### 2. Add CSS safety net across all logo instances
+Even with a properly transparent PNG, add `mix-blend-mode: normal` and remove any `filter: brightness()` that could expose edge artifacts. Update all `<img>` tags for the logo in:
+- `Navbar.tsx` (line 97)
+- `Footer.tsx`
+- `Admin.tsx` (sidebar)
+- `Concierge.tsx` (hero)
+- `IntroSplash.tsx`
+- `CinematicIntro.jsx`
 
-**Fix**: Add `setTimeout(() => setLoading(false), 6000)` in the fetch `useEffect` of each booking page.
+### 3. Verify the header placement
+Confirm the logo is rendering in the navbar header (it already is at line 97 of `Navbar.tsx`). No structural change needed — just the asset replacement.
 
-### 3. Service Breakdown card missing from Dashboard
-No "Service Breakdown" or tours-vs-rentals breakdown exists. The dashboard shows Revenue Overview chart, bookings table, pipeline, activity, and quick actions — but no service breakdown card.
-
-**Fix**: Add a simple two-row breakdown card between the revenue chart and the two-column section. Shows "Tours: X bookings" and "Rentals: X bookings" with colored left-border indicators (teal for tours, gold for rentals). Computes counts from the already-loaded data.
-
-## Files to Modify
-
-### `src/pages/Admin.tsx`
-- Import `toast` from sonner and `supabase`
-- Add a full `NewBookingModal` component rendered when `showNewBooking === true`
-- Modal: booking type radio (Tour/Rental/Concierge), guest fields, service dropdown (populated from vehicles table for rentals), dates, amount, special requests
-- On submit: insert into `bookings` or `rental_bookings` with status "confirmed", show toast, close modal, trigger data refresh
-
-### `src/components/admin/AdminDashboard.tsx`
-- Add a "Service Breakdown" card after the revenue chart (before the two-column section)
-- Two rows: Tours count with teal left bar, Rentals count with gold left bar
-
-### `src/components/admin/AdminTourBookings.tsx`
-- Add 6-second timeout in `useEffect` calling `fetchBookings`
-
-### `src/components/admin/AdminRentalBookings.tsx`
-- Same 6-second timeout
-
-### `src/components/admin/AdminAllBookings.tsx`
-- Same 6-second timeout
-
-## Implementation Order
-1. Add loading timeouts to all 3 booking pages
-2. Add Service Breakdown card to Dashboard
-3. Build and render NewBookingModal in Admin.tsx
+## Files
+- `public/images/gemscape-logo.png` — overwrite with user upload
+- `src/components/Navbar.tsx` — minor style cleanup
+- `src/components/Footer.tsx` — minor style cleanup
+- `src/pages/Admin.tsx` — remove `filter: brightness(1.1)` from sidebar logo
+- `src/components/CinematicIntro.jsx` — style cleanup
+- `src/components/IntroSplash.tsx` — style cleanup
+- `src/pages/Concierge.tsx` — style cleanup
 
