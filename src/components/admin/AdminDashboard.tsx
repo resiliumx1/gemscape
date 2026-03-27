@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { format, startOfMonth, startOfWeek, startOfYear, startOfQuarter, subMonths, subWeeks, subQuarters, subYears, eachDayOfInterval, eachMonthOfInterval, formatDistanceToNow } from "date-fns";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, defs, linearGradient, stop } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { motion } from "framer-motion";
 import { Map, Car, CalendarDays, Plus, Send, Truck, Calendar } from "lucide-react";
