@@ -4,7 +4,8 @@ import { format, startOfMonth, startOfWeek, startOfYear, startOfQuarter, subMont
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { motion } from "framer-motion";
-import { Map, Car, CalendarDays, Plus, Send, Truck, Calendar } from "lucide-react";
+import { Map, Car, CalendarDays, Plus, Send, Truck, Calendar, BarChart2 } from "lucide-react";
+import ReportCard from "@/components/admin/ReportCard";
 
 type Period = "today" | "week" | "month" | "quarter" | "year";
 
@@ -53,7 +54,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     return () => { supabase.removeChannel(channel); };
   }, []);
 
-  // Date range logic
   const getDateRange = (p: Period) => {
     const now = new Date();
     const starts: Record<Period, Date> = {
@@ -96,7 +96,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
   const activeRentals = rentalBookings.filter(r => r.pickup_date <= today && r.return_date >= today).length;
   const fleetUtil = vehicles.length > 0 ? Math.round((activeRentals / vehicles.length) * 100) : 0;
 
-  // Chart data
   const chartData = useMemo(() => {
     if (period === "year") {
       return eachMonthOfInterval({ start, end: new Date() }).map(month => {
@@ -115,7 +114,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     });
   }, [tourBookings, rentalBookings, period, start]);
 
-  // Pipeline counts
   const pipeline = useMemo(() => {
     const all = [...tourBookings, ...rentalBookings];
     const counts = { enquiry: 0, pending: 0, confirmed: 0, active: 0, completed: 0 };
@@ -132,7 +130,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
 
   const pipelineMax = Math.max(1, ...Object.values(pipeline));
 
-  // Recent bookings for table
   const recentBookings = useMemo(() => {
     const combined = [
       ...tourBookings.map(b => ({ ...b, _type: "tour" as const, _date: b.tour_date })),
@@ -145,7 +142,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     return filtered.sort((a, b) => (b.created_at || "").localeCompare(a.created_at || "")).slice(0, 10);
   }, [tourBookings, rentalBookings, filter]);
 
-  // Live activity
   const liveActivity = useMemo(() => {
     const all = [
       ...tourBookings.map(b => ({ name: b.full_name, type: "tour", status: b.status, date: b.created_at, service: b.service_type })),
@@ -159,7 +155,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     return (parts[0]?.[0] || "") + (parts[1]?.[0] || "");
   };
 
-  // New booking/rental handlers
   const handleNewBooking = async (formData: any) => {
     const { error } = await supabase.from("bookings").insert({
       full_name: formData.full_name, email: formData.email, phone: formData.phone,
@@ -194,24 +189,41 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     }
   };
 
+  const handleReportGenerate = async (type: string, format: string) => {
+    console.log('Dashboard quick report:', type, format);
+  };
+
+  // Metric card accent configs
   const METRIC_CARDS = [
     {
       label: "Total Revenue", value: formatPrice(totalRevenue),
-      accent: "#1a8a9e", trend: revTrend, progress: Math.min(100, totalRevenue > 0 ? 65 : 0),
+      accent: "#1a8a9e", accentGrad: "linear-gradient(90deg,#1a8a9e,#5ec8e0)",
+      glowColor: "rgba(26,138,158,0.15)", iconBg: "rgba(26,138,158,0.2)",
+      iconShadow: "0 3px 10px rgba(26,138,158,0.25),inset 0 1px 0 rgba(94,200,224,0.3)",
+      trend: revTrend, progress: Math.min(100, totalRevenue > 0 ? 65 : 0),
     },
     {
       label: "Active Bookings", value: activeBookings,
-      accent: "#C9A84C", progress: Math.min(100, activeBookings * 10),
+      accent: "#C9A84C", accentGrad: "linear-gradient(90deg,#C9A84C,#E8C96A)",
+      glowColor: "rgba(201,168,76,0.15)", iconBg: "rgba(201,168,76,0.2)",
+      iconShadow: "0 3px 10px rgba(201,168,76,0.25),inset 0 1px 0 rgba(232,201,106,0.3)",
+      progress: Math.min(100, activeBookings * 10),
     },
     {
       label: "Pending Approval", value: pendingBookings,
-      accent: "#f59e0b", alert: pendingBookings > 0,
+      accent: "#fb7185", accentGrad: "linear-gradient(90deg,#fb7185,#fda4af)",
+      glowColor: "rgba(251,113,133,0.15)", iconBg: "rgba(251,113,133,0.2)",
+      iconShadow: "0 3px 10px rgba(251,113,133,0.25),inset 0 1px 0 rgba(253,164,175,0.3)",
+      alert: pendingBookings > 0,
       sub: pendingBookings > 0 ? "Needs attention" : "All clear",
       progress: Math.min(100, pendingBookings * 15),
     },
     {
       label: "Fleet Utilisation", value: `${fleetUtil}%`,
-      accent: "#3b6d11", progress: fleetUtil,
+      accent: "#2dd4a0", accentGrad: "linear-gradient(90deg,#2dd4a0,#a7f3d0)",
+      glowColor: "rgba(45,212,160,0.15)", iconBg: "rgba(45,212,160,0.2)",
+      iconShadow: "0 3px 10px rgba(45,212,160,0.25),inset 0 1px 0 rgba(167,243,208,0.3)",
+      progress: fleetUtil,
     },
   ];
 
@@ -237,31 +249,39 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05, duration: 0.3 }}
             className="admin-card-elevated"
-            style={{
-              borderTop: `3px solid ${card.accent}`,
-              background: card.alert ? "rgba(245,158,11,0.03)" : "white",
-            }}
+            style={{ position: "relative", overflow: "hidden" }}
           >
+            {/* Top accent bar */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: card.accentGrad, borderRadius: "13px 13px 0 0" }} />
+            {/* Ambient glow */}
+            <div style={{ position: "absolute", top: -20, right: -20, width: 80, height: 80, borderRadius: "50%", background: card.accent, opacity: 0.06 }} />
+
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+              <div style={{ width: 36, height: 36, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", background: card.iconBg, boxShadow: card.iconShadow }}>
+                {i === 0 && <BarChart2 size={16} color="#5ec8e0" />}
+              </div>
+            </div>
+
             <p className="admin-metric-label">{card.label}</p>
             <p className="admin-metric-value" style={{ marginTop: 6 }}>{card.value}</p>
             {card.sub && (
               <p style={{
                 fontFamily: "'DM Sans', sans-serif", fontSize: 11, marginTop: 4,
-                color: card.alert ? "#f59e0b" : "#94a3b8", fontWeight: 500,
+                color: card.alert ? "#fb7185" : "rgba(223,243,248,0.28)", fontWeight: 500,
               }}>{card.sub}</p>
             )}
             {card.trend !== undefined && card.trend !== 0 && (
               <p style={{ marginTop: 4 }}>
                 <span className="admin-trend-badge" style={{
-                  background: card.trend > 0 ? "rgba(26,138,158,0.1)" : "rgba(239,68,68,0.1)",
-                  color: card.trend > 0 ? "#1a8a9e" : "#ef4444",
+                  background: card.trend > 0 ? "rgba(45,212,160,0.12)" : "rgba(251,113,133,0.12)",
+                  color: card.trend > 0 ? "#2dd4a0" : "#fb7185",
                 }}>
                   {card.trend > 0 ? "↑" : "↓"} {card.trend > 0 ? "+" : ""}{card.trend}% vs last period
                 </span>
               </p>
             )}
             <div className="admin-progress-bar">
-              <div className="admin-progress-bar-fill" style={{ width: `${card.progress}%`, background: card.accent }} />
+              <div className="admin-progress-bar-fill" style={{ width: `${card.progress}%`, background: card.accentGrad }} />
             </div>
           </motion.div>
         ))}
@@ -274,22 +294,22 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ width: 3, height: 28, borderRadius: 2, background: "#1a8a9e" }} />
             <div style={{ flex: 1 }}>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500, color: "#0f172a" }}>Tours</p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "#94a3b8" }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500, color: "#dff3f8" }}>Tours</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "rgba(223,243,248,0.35)" }}>
                 {periodTours.length} booking{periodTours.length !== 1 ? "s" : ""} &middot; {formatPrice(tourRevenue)}
               </p>
             </div>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>{periodTours.length}</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#dff3f8" }}>{periodTours.length}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ width: 3, height: 28, borderRadius: 2, background: "#C9A84C" }} />
             <div style={{ flex: 1 }}>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500, color: "#0f172a" }}>Rentals</p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "#94a3b8" }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500, color: "#dff3f8" }}>Rentals</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "rgba(223,243,248,0.35)" }}>
                 {periodRentals.length} booking{periodRentals.length !== 1 ? "s" : ""} &middot; {formatPrice(rentalRevenue)}
               </p>
             </div>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>{periodRentals.length}</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#dff3f8" }}>{periodRentals.length}</span>
           </div>
         </div>
       </div>
@@ -299,15 +319,28 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
         <p className="admin-section-title" style={{ marginBottom: 12 }}>Revenue Overview</p>
         <ResponsiveContainer width="100%" height={220}>
           <LineChart data={chartData}>
-            <CartesianGrid stroke="#f1f5f9" strokeDasharray="4 4" />
-            <XAxis dataKey="name" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "#94a3b8" }} />
+            <defs>
+              <linearGradient id="areaGradTours" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#1a8a9e" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="#1a8a9e" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="areaGradRentals" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#C9A84C" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="#C9A84C" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid stroke="rgba(94,200,224,0.08)" strokeDasharray="4 4" />
+            <XAxis dataKey="name" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(94,200,224,0.6)" }} />
             <YAxis
-              tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "#94a3b8" }}
+              tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fill: "rgba(94,200,224,0.6)" }}
               tickFormatter={(value) => `$${value.toLocaleString()}`}
               domain={[0, 'auto']}
             />
             <Tooltip
-              contentStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, border: "0.5px solid #e5e7eb", borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}
+              contentStyle={{
+                background: '#0d2838', border: '1px solid rgba(94,200,224,0.25)',
+                borderRadius: 8, color: '#dff3f8', fontSize: 11,
+              }}
               formatter={(value: number) => [`$${value.toLocaleString()}`, undefined]}
             />
             <Line type="monotone" dataKey="tours" name="Tours" stroke="#1a8a9e" strokeWidth={2} dot={false} />
@@ -321,7 +354,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
         {/* Left — Bookings table */}
         <div style={{ flex: 1 }}>
           <div className="admin-card-elevated" style={{ padding: 0, overflow: "hidden" }}>
-            <div style={{ padding: "14px 16px", borderBottom: "0.5px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <p className="admin-section-title">Recent bookings</p>
               <div className="flex items-center gap-3">
                 <div className="flex gap-1">
@@ -340,14 +373,14 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
               </thead>
               <tbody>
                 {recentBookings.length === 0 && (
-                  <tr><td colSpan={5} style={{ textAlign: "center", padding: 32, color: "#94a3b8" }}>No bookings yet</td></tr>
+                  <tr><td colSpan={5} style={{ textAlign: "center", padding: 32, color: "rgba(94,200,224,0.4)" }}>No bookings yet</td></tr>
                 )}
                 {recentBookings.map(b => (
                   <tr key={b.id} onClick={() => setSelectedBooking(b)}>
                     <td>
                       <div className="flex items-center gap-2">
                         <div className="admin-avatar">{getInitials(b.full_name)}</div>
-                        <span style={{ fontWeight: 500, color: "#0f172a" }}>{b.full_name}</span>
+                        <span style={{ fontWeight: 500, color: "#dff3f8" }}>{b.full_name}</span>
                       </div>
                     </td>
                     <td>
@@ -357,7 +390,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
                       </div>
                     </td>
                     <td>{b._date ? format(new Date(b._date), "MMM d, yyyy") : "—"}</td>
-                    <td style={{ fontWeight: 600 }}>{formatPrice(b.total_estimate || 0)}</td>
+                    <td style={{ fontWeight: 600, color: "#dff3f8" }}>{formatPrice(b.total_estimate || 0)}</td>
                     <td><StatusPill status={b.status || "pending"} /></td>
                   </tr>
                 ))}
@@ -373,10 +406,10 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
             <p className="admin-section-title" style={{ marginBottom: 12 }}>Booking pipeline</p>
             {([
               { label: "Enquiry", count: pipeline.enquiry, color: "#C9A84C" },
-              { label: "Pending", count: pipeline.pending, color: "#f59e0b" },
+              { label: "Pending", count: pipeline.pending, color: "#fbbf24" },
               { label: "Confirmed", count: pipeline.confirmed, color: "#1a8a9e" },
-              { label: "Active", count: pipeline.active, color: "#3b6d11" },
-              { label: "Completed", count: pipeline.completed, color: "#94a3b8" },
+              { label: "Active", count: pipeline.active, color: "#2dd4a0" },
+              { label: "Completed", count: pipeline.completed, color: "#5ec8e0" },
             ]).map(stage => (
               <div key={stage.label} className="admin-pipeline-row">
                 <span className="admin-pipeline-label">{stage.label}</span>
@@ -392,11 +425,11 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
           <div className="admin-card-elevated" style={{ padding: 16 }}>
             <p className="admin-section-title" style={{ marginBottom: 10 }}>Live activity</p>
             {liveActivity.length === 0 && (
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#94a3b8" }}>No recent activity</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(223,243,248,0.28)" }}>No recent activity</p>
             )}
             {liveActivity.map((item, i) => (
               <div key={i} className="admin-activity-item">
-                <div className="admin-activity-dot" style={{ background: item.type === "tour" ? "#1a8a9e" : "#C9A84C" }} />
+                <div className="admin-activity-dot" style={{ background: item.type === "tour" ? "#1a8a9e" : "#C9A84C", color: item.type === "tour" ? "#1a8a9e" : "#C9A84C" }} />
                 <div>
                   <p className="admin-activity-text">
                     <strong>{item.name}</strong> booked {item.service}
@@ -414,23 +447,42 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
             <p className="admin-section-title" style={{ marginBottom: 10 }}>Quick actions</p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
               <button className="admin-quick-action" onClick={onNewBooking}>
-                <Plus size={16} style={{ color: "#64748b" }} />
+                <Plus size={16} style={{ color: "#5ec8e0" }} />
                 <span>New Booking</span>
               </button>
               <button className="admin-quick-action">
-                <Send size={16} style={{ color: "#64748b" }} />
+                <Send size={16} style={{ color: "#5ec8e0" }} />
                 <span>Send Confirmation</span>
               </button>
               <button className="admin-quick-action">
-                <Truck size={16} style={{ color: "#64748b" }} />
+                <Truck size={16} style={{ color: "#5ec8e0" }} />
                 <span>Fleet Status</span>
               </button>
               <button className="admin-quick-action">
-                <Calendar size={16} style={{ color: "#64748b" }} />
+                <Calendar size={16} style={{ color: "#5ec8e0" }} />
                 <span>View Calendar</span>
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Quick Reports Widget */}
+      <div style={{ marginTop: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <div>
+            <p style={{ fontSize: 13, fontWeight: 600, color: '#dff3f8' }}>Quick Reports</p>
+            <p style={{ fontSize: 10, color: 'rgba(223,243,248,0.35)', marginTop: 1 }}>One-click export</p>
+          </div>
+          <span style={{ fontSize: 10.5, color: '#5ec8e0', cursor: 'pointer' }}>
+            View all reports →
+          </span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+          <ReportCard type="revenue" title="Revenue" description="Earnings & refunds" lastRun="Today" formats={['PDF','CSV']} onGenerate={handleReportGenerate} />
+          <ReportCard type="bookings" title="Bookings" description="All reservations" lastRun="Yesterday" formats={['PDF','XLSX']} onGenerate={handleReportGenerate} />
+          <ReportCard type="customers" title="Customers" description="Guest insights" lastRun="3 days ago" formats={['PDF','CSV']} onGenerate={handleReportGenerate} />
+          <ReportCard type="tours" title="Tours" description="Performance metrics" lastRun="This week" formats={['PDF']} onGenerate={handleReportGenerate} />
         </div>
       </div>
 
@@ -445,10 +497,10 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>
+              <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#dff3f8" }}>
                 Booking Details
               </h3>
-              <button onClick={() => setSelectedBooking(null)} style={{ fontSize: 18, color: "#94a3b8", cursor: "pointer", background: "none", border: "none" }}>✕</button>
+              <button onClick={() => setSelectedBooking(null)} style={{ fontSize: 18, color: "rgba(94,200,224,0.4)", cursor: "pointer", background: "none", border: "none" }}>✕</button>
             </div>
             <div className="admin-detail-grid">
               {[
@@ -527,7 +579,6 @@ const StatusPill = ({ status }: { status: string }) => {
   return <span className={classMap[status] || classMap.pending}>{status}</span>;
 };
 
-// ── Exported StatusBadge (for other admin pages) ──
 export const StatusBadge = ({ status }: { status: string }) => <StatusPill status={status} />;
 
 // ── Quick Form Modal ──
@@ -560,8 +611,8 @@ const QuickFormModal = ({ title, onClose, onSubmit, fields }: { title: string; o
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6">
-          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>{title}</h3>
-          <button onClick={onClose} style={{ fontSize: 18, color: "#94a3b8", cursor: "pointer", background: "none", border: "none" }}>✕</button>
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#dff3f8" }}>{title}</h3>
+          <button onClick={onClose} style={{ fontSize: 18, color: "rgba(94,200,224,0.4)", cursor: "pointer", background: "none", border: "none" }}>✕</button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           {fields.map((field) => (

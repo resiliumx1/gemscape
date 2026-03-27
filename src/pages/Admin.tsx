@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import {
   LayoutDashboard, Map, Car, CalendarDays, Users, TrendingUp,
   BarChart2, LineChart, Star, ArrowLeft, Settings, Mail, Truck,
-  Calendar, Search, Plus, Download, X
+  Calendar, Search, Plus, Download, X, FileText
 } from "lucide-react";
 
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
@@ -23,8 +23,27 @@ const AdminFleetManager = lazy(() => import("@/components/admin/AdminFleetManage
 const AdminCalendar = lazy(() => import("@/components/admin/AdminCalendar"));
 const AdminEmailHistory = lazy(() => import("@/components/admin/AdminEmailHistory"));
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
+const AdminReports = lazy(() => import("@/components/admin/AdminReports"));
 
-const ICON_PROPS = { size: 16, strokeWidth: 1.5 };
+const ICON_PROPS = { size: 14, strokeWidth: 1.5, color: "#fff" };
+
+// Icon color class mapping
+const ICON_COLORS: Record<string, string> = {
+  dashboard: "admin-nav-icon--teal",
+  "tour-bookings": "admin-nav-icon--violet",
+  "rental-bookings": "admin-nav-icon--gold",
+  "all-bookings": "admin-nav-icon--gold",
+  customers: "admin-nav-icon--emerald",
+  loyalty: "admin-nav-icon--emerald",
+  revenue: "admin-nav-icon--amber",
+  forecasting: "admin-nav-icon--amber",
+  reviews: "admin-nav-icon--coral",
+  fleet: "admin-nav-icon--amber",
+  calendar: "admin-nav-icon--teal",
+  "email-history": "admin-nav-icon--teal",
+  reports: "admin-nav-icon--emerald",
+  settings: "admin-nav-icon--navy",
+};
 
 interface NavItem { key: string; label: string; icon: React.ReactNode }
 interface NavSection { label: string; items: NavItem[] }
@@ -54,6 +73,7 @@ const NAV_SECTIONS: NavSection[] = [
     items: [
       { key: "revenue", label: "Revenue Analytics", icon: <BarChart2 {...ICON_PROPS} /> },
       { key: "forecasting", label: "Forecasting", icon: <LineChart {...ICON_PROPS} /> },
+      { key: "reports", label: "Reports", icon: <FileText {...ICON_PROPS} /> },
     ],
   },
   {
@@ -87,6 +107,7 @@ const PAGE_TITLES: Record<string, string> = {
   loyalty: "Loyalty & LTV",
   revenue: "Revenue Analytics",
   forecasting: "Forecasting",
+  reports: "Reports",
   reviews: "Review Requests",
   fleet: "Fleet Manager",
   calendar: "Calendar View",
@@ -137,11 +158,11 @@ const Admin = () => {
       case "calendar": return <AdminCalendar />;
       case "email-history": return <AdminEmailHistory />;
       case "settings": return <AdminSettings />;
+      case "reports": return <AdminReports />;
       default: return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
     }
   };
 
-  // Badge keys that should show pending count
   const badgeKeys = new Set(["tour-bookings", "rental-bookings", "all-bookings"]);
 
   return (
@@ -153,51 +174,61 @@ const Admin = () => {
       <div className="min-h-screen flex">
         {/* Sidebar */}
         <aside className="admin-sidebar">
-          <div style={{ padding: "20px 16px 16px" }}>
+          <div style={{ borderBottom: '1px solid rgba(26,138,158,0.1)', padding: '18px 14px 12px', flexShrink: 0 }}>
             <div className="flex flex-col items-center gap-1">
-              <img src="/images/gemscape-logo.png" alt="Gemscape" className="bg-transparent" style={{ height: 40, width: "auto", objectFit: "contain", background: "none", backgroundColor: "transparent", mixBlendMode: "normal" }} />
+              <img src="/images/gemscape-logo.png" alt="Gemscape" style={{ height: 40, width: "auto", objectFit: "contain", background: "none", mixBlendMode: "normal" }} />
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginTop: 4 }}>
                 Admin Portal
               </p>
             </div>
           </div>
 
-          <nav className="flex-1 px-3 mt-1" style={{ overflowY: "auto" }}>
+          <nav className="flex-1 min-h-0 overflow-y-auto scrollbar-gem" style={{ padding: '10px 8px' }}>
             {NAV_SECTIONS.map((section) => (
-              <div key={section.label} className="mb-3">
-                <p style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: 10, fontWeight: 500,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.16em",
-                  color: "rgba(255,255,255,0.25)",
-                  padding: "8px 12px 4px",
-                }}>{section.label}</p>
+              <div key={section.label}>
+                <span style={{
+                  fontSize: 9, fontWeight: 600, letterSpacing: '1.6px',
+                  textTransform: 'uppercase', color: 'rgba(94,200,224,0.3)',
+                  padding: '0 8px', marginTop: 14, marginBottom: 5, display: 'block',
+                }}>{section.label}</span>
                 {section.items.map((item) => (
                   <button
                     key={item.key}
                     onClick={() => setActiveTab(item.key)}
                     className={`admin-nav-item ${activeTab === item.key ? "active" : ""}`}
                   >
-                    <span className="mr-3 flex-shrink-0" style={{ display: "flex" }}>{item.icon}</span>
+                    <div className={`admin-nav-icon ${ICON_COLORS[item.key] || 'admin-nav-icon--teal'}`}>
+                      {item.icon}
+                    </div>
                     {item.label}
                     {badgeKeys.has(item.key) && pendingCount > 0 && (
                       <span className="admin-nav-badge">{pendingCount}</span>
                     )}
+                    {activeTab === item.key && <span className="admin-active-dot" />}
                   </button>
                 ))}
               </div>
             ))}
           </nav>
 
-          <div className="px-3 pb-4">
-            <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.08)", margin: "8px 0 12px" }} />
+          <div style={{ borderTop: '1px solid rgba(26,138,158,0.1)', padding: '10px 8px', flexShrink: 0 }}>
             <button onClick={() => navigate("/")} className="admin-nav-item" style={{ color: "rgba(255,255,255,0.4)" }}>
-              <span className="mr-3 flex-shrink-0" style={{ display: "flex" }}><ArrowLeft {...ICON_PROPS} /></span>
+              <div className="admin-nav-icon admin-nav-icon--navy">
+                <ArrowLeft {...ICON_PROPS} />
+              </div>
               Back to Site
             </button>
-            <div className="flex items-center gap-3 mt-3 px-3">
-              <div className="admin-avatar">GA</div>
+            <div style={{
+              background: 'rgba(26,138,158,0.07)', borderRadius: 9,
+              padding: '8px 9px', display: 'flex', alignItems: 'center', gap: 9,
+              marginTop: 8,
+            }}>
+              <div style={{
+                width: 30, height: 30, borderRadius: 8,
+                background: 'linear-gradient(135deg,#1a8a9e,#C9A84C)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 13, fontWeight: 700, color: '#fff',
+              }}>GA</div>
               <div>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.8)" }}>Gemscape Admin</p>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: "rgba(255,255,255,0.35)" }}>Admin</p>
@@ -213,7 +244,7 @@ const Admin = () => {
             <span className="admin-topbar-title">{PAGE_TITLES[activeTab] || "Dashboard"}</span>
             <div className="admin-topbar-right">
               <div style={{ position: "relative" }}>
-                <Search size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }} />
+                <Search size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "rgba(94,200,224,0.4)" }} />
                 <input className="admin-topbar-search" placeholder="Search bookings..." style={{ paddingLeft: 30 }} />
               </div>
               <button className="admin-topbar-btn-export">
@@ -229,7 +260,7 @@ const Admin = () => {
 
           {/* Content */}
           <div className="admin-content">
-            <Suspense fallback={<div style={{ padding: 40, textAlign: "center", color: "#94a3b8", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading…</div>}>
+            <Suspense fallback={<div style={{ padding: 40, textAlign: "center", color: "rgba(94,200,224,0.4)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading…</div>}>
               {renderContent()}
             </Suspense>
           </div>
@@ -312,12 +343,11 @@ const NewBookingModal = ({ onClose }: { onClose: () => void }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6">
-          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#0f172a" }}>New Booking</h3>
-          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8" }}><X size={18} /></button>
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#dff3f8" }}>New Booking</h3>
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(94,200,224,0.4)" }}><X size={18} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Booking Type */}
           <div>
             <label className="admin-form-label">Booking Type</label>
             <div className="flex gap-2 mt-1">
