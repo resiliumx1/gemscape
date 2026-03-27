@@ -364,7 +364,7 @@
 
     "@splinetool/react-spline": ["@splinetool/react-spline@4.1.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@splinetool/react-spline/-/react-spline-4.1.0.tgz", { "dependencies": { "blurhash": "2.0.5", "lodash.debounce": "4.0.8", "react-merge-refs": "2.1.1", "thumbhash": "0.1.1" }, "peerDependencies": { "@splinetool/runtime": "*", "next": ">=14.2.0", "react": "*", "react-dom": "*" }, "optionalPeers": ["next"] }, "sha512-Y379gm17gw+1nxT/YXTCJnVIWuu7tsUH1tp/YxsYb0pZnc9Gljk7Om4Kpq7WPq0bZ4zidVCxf6xn6jgDcbHifQ=="],
 
-    "@splinetool/runtime": ["@splinetool/runtime@1.12.72", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@splinetool/runtime/-/runtime-1.12.72.tgz", { "dependencies": { "on-change": "4.0.0", "semver-compare": "1.0.0" } }, "sha512-lVwJ6H6YLBuQV6OsCpJhNUpbGAvmUSKCPNGYegwvc3tNQFJB4bJ0QEh2lbZokCKyxKKNunXH0N10PZxvFkQH/w=="],
+    "@splinetool/runtime": ["@splinetool/runtime@1.12.73", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@splinetool/runtime/-/runtime-1.12.73.tgz", { "dependencies": { "on-change": "4.0.0", "semver-compare": "1.0.0" } }, "sha512-muTr+Xux8z9l7gYLw0jvfbX5KI1pj7WbtAsINJA3YULV5kX8sMN0zYl7oqdaxBeiiD5FRedDixupQo8V7UpH7w=="],
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
