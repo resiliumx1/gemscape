@@ -4,7 +4,7 @@ import { format, startOfMonth, startOfWeek, startOfYear, startOfQuarter, subMont
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { motion } from "framer-motion";
-import { Map, Car, CalendarDays, Plus, Send, Truck, Calendar } from "lucide-react";
+import { Map, Car, CalendarDays, Plus, Send, Truck, Calendar, BarChart2 } from "lucide-react";
 import ReportCard from "@/components/admin/ReportCard";
 
 type Period = "today" | "week" | "month" | "quarter" | "year";
