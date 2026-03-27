@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="gem-footer__grid">
         {/* Left — Brand */}
         <div className="gem-footer__brand">
-          <img src="/images/gemscape-logo.png" alt="Gemscape Travel and Tours" style={{ height: 70, width: "auto", objectFit: "contain", marginBottom: 16 }} />
+          <img src="/images/gemscape-logo.png" alt="Gemscape Travel and Tours" className="bg-transparent" style={{ height: 70, width: "auto", objectFit: "contain", marginBottom: 16, background: "none", backgroundColor: "transparent" }} />
           <div className="gem-footer__socials">
             {/* Instagram */}
             <a href="#" aria-label="Instagram" className="gem-footer__social-link">

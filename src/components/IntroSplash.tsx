@@ -126,6 +126,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
       <img
         src="/images/gemscape-logo.png"
         alt="Gemscape Travel and Tours"
+        className="bg-transparent"
         style={{
           position: "absolute",
           top: "50%", left: "50%",
@@ -135,6 +136,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
           opacity: stage === "playing" ? 1 : 0,
           transition: "opacity 0.4s ease-out",
           pointerEvents: "none",
+          background: "none", backgroundColor: "transparent",
         }}
       />
 
