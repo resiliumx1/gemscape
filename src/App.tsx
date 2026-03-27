@@ -64,7 +64,7 @@ const App = () => {
     <CurrencyProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {showIntro && <IntroSplash onComplete={handleIntroComplete} />}
+        {showIntro && <CinematicIntro onComplete={handleIntroComplete} />}
         <Toaster />
         <Sonner />
         <BrowserRouter>
