@@ -155,7 +155,7 @@ const Admin = () => {
         <aside className="admin-sidebar">
           <div style={{ padding: "20px 16px 16px" }}>
             <div className="flex flex-col items-center gap-1">
-              <img src="/images/gemscape-logo.png" alt="Gemscape" className="bg-transparent" style={{ height: 40, width: "auto", objectFit: "contain", filter: "brightness(1.1)", background: "none", backgroundColor: "transparent" }} />
+              <img src="/images/gemscape-logo.png" alt="Gemscape" className="bg-transparent" style={{ height: 40, width: "auto", objectFit: "contain", background: "none", backgroundColor: "transparent", mixBlendMode: "normal" }} />
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginTop: 4 }}>
                 Admin Portal
               </p>
