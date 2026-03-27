@@ -258,7 +258,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
 
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
               <div style={{ width: 36, height: 36, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", background: card.iconBg, boxShadow: card.iconShadow }}>
-                {i === 0 && <BarChart size={16} />}
+                {i === 0 && <BarChart2 size={16} color="#5ec8e0" />}
               </div>
             </div>
 
