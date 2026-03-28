@@ -87,17 +87,16 @@ const HeroSection = () => {
         >
           Where Every Journey
           <br />
-          Becomes a{" "}
-          <span style={{ fontStyle: "italic", color: "#5ec8e0" }}>Gem.</span>
+          Becomes a
         </h1>
 
-        {/* 3D Brilliant Gem */}
+        {/* 3D Brilliant Gem replaces the word "Gem" */}
         <div
           className="hero-gem-container"
           style={{
             background: "transparent",
             overflow: "visible",
-            margin: "-20px auto 0",
+            margin: "-30px auto -10px",
             position: "relative",
             zIndex: 1,
           }}
