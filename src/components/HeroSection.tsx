@@ -101,7 +101,7 @@ const HeroSection = () => {
             pointerEvents: "auto",
           }}
         >
-          <BrilliantGem width={320} height={320} />
+          <BrilliantGem width={400} height={400} />
         </div>
 
         {/* Subtext */}
