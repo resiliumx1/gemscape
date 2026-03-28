@@ -96,7 +96,7 @@ const Admin = () => {
       case "calendar": return <AdminCalendar />;
       case "comms": return <AdminCustomerDirectory />;
       case "email-history": return <AdminEmailHistory />;
-      case "settings": return <AdminSettings />;
+      case "settings": return <AdminSettings isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />;
       default: return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
     }
   };
