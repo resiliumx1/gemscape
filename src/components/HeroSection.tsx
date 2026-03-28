@@ -1,6 +1,6 @@
-import GemHero from "@/components/GemHero";
 import { useWave } from "@/components/GemscapeWave";
 import heroImage from "@/assets/hero-antigua-sunset.png";
+import BrilliantGem from "@/components/BrilliantGem";
 
 const HeroSection = () => {
   const { navigateTo } = useWave();
@@ -9,13 +9,15 @@ const HeroSection = () => {
     <section
       style={{
         width: "100vw",
-        height: "100vh",
+        minHeight: "100vh",
         position: "relative",
         overflow: "hidden",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center",
       }}
-      className="hero-split-wrapper"
+      className="hero-centered-wrapper"
     >
       {/* Full-bleed background photo */}
       <img
@@ -37,22 +39,22 @@ const HeroSection = () => {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to right, rgba(4,20,28,0.88) 0%, rgba(4,20,28,0.65) 40%, rgba(4,20,28,0.15) 70%, transparent 100%)",
+            "radial-gradient(ellipse at center 40%, rgba(4,20,28,0.55) 0%, rgba(4,20,28,0.82) 60%, rgba(4,20,28,0.95) 100%)",
           zIndex: 1,
         }}
       />
 
-      {/* Left column — text content */}
+      {/* Centered content */}
       <div
-        className="hero-left"
+        className="hero-centered-content"
         style={{
           position: "relative",
           zIndex: 2,
-          width: "48%",
-          paddingLeft: "clamp(40px, 6vw, 96px)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          paddingTop: "clamp(100px, 12vh, 140px)",
         }}
       >
         {/* Eyebrow */}
@@ -72,21 +74,36 @@ const HeroSection = () => {
 
         {/* Headline */}
         <h1
+          className="hero-headline"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(40px, 5.5vw, 72px)",
+            fontSize: "clamp(32px, 5vw, 64px)",
             color: "#fff",
             fontWeight: 400,
-            lineHeight: 1.08,
+            lineHeight: 1.1,
             margin: 0,
+            maxWidth: 600,
           }}
         >
           Where Every Journey
           <br />
-          Becomes a
-          <br />
+          Becomes a{" "}
           <span style={{ fontStyle: "italic", color: "#5ec8e0" }}>Gem.</span>
         </h1>
+
+        {/* 3D Brilliant Gem */}
+        <div
+          className="hero-gem-container"
+          style={{
+            background: "transparent",
+            overflow: "visible",
+            margin: "-20px auto 0",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <BrilliantGem width={420} height={420} />
+        </div>
 
         {/* Subtext */}
         <p
@@ -94,8 +111,8 @@ const HeroSection = () => {
             fontSize: 15,
             color: "rgba(255,255,255,0.55)",
             lineHeight: 1.75,
-            maxWidth: 400,
-            marginTop: 20,
+            maxWidth: 440,
+            marginTop: -10,
             fontFamily: "'DM Sans', sans-serif",
           }}
         >
@@ -109,7 +126,7 @@ const HeroSection = () => {
             display: "flex",
             alignItems: "center",
             gap: 8,
-            marginTop: 16,
+            marginTop: 12,
           }}
         >
           <span style={{ color: "#C9A84C", fontSize: 13 }}>★★★★★</span>
@@ -125,7 +142,7 @@ const HeroSection = () => {
         </div>
 
         {/* CTA buttons */}
-        <div style={{ display: "flex", gap: 14, marginTop: 32 }}>
+        <div style={{ display: "flex", gap: 14, marginTop: 28 }}>
           <button
             onClick={() => navigateTo("/book")}
             style={{
@@ -165,41 +182,30 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Right column — GemHero floating over beach */}
-      <div
-        className="hero-right"
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          width: "54%",
-          height: "100%",
-          zIndex: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "visible",
-          pointerEvents: "none",
-        }}
-      >
-        <GemHero width={560} height={560} />
-      </div>
-
       {/* Responsive styles */}
       <style>{`
+        @media (max-width: 1024px) {
+          .hero-gem-container canvas {
+            width: 350px !important;
+            height: 350px !important;
+          }
+          .hero-headline {
+            font-size: clamp(28px, 4.5vw, 48px) !important;
+          }
+        }
         @media (max-width: 768px) {
-          .hero-split-wrapper {
-            flex-direction: column !important;
-            height: auto !important;
+          .hero-centered-wrapper {
             min-height: 100vh;
           }
-          .hero-left {
-            width: 100% !important;
-            padding: 120px 24px 40px !important;
-            text-align: left;
+          .hero-centered-content {
+            padding-top: 100px !important;
           }
-          .hero-right {
-            display: none !important;
+          .hero-gem-container canvas {
+            width: 280px !important;
+            height: 280px !important;
+          }
+          .hero-headline {
+            font-size: clamp(24px, 7vw, 36px) !important;
           }
         }
       `}</style>
