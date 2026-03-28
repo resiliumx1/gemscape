@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import type * as THREE_NS from "three";
 
 const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
