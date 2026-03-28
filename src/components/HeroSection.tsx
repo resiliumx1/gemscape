@@ -9,7 +9,7 @@ const HeroSection = () => {
     <section
       style={{
         width: "100vw",
-        minHeight: "100vh",
+        height: "100vh",
         position: "relative",
         overflow: "hidden",
         display: "flex",
@@ -54,7 +54,6 @@ const HeroSection = () => {
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          paddingTop: "clamp(100px, 12vh, 140px)",
         }}
       >
         {/* Eyebrow */}
@@ -72,7 +71,7 @@ const HeroSection = () => {
           ANTIGUA · CARIBBEAN
         </span>
 
-        {/* Headline */}
+        {/* Headline + inline gem */}
         <h1
           className="hero-headline"
           style={{
@@ -82,7 +81,7 @@ const HeroSection = () => {
             fontWeight: 400,
             lineHeight: 1.1,
             margin: 0,
-            maxWidth: 600,
+            maxWidth: 700,
           }}
         >
           Where Every Journey
@@ -90,18 +89,19 @@ const HeroSection = () => {
           Becomes a
         </h1>
 
-        {/* 3D Brilliant Gem replaces the word "Gem" */}
+        {/* 3D gem sits tightly below "Becomes a" */}
         <div
           className="hero-gem-container"
           style={{
             background: "transparent",
             overflow: "visible",
-            margin: "-30px auto -10px",
+            marginTop: "-40px",
             position: "relative",
             zIndex: 1,
+            pointerEvents: "auto",
           }}
         >
-          <BrilliantGem width={420} height={420} />
+          <BrilliantGem width={320} height={320} />
         </div>
 
         {/* Subtext */}
@@ -111,7 +111,7 @@ const HeroSection = () => {
             color: "rgba(255,255,255,0.55)",
             lineHeight: 1.75,
             maxWidth: 440,
-            marginTop: -10,
+            marginTop: -20,
             fontFamily: "'DM Sans', sans-serif",
           }}
         >
@@ -125,7 +125,7 @@ const HeroSection = () => {
             display: "flex",
             alignItems: "center",
             gap: 8,
-            marginTop: 12,
+            marginTop: 10,
           }}
         >
           <span style={{ color: "#C9A84C", fontSize: 13 }}>★★★★★</span>
@@ -141,7 +141,7 @@ const HeroSection = () => {
         </div>
 
         {/* CTA buttons */}
-        <div style={{ display: "flex", gap: 14, marginTop: 28 }}>
+        <div style={{ display: "flex", gap: 14, marginTop: 22 }}>
           <button
             onClick={() => navigateTo("/book")}
             style={{
@@ -185,8 +185,8 @@ const HeroSection = () => {
       <style>{`
         @media (max-width: 1024px) {
           .hero-gem-container canvas {
-            width: 350px !important;
-            height: 350px !important;
+            width: 260px !important;
+            height: 260px !important;
           }
           .hero-headline {
             font-size: clamp(28px, 4.5vw, 48px) !important;
@@ -194,14 +194,14 @@ const HeroSection = () => {
         }
         @media (max-width: 768px) {
           .hero-centered-wrapper {
-            min-height: 100vh;
+            height: 100vh !important;
           }
-          .hero-centered-content {
-            padding-top: 100px !important;
+          .hero-gem-container {
+            margin-top: -30px !important;
           }
           .hero-gem-container canvas {
-            width: 280px !important;
-            height: 280px !important;
+            width: 220px !important;
+            height: 220px !important;
           }
           .hero-headline {
             font-size: clamp(24px, 7vw, 36px) !important;
