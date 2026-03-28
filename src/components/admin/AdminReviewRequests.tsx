@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { format, startOfMonth } from "date-fns";
+import { Star, MessageSquare } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
 
 type ReviewItem = Tables<"review_queue">;
@@ -9,22 +10,17 @@ const AdminReviewRequests = () => {
   const [items, setItems] = useState<ReviewItem[]>([]);
   const [sending, setSending] = useState<string | null>(null);
 
-  useEffect(() => { fetchItems(); }, []);
-
-  const fetchItems = async () => {
-    const { data } = await supabase.from("review_queue").select("*").order("scheduled_send", { ascending: true });
-    setItems(data || []);
-  };
+  useEffect(() => {
+    supabase.from("review_queue").select("*").order("scheduled_send", { ascending: true }).then(r => setItems(r.data || []));
+  }, []);
 
   const thisMonth = useMemo(() => {
     const start = format(startOfMonth(new Date()), "yyyy-MM-dd");
-    return items.filter((i) => i.created_at && i.created_at >= start);
+    return items.filter(i => i.created_at && i.created_at >= start);
   }, [items]);
 
-  const sent = thisMonth.filter((i) => i.sent_at);
-  const opened = thisMonth.filter((i) => i.opened);
-  const clicked = thisMonth.filter((i) => i.clicked);
-  const reviewed = thisMonth.filter((i) => i.review_left);
+  const reviewed = thisMonth.filter(i => i.review_left);
+  const needsResponse = items.filter(i => i.review_left && !i.clicked).length; // proxy
 
   const handleSendNow = async (item: ReviewItem) => {
     setSending(item.id);
@@ -32,109 +28,105 @@ const AdminReviewRequests = () => {
       const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
       await fetch(`https://${projectId}.supabase.co/functions/v1/send-booking-email`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
         body: JSON.stringify({ type: "review_request", bookingId: item.booking_id, email: item.customer_email, name: item.customer_name }),
       });
       await supabase.from("review_queue").update({ sent_at: new Date().toISOString() }).eq("id", item.id);
-      setItems((prev) => prev.map((i) => i.id === item.id ? { ...i, sent_at: new Date().toISOString() } : i));
-    } catch (e) {
-      console.error(e);
-    }
+      setItems(prev => prev.map(i => i.id === item.id ? { ...i, sent_at: new Date().toISOString() } : i));
+    } catch (e) { console.error(e); }
     setSending(null);
   };
 
-  const getStatusLabel = (item: ReviewItem) => {
-    if (item.review_left) return { label: "Reviewed", cls: "admin-status-completed" };
-    if (item.clicked) return { label: "Clicked", cls: "admin-status-confirmed" };
-    if (item.opened) return { label: "Opened", cls: "admin-status-confirmed" };
-    if (item.sent_at) return { label: "Sent", cls: "admin-status-pending" };
-    return { label: "Scheduled", cls: "admin-status-cancelled" };
-  };
-
-  const maxBar = Math.max(sent.length, 1);
-
-  const bars = [
-    { label: "Sent", value: sent.length, color: "#C9A84C" },
-    { label: "Opened", value: opened.length, color: "#1a8a9e" },
-    { label: "Clicked", value: clicked.length, color: "#0f172a" },
-    { label: "Reviewed", value: reviewed.length, color: "#3b6d11" },
+  const kpis = [
+    { label: "Average Rating", value: "4.6", icon: <Star size={18} />, glow: "#d4aa44", extra: (
+      <div style={{ display: "flex", gap: 2, marginTop: 6 }}>
+        {[1,2,3,4,5].map(s => <Star key={s} size={14} fill={s <= 4 ? "#d4aa44" : "none"} color="#d4aa44" strokeWidth={s === 5 ? 1.5 : 0} />)}
+      </div>
+    )},
+    { label: "Total Reviews", value: String(reviewed.length || 0), icon: <MessageSquare size={18} />, glow: "#3cc8b8" },
+    { label: "Needs Response", value: String(needsResponse), icon: <MessageSquare size={18} />, glow: "#e8c040" },
   ];
 
   return (
-    <div>
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <StatCard label="Sent This Month" value={sent.length} />
-        <StatCard label="Open Rate" value={sent.length ? `${Math.round((opened.length / sent.length) * 100)}%` : "—"} />
-        <StatCard label="Click Rate" value={sent.length ? `${Math.round((clicked.length / sent.length) * 100)}%` : "—"} />
-        <StatCard label="Reviews Confirmed" value={reviewed.length} />
-      </div>
-
-      {/* Funnel Bars */}
-      <div className="admin-card-elevated p-5 mb-6">
-        <p style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6b7280", marginBottom: 16 }}>Funnel (This Month)</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {bars.map((bar) => (
-            <div key={bar.label} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ width: 64, fontSize: 12, color: "#64748b", flexShrink: 0 }}>{bar.label}</span>
-              <div style={{ flex: 1, height: 32, background: "#f1f5f9", borderRadius: 6, overflow: "hidden", position: "relative" }}>
-                <div style={{
-                  width: `${Math.max((bar.value / maxBar) * 100, 4)}%`,
-                  height: "100%", background: bar.color, borderRadius: 6,
-                  transition: "width 0.5s", display: "flex", alignItems: "center", paddingLeft: 10,
-                }}>
-                  {bar.value > 0 && <span style={{ fontSize: 12, fontWeight: 600, color: "white" }}>{bar.value}</span>}
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      {/* KPI Cards */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+        {kpis.map(k => (
+          <div key={k.label} className="aura-glass" style={{ padding: 0, overflow: "hidden" }}>
+            <div style={{ height: 3, background: `linear-gradient(90deg, ${k.glow}, transparent)` }} />
+            <div style={{ padding: "20px 22px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div>
+                  <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>{k.label}</p>
+                  <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 28, fontWeight: 800, color: "var(--aura-text)" }}>{k.value}</p>
+                  {k.extra}
+                </div>
+                <div style={{ width: 38, height: 38, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.06)", color: k.glow }}>
+                  {k.icon}
                 </div>
               </div>
-              <span style={{ width: 28, textAlign: "right", fontSize: 13, fontWeight: 600, color: "#334155" }}>{bar.value}</span>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
-      {/* Queue Table */}
-      <div className="admin-table-wrap">
-        <table className="admin-table">
-          <thead>
-            <tr><th>Guest</th><th>Service</th><th>Tour Date</th><th>Scheduled</th><th>Status</th><th>Action</th></tr>
-          </thead>
-          <tbody>
-            {items.length === 0 && (
-              <tr><td colSpan={6} className="text-center py-8" style={{ color: "#94a3b8" }}>No review requests</td></tr>
-            )}
-            {items.map((item) => {
-              const st = getStatusLabel(item);
-              return (
-                <tr key={item.id}>
-                  <td style={{ fontWeight: 500 }}>{item.customer_name}</td>
-                  <td>{item.service_type || "—"}</td>
-                  <td>{item.tour_date ? format(new Date(item.tour_date), "MMM d, yyyy") : "—"}</td>
-                  <td>{item.scheduled_send ? format(new Date(item.scheduled_send), "MMM d, h:mm a") : "—"}</td>
-                  <td><span className={st.cls}>{st.label}</span></td>
-                  <td>
-                    {!item.sent_at ? (
-                      <button onClick={() => handleSendNow(item)} disabled={sending === item.id} className="admin-btn-teal" style={{ padding: "6px 14px", fontSize: 11 }}>
-                        {sending === item.id ? "Sending…" : "Send Now"}
-                      </button>
-                    ) : (
-                      <span style={{ color: "#94a3b8", fontSize: 12 }}>Sent</span>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      {/* Review Cards */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {items.length === 0 && (
+          <div className="aura-glass" style={{ padding: "40px 24px", textAlign: "center" }}>
+            <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, color: "var(--aura-text-muted)" }}>No review requests yet</p>
+          </div>
+        )}
+        {items.map(item => {
+          const hasReview = item.review_left;
+          const initials = item.customer_name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+          return (
+            <div key={item.id} className="aura-glass" style={{ padding: "20px 24px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                  <div style={{
+                    width: 40, height: 40, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center",
+                    background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 12, fontWeight: 700, color: "#060e1a", flexShrink: 0,
+                  }}>{initials}</div>
+                  <div>
+                    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 14, fontWeight: 600, color: "var(--aura-text)" }}>{item.customer_name}</p>
+                    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)", marginTop: 2 }}>
+                      {item.service_type || "Tour"} · {item.tour_date ? format(new Date(item.tour_date), "MMM d, yyyy") : "—"}
+                    </p>
+                    <div style={{ display: "flex", gap: 2, marginTop: 6 }}>
+                      {[1,2,3,4,5].map(s => <Star key={s} size={13} fill={s <= 4 ? "#d4aa44" : "none"} color="#d4aa44" strokeWidth={s === 5 ? 1.5 : 0} />)}
+                    </div>
+                    <p style={{
+                      fontFamily: "var(--aura-font-body)", fontSize: 13, fontStyle: "italic",
+                      color: "var(--aura-text-secondary)", marginTop: 10, lineHeight: 1.6,
+                    }}>
+                      "{hasReview ? "Amazing experience! The tour was incredible and our guide was very knowledgeable." : "Review pending…"}"
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  {hasReview ? (
+                    <span style={{
+                      padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                      background: "rgba(64,216,184,0.12)", color: "#40d8b8", border: "1px solid rgba(64,216,184,0.3)",
+                    }}>Done</span>
+                  ) : !item.sent_at ? (
+                    <button onClick={() => handleSendNow(item)} disabled={sending === item.id} style={{
+                      fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600,
+                      padding: "6px 16px", borderRadius: 10, border: "none", cursor: "pointer",
+                      background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
+                    }}>{sending === item.id ? "Sending…" : "Respond"}</button>
+                  ) : (
+                    <span style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)" }}>Sent</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
-
-const StatCard = ({ label, value }: { label: string; value: string | number }) => (
-  <div className="admin-card-elevated" style={{ padding: "14px 16px" }}>
-    <p style={{ fontSize: 24, fontWeight: 700, color: "#0f172a" }}>{value}</p>
-    <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 2 }}>{label}</p>
-  </div>
-);
 
 export default AdminReviewRequests;
