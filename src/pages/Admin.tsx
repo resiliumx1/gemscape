@@ -2,13 +2,15 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 import {
-  LayoutDashboard, Map, Car, CalendarDays, Users, TrendingUp,
-  BarChart2, LineChart, Star, ArrowLeft, Settings, Mail, Truck,
-  Calendar, Search, Plus, Download, X, FileText
+  LayoutDashboard, DollarSign, TrendingUp, FileText, Briefcase,
+  Star, Truck, CalendarDays, MessageSquare, Mail, Settings,
+  Search, Plus, Download, X, Sun, Moon, PanelLeftClose, PanelLeft,
+  ArrowLeft,
 } from "lucide-react";
+import "@/styles/admin-aura.css";
 
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
 const AdminTourBookings = lazy(() => import("@/components/admin/AdminTourBookings"));
@@ -25,145 +27,87 @@ const AdminEmailHistory = lazy(() => import("@/components/admin/AdminEmailHistor
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminReports = lazy(() => import("@/components/admin/AdminReports"));
 
-const ICON_PROPS = { size: 14, strokeWidth: 1.5, color: "#fff" };
-
-// Icon color class mapping
-const ICON_COLORS: Record<string, string> = {
-  dashboard: "admin-nav-icon--teal",
-  "tour-bookings": "admin-nav-icon--violet",
-  "rental-bookings": "admin-nav-icon--gold",
-  "all-bookings": "admin-nav-icon--gold",
-  customers: "admin-nav-icon--emerald",
-  loyalty: "admin-nav-icon--emerald",
-  revenue: "admin-nav-icon--amber",
-  forecasting: "admin-nav-icon--amber",
-  reviews: "admin-nav-icon--coral",
-  fleet: "admin-nav-icon--amber",
-  calendar: "admin-nav-icon--teal",
-  "email-history": "admin-nav-icon--teal",
-  reports: "admin-nav-icon--emerald",
-  settings: "admin-nav-icon--navy",
-};
-
+/* ── Nav config ── */
 interface NavItem { key: string; label: string; icon: React.ReactNode }
 interface NavSection { label: string; items: NavItem[] }
+
+const IC = { size: 18, strokeWidth: 1.5 };
 
 const NAV_SECTIONS: NavSection[] = [
   {
     label: "Overview",
-    items: [{ key: "dashboard", label: "Dashboard", icon: <LayoutDashboard {...ICON_PROPS} /> }],
+    items: [{ key: "dashboard", label: "Dashboard", icon: <LayoutDashboard {...IC} /> }],
   },
   {
-    label: "Bookings",
+    label: "Finance",
     items: [
-      { key: "tour-bookings", label: "Tour Bookings", icon: <Map {...ICON_PROPS} /> },
-      { key: "rental-bookings", label: "Rental Bookings", icon: <Car {...ICON_PROPS} /> },
-      { key: "all-bookings", label: "All Bookings", icon: <CalendarDays {...ICON_PROPS} /> },
-    ],
-  },
-  {
-    label: "Customers",
-    items: [
-      { key: "customers", label: "Customer Directory", icon: <Users {...ICON_PROPS} /> },
-      { key: "loyalty", label: "Loyalty & LTV", icon: <TrendingUp {...ICON_PROPS} /> },
-    ],
-  },
-  {
-    label: "Revenue",
-    items: [
-      { key: "revenue", label: "Revenue Analytics", icon: <BarChart2 {...ICON_PROPS} /> },
-      { key: "forecasting", label: "Forecasting", icon: <LineChart {...ICON_PROPS} /> },
-      { key: "reports", label: "Reports", icon: <FileText {...ICON_PROPS} /> },
+      { key: "revenue", label: "Revenue Analytics", icon: <DollarSign {...IC} /> },
+      { key: "forecasting", label: "Forecasting", icon: <TrendingUp {...IC} /> },
+      { key: "reports", label: "Reports", icon: <FileText {...IC} /> },
     ],
   },
   {
     label: "Operations",
     items: [
-      { key: "reviews", label: "Review Requests", icon: <Star {...ICON_PROPS} /> },
-      { key: "fleet", label: "Fleet Manager", icon: <Truck {...ICON_PROPS} /> },
-      { key: "calendar", label: "Calendar View", icon: <Calendar {...ICON_PROPS} /> },
+      { key: "all-bookings", label: "Operations", icon: <Briefcase {...IC} /> },
+      { key: "reviews", label: "Review Requests", icon: <Star {...IC} /> },
+      { key: "fleet", label: "Fleet Manager", icon: <Truck {...IC} /> },
+      { key: "calendar", label: "Calendar", icon: <CalendarDays {...IC} /> },
     ],
   },
   {
     label: "Communications",
     items: [
-      { key: "email-history", label: "Email History", icon: <Mail {...ICON_PROPS} /> },
+      { key: "comms", label: "Communications", icon: <MessageSquare {...IC} /> },
+      { key: "email-history", label: "Email / SMS History", icon: <Mail {...IC} /> },
     ],
   },
   {
-    label: "Settings",
+    label: "System",
     items: [
-      { key: "settings", label: "Business Settings", icon: <Settings {...ICON_PROPS} /> },
+      { key: "settings", label: "Settings", icon: <Settings {...IC} /> },
     ],
   },
 ];
 
 const PAGE_TITLES: Record<string, string> = {
   dashboard: "Dashboard",
-  "tour-bookings": "Tour Bookings",
-  "rental-bookings": "Rental Bookings",
-  "all-bookings": "All Bookings",
-  customers: "Customer Directory",
-  loyalty: "Loyalty & LTV",
   revenue: "Revenue Analytics",
   forecasting: "Forecasting",
   reports: "Reports",
+  "all-bookings": "Operations",
   reviews: "Review Requests",
   fleet: "Fleet Manager",
-  calendar: "Calendar View",
-  "email-history": "Email History",
-  settings: "Business Settings",
+  calendar: "Calendar",
+  comms: "Communications",
+  "email-history": "Email / SMS History",
+  settings: "Settings",
 };
 
+/* ── Admin Component ── */
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [pendingCount, setPendingCount] = useState(0);
+  const [collapsed, setCollapsed] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [showNewBooking, setShowNewBooking] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchPending = async () => {
-      const [tours, rentals] = await Promise.all([
-        supabase.from("bookings").select("id", { count: "exact", head: true }).eq("status", "pending"),
-        supabase.from("rental_bookings").select("id", { count: "exact", head: true }).eq("status", "pending"),
-      ]);
-      setPendingCount((tours.count || 0) + (rentals.count || 0));
-    };
-    fetchPending();
-  }, [activeTab]);
-
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "b") {
-        e.preventDefault();
-        setActiveTab("all-bookings");
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, []);
 
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard": return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
-      case "tour-bookings": return <AdminTourBookings />;
-      case "rental-bookings": return <AdminRentalBookings />;
-      case "all-bookings": return <AdminAllBookings />;
-      case "customers": return <AdminCustomerDirectory />;
-      case "loyalty": return <AdminLoyalty />;
       case "revenue": return <AdminRevenue />;
       case "forecasting": return <AdminForecasting />;
+      case "reports": return <AdminReports />;
+      case "all-bookings": return <AdminAllBookings />;
       case "reviews": return <AdminReviewRequests />;
       case "fleet": return <AdminFleetManager />;
       case "calendar": return <AdminCalendar />;
+      case "comms": return <AdminCustomerDirectory />;
       case "email-history": return <AdminEmailHistory />;
       case "settings": return <AdminSettings />;
-      case "reports": return <AdminReports />;
       default: return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
     }
   };
-
-  const badgeKeys = new Set(["tour-bookings", "rental-bookings", "all-bookings"]);
 
   return (
     <>
@@ -171,87 +115,92 @@ const Admin = () => {
         <title>Admin — Gemscape</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <div className="min-h-screen flex">
+
+      <div className={`aura-admin ${isDark ? "" : "aura-light"} min-h-screen flex`}>
+        {/* Animated mesh background */}
+        <div className="aura-mesh">
+          <div className="aura-mesh__orb aura-mesh__orb--1" />
+          <div className="aura-mesh__orb aura-mesh__orb--2" />
+          <div className="aura-mesh__orb aura-mesh__orb--3" />
+          <div className="aura-mesh__orb aura-mesh__orb--4" />
+          <div className="aura-mesh__orb aura-mesh__orb--5" />
+        </div>
+
         {/* Sidebar */}
-        <aside className="admin-sidebar">
-          <div style={{ borderBottom: '1px solid rgba(26,138,158,0.1)', padding: '18px 14px 12px', flexShrink: 0 }}>
-            <div className="flex flex-col items-center gap-1">
-              <img src="/images/gemscape-logo.png" alt="Gemscape" style={{ height: 40, width: "auto", objectFit: "contain", background: "none", mixBlendMode: "normal" }} />
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginTop: 4 }}>
-                Admin Portal
-              </p>
-            </div>
+        <aside className={`aura-sidebar ${collapsed ? "collapsed" : ""}`}>
+          {/* Brand */}
+          <div className="aura-sidebar__brand">
+            <div className="aura-sidebar__logo">G</div>
+            <span className="aura-sidebar__brand-text">Gemscape</span>
           </div>
 
-          <nav className="flex-1 min-h-0 overflow-y-auto scrollbar-gem" style={{ padding: '10px 8px' }}>
+          {/* Nav */}
+          <nav className="aura-sidebar__nav">
             {NAV_SECTIONS.map((section) => (
               <div key={section.label}>
-                <span style={{
-                  fontSize: 9, fontWeight: 600, letterSpacing: '1.6px',
-                  textTransform: 'uppercase', color: 'rgba(94,200,224,0.3)',
-                  padding: '0 8px', marginTop: 14, marginBottom: 5, display: 'block',
-                }}>{section.label}</span>
+                <span className="aura-sidebar__section-label">{section.label}</span>
                 {section.items.map((item) => (
                   <button
                     key={item.key}
                     onClick={() => setActiveTab(item.key)}
-                    className={`admin-nav-item ${activeTab === item.key ? "active" : ""}`}
+                    className={`aura-nav-item ${activeTab === item.key ? "active" : ""}`}
                   >
-                    <div className={`admin-nav-icon ${ICON_COLORS[item.key] || 'admin-nav-icon--teal'}`}>
-                      {item.icon}
-                    </div>
-                    {item.label}
-                    {badgeKeys.has(item.key) && pendingCount > 0 && (
-                      <span className="admin-nav-badge">{pendingCount}</span>
-                    )}
-                    {activeTab === item.key && <span className="admin-active-dot" />}
+                    <span className="aura-nav-item__icon">{item.icon}</span>
+                    <span className="aura-sidebar__text">{item.label}</span>
                   </button>
                 ))}
               </div>
             ))}
           </nav>
 
-          <div style={{ borderTop: '1px solid rgba(26,138,158,0.1)', padding: '10px 8px', flexShrink: 0 }}>
-            <button onClick={() => navigate("/")} className="admin-nav-item" style={{ color: "rgba(255,255,255,0.4)" }}>
-              <div className="admin-nav-icon admin-nav-icon--navy">
-                <ArrowLeft {...ICON_PROPS} />
-              </div>
-              Back to Site
+          {/* Footer */}
+          <div className="aura-sidebar__footer">
+            <button onClick={() => navigate("/")} className="aura-nav-item" style={{ marginBottom: 8 }}>
+              <span className="aura-nav-item__icon"><ArrowLeft {...IC} /></span>
+              <span className="aura-sidebar__text">Back to Site</span>
             </button>
-            <div style={{
-              background: 'rgba(26,138,158,0.07)', borderRadius: 9,
-              padding: '8px 9px', display: 'flex', alignItems: 'center', gap: 9,
-              marginTop: 8,
-            }}>
-              <div style={{
-                width: 30, height: 30, borderRadius: 8,
-                background: 'linear-gradient(135deg,#1a8a9e,#C9A84C)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 13, fontWeight: 700, color: '#fff',
-              }}>GA</div>
-              <div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.8)" }}>Gemscape Admin</p>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: "rgba(255,255,255,0.35)" }}>Admin</p>
+
+            <div className="aura-sidebar__user">
+              <div className="aura-sidebar__user-avatar">GA</div>
+              <div className="aura-sidebar__user-info">
+                <div className="aura-sidebar__user-name">Gemscape Admin</div>
+                <div className="aura-sidebar__user-role">Administrator</div>
               </div>
             </div>
+
+            {/* Theme toggle */}
+            <button className="aura-theme-toggle" onClick={() => setIsDark(!isDark)}>
+              {isDark ? <Sun size={14} /> : <Moon size={14} />}
+              <span className="aura-sidebar__text">{isDark ? "Light Mode" : "Dark Mode"}</span>
+            </button>
+
+            {/* Collapse toggle */}
+            <button
+              className="aura-theme-toggle"
+              onClick={() => setCollapsed(!collapsed)}
+              style={{ marginTop: 4 }}
+            >
+              {collapsed ? <PanelLeft size={14} /> : <PanelLeftClose size={14} />}
+              <span className="aura-sidebar__text">{collapsed ? "Expand" : "Collapse"}</span>
+            </button>
           </div>
         </aside>
 
         {/* Main */}
-        <main className="admin-main">
+        <main className="aura-main">
           {/* Topbar */}
-          <div className="admin-topbar">
-            <span className="admin-topbar-title">{PAGE_TITLES[activeTab] || "Dashboard"}</span>
-            <div className="admin-topbar-right">
+          <div className="aura-topbar">
+            <span className="aura-topbar__title">{PAGE_TITLES[activeTab] || "Dashboard"}</span>
+            <div className="aura-topbar__actions">
               <div style={{ position: "relative" }}>
-                <Search size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "rgba(94,200,224,0.4)" }} />
-                <input className="admin-topbar-search" placeholder="Search bookings..." style={{ paddingLeft: 30 }} />
+                <Search size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
+                <input className="aura-topbar__search" placeholder="Search bookings..." />
               </div>
-              <button className="admin-topbar-btn-export">
+              <button className="aura-btn aura-btn--ghost">
                 <Download size={14} />
                 Export
               </button>
-              <button className="admin-topbar-btn-new" onClick={() => setShowNewBooking(true)}>
+              <button className="aura-btn aura-btn--primary" onClick={() => setShowNewBooking(true)}>
                 <Plus size={14} />
                 New Booking
               </button>
@@ -259,18 +208,20 @@ const Admin = () => {
           </div>
 
           {/* Content */}
-          <div className="admin-content">
-            <Suspense fallback={<div style={{ padding: 40, textAlign: "center", color: "rgba(94,200,224,0.4)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading…</div>}>
+          <div className="aura-content">
+            <Suspense fallback={
+              <div style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)", fontFamily: "var(--aura-font-body)", fontSize: 13 }}>
+                Loading…
+              </div>
+            }>
               {renderContent()}
             </Suspense>
           </div>
         </main>
       </div>
 
-      {/* Global New Booking Modal */}
-      {showNewBooking && (
-        <NewBookingModal onClose={() => setShowNewBooking(false)} />
-      )}
+      {/* New Booking Modal */}
+      {showNewBooking && <NewBookingModal onClose={() => setShowNewBooking(false)} />}
     </>
   );
 };
@@ -334,29 +285,29 @@ const NewBookingModal = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <div className="admin-detail-overlay" onClick={onClose}>
+    <div className="aura-overlay" onClick={onClose}>
       <motion.div
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
         transition={{ type: "spring", damping: 28, stiffness: 300 }}
-        className="admin-detail-panel"
+        className="aura-drawer"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6">
-          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 600, color: "#dff3f8" }}>New Booking</h3>
-          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(94,200,224,0.4)" }}><X size={18} /></button>
+          <h3 className="aura-heading aura-h2">New Booking</h3>
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--aura-text-muted)" }}><X size={18} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="admin-form-label">Booking Type</label>
+            <label className="aura-input-label">Booking Type</label>
             <div className="flex gap-2 mt-1">
               {(["tour", "rental"] as const).map(t => (
                 <button
                   key={t}
                   type="button"
                   onClick={() => setBookingType(t)}
-                  className={`admin-period-btn ${bookingType === t ? "active" : ""}`}
+                  className={`aura-period-btn ${bookingType === t ? "active" : ""}`}
                   style={{ textTransform: "capitalize" }}
                 >{t}</button>
               ))}
@@ -364,25 +315,25 @@ const NewBookingModal = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           <div>
-            <label className="admin-form-label">Guest Name *</label>
-            <input className="admin-filter-input w-full" required value={formData.full_name || ""} onChange={e => set("full_name", e.target.value)} />
+            <label className="aura-input-label">Guest Name *</label>
+            <input className="aura-input" required value={formData.full_name || ""} onChange={e => set("full_name", e.target.value)} />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="admin-form-label">Email *</label>
-              <input type="email" className="admin-filter-input w-full" required value={formData.email || ""} onChange={e => set("email", e.target.value)} />
+              <label className="aura-input-label">Email *</label>
+              <input type="email" className="aura-input" required value={formData.email || ""} onChange={e => set("email", e.target.value)} />
             </div>
             <div>
-              <label className="admin-form-label">WhatsApp</label>
-              <input className="admin-filter-input w-full" value={formData.phone || ""} onChange={e => set("phone", e.target.value)} />
+              <label className="aura-input-label">WhatsApp</label>
+              <input className="aura-input" value={formData.phone || ""} onChange={e => set("phone", e.target.value)} />
             </div>
           </div>
 
           {bookingType === "tour" ? (
             <>
               <div>
-                <label className="admin-form-label">Service *</label>
-                <select className="admin-filter-input w-full" required value={formData.service_type || ""} onChange={e => set("service_type", e.target.value)}>
+                <label className="aura-input-label">Service *</label>
+                <select className="aura-input" required value={formData.service_type || ""} onChange={e => set("service_type", e.target.value)}>
                   <option value="">Select…</option>
                   <option>Circumnavigation Tour</option>
                   <option>Flight Concierge</option>
@@ -392,48 +343,48 @@ const NewBookingModal = ({ onClose }: { onClose: () => void }) => {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="admin-form-label">Tour Date *</label>
-                  <input type="date" className="admin-filter-input w-full" required value={formData.start_date || ""} onChange={e => set("start_date", e.target.value)} />
+                  <label className="aura-input-label">Tour Date *</label>
+                  <input type="date" className="aura-input" required value={formData.start_date || ""} onChange={e => set("start_date", e.target.value)} />
                 </div>
                 <div>
-                  <label className="admin-form-label">Party Size</label>
-                  <input type="number" min="1" className="admin-filter-input w-full" value={formData.party_size || ""} onChange={e => set("party_size", e.target.value)} />
+                  <label className="aura-input-label">Party Size</label>
+                  <input type="number" min="1" className="aura-input" value={formData.party_size || ""} onChange={e => set("party_size", e.target.value)} />
                 </div>
               </div>
             </>
           ) : (
             <>
               <div>
-                <label className="admin-form-label">Vehicle *</label>
-                <select className="admin-filter-input w-full" required value={formData.vehicle_id || ""} onChange={e => set("vehicle_id", e.target.value)}>
+                <label className="aura-input-label">Vehicle *</label>
+                <select className="aura-input" required value={formData.vehicle_id || ""} onChange={e => set("vehicle_id", e.target.value)}>
                   <option value="">Select…</option>
                   {vehicles.map(v => <option key={v.id} value={v.id}>{v.name} — ${v.daily_rate}/day</option>)}
                 </select>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="admin-form-label">Pickup Date *</label>
-                  <input type="date" className="admin-filter-input w-full" required value={formData.start_date || ""} onChange={e => set("start_date", e.target.value)} />
+                  <label className="aura-input-label">Pickup Date *</label>
+                  <input type="date" className="aura-input" required value={formData.start_date || ""} onChange={e => set("start_date", e.target.value)} />
                 </div>
                 <div>
-                  <label className="admin-form-label">Return Date *</label>
-                  <input type="date" className="admin-filter-input w-full" required value={formData.end_date || ""} onChange={e => set("end_date", e.target.value)} />
+                  <label className="aura-input-label">Return Date *</label>
+                  <input type="date" className="aura-input" required value={formData.end_date || ""} onChange={e => set("end_date", e.target.value)} />
                 </div>
               </div>
             </>
           )}
 
           <div>
-            <label className="admin-form-label">Total Amount ($)</label>
-            <input type="number" min="0" className="admin-filter-input w-full" value={formData.total_amount || ""} onChange={e => set("total_amount", e.target.value)} />
+            <label className="aura-input-label">Total Amount ($)</label>
+            <input type="number" min="0" className="aura-input" value={formData.total_amount || ""} onChange={e => set("total_amount", e.target.value)} />
           </div>
           <div>
-            <label className="admin-form-label">Special Requests</label>
-            <textarea className="admin-filter-input w-full" style={{ minHeight: 64, resize: "vertical" }} value={formData.special_requests || ""} onChange={e => set("special_requests", e.target.value)} />
+            <label className="aura-input-label">Special Requests</label>
+            <textarea className="aura-input" style={{ minHeight: 64, resize: "vertical" }} value={formData.special_requests || ""} onChange={e => set("special_requests", e.target.value)} />
           </div>
 
           <div className="pt-3">
-            <button type="submit" disabled={submitting} className="admin-btn-primary w-full">
+            <button type="submit" disabled={submitting} className="aura-btn aura-btn--primary w-full" style={{ padding: "12px 28px", justifyContent: "center" }}>
               {submitting ? "Creating…" : "Create Booking"}
             </button>
           </div>
