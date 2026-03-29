@@ -232,10 +232,14 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
       )}
 
       {selectedDay && dayBookings.length === 0 && (
-        <div className="aura-glass" style={{ marginTop: 16, padding: "30px 24px", textAlign: "center" }}>
-          <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, color: "var(--aura-text-muted)" }}>
-            No bookings on {format(new Date(selectedDay + "T12:00:00"), "MMMM d, yyyy")}
-          </p>
+        <div className="aura-glass" style={{ marginTop: 16 }}>
+          <div className="aura-empty-state" style={{ padding: "40px 24px" }}>
+            <div className="aura-empty-state__blob" style={{ width: 80, height: 80 }} />
+            <p className="aura-empty-state__title">No bookings</p>
+            <p className="aura-empty-state__text" style={{ fontSize: 13 }}>
+              No bookings on {format(new Date(selectedDay + "T12:00:00"), "MMMM d, yyyy")}
+            </p>
+          </div>
         </div>
       )}
     </div>
