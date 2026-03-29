@@ -147,12 +147,10 @@ const Admin = () => {
           {isDark ? <Sun size={14} /> : <Moon size={14} />}
           <span className="aura-sidebar__text">{isDark ? "Light Mode" : "Dark Mode"}</span>
         </button>
-        {!isMobile && (
-          <button className="aura-theme-toggle" onClick={() => setCollapsed(!collapsed)} style={{ marginTop: 4 }}>
-            {collapsed ? <PanelLeft size={14} /> : <PanelLeftClose size={14} />}
-            <span className="aura-sidebar__text">{collapsed ? "Expand" : "Collapse"}</span>
-          </button>
-        )}
+        <button className="aura-theme-toggle" onClick={() => setCollapsed(!collapsed)} style={{ marginTop: 4 }}>
+          {collapsed ? <PanelLeft size={14} /> : <PanelLeftClose size={14} />}
+          <span className="aura-sidebar__text">{collapsed ? "Expand" : "Collapse"}</span>
+        </button>
       </div>
     </>
   );
