@@ -6,7 +6,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { DollarSign, TrendingUp, Target } from "lucide-react";
+import { DollarSign } from "lucide-react";
 
 const GlassTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
