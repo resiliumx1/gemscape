@@ -71,9 +71,9 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
   const trendData = trendPeriod === "week" ? WEEKLY_DATA : trendPeriod === "month" ? MONTHLY_DATA : yearlyData;
 
   const kpis = [
-    { label: "Monthly Revenue", value: "$14,330", change: "+22%", positive: true, icon: <DollarSign size={18} />, glow: "#3cc8b8" },
-    { label: "Avg Booking Value", value: "$520", change: "+8%", positive: true, icon: <TrendingUp size={18} />, glow: "#d4aa44" },
-    { label: "Conversion Rate", value: "68%", change: "-2%", positive: false, icon: <Target size={18} />, glow: "#60b8f0" },
+    { label: "Monthly Revenue", value: "$14,330", change: "+22%", positive: true, glow: "#2DD4BF" },
+    { label: "Avg Booking Value", value: "$520", change: "+8%", positive: true, glow: "#D4AF37" },
+    { label: "Conversion Rate", value: "68%", change: "-2%", positive: false, glow: "#60A5FA" },
   ];
 
   return (
