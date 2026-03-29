@@ -162,7 +162,7 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
                     <div style={{ width: 10, height: 10, borderRadius: 3, background: DONUT_COLORS[i] }} />
                     <span style={{ color: "var(--aura-text-dim)" }}>{d.name}</span>
                   </div>
-                  <span style={{ fontWeight: 600, color: "var(--aura-text)" }}>{d.value}%</span>
+                  <span style={{ fontWeight: 500, color: "var(--aura-text)", fontFamily: "var(--aura-font-mono)" }}>{d.value}%</span>
                 </div>
               ))}
             </div>
