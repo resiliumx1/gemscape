@@ -116,7 +116,7 @@ const NotificationBell = ({ isMobile }: { isMobile: boolean }) => {
               width: isMobile ? "auto" : 320,
               background: "var(--aura-sidebar-bg)",
               backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)",
-              borderRadius: "var(--aura-radius-card)", overflow: "hidden", zIndex: 50,
+              borderRadius: "var(--aura-radius-card)", overflow: "hidden", zIndex: 9999,
               boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
             }}
           >
