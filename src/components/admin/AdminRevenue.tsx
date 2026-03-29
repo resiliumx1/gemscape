@@ -12,13 +12,14 @@ const GlassTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: "var(--aura-sidebar-bg)", backdropFilter: "var(--aura-blur)",
-      border: "1px solid var(--aura-glass-border)", borderRadius: 12, padding: "10px 14px",
+      background: "rgba(17, 24, 39, 0.95)", backdropFilter: "blur(12px)",
+      border: "1px solid rgba(212, 175, 55, 0.2)", borderRadius: 12, padding: "12px 16px",
       fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text)",
+      boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
     }}>
-      <p style={{ fontWeight: 600, marginBottom: 4 }}>{label}</p>
+      <p style={{ fontWeight: 600, marginBottom: 6, fontSize: 11, color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
       {payload.map((p: any) => (
-        <p key={p.dataKey} style={{ color: p.color }}>{p.name}: ${p.value?.toLocaleString()}</p>
+        <p key={p.dataKey} style={{ color: p.color, fontFamily: "var(--aura-font-mono)", fontWeight: 500 }}>{p.name}: ${p.value?.toLocaleString()}</p>
       ))}
     </div>
   );
