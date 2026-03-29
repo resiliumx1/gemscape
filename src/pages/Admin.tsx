@@ -110,7 +110,7 @@ const Admin = () => {
 
   const sidebarContent = (
     <>
-      <div className="aura-sidebar__brand" onClick={() => !isMobile && setCollapsed(!collapsed)} style={{ cursor: isMobile ? "default" : "pointer" }}>
+      <div className="aura-sidebar__brand" onClick={() => setCollapsed(!collapsed)} style={{ cursor: "pointer" }}>
         {profilePic ? (
           <div style={{ width: 36, height: 36, borderRadius: 10, overflow: "hidden", flexShrink: 0 }}>
             <img src={profilePic} alt="Profile" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
