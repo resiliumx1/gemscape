@@ -181,27 +181,16 @@ const Admin = () => {
           <div className="aura-mesh__orb aura-mesh__orb--5" />
         </div>
 
-        {isMobile && (
-          <>
-            <div className={`aura-sidebar-backdrop ${drawerOpen ? "visible" : ""}`} onClick={() => setDrawerOpen(false)} />
-            <aside className={`aura-sidebar aura-sidebar--mobile ${drawerOpen ? "open" : ""}`} style={{ width: 260 }}>
-              {sidebarContent}
-            </aside>
-          </>
-        )}
-
-        {!isMobile && (
-          <aside className={`aura-sidebar ${collapsed ? "collapsed" : ""}`}>
-            {sidebarContent}
-          </aside>
-        )}
+        <aside className={`aura-sidebar ${collapsed ? "collapsed" : ""}`}>
+          {sidebarContent}
+        </aside>
 
         <main className="aura-main">
           <AdminHeader
             pageTitle={PAGE_TITLES[activeTab] || "Dashboard"}
             onNewBooking={() => setShowNewBooking(true)}
             isMobile={isMobile}
-            onMenuToggle={() => setDrawerOpen(!drawerOpen)}
+            onMenuToggle={() => setCollapsed(!collapsed)}
             onNavigateSettings={() => setActiveTab("settings")}
             onNavigateDashboard={() => setActiveTab("dashboard")}
             profilePic={profilePic}
