@@ -448,7 +448,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Tour Select */}
-          <div style={{ marginBottom: 14 }}>
+          <div style={{ marginBottom: 16 }}>
             <label className="aura-input-label">Tour *</label>
             <select className="aura-input" required value={formData.tour || ""} onChange={e => set("tour", e.target.value)}>
               <option value="">Select a tour…</option>
