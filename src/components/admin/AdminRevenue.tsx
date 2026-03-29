@@ -39,7 +39,7 @@ const DONUT_DATA = [
   { name: "Rainforest", value: 12 },
   { name: "Other", value: 10 },
 ];
-const DONUT_COLORS = ["#3cc8b8", "#d4aa44", "#60b8f0", "#a78bfa", "#94a3b8"];
+const DONUT_COLORS = ["#2DD4BF", "#D4AF37", "#60A5FA", "#A78BFA", "#6B7280"];
 
 const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
   const { format: fmt } = useCurrency();
