@@ -1,19 +1,24 @@
 // @ts-nocheck
 import { useEffect, useRef } from "react";
 
-const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: number }) => {
+interface BrilliantGemProps {
+  width?: number;
+  height?: number;
+  /** Pass a ref to the hero section; renderer pauses when off-screen */
+  observerTarget?: React.RefObject<HTMLElement>;
+}
+
+const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGemProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
-
-    // Prevent double-init in strict mode
     if (cleanupRef.current) return;
 
     const container = containerRef.current;
-    let animationId: number;
     let destroyed = false;
+    let isVisible = true;
 
     const init = async () => {
       const THREE = await import("three");
@@ -30,17 +35,19 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
       canvas.style.background = "transparent";
       container.appendChild(canvas);
 
+      // ── RENDERER ──
       const renderer = new THREE.WebGLRenderer({
         canvas,
         antialias: true,
         alpha: true,
         premultipliedAlpha: false,
+        powerPreference: "high-performance",
       });
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setClearColor(0x000000, 0);
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.6;
+      renderer.toneMappingExposure = 1.2;
 
       // ── RIM HALO SHADER ──
       const RimHaloShader = {
@@ -51,58 +58,35 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
           uHaloColor: { value: new THREE.Color(0.15, 0.75, 0.85) },
           uHaloIntensity: { value: 0.7 },
         },
-        vertexShader: `
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
+        vertexShader: `varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
         fragmentShader: `
-          uniform sampler2D tDiffuse;
-          uniform vec2 uResolution;
-          uniform float uTime;
-          uniform vec3 uHaloColor;
-          uniform float uHaloIntensity;
-          varying vec2 vUv;
-          void main() {
-            vec4 center = texture2D(tDiffuse, vUv);
-            float centerLum = dot(center.rgb, vec3(0.299, 0.587, 0.114));
-            float edgeSum = 0.0;
-            float samples = 0.0;
-            vec2 texel = 1.0 / uResolution;
-            for (float i = 0.0; i < 16.0; i++) {
-              float angle = i * 6.2831853 / 16.0;
-              vec2 dir = vec2(cos(angle), sin(angle));
-              vec2 offset1 = dir * texel * 2.0;
-              float s1 = dot(texture2D(tDiffuse, vUv + offset1).rgb, vec3(0.299, 0.587, 0.114));
-              edgeSum += abs(centerLum - s1);
-              samples += 1.0;
-              vec2 offset2 = dir * texel * 4.0;
-              float s2 = dot(texture2D(tDiffuse, vUv + offset2).rgb, vec3(0.299, 0.587, 0.114));
-              edgeSum += abs(centerLum - s2) * 0.6;
-              samples += 0.6;
+          uniform sampler2D tDiffuse;uniform vec2 uResolution;uniform float uTime;
+          uniform vec3 uHaloColor;uniform float uHaloIntensity;varying vec2 vUv;
+          void main(){
+            vec4 center=texture2D(tDiffuse,vUv);
+            float cLum=dot(center.rgb,vec3(0.299,0.587,0.114));
+            float eSum=0.0;float samps=0.0;vec2 tx=1.0/uResolution;
+            for(float i=0.0;i<16.0;i++){
+              float a=i*6.2831853/16.0;vec2 d=vec2(cos(a),sin(a));
+              float s1=dot(texture2D(tDiffuse,vUv+d*tx*2.0).rgb,vec3(0.299,0.587,0.114));
+              eSum+=abs(cLum-s1);samps+=1.0;
+              float s2=dot(texture2D(tDiffuse,vUv+d*tx*4.0).rgb,vec3(0.299,0.587,0.114));
+              eSum+=abs(cLum-s2)*0.6;samps+=0.6;
             }
-            float edge = edgeSum / samples;
-            float halo = smoothstep(0.02, 0.12, edge);
-            float outerEdge = 0.0;
-            float outerSamples = 0.0;
-            for (float i = 0.0; i < 12.0; i++) {
-              float angle = i * 6.2831853 / 12.0;
-              vec2 dir = vec2(cos(angle), sin(angle));
-              vec2 offset = dir * texel * 7.0;
-              float s = dot(texture2D(tDiffuse, vUv + offset).rgb, vec3(0.299, 0.587, 0.114));
-              outerEdge += abs(centerLum - s);
-              outerSamples += 1.0;
+            float edge=eSum/samps;float halo=smoothstep(0.02,0.12,edge);
+            float oE=0.0;float oS=0.0;
+            for(float i=0.0;i<12.0;i++){
+              float a=i*6.2831853/12.0;vec2 d=vec2(cos(a),sin(a));
+              float s=dot(texture2D(tDiffuse,vUv+d*tx*7.0).rgb,vec3(0.299,0.587,0.114));
+              oE+=abs(cLum-s);oS+=1.0;
             }
-            float outerHalo = smoothstep(0.015, 0.08, outerEdge / outerSamples) * 0.4;
-            float totalHalo = max(halo, outerHalo);
-            float pulse = 0.85 + 0.15 * sin(uTime * 1.6);
-            vec3 haloCol = mix(uHaloColor, vec3(0.85, 0.95, 1.0), halo * 0.6);
-            vec3 result = center.rgb + haloCol * totalHalo * uHaloIntensity * pulse;
-            gl_FragColor = vec4(result, center.a);
-          }
-        `,
+            float oHalo=smoothstep(0.015,0.08,oE/oS)*0.4;
+            float tH=max(halo,oHalo);
+            float pulse=0.85+0.15*sin(uTime*1.6);
+            vec3 hCol=mix(uHaloColor,vec3(0.85,0.95,1.0),halo*0.6);
+            vec3 res=center.rgb+hCol*tH*uHaloIntensity*pulse;
+            gl_FragColor=vec4(res,center.a);
+          }`,
       };
 
       // ── CHROMATIC ABERRATION SHADER ──
@@ -112,44 +96,25 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
           uIntensity: { value: 0.0035 },
           uTime: { value: 0 },
         },
-        vertexShader: `
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
+        vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
         fragmentShader: `
-          uniform sampler2D tDiffuse;
-          uniform float uIntensity;
-          uniform float uTime;
-          varying vec2 vUv;
-          void main() {
-            vec2 center = vec2(0.5);
-            vec2 dir = vUv - center;
-            float dist = length(dir);
-            float edgeFactor = smoothstep(0.05, 0.5, dist);
-            float pulse = 1.0 + 0.15 * sin(uTime * 1.2);
-            float offset = uIntensity * edgeFactor * pulse;
-            vec2 rUv = vUv + dir * offset * 1.2;
-            vec2 gUv = vUv;
-            vec2 bUv = vUv - dir * offset * 1.0;
-            float r = texture2D(tDiffuse, rUv).r;
-            float g = texture2D(tDiffuse, gUv).g;
-            float b = texture2D(tDiffuse, bUv).b;
-            float a = texture2D(tDiffuse, gUv).a;
-            float lum = dot(vec3(r, g, b), vec3(0.299, 0.587, 0.114));
-            float specBoost = smoothstep(0.55, 0.95, lum);
-            float extraOffset = uIntensity * 2.5 * specBoost * pulse;
-            vec2 rUv2 = vUv + dir * (offset + extraOffset) * 1.4;
-            vec2 bUv2 = vUv - dir * (offset + extraOffset) * 1.2;
-            float r2 = texture2D(tDiffuse, rUv2).r;
-            float b2 = texture2D(tDiffuse, bUv2).b;
-            r = mix(r, r2, specBoost * 0.7);
-            b = mix(b, b2, specBoost * 0.7);
-            gl_FragColor = vec4(r, g, b, a);
-          }
-        `,
+          uniform sampler2D tDiffuse;uniform float uIntensity;uniform float uTime;varying vec2 vUv;
+          void main(){
+            vec2 c=vec2(0.5);vec2 dir=vUv-c;float dist=length(dir);
+            float ef=smoothstep(0.05,0.5,dist);float pulse=1.0+0.15*sin(uTime*1.2);
+            float off=uIntensity*ef*pulse;
+            float r=texture2D(tDiffuse,vUv+dir*off*1.2).r;
+            float g=texture2D(tDiffuse,vUv).g;
+            float b=texture2D(tDiffuse,vUv-dir*off*1.0).b;
+            float a=texture2D(tDiffuse,vUv).a;
+            float lum=dot(vec3(r,g,b),vec3(0.299,0.587,0.114));
+            float sb=smoothstep(0.55,0.95,lum);
+            float eo=uIntensity*2.5*sb*pulse;
+            float r2=texture2D(tDiffuse,vUv+dir*(off+eo)*1.4).r;
+            float b2=texture2D(tDiffuse,vUv-dir*(off+eo)*1.2).b;
+            r=mix(r,r2,sb*0.7);b=mix(b,b2,sb*0.7);
+            gl_FragColor=vec4(r,g,b,a);
+          }`,
       };
 
       const scene = new THREE.Scene();
@@ -157,44 +122,35 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
 
       const aspect = width / height;
       const camH = 3.2;
-      const camera = new THREE.OrthographicCamera(
-        -camH * aspect, camH * aspect, camH, -camH, 0.1, 100
-      );
+      const camera = new THREE.OrthographicCamera(-camH * aspect, camH * aspect, camH, -camH, 0.1, 100);
       camera.position.set(0, 0.2, 8);
       camera.lookAt(0, 0, 0);
 
-      // ── ENVIRONMENT ──
+      // ── ENVIRONMENT MAP (gradient sky) ──
+      const envScene = new THREE.Scene();
       const cubeRT = new THREE.WebGLCubeRenderTarget(256);
       const cubeCamera = new THREE.CubeCamera(0.1, 100, cubeRT);
-      const envScene = new THREE.Scene();
+
       const wallGeo = new THREE.PlaneGeometry(40, 40);
       const walls = [
-        { pos: [0, 0, -20] as const, rot: [0, 0, 0] as const, col: 0x1a4a5a },
-        { pos: [0, 0, 20] as const, rot: [0, Math.PI, 0] as const, col: 0x061218 },
-        { pos: [-20, 0, 0] as const, rot: [0, Math.PI / 2, 0] as const, col: 0x0f3040 },
-        { pos: [20, 0, 0] as const, rot: [0, -Math.PI / 2, 0] as const, col: 0x0f3040 },
-        { pos: [0, 20, 0] as const, rot: [Math.PI / 2, 0, 0] as const, col: 0xfff4e0 },
-        { pos: [0, -20, 0] as const, rot: [-Math.PI / 2, 0, 0] as const, col: 0x040e14 },
+        { pos: [0, 20, 0] as const, rot: [Math.PI / 2, 0, 0] as const, col: 0xffffff },   // top = white sky
+        { pos: [0, -20, 0] as const, rot: [-Math.PI / 2, 0, 0] as const, col: 0x05181e }, // bottom = deep navy
+        { pos: [0, 0, -20] as const, rot: [0, 0, 0] as const, col: 0x1a8a9e },            // front = teal
+        { pos: [0, 0, 20] as const, rot: [0, Math.PI, 0] as const, col: 0x1a8a9e },       // back = teal
+        { pos: [-20, 0, 0] as const, rot: [0, Math.PI / 2, 0] as const, col: 0x3cc8b8 },  // left = aquamarine
+        { pos: [20, 0, 0] as const, rot: [0, -Math.PI / 2, 0] as const, col: 0x3cc8b8 },  // right = aquamarine
       ];
       walls.forEach((w) => {
-        const m = new THREE.Mesh(
-          wallGeo,
-          new THREE.MeshBasicMaterial({ color: w.col, side: THREE.DoubleSide })
-        );
+        const m = new THREE.Mesh(wallGeo, new THREE.MeshBasicMaterial({ color: w.col, side: THREE.DoubleSide }));
         m.position.set(...w.pos);
         m.rotation.set(...w.rot);
         envScene.add(m);
       });
-      envScene.add(
-        new THREE.PointLight(0xfff8e8, 80, 60).translateX(8).translateY(12).translateZ(5)
-      );
-      const el2 = new THREE.PointLight(0xe0f0ff, 30, 50);
-      el2.position.set(-8, -2, 8);
-      envScene.add(el2);
-      const el3 = new THREE.PointLight(0xffffff, 40, 50);
-      el3.position.set(0, 15, 0);
-      envScene.add(el3);
+      envScene.add(new THREE.PointLight(0xfff8e8, 80, 60).translateX(8).translateY(12).translateZ(5));
+      envScene.add((() => { const l = new THREE.PointLight(0xe0f0ff, 30, 50); l.position.set(-8, -2, 8); return l; })());
+      envScene.add((() => { const l = new THREE.PointLight(0xffffff, 40, 50); l.position.set(0, 15, 0); return l; })());
       cubeCamera.update(renderer, envScene);
+      scene.environment = cubeRT.texture;
 
       // ── BRILLIANT CUT GEOMETRY ──
       function createBrilliantCut() {
@@ -224,9 +180,7 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
         const tablePoints: THREE.Vector3[] = [];
         for (let i = 0; i < N; i++) {
           const angle = (i / N) * Math.PI * 2 + Math.PI / N;
-          tablePoints.push(
-            new THREE.Vector3(tableRadius * Math.cos(angle), tableY, tableRadius * Math.sin(angle))
-          );
+          tablePoints.push(new THREE.Vector3(tableRadius * Math.cos(angle), tableY, tableRadius * Math.sin(angle)));
         }
 
         const starPoints: THREE.Vector3[] = [];
@@ -269,20 +223,13 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
           const ab = new THREE.Vector3().subVectors(b, a);
           const ac = new THREE.Vector3().subVectors(c, a);
           const n = new THREE.Vector3().crossVectors(ab, ac).normalize();
-          positions.push(
-            a.x, a.y, a.z, n.x, n.y, n.z,
-            b.x, b.y, b.z, n.x, n.y, n.z,
-            c.x, c.y, c.z, n.x, n.y, n.z
-          );
+          positions.push(a.x, a.y, a.z, n.x, n.y, n.z, b.x, b.y, b.z, n.x, n.y, n.z, c.x, c.y, c.z, n.x, n.y, n.z);
         }
 
         for (let i = 0; i < N; i++) addTri(tableCenter, tablePoints[i], tablePoints[(i + 1) % N]);
-
         for (let i = 0; i < N; i++) {
           const next = (i + 1) % N;
-          const gi = i * 2;
-          const gi1 = i * 2 + 1;
-          const gi2 = ((i + 1) * 2) % (N * 2);
+          const gi = i * 2, gi1 = i * 2 + 1, gi2 = ((i + 1) * 2) % (N * 2);
           addTri(tablePoints[i], starPoints[i], tablePoints[next]);
           addTri(starPoints[i], upperGirdlePoints[gi], upperGirdlePoints[gi1]);
           addTri(starPoints[i], upperGirdlePoints[gi1], starPoints[next]);
@@ -292,13 +239,11 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
           addTri(tablePoints[next], starPoints[i], upperGirdlePoints[gi1]);
           addTri(tablePoints[next], upperGirdlePoints[gi1], upperGirdlePoints[gi2]);
         }
-
         for (let i = 0; i < N * 2; i++) {
           const next = (i + 1) % (N * 2);
           addTri(girdleTop[i], girdleBot[i], girdleBot[next]);
           addTri(girdleTop[i], girdleBot[next], girdleTop[next]);
         }
-
         for (let i = 0; i < N * 2; i++) {
           const next = (i + 1) % (N * 2);
           addTri(girdleBot[i], girdleBot[next], pavMidPoints[i]);
@@ -309,59 +254,47 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
           const li = Math.floor(i / 2) % N;
           const lnext = Math.floor(next / 2) % N;
           addTri(pavMidPoints[i], pavMidPoints[next], pavLowerPoints[li]);
-          if (li !== lnext) {
-            addTri(pavMidPoints[next], pavLowerPoints[lnext], pavLowerPoints[li]);
-          }
+          if (li !== lnext) addTri(pavMidPoints[next], pavLowerPoints[lnext], pavLowerPoints[li]);
         }
-        for (let i = 0; i < N; i++) {
-          addTri(pavLowerPoints[i], pavLowerPoints[(i + 1) % N], culet);
-        }
+        for (let i = 0; i < N; i++) addTri(pavLowerPoints[i], pavLowerPoints[(i + 1) % N], culet);
 
         const geo = new THREE.BufferGeometry();
         const verts = new Float32Array(positions.length / 2);
         const norms = new Float32Array(positions.length / 2);
         for (let i = 0; i < positions.length / 6; i++) {
-          verts[i * 3] = positions[i * 6];
-          verts[i * 3 + 1] = positions[i * 6 + 1];
-          verts[i * 3 + 2] = positions[i * 6 + 2];
-          norms[i * 3] = positions[i * 6 + 3];
-          norms[i * 3 + 1] = positions[i * 6 + 4];
-          norms[i * 3 + 2] = positions[i * 6 + 5];
+          verts[i * 3] = positions[i * 6]; verts[i * 3 + 1] = positions[i * 6 + 1]; verts[i * 3 + 2] = positions[i * 6 + 2];
+          norms[i * 3] = positions[i * 6 + 3]; norms[i * 3 + 1] = positions[i * 6 + 4]; norms[i * 3 + 2] = positions[i * 6 + 5];
         }
         geo.setAttribute("position", new THREE.Float32BufferAttribute(verts, 3));
         geo.setAttribute("normal", new THREE.Float32BufferAttribute(norms, 3));
-
-        return {
-          geometry: geo,
-          params: { girdleRadius, tableRadius, crownHeight, pavilionDepth, girdleTopY, girdleBotY, tableY, culetY },
-        };
+        return { geometry: geo, params: { girdleRadius, tableRadius, crownHeight, pavilionDepth, girdleTopY, girdleBotY, tableY, culetY } };
       }
 
-      const { geometry: gemGeometry, params: gp } = createBrilliantCut();
+      const { geometry: gemGeometry } = createBrilliantCut();
 
-      // ── GEM MATERIAL ──
+      // ── GEM MATERIAL (premium refraction) ──
       const gemMaterial = new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(0.04, 0.5, 0.68),
-        metalness: 0.02,
-        roughness: 0.005,
-        transmission: 0.6,
-        thickness: 4.5,
+        color: new THREE.Color("#1a8a9e"),
+        metalness: 0.0,
+        roughness: 0.03,
+        transmission: 0.92,
+        thickness: 3.5,
         ior: 2.42,
         envMap: cubeRT.texture,
-        envMapIntensity: 6.0,
+        envMapIntensity: 2.5,
         clearcoat: 1.0,
-        clearcoatRoughness: 0.002,
-        specularIntensity: 4.0,
+        clearcoatRoughness: 0.02,
+        specularIntensity: 1.0,
         specularColor: new THREE.Color("#ffffff"),
-        transparent: true,
-        opacity: 0.97,
+        reflectivity: 1.0,
+        transparent: false,
+        opacity: 1.0,
         side: THREE.DoubleSide,
-        sheen: 0.2,
-        sheenColor: new THREE.Color("#5ec8e0"),
-        attenuationColor: new THREE.Color("#1a5a7a"),
-        attenuationDistance: 1.0,
+        attenuationColor: new THREE.Color("#0d5e6e"),
+        attenuationDistance: 2.0,
       });
 
+      // Dispersion simulation via shader injection
       gemMaterial.onBeforeCompile = (shader) => {
         shader.uniforms.uDispTime = { value: 0 };
         shader.fragmentShader = "uniform float uDispTime;\n" + shader.fragmentShader;
@@ -377,11 +310,7 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
           gl_FragColor.g -= dispStrength * 0.1;
           gl_FragColor.b += bShift * 0.35;
           float rainbowPhase = gl_FragCoord.x * 0.03 + gl_FragCoord.y * 0.02 + uDispTime * 1.8;
-          vec3 rainbow = vec3(
-            sin(rainbowPhase) * 0.5 + 0.5,
-            sin(rainbowPhase + 2.094) * 0.5 + 0.5,
-            sin(rainbowPhase + 4.189) * 0.5 + 0.5
-          );
+          vec3 rainbow = vec3(sin(rainbowPhase)*0.5+0.5, sin(rainbowPhase+2.094)*0.5+0.5, sin(rainbowPhase+4.189)*0.5+0.5);
           gl_FragColor.rgb += rainbow * dispStrength * dispFlicker * 0.3;
           #include <output_fragment>
           `
@@ -389,167 +318,69 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
         gemMaterial.userData.shader = shader;
       };
 
+      const gemGroup = new THREE.Group();
+
       const gem = new THREE.Mesh(gemGeometry, gemMaterial);
-      gem.position.y = 0;
-      gem.scale.set(0.34, 0.34, 0.34);
-      scene.add(gem);
+      gemGroup.add(gem);
 
-      // Inner glow shell
-      const innerMat = new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(0.1, 0.72, 0.82),
-        emissive: new THREE.Color(0.0, 0.22, 0.32),
-        emissiveIntensity: 1.0,
-        transparent: true,
-        opacity: 0.14,
-        roughness: 0.0,
-        metalness: 0.0,
-        side: THREE.FrontSide,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      });
-      const innerGem = new THREE.Mesh(gemGeometry, innerMat);
-      innerGem.scale.set(0.88 * 0.34, 0.88 * 0.34, 0.88 * 0.34);
-      innerGem.position.y = 0;
-      scene.add(innerGem);
-
-      // ── GOLD CAGE ──
-      const cageGroup = new THREE.Group();
-      const tubeR = gp.girdleRadius * 0.035;
-      const goldMat = new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#D4A84C"),
-        metalness: 1.0,
-        roughness: 0.08,
-        envMap: cubeRT.texture,
-        envMapIntensity: 2.5,
-      });
-
-      const girdleRing = new THREE.Mesh(
-        new THREE.TorusGeometry(gp.girdleRadius + tubeR * 0.3, tubeR, 12, 64),
-        goldMat
+      // ── GOLD WIREFRAME EDGES ──
+      const edgesGeo = new THREE.EdgesGeometry(gemGeometry, 1);
+      const wireframe = new THREE.LineSegments(
+        edgesGeo,
+        new THREE.LineBasicMaterial({
+          color: "#C9A84C",
+          transparent: true,
+          opacity: 0.55,
+          linewidth: 1,
+        })
       );
-      girdleRing.rotation.x = Math.PI / 2;
-      cageGroup.add(girdleRing);
+      gemGroup.add(wireframe);
 
-      const tableRing = new THREE.Mesh(
-        new THREE.TorusGeometry(gp.tableRadius + tubeR * 0.3, tubeR, 12, 64),
-        goldMat
-      );
-      tableRing.rotation.x = Math.PI / 2;
-      tableRing.position.y = gp.tableY;
-      cageGroup.add(tableRing);
+      gemGroup.scale.set(0.34, 0.34, 0.34);
+      scene.add(gemGroup);
 
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2 + Math.PI / 16;
-        const tx = gp.tableRadius * Math.cos(angle);
-        const tz = gp.tableRadius * Math.sin(angle);
-        const gx = gp.girdleRadius * Math.cos(angle);
-        const gz = gp.girdleRadius * Math.sin(angle);
-        const crownPath = new THREE.LineCurve3(
-          new THREE.Vector3(tx, gp.tableY, tz),
-          new THREE.Vector3(gx, 0, gz)
-        );
-        cageGroup.add(new THREE.Mesh(new THREE.TubeGeometry(crownPath, 8, tubeR, 8, false), goldMat));
-        const pavPath = new THREE.LineCurve3(
-          new THREE.Vector3(gx, 0, gz),
-          new THREE.Vector3(0, gp.culetY, 0)
-        );
-        cageGroup.add(new THREE.Mesh(new THREE.TubeGeometry(pavPath, 10, tubeR, 8, false), goldMat));
-      }
-      cageGroup.scale.set(0.34, 0.34, 0.34);
-      cageGroup.position.y = 0;
-      scene.add(cageGroup);
-
-      // ── CAGE BLOOM ──
-      const cageBloomGroup = new THREE.Group();
-      const bloomMat = new THREE.MeshBasicMaterial({
-        color: 0xc9a84c,
-        transparent: true,
-        opacity: 0.06,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      });
-      const bloomTubeR = tubeR * 1.8;
-      const bloomGirdleRing = new THREE.Mesh(
-        new THREE.TorusGeometry(gp.girdleRadius + bloomTubeR * 0.3, bloomTubeR, 8, 48),
-        bloomMat
-      );
-      bloomGirdleRing.rotation.x = Math.PI / 2;
-      cageBloomGroup.add(bloomGirdleRing);
-      const bloomTableRing = new THREE.Mesh(
-        new THREE.TorusGeometry(gp.tableRadius + bloomTubeR * 0.3, bloomTubeR, 8, 48),
-        bloomMat
-      );
-      bloomTableRing.rotation.x = Math.PI / 2;
-      bloomTableRing.position.y = gp.tableY;
-      cageBloomGroup.add(bloomTableRing);
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2 + Math.PI / 16;
-        const tx = gp.tableRadius * Math.cos(angle);
-        const tz = gp.tableRadius * Math.sin(angle);
-        const gx = gp.girdleRadius * Math.cos(angle);
-        const gz = gp.girdleRadius * Math.sin(angle);
-        const cp = new THREE.LineCurve3(
-          new THREE.Vector3(tx, gp.tableY, tz),
-          new THREE.Vector3(gx, 0, gz)
-        );
-        cageBloomGroup.add(new THREE.Mesh(new THREE.TubeGeometry(cp, 6, bloomTubeR, 6, false), bloomMat));
-        const pp = new THREE.LineCurve3(
-          new THREE.Vector3(gx, 0, gz),
-          new THREE.Vector3(0, gp.culetY, 0)
-        );
-        cageBloomGroup.add(new THREE.Mesh(new THREE.TubeGeometry(pp, 8, bloomTubeR, 6, false), bloomMat));
-      }
-      cageBloomGroup.scale.set(0.34, 0.34, 0.34);
-      cageBloomGroup.position.y = 0;
-      scene.add(cageBloomGroup);
-
-      // ── LIGHTING ──
-      const keyLight = new THREE.DirectionalLight(0xfff4e0, 2.8);
-      keyLight.position.set(6, 10, 6);
+      // ── 3-POINT LIGHTING ──
+      const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+      keyLight.position.set(-4, 5, 3);
       scene.add(keyLight);
-      const fillLight = new THREE.DirectionalLight(0xa8d8ea, 0.7);
-      fillLight.position.set(-6, -1, 5);
-      scene.add(fillLight);
-      const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
-      rimLight.position.set(0, 2, -8);
-      scene.add(rimLight);
-      const ambientLight = new THREE.AmbientLight(0xf0f4f8, 0.3);
-      scene.add(ambientLight);
-      const tealCore = new THREE.PointLight(0x00d4ff, 2.5, 8);
-      tealCore.position.set(0, 0, 0);
-      scene.add(tealCore);
 
-      // ── SPARKLE PARTICLES ──
-      const SPARKLE_COUNT = 35;
+      const fillLight = new THREE.PointLight(0x7ecad6, 0.8);
+      fillLight.position.set(4, 0, 3);
+      scene.add(fillLight);
+
+      const rimLight = new THREE.PointLight(0xfff5e6, 0.5);
+      rimLight.position.set(0, -3, -2);
+      scene.add(rimLight);
+
+      const ambientLight = new THREE.AmbientLight(0x1a3040, 0.3);
+      scene.add(ambientLight);
+
+      // ── SPARKLE PARTICLES (subtle, 12 particles) ──
+      const SPARKLE_COUNT = 12;
+      const GEM_RADIUS = 0.78 * 1.2; // 1.2x bounding radius
       const _sPos = new Float32Array(SPARKLE_COUNT * 3);
       const _sSize = new Float32Array(SPARKLE_COUNT);
-      const _sVel: { x: number; y: number; z: number }[] = [];
+      const _sPhase: number[] = [];
+      const _sMaxLife: number[] = [];
       const _sLife: number[] = [];
-      const _sMaxL: number[] = [];
-      const GEM_RADIUS = 0.78;
 
       function _resetSparkle(i: number) {
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(2 * Math.random() - 1);
-        const r = GEM_RADIUS * (0.95 + Math.random() * 0.15);
+        const r = GEM_RADIUS * (0.85 + Math.random() * 0.35);
         _sPos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
         _sPos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
         _sPos[i * 3 + 2] = r * Math.cos(phi);
-        const outward = 0.003;
-        _sVel[i] = {
-          x: _sPos[i * 3] * outward + (Math.random() - 0.5) * 0.003,
-          y: -0.008 - Math.random() * 0.006,
-          z: _sPos[i * 3 + 2] * outward + (Math.random() - 0.5) * 0.003,
-        };
-        const life = 80 + Math.floor(Math.random() * 100);
-        _sLife[i] = life;
-        _sMaxL[i] = life;
-        _sSize[i] = 1.5 + Math.random() * 2.0;
+        // Total life: flash in 0.1s (~6 frames), hold 0.2s (~12 frames), fade 0.3s (~18 frames) = ~36 frames
+        _sMaxLife[i] = 36;
+        _sLife[i] = _sMaxLife[i];
+        _sPhase[i] = Math.random() * 100; // random delay before activating
+        _sSize[i] = 0;
       }
 
       for (let i = 0; i < SPARKLE_COUNT; i++) {
         _resetSparkle(i);
-        _sLife[i] = Math.floor(Math.random() * _sMaxL[i]);
+        _sPhase[i] = Math.random() * 120; // stagger initial timing
       }
 
       const _sparkleGeo = new THREE.BufferGeometry();
@@ -558,36 +389,25 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
 
       const _sparkleMat = new THREE.ShaderMaterial({
         uniforms: {
-          uGold: { value: new THREE.Color("#E8C96A") },
-          uIce: { value: new THREE.Color("#c8f0ff") },
-          uTime: { value: 0.0 },
+          uColor: { value: new THREE.Color("#ffffff") },
         },
         vertexShader: `
           attribute float size;
-          varying float vSize;
           void main() {
-            vSize = size;
             vec4 mv = modelViewMatrix * vec4(position, 1.0);
             gl_PointSize = size * (220.0 / -mv.z);
             gl_Position = projectionMatrix * mv;
           }
         `,
         fragmentShader: `
-          uniform vec3 uGold;
-          uniform vec3 uIce;
-          uniform float uTime;
-          varying float vSize;
+          uniform vec3 uColor;
           void main() {
             vec2 uv = gl_PointCoord - 0.5;
             float d = length(uv);
             float alpha = 1.0 - smoothstep(0.0, 0.5, d);
-            alpha = pow(alpha, 2.2);
-            if (alpha < 0.015) discard;
-            float cross = 1.0 - smoothstep(0.0, 0.08, min(abs(uv.x), abs(uv.y)));
-            alpha = max(alpha, cross * 0.6);
-            float t = sin(vSize * 3.1 + uTime) * 0.5 + 0.5;
-            vec3 col = mix(uGold, uIce, t);
-            gl_FragColor = vec4(col, alpha * 0.75);
+            alpha = pow(alpha, 2.5);
+            if (alpha < 0.01) discard;
+            gl_FragColor = vec4(uColor, alpha * 0.9);
           }
         `,
         transparent: true,
@@ -611,14 +431,8 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
       composer.addPass(chromaPass);
 
       // ── MOUSE INTERACTION ──
-      let targetRotY = 0;
-      let targetRotX = 0;
-      let currentRotY = 0;
-      let currentRotX = 0;
-      let velY = 0;
-      let velX = 0;
-      const stiffness = 0.06;
-      const damping = 0.82;
+      let targetRotY = 0, targetRotX = 0, currentRotY = 0, currentRotX = 0, velY = 0, velX = 0;
+      const stiffness = 0.06, damping = 0.82;
 
       const onMouseMove = (e: MouseEvent) => {
         const rect = canvas.getBoundingClientRect();
@@ -627,92 +441,96 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
         targetRotY = nx * 12 * (Math.PI / 180);
         targetRotX = -ny * 6 * (Math.PI / 180);
       };
-      const onMouseLeave = () => {
-        targetRotY = 0;
-        targetRotX = 0;
-      };
+      const onMouseLeave = () => { targetRotY = 0; targetRotX = 0; };
       canvas.addEventListener("mousemove", onMouseMove);
       canvas.addEventListener("mouseleave", onMouseLeave);
 
+      // ── IntersectionObserver (pause when off-screen) ──
+      let observer: IntersectionObserver | null = null;
+      const obsTarget = observerTarget?.current || container;
+      if (obsTarget) {
+        observer = new IntersectionObserver(
+          ([entry]) => { isVisible = entry.isIntersecting; },
+          { threshold: 0.1 }
+        );
+        observer.observe(obsTarget);
+      }
+
       // ── ANIMATION LOOP ──
       const clock = new THREE.Clock();
-      let idleAngle = 0;
-
-      function smoothstepJS(edge0: number, edge1: number, x: number) {
-        const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
-        return t * t * (3 - 2 * t);
-      }
+      // 360° in 14 seconds = 2π/14 rad/s ≈ 0.4488 rad/s
+      const ROTATION_SPEED = (2 * Math.PI) / 14;
+      let sparkleTimer = 0;
 
       function animate() {
         if (destroyed) return;
-        const elapsed = clock.getElapsedTime();
-        idleAngle += 0.8 * (Math.PI / 180);
-        const isHovering = targetRotY !== 0 || targetRotX !== 0;
-        if (isHovering) idleAngle += 0.6 * (Math.PI / 180);
+        if (!isVisible) return; // GPU savings when off-screen
 
+        const elapsed = clock.getElapsedTime();
+        const dt = clock.getDelta();
+
+        // Rotation
         velY = velY * damping + (targetRotY - currentRotY) * stiffness;
         velX = velX * damping + (targetRotX - currentRotX) * stiffness;
         currentRotY += velY;
         currentRotX += velX;
 
-        const ry = idleAngle + currentRotY;
+        const ry = elapsed * ROTATION_SPEED + currentRotY;
         const rx = currentRotX + 0.175;
+        // Floating bob
+        const bob = Math.sin(elapsed * 0.5) * 0.08;
 
-        gem.rotation.y = ry;
-        gem.rotation.x = rx;
-        cageGroup.rotation.y = ry;
-        cageGroup.rotation.x = rx;
-        cageBloomGroup.rotation.y = ry;
-        cageBloomGroup.rotation.x = rx;
-        innerGem.rotation.y = ry;
-        innerGem.rotation.x = rx;
+        gemGroup.rotation.y = ry;
+        gemGroup.rotation.x = rx;
+        gemGroup.position.y = bob;
 
-        gem.position.y = 0;
-        innerGem.position.y = 0;
-        cageGroup.position.y = 0;
-        cageBloomGroup.position.y = 0;
-
-        innerMat.emissiveIntensity = 0.8 + Math.sin(elapsed * 1.8) * 0.3;
-
+        // Shader uniforms
         if (gemMaterial.userData.shader) {
           gemMaterial.userData.shader.uniforms.uDispTime.value = elapsed;
         }
-
-        tealCore.position.set(Math.sin(elapsed * 0.5) * 0.2, Math.cos(elapsed * 0.4) * 0.15, 0);
-        tealCore.intensity = 2.2 + Math.sin(elapsed * 1.5) * 0.4;
-
-        bloomMat.opacity = 0.04 + Math.sin(elapsed * 1.4) * 0.025;
-
         rimHaloPass.uniforms.uTime.value = elapsed;
         rimHaloPass.uniforms.uHaloIntensity.value = 0.6 + 0.15 * Math.sin(elapsed * 1.2);
-
         chromaPass.uniforms.uTime.value = elapsed;
+
         const flareCycle = elapsed % 5.0;
-        const flareActive =
-          flareCycle > 0 && flareCycle < 0.8
-            ? smoothstepJS(0, 0.3, flareCycle) * (1.0 - smoothstepJS(0.5, 0.8, flareCycle))
-            : 0;
+        const flareActive = flareCycle > 0 && flareCycle < 0.8
+          ? smoothstepJS(0, 0.3, flareCycle) * (1.0 - smoothstepJS(0.5, 0.8, flareCycle))
+          : 0;
         chromaPass.uniforms.uIntensity.value = 0.0035 + flareActive * 0.006;
 
-        // Sparkle tick
-        _sparkleMat.uniforms.uTime.value += 0.03;
+        // Sparkle tick — only 2-4 visible at once
+        sparkleTimer++;
         for (let i = 0; i < SPARKLE_COUNT; i++) {
+          if (_sPhase[i] > 0) {
+            _sPhase[i]--;
+            _sSize[i] = 0;
+            continue;
+          }
           _sLife[i]--;
           if (_sLife[i] <= 0) {
             _resetSparkle(i);
+            _sPhase[i] = 30 + Math.random() * 90; // stagger re-appearance
+            _sSize[i] = 0;
           } else {
-            _sPos[i * 3] += _sVel[i].x;
-            _sPos[i * 3 + 1] += _sVel[i].y;
-            _sPos[i * 3 + 2] += _sVel[i].z;
-            const frac = _sLife[i] / _sMaxL[i];
-            const fade = frac < 0.2 ? frac / 0.2 : 1.0;
-            _sSize[i] = (1.2 + Math.random() * 1.8) * frac * fade;
+            const life = _sLife[i];
+            const max = _sMaxLife[i];
+            const progress = 1 - life / max; // 0 -> 1
+            let brightness: number;
+            if (progress < 0.167) brightness = progress / 0.167; // flash in
+            else if (progress < 0.5) brightness = 1.0; // hold
+            else brightness = 1.0 - (progress - 0.5) / 0.5; // fade out
+            _sSize[i] = brightness * (1.5 + Math.random() * 0.5);
           }
         }
         _sparkleGeo.attributes.position.needsUpdate = true;
         _sparkleGeo.attributes.size.needsUpdate = true;
 
         composer.render();
+      }
+
+      function smoothstepJS(edge0: number, edge1: number, x: number) {
+        const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+        return t * t * (3 - 2 * t);
       }
 
       renderer.setAnimationLoop(animate);
@@ -723,18 +541,15 @@ const BrilliantGem = ({ width = 500, height = 500 }: { width?: number; height?: 
         renderer.setAnimationLoop(null);
         canvas.removeEventListener("mousemove", onMouseMove);
         canvas.removeEventListener("mouseleave", onMouseLeave);
+        if (observer) observer.disconnect();
         renderer.dispose();
         composer.dispose();
         gemGeometry.dispose();
         gemMaterial.dispose();
-        innerMat.dispose();
-        goldMat.dispose();
-        bloomMat.dispose();
+        edgesGeo.dispose();
         _sparkleGeo.dispose();
         _sparkleMat.dispose();
-        if (canvas.parentElement) {
-          canvas.parentElement.removeChild(canvas);
-        }
+        if (canvas.parentElement) canvas.parentElement.removeChild(canvas);
       };
     };
 
