@@ -170,7 +170,7 @@
 
 /* ── Sidebar ── */
 .aura-sidebar {
-  width: 220px;
+  width: 260px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -179,9 +179,7 @@
   top: 0;
   height: 100vh;
   overflow: hidden;
-  background: var(--aura-sidebar-bg);
-  backdrop-filter: var(--aura-blur);
-  -webkit-backdrop-filter: var(--aura-blur);
+  background: var(--aura-bg);
   border-right: 1px solid var(--aura-glass-border);
   z-index: 10;
   transition: width 0.35s cubic-bezier(0.4,0,0.2,1), background 0.4s ease, border-color 0.4s ease;
