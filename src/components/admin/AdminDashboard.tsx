@@ -82,38 +82,34 @@ const DashCard = ({
   </div>
 );
 
-/* ── KPI Card ── */
+/* ── KPI Card — Left border accent, monospace metrics ── */
 const KpiCard = ({ icon, label, value, change, glowColor, accentColor }: {
   icon: React.ReactNode; label: string; value: string | number;
   change: number; glowColor: string; accentColor: string;
 }) => (
-  <div className="aura-card" style={{ position: "relative", overflow: "hidden", padding: "18px 18px 14px" }}>
-    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: accentColor, borderRadius: "18px 18px 0 0" }} />
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-      <div style={{
-        width: 40, height: 40, borderRadius: 12,
-        background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        boxShadow: `0 4px 16px ${glowColor}`,
+  <div className="aura-card" style={{ position: "relative", overflow: "hidden", padding: "20px 20px 16px", borderLeft: `3px solid ${accentColor}` }}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+      <p style={{
+        fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
+        color: "var(--aura-text-muted)", textTransform: "uppercase",
+        letterSpacing: "0.05em", margin: 0,
       }}>
-        {icon}
-      </div>
+        {label}
+      </p>
       <div style={{
-        display: "inline-flex", alignItems: "center", gap: 4,
-        padding: "3px 8px", borderRadius: 8,
-        background: change >= 0 ? "rgba(64,216,184,0.1)" : "rgba(240,104,104,0.1)",
-        fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 500,
+        display: "inline-flex", alignItems: "center", gap: 3,
+        fontFamily: "var(--aura-font-mono)", fontSize: 11, fontWeight: 500,
         color: change >= 0 ? "var(--aura-success)" : "var(--aura-danger)",
       }}>
-        {change >= 0 ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
+        {change >= 0 ? <ArrowUp size={11} /> : <ArrowDown size={11} />}
         {Math.abs(change)}%
       </div>
     </div>
-    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 26, fontWeight: 800, color: "var(--aura-text)", lineHeight: 1, margin: 0 }}>
+    <p style={{
+      fontFamily: "var(--aura-font-mono)", fontSize: 28, fontWeight: 500,
+      color: "var(--aura-text)", lineHeight: 1, margin: 0, letterSpacing: "-0.01em",
+    }}>
       {value}
-    </p>
-    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 400, color: "var(--aura-text-muted)", marginTop: 4, textTransform: "uppercase", letterSpacing: "0.8px" }}>
-      {label}
     </p>
   </div>
 );
