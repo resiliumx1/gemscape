@@ -61,7 +61,6 @@ const Admin = () => {
   const [isDark, setIsDark] = useState(true);
   const [showNewBooking, setShowNewBooking] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [profilePic, setProfilePic] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
