@@ -11,10 +11,10 @@ const GlassTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: "rgba(6,22,28,0.92)", backdropFilter: "blur(14px)",
-      border: "1px solid var(--aura-glass-border)", borderRadius: 12, padding: "12px 16px",
+      background: "var(--aura-modal-bg, rgba(8,28,34,0.94))", backdropFilter: "blur(8px)",
+      border: "1px solid var(--aura-glass-border)", borderRadius: 10, padding: "8px 14px",
       fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text)",
-      boxShadow: "var(--aura-card-shadow)",
+      boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
     }}>
       <p style={{ fontWeight: 600, marginBottom: 6, fontSize: 11, color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
       {payload.map((p: any) => (
