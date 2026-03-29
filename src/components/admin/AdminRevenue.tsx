@@ -133,7 +133,7 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
           <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 19, color: "var(--aura-text)", marginBottom: 20 }}>Monthly Breakdown</p>
           <ResponsiveContainer width="100%" height={isMobile ? 180 : 240}>
             <BarChart data={barData}>
-              <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" />
+              <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={v => `$${v.toLocaleString()}`} />
               <Tooltip content={<GlassTooltip />} />
