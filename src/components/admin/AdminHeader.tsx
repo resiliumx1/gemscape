@@ -427,7 +427,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
 
         <form onSubmit={handleSubmit}>
           {/* Client Name + Email */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14, marginBottom: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16, marginBottom: 16 }}>
             <div>
               <label className="aura-input-label">Client Name *</label>
               <input className="aura-input" required value={formData.client_name || ""} onChange={e => set("client_name", e.target.value)} placeholder="Full name" />
