@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
+import { ArrowRight } from "lucide-react";
 
 const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
   email: { bg: "rgba(96,184,240,0.12)", text: "#60b8f0" },
