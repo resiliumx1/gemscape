@@ -83,7 +83,7 @@ const DashCard = ({
 );
 
 /* ── KPI Card — Left border accent, monospace metrics ── */
-const KpiCard = ({ icon, label, value, change, glowColor, accentColor }: {
+const KpiCard = ({ label, value, change, accentColor }: {
   icon: React.ReactNode; label: string; value: string | number;
   change: number; glowColor: string; accentColor: string;
 }) => (
@@ -266,10 +266,10 @@ const AdminDashboard = ({ onNewBooking, isMobile = false, setNav }: AdminDashboa
   const cardMap: Record<string, React.ReactNode> = {
     kpi: (
       <div key="kpi" style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 14 }}>
-        <KpiCard icon={<DollarSign size={18} color="var(--aura-teal)" />} label="Total Revenue" value={formatPrice(totalRevenue)} change={revChange} glowColor="rgba(60,200,184,0.2)" accentColor="var(--aura-teal)" />
-        <KpiCard icon={<CalendarDays size={18} color="var(--aura-gold)" />} label="Active Bookings" value={activeBookings} change={8} glowColor="rgba(212,170,68,0.2)" accentColor="var(--aura-gold)" />
-        <KpiCard icon={<UserPlus size={18} color="var(--aura-info)" />} label="New Clients" value={newClients || 3} change={15} glowColor="rgba(96,184,240,0.2)" accentColor="var(--aura-info)" />
-        <KpiCard icon={<Compass size={18} color="#a78bfa" />} label="Active Tours" value={activeTours} change={-5} glowColor="rgba(167,139,250,0.2)" accentColor="#a78bfa" />
+        <KpiCard icon={<DollarSign size={18} color="var(--aura-teal)" />} label="Total Revenue" value={formatPrice(totalRevenue)} change={revChange} glowColor="rgba(44,184,168,0.2)" accentColor="var(--aura-teal)" />
+        <KpiCard icon={<CalendarDays size={18} color="var(--aura-gold)" />} label="Active Bookings" value={activeBookings} change={8} glowColor="rgba(184,149,106,0.2)" accentColor="var(--aura-gold)" />
+        <KpiCard icon={<UserPlus size={18} color="var(--aura-info)" />} label="New Clients" value={newClients || 3} change={15} glowColor="rgba(88,184,232,0.2)" accentColor="var(--aura-info)" />
+        <KpiCard icon={<Compass size={18} color="var(--aura-teal-bright, #48dac8)" />} label="Active Tours" value={activeTours} change={-5} glowColor="rgba(72,218,200,0.2)" accentColor="var(--aura-teal-bright, #48dac8)" />
       </div>
     ),
 
@@ -289,24 +289,23 @@ const AdminDashboard = ({ onNewBooking, isMobile = false, setNav }: AdminDashboa
           <AreaChart data={chartData}>
             <defs>
               <linearGradient id="auraRevGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#D4AF37" stopOpacity={0.12} />
-                <stop offset="50%" stopColor="#2DD4BF" stopOpacity={0.06} />
-                <stop offset="100%" stopColor="#2DD4BF" stopOpacity={0} />
+                <stop offset="0%" stopColor="#2cb8a8" stopOpacity={0.25} />
+                <stop offset="100%" stopColor="#2cb8a8" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="rgba(255,255,255,0.03)" strokeDasharray="3 3" />
+            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" />
             <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fontFamily: "var(--aura-font-mono)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
             <Tooltip
               contentStyle={{
-                background: "rgba(17, 24, 39, 0.95)", backdropFilter: "blur(12px)",
-                border: "1px solid rgba(212, 175, 55, 0.2)", borderRadius: 12,
-                fontFamily: "var(--aura-font-body)", fontSize: 12, color: "#F9FAFB",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+                background: "rgba(6,22,28,0.92)", backdropFilter: "blur(14px)",
+                border: "1px solid var(--aura-glass-border)", borderRadius: 12,
+                fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text)",
+                boxShadow: "var(--aura-card-shadow)",
               }}
               formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
             />
-            <Area type="monotone" dataKey="revenue" stroke="#D4AF37" strokeWidth={2} fill="url(#auraRevGrad)" dot={{ r: 3, fill: "#D4AF37", stroke: "#0B0F19", strokeWidth: 2 }} />
+            <Area type="monotone" dataKey="revenue" stroke="#2cb8a8" strokeWidth={2} fill="url(#auraRevGrad)" dot={{ r: 3, fill: "#2cb8a8", stroke: "#061a20", strokeWidth: 2 }} />
           </AreaChart>
         </ResponsiveContainer>
       </DashCard>
@@ -322,7 +321,7 @@ const AdminDashboard = ({ onNewBooking, isMobile = false, setNav }: AdminDashboa
           {activityFeed.map((item, i) => {
             const cfg = ACTIVITY_ICONS[item.type] || ACTIVITY_ICONS.booking;
             return (
-              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0", borderBottom: "1px solid var(--aura-border-light, rgba(120,200,200,0.07))" }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: 10,
                   background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
@@ -364,7 +363,7 @@ const AdminDashboard = ({ onNewBooking, isMobile = false, setNav }: AdminDashboa
               onClick={() => toggleTask(t.id)}
               style={{
                 display: "flex", alignItems: "center", gap: 10, padding: "8px 0",
-                cursor: "pointer", borderBottom: "1px solid rgba(255,255,255,0.04)",
+                cursor: "pointer", borderBottom: "1px solid var(--aura-border-light, rgba(120,200,200,0.07))",
                 minHeight: isMobile ? 44 : "auto",
               }}
             >

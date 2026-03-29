@@ -57,7 +57,7 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
         <button onClick={openNew} style={{
           fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, padding: "10px 20px",
           borderRadius: "var(--aura-radius-btn)", border: "none", cursor: "pointer",
-          background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0B0F19", minHeight: 44,
+          background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32", minHeight: 44,
         }}>+ Add Vehicle</button>
       </div>
 
@@ -66,8 +66,8 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
           const fuel = getFuel(v.id);
           const fuelColor = fuel > 60 ? "var(--aura-success)" : fuel > 30 ? "var(--aura-warning)" : "var(--aura-danger)";
           const statusPill = v.available
-            ? { bg: "rgba(16, 185, 129, 0.1)", text: "var(--aura-success)", border: "rgba(16, 185, 129, 0.2)", label: "Active" }
-            : { bg: "rgba(245, 158, 11, 0.1)", text: "var(--aura-warning)", border: "rgba(245, 158, 11, 0.2)", label: "Maintenance" };
+            ? { bg: "var(--aura-success-bg)", text: "var(--aura-success)", border: "rgba(60,216,180,0.25)", label: "Active" }
+            : { bg: "var(--aura-warning-bg)", text: "var(--aura-warning)", border: "rgba(224,184,76,0.25)", label: "Maintenance" };
 
           return (
             <div key={v.id} className="aura-glass" style={{ padding: "24px", cursor: "pointer" }} onClick={() => openEdit(v)}>
@@ -95,10 +95,10 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
 
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <Fuel size={14} style={{ color: "var(--aura-text-muted)" }} />
-                <div style={{ flex: 1, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
+                <div style={{ flex: 1, height: 4, borderRadius: 2, background: "rgba(120,200,200,0.08)", overflow: "hidden" }}>
                   <div style={{ width: `${fuel}%`, height: "100%", borderRadius: 2, background: fuelColor, transition: "width 0.3s" }} />
                 </div>
-                <span style={{ fontFamily: "var(--aura-font-mono)", fontSize: 11, fontWeight: 500, color: fuelColor, minWidth: 30 }}>{fuel}%</span>
+                <span style={{ fontFamily: "var(--aura-font-mono)", fontSize: 10, fontWeight: 500, color: fuelColor, minWidth: 30 }}>{fuel}%</span>
               </div>
 
               <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
@@ -115,10 +115,10 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       {/* Edit Modal */}
       {editing && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(11,15,25,0.7)", backdropFilter: "blur(14px)" }}
+        <div style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(4,16,20,0.7)", backdropFilter: "blur(14px)" }}
           onClick={() => setEditing(null)}>
           <div onClick={e => e.stopPropagation()} style={{
-            width: isMobile ? "96%" : 480, maxHeight: "85vh", overflowY: "auto", background: "rgba(17, 24, 39, 0.95)",
+            width: isMobile ? "96%" : 480, maxHeight: "85vh", overflowY: "auto", background: "rgba(8,32,38,0.95)",
             backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)", borderRadius: "var(--aura-radius-card)", padding: "28px",
             boxShadow: "0 24px 64px rgba(0,0,0,0.4)",
           }}>
@@ -140,7 +140,7 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
               }}>Cancel</button>
               <button onClick={handleSave} disabled={saving} style={{
                 flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, padding: "10px", borderRadius: "var(--aura-radius-btn)",
-                border: "none", background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0B0F19", cursor: "pointer", minHeight: 44,
+                border: "none", background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32", cursor: "pointer", minHeight: 44,
               }}>{saving ? "Saving…" : "Save"}</button>
             </div>
           </div>
@@ -152,7 +152,7 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
 
 const GlassInput = ({ label, value, onChange, type = "text" }: { label: string; value: string; onChange: (v: string) => void; type?: string }) => (
   <div>
-    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, color: "var(--aura-text-muted)", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
+    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: "var(--aura-text-muted)", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
     <input type={type} value={value} onChange={e => onChange(e.target.value)} style={{
       width: "100%", padding: "10px 14px", borderRadius: "var(--aura-radius-input)", fontSize: 13,
       fontFamily: "var(--aura-font-body)", color: "var(--aura-text)",

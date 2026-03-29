@@ -1,76 +1,88 @@
 /* ═══════════════════════════════════════════════════════════════
-   AURA GLASS ADMIN THEME — Midnight Caribbean
+   AURA GLASS ADMIN THEME — Teal Marble + Bronze Gold
    Premium glassmorphism design system for Gemscape admin
    ═══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-/* ── CSS Custom Properties — Midnight Caribbean ── */
+/* ── CSS Custom Properties — Teal Marble ── */
 .aura-admin {
-  --aura-bg: #0B0F19;
-  --aura-bg-secondary: #111827;
-  --aura-bg-tertiary: #1F2937;
-  --aura-text: #F9FAFB;
-  --aura-text-dim: #9CA3AF;
-  --aura-text-muted: #6B7280;
-  --aura-text-secondary: #9CA3AF;
-  --aura-glass: rgba(17, 24, 39, 0.7);
-  --aura-glass-border: rgba(255, 255, 255, 0.06);
-  --aura-glass-border-hover: rgba(255, 255, 255, 0.12);
-  --aura-glass-hover: rgba(17, 24, 39, 0.85);
-  --aura-highlight: rgba(255, 255, 255, 0.04);
-  --aura-sidebar-bg: rgba(11, 15, 25, 0.85);
-  --aura-teal: #2DD4BF;
-  --aura-teal-dim: rgba(45, 212, 191, 0.1);
-  --aura-gold: #D4AF37;
-  --aura-gold-hover: #E5C158;
-  --aura-gold-dim: rgba(212, 175, 55, 0.1);
-  --aura-success: #10B981;
-  --aura-warning: #F59E0B;
-  --aura-danger: #EF4444;
-  --aura-info: #60A5FA;
+  --aura-bg: #061a20;
+  --aura-bg-secondary: rgba(8,32,38,0.62);
+  --aura-bg-tertiary: rgba(8,32,38,0.75);
+  --aura-text: #e4f0f2;
+  --aura-text-dim: #8ec8d0;
+  --aura-text-muted: #5a9aa4;
+  --aura-text-secondary: #8ec8d0;
+  --aura-glass: rgba(8,32,38,0.62);
+  --aura-glass-border: rgba(120,200,200,0.12);
+  --aura-glass-border-hover: rgba(120,200,200,0.20);
+  --aura-glass-hover: rgba(8,32,38,0.75);
+  --aura-highlight: rgba(120,200,200,0.05);
+  --aura-sidebar-bg: rgba(6,22,28,0.72);
+  --aura-teal: #2cb8a8;
+  --aura-teal-bright: #48dac8;
+  --aura-teal-dim: rgba(44,184,168,0.10);
+  --aura-gold: #b8956a;
+  --aura-gold-hover: #d4ad7c;
+  --aura-gold-dim: rgba(184,149,106,0.10);
+  --aura-success: #3cd8b4;
+  --aura-warning: #e0b84c;
+  --aura-danger: #e86060;
+  --aura-info: #58b8e8;
+  --aura-success-bg: rgba(60,216,180,0.12);
+  --aura-warning-bg: rgba(224,184,76,0.12);
+  --aura-danger-bg: rgba(232,96,96,0.12);
+  --aura-info-bg: rgba(88,184,232,0.12);
   --aura-radius-card: 16px;
   --aura-radius-btn: 12px;
   --aura-radius-input: 10px;
-  --aura-blur: blur(12px) saturate(1.3);
+  --aura-blur: blur(22px) saturate(1.4);
   --aura-font-body: 'DM Sans', sans-serif;
   --aura-font-heading: 'Cormorant Garamond', serif;
   --aura-font-mono: 'JetBrains Mono', monospace;
-  --aura-input-bg: rgba(31, 41, 55, 0.6);
-  --aura-input-border: rgba(255, 255, 255, 0.06);
-  --aura-grid-stroke: rgba(255, 255, 255, 0.04);
-  --aura-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --aura-card-shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 4px 10px -3px rgba(0, 0, 0, 0.1);
+  --aura-input-bg: rgba(0,0,0,0.25);
+  --aura-input-border: rgba(120,200,200,0.10);
+  --aura-grid-stroke: rgba(120,200,200,0.06);
+  --aura-card-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  --aura-card-shadow-hover: 0 12px 40px rgba(0,0,0,0.45);
+  --aura-border-light: rgba(120,200,200,0.07);
 }
 
 .aura-admin.aura-light {
-  --aura-bg: #E8EDF4;
-  --aura-bg-secondary: #FFFFFF;
-  --aura-bg-tertiary: #F3F4F6;
-  --aura-text: #111827;
-  --aura-text-dim: #4B5563;
-  --aura-text-muted: #9CA3AF;
-  --aura-text-secondary: #6B7280;
-  --aura-glass: rgba(255, 255, 255, 0.7);
-  --aura-glass-border: rgba(0, 0, 0, 0.06);
-  --aura-glass-border-hover: rgba(0, 0, 0, 0.12);
-  --aura-glass-hover: rgba(255, 255, 255, 0.85);
-  --aura-highlight: rgba(0, 0, 0, 0.03);
-  --aura-sidebar-bg: rgba(255, 255, 255, 0.8);
-  --aura-teal: #0D9488;
-  --aura-teal-dim: rgba(13, 148, 136, 0.08);
-  --aura-gold: #B8860B;
-  --aura-gold-hover: #D4AF37;
-  --aura-gold-dim: rgba(184, 134, 11, 0.08);
-  --aura-success: #059669;
-  --aura-warning: #D97706;
-  --aura-danger: #DC2626;
-  --aura-info: #2563EB;
-  --aura-input-bg: rgba(255, 255, 255, 0.8);
-  --aura-input-border: rgba(0, 0, 0, 0.08);
-  --aura-grid-stroke: rgba(0, 0, 0, 0.06);
-  --aura-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --aura-card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --aura-bg: #e8f4f4;
+  --aura-bg-secondary: rgba(255,255,255,0.58);
+  --aura-bg-tertiary: rgba(255,255,255,0.72);
+  --aura-text: #0c2e32;
+  --aura-text-dim: #2e6a72;
+  --aura-text-muted: #4a808a;
+  --aura-text-secondary: #2e6a72;
+  --aura-glass: rgba(255,255,255,0.58);
+  --aura-glass-border: rgba(0,60,65,0.10);
+  --aura-glass-border-hover: rgba(0,60,65,0.18);
+  --aura-glass-hover: rgba(255,255,255,0.72);
+  --aura-highlight: rgba(0,60,65,0.045);
+  --aura-sidebar-bg: rgba(238,248,248,0.70);
+  --aura-teal: #2cb8a8;
+  --aura-teal-bright: #1a9a8a;
+  --aura-teal-dim: rgba(44,184,168,0.08);
+  --aura-gold: #b8956a;
+  --aura-gold-hover: #d4ad7c;
+  --aura-gold-dim: rgba(184,149,106,0.06);
+  --aura-success: #1a9a7e;
+  --aura-warning: #b8922a;
+  --aura-danger: #c84050;
+  --aura-info: #2888c8;
+  --aura-success-bg: rgba(26,154,126,0.08);
+  --aura-warning-bg: rgba(184,146,42,0.08);
+  --aura-danger-bg: rgba(200,64,80,0.08);
+  --aura-info-bg: rgba(40,136,200,0.08);
+  --aura-input-bg: rgba(255,255,255,0.72);
+  --aura-input-border: rgba(0,60,65,0.12);
+  --aura-grid-stroke: rgba(0,60,65,0.05);
+  --aura-card-shadow: 0 8px 32px rgba(0,50,60,0.08);
+  --aura-card-shadow-hover: 0 12px 40px rgba(0,50,60,0.12);
+  --aura-border-light: rgba(0,60,65,0.06);
 }
 
 /* ── Animated Gradient Mesh Background ── */
@@ -79,8 +91,12 @@
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: var(--aura-bg);
+  background: linear-gradient(145deg, #061a20 0%, #0a2830 40%, #082228 70%, #041418 100%);
   transition: background 0.6s ease;
+}
+
+.aura-light .aura-mesh {
+  background: linear-gradient(145deg, #e8f4f4 0%, #d4eae8 40%, #e0f0ee 70%, #f0f8f6 100%);
 }
 
 .aura-mesh__orb {
@@ -91,44 +107,44 @@
   opacity: 0.6;
 }
 
-/* Dark mode orbs — deeper, more muted */
+/* Dark mode orbs — teal/aquamarine/ocean only */
 .aura-mesh__orb--1 {
   width: 600px; height: 600px;
-  background: rgba(45, 212, 191, 0.08);
+  background: rgba(26,138,158,0.20);
   top: -10%; left: -5%;
   animation: aura-drift-1 28s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--2 {
   width: 700px; height: 700px;
-  background: rgba(212, 175, 55, 0.06);
+  background: rgba(14,80,100,0.25);
   top: 20%; right: -10%;
   animation: aura-drift-2 32s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--3 {
   width: 800px; height: 800px;
-  background: rgba(11, 15, 25, 0.5);
+  background: rgba(8,50,60,0.30);
   bottom: -15%; left: 30%;
   animation: aura-drift-3 36s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--4 {
   width: 500px; height: 500px;
-  background: rgba(45, 212, 191, 0.05);
+  background: rgba(44,184,168,0.15);
   top: 50%; left: -8%;
   animation: aura-drift-4 24s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--5 {
   width: 550px; height: 550px;
-  background: rgba(96, 165, 250, 0.04);
+  background: rgba(184,149,106,0.08);
   bottom: 10%; right: 5%;
   animation: aura-drift-5 40s ease-in-out infinite alternate;
 }
 
 /* Light mode orb overrides */
-.aura-light .aura-mesh__orb--1 { background: rgba(13, 148, 136, 0.08); }
-.aura-light .aura-mesh__orb--2 { background: rgba(184, 134, 11, 0.06); }
-.aura-light .aura-mesh__orb--3 { background: rgba(200, 210, 230, 0.3); }
-.aura-light .aura-mesh__orb--4 { background: rgba(13, 148, 136, 0.05); }
-.aura-light .aura-mesh__orb--5 { background: rgba(37, 99, 235, 0.04); }
+.aura-light .aura-mesh__orb--1 { background: rgba(26,138,158,0.08); }
+.aura-light .aura-mesh__orb--2 { background: rgba(14,80,100,0.06); }
+.aura-light .aura-mesh__orb--3 { background: rgba(44,184,168,0.06); }
+.aura-light .aura-mesh__orb--4 { background: rgba(44,184,168,0.05); }
+.aura-light .aura-mesh__orb--5 { background: rgba(184,149,106,0.04); }
 
 @keyframes aura-drift-1 {
   0% { transform: translate(0,0) scale(1); }
@@ -160,6 +176,11 @@
   border-radius: var(--aura-radius-card);
   box-shadow: var(--aura-card-shadow);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Light mode: add subtle definition shadow */
+.aura-light .aura-glass {
+  box-shadow: var(--aura-card-shadow), 0 1px 12px rgba(0,50,60,0.06);
 }
 
 .aura-glass:hover {
@@ -218,7 +239,7 @@
 .aura-sidebar-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(11, 15, 25, 0.7);
+  background: rgba(4,16,20,0.7);
   backdrop-filter: blur(4px);
   z-index: 199;
   opacity: 0;
@@ -260,7 +281,7 @@
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(45,212,191,0.2);
+  box-shadow: 0 4px 14px rgba(44,184,168,0.2);
 }
 
 .aura-sidebar__brand-text {
@@ -277,12 +298,12 @@
   overflow-y: auto;
   padding: 12px 10px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(45,212,191,0.15) transparent;
+  scrollbar-color: #2cb8a830 transparent;
 }
 
 .aura-sidebar__nav::-webkit-scrollbar { width: 3px; }
 .aura-sidebar__nav::-webkit-scrollbar-track { background: transparent; }
-.aura-sidebar__nav::-webkit-scrollbar-thumb { background: rgba(45,212,191,0.15); border-radius: 3px; }
+.aura-sidebar__nav::-webkit-scrollbar-thumb { background: #2cb8a830; border-radius: 3px; }
 
 .aura-sidebar__section-label {
   font-family: var(--aura-font-body);
@@ -320,12 +341,12 @@
 
 .aura-nav-item:hover {
   color: var(--aura-text);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(120,200,200,0.04);
 }
 
 .aura-nav-item.active {
   color: var(--aura-gold);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(44,184,168,0.09);
   border-left-color: var(--aura-gold);
   font-weight: 500;
 }
@@ -480,6 +501,7 @@
 
 .aura-topbar__search::placeholder {
   color: var(--aura-text-muted);
+  opacity: 0.7;
 }
 
 .aura-topbar__search:focus {
@@ -502,14 +524,14 @@
 }
 
 .aura-btn--primary {
-  background: linear-gradient(135deg, var(--aura-teal), #0D9488);
+  background: linear-gradient(135deg, var(--aura-teal), #1a9a8a);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(45,212,191,0.2);
+  box-shadow: 0 4px 14px rgba(44,184,168,0.25);
 }
 
 .aura-btn--primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(45,212,191,0.3);
+  box-shadow: 0 6px 20px rgba(44,184,168,0.35);
 }
 
 .aura-btn--ghost {
@@ -545,6 +567,11 @@
   overflow: hidden;
 }
 
+/* Light mode card definition */
+.aura-light .aura-card {
+  box-shadow: var(--aura-card-shadow), 0 1px 12px rgba(0,50,60,0.06);
+}
+
 .aura-card:hover {
   background: var(--aura-glass-hover);
   border-color: var(--aura-glass-border-hover);
@@ -576,7 +603,7 @@
 .aura-label {
   font-family: var(--aura-font-body);
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--aura-text-muted);
@@ -610,7 +637,7 @@
 
 .aura-table th {
   font-weight: 600;
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--aura-text-muted);
@@ -632,13 +659,13 @@
 }
 
 .aura-table tbody tr:hover {
-  background: var(--aura-teal-dim);
+  background: var(--aura-glass-hover);
 }
 
 /* ── Status Pills ── */
 .aura-status {
   display: inline-block;
-  padding: 3px 10px;
+  padding: 4px 12px;
   font-family: var(--aura-font-body);
   font-weight: 500;
   font-size: 11px;
@@ -647,33 +674,33 @@
 }
 
 .aura-status--pending {
-  background: rgba(245, 158, 11, 0.1);
+  background: var(--aura-warning-bg);
   color: var(--aura-warning);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(224,184,76,0.25);
 }
 
 .aura-status--confirmed {
-  background: rgba(16, 185, 129, 0.1);
+  background: var(--aura-success-bg);
   color: var(--aura-success);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(60,216,180,0.25);
 }
 
 .aura-status--completed {
-  background: rgba(96, 165, 250, 0.1);
+  background: var(--aura-info-bg);
   color: var(--aura-info);
-  border: 1px solid rgba(96, 165, 250, 0.2);
+  border: 1px solid rgba(88,184,232,0.25);
 }
 
 .aura-status--cancelled {
-  background: rgba(239, 68, 68, 0.1);
+  background: var(--aura-danger-bg);
   color: var(--aura-danger);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(232,96,96,0.25);
 }
 
 /* ── Form Inputs — Premium ── */
 .aura-input {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--aura-input-bg);
+  border: 1px solid var(--aura-input-border);
   border-radius: 12px;
   padding: 12px 14px;
   height: 48px;
@@ -687,29 +714,30 @@
 }
 
 .aura-input::placeholder {
-  color: #6B7280;
+  color: var(--aura-text-muted);
+  opacity: 0.7;
 }
 
 .aura-input:focus {
-  border-color: #D4AF37;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  border-color: var(--aura-gold);
+  box-shadow: 0 0 0 3px rgba(184,149,106,0.12);
 }
 
 .aura-light .aura-input {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.1);
+  background: var(--aura-input-bg);
+  border-color: var(--aura-input-border);
 }
 
 .aura-light .aura-input:focus {
-  border-color: #B8860B;
-  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
+  border-color: var(--aura-gold);
+  box-shadow: 0 0 0 3px rgba(184,149,106,0.10);
 }
 
 .aura-input-label {
   display: block;
   font-family: var(--aura-font-body);
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--aura-text-muted);
@@ -733,14 +761,14 @@
 .aura-period-btn:hover {
   background: var(--aura-teal-dim);
   color: var(--aura-text);
-  border-color: rgba(45, 212, 191, 0.2);
+  border-color: rgba(44,184,168,0.2);
 }
 
 .aura-period-btn.active {
-  background: linear-gradient(135deg, var(--aura-teal), #0D9488);
+  background: linear-gradient(135deg, var(--aura-teal), #1a9a8a);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 2px 10px rgba(45, 212, 191, 0.25);
+  box-shadow: 0 2px 10px rgba(44,184,168,0.25);
 }
 
 /* ── Progress Bar ── */
@@ -762,7 +790,7 @@
 .aura-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(11, 15, 25, 0.7);
+  background: rgba(4,16,20,0.7);
   backdrop-filter: blur(6px);
   z-index: 100;
   display: flex;
@@ -818,12 +846,12 @@
 }
 
 .aura-trend--up {
-  background: rgba(16, 185, 129, 0.1);
+  background: var(--aura-success-bg);
   color: var(--aura-success);
 }
 
 .aura-trend--down {
-  background: rgba(239, 68, 68, 0.1);
+  background: var(--aura-danger-bg);
   color: var(--aura-danger);
 }
 
@@ -846,6 +874,14 @@
 .aura-collapse-btn:hover {
   background: var(--aura-glass-hover);
   color: var(--aura-text);
+}
+
+/* ── Select dropdown option backgrounds ── */
+.aura-admin select option {
+  background: #0a2028;
+}
+.aura-light select option {
+  background: #f0f8f6;
 }
 
 /* ── Responsive ── */
@@ -931,7 +967,7 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.15), rgba(45, 212, 191, 0.08) 60%, transparent);
+  background: radial-gradient(circle at 30% 30%, rgba(184,149,106,0.15), rgba(44,184,168,0.08) 60%, transparent);
   margin-bottom: 24px;
   position: relative;
 }
@@ -941,7 +977,7 @@
   position: absolute;
   inset: 20px;
   border-radius: 50%;
-  background: radial-gradient(circle at 70% 70%, rgba(45, 212, 191, 0.12), transparent);
+  background: radial-gradient(circle at 70% 70%, rgba(44,184,168,0.12), transparent);
 }
 
 .aura-empty-state__title {

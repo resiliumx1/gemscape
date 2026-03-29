@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Send, Check } from "lucide-react";
+import { toast } from "sonner";
 
 const AdminCustomerDirectory = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [channel, setChannel] = useState<"email" | "sms" | "push">("email");
@@ -11,6 +12,7 @@ const AdminCustomerDirectory = ({ isMobile = false }: { isMobile?: boolean }) =>
   const handleSend = () => {
     if (!to.trim() || !message.trim()) return;
     setSent(true);
+    toast.success("Message sent successfully");
     setTimeout(() => { setSent(false); setTo(""); setSubject(""); setMessage(""); }, 2500);
   };
 
@@ -27,9 +29,9 @@ const AdminCustomerDirectory = ({ isMobile = false }: { isMobile?: boolean }) =>
             <button key={c} onClick={() => setChannel(c)} style={{
               fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: channel === c ? 600 : 400,
               padding: "8px 18px", borderRadius: 10, textTransform: "capitalize", cursor: "pointer",
-              border: `1px solid ${channel === c ? "rgba(60,200,184,0.4)" : "var(--aura-glass-border)"}`,
-              background: channel === c ? "rgba(60,200,184,0.1)" : "transparent",
-              color: channel === c ? "#3cc8b8" : "var(--aura-text-muted)",
+              border: `1px solid ${channel === c ? "rgba(44,184,168,0.4)" : "var(--aura-glass-border)"}`,
+              background: channel === c ? "var(--aura-teal-dim)" : "transparent",
+              color: channel === c ? "var(--aura-teal)" : "var(--aura-text-muted)",
               transition: "all 0.2s", flex: isMobile ? 1 : "none", minHeight: 44,
             }}>{c}</button>
           ))}
@@ -75,7 +77,7 @@ const AdminCustomerDirectory = ({ isMobile = false }: { isMobile?: boolean }) =>
             <button onClick={handleSend} disabled={!to.trim() || !message.trim()} style={{
               fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "10px 24px",
               borderRadius: 10, border: "none", cursor: to.trim() && message.trim() ? "pointer" : "not-allowed",
-              background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
+              background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32",
               display: "flex", alignItems: "center", gap: 6,
               opacity: to.trim() && message.trim() ? 1 : 0.5, minHeight: 44,
             }}><Send size={13} /> Send</button>

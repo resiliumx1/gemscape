@@ -2,16 +2,16 @@ import {
   LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer,
 } from "recharts";
-import { TrendingUp, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 const GlassTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: "rgba(17, 24, 39, 0.95)", backdropFilter: "blur(12px)",
-      border: "1px solid rgba(212, 175, 55, 0.2)", borderRadius: 12, padding: "12px 16px",
-      fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text)",
-      boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+      background: "rgba(6,22,28,0.92)", backdropFilter: "blur(14px)",
+      border: "1px solid var(--aura-glass-border)", borderRadius: 12, padding: "12px 16px",
+      fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text)",
+      boxShadow: "var(--aura-card-shadow)",
     }}>
       <p style={{ fontWeight: 600, marginBottom: 6, fontSize: 11, color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
       {payload.map((p: any) => (
@@ -65,12 +65,12 @@ const AdminForecasting = () => {
         <ResponsiveContainer width="100%" height={340}>
           <AreaChart data={FORECAST_DATA}>
             <defs>
-              <linearGradient id="forecastGoldGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#D4AF37" stopOpacity={0.1} />
-                <stop offset="100%" stopColor="#D4AF37" stopOpacity={0} />
+              <linearGradient id="forecastBronzeGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#b8956a" stopOpacity={0.15} />
+                <stop offset="100%" stopColor="#b8956a" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="rgba(255,255,255,0.03)" strokeDasharray="3 3" />
+            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
               tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }}
@@ -83,14 +83,14 @@ const AdminForecasting = () => {
             />
             <Tooltip content={<GlassTooltip />} />
             <Area
-              type="monotone" dataKey="forecast" stroke="#D4AF37" strokeWidth={2}
-              strokeDasharray="6 4" fill="url(#forecastGoldGrad)" name="Forecast"
-              dot={{ r: 4, fill: "#D4AF37", stroke: "#0B0F19", strokeWidth: 2 }}
+              type="monotone" dataKey="forecast" stroke="#b8956a" strokeWidth={2}
+              strokeDasharray="6 4" fill="url(#forecastBronzeGrad)" name="Forecast"
+              dot={{ r: 4, fill: "#b8956a", stroke: "#061a20", strokeWidth: 2 }}
               connectNulls={false}
             />
             <Line
-              type="monotone" dataKey="actual" stroke="#2DD4BF" strokeWidth={2.5}
-              dot={{ r: 5, fill: "#2DD4BF", stroke: "#0B0F19", strokeWidth: 2 }}
+              type="monotone" dataKey="actual" stroke="#2cb8a8" strokeWidth={2.5}
+              dot={{ r: 5, fill: "#2cb8a8", stroke: "#061a20", strokeWidth: 2 }}
               name="Actual" connectNulls={false}
             />
           </AreaChart>
@@ -99,11 +99,11 @@ const AdminForecasting = () => {
         {/* Legend */}
         <div style={{ display: "flex", gap: 24, justifyContent: "center", marginTop: 20, fontFamily: "var(--aura-font-body)", fontSize: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 20, height: 2, background: "#2DD4BF", borderRadius: 1 }} />
+            <div style={{ width: 20, height: 2, background: "#2cb8a8", borderRadius: 1 }} />
             <span style={{ color: "var(--aura-text-dim)" }}>Actual</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 20, height: 2, background: "#D4AF37", borderRadius: 1, borderTop: "2px dashed #D4AF37" }} />
+            <div style={{ width: 20, height: 2, background: "#b8956a", borderRadius: 1, borderTop: "2px dashed #b8956a" }} />
             <span style={{ color: "var(--aura-text-dim)" }}>Forecast</span>
           </div>
         </div>
