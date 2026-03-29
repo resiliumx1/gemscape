@@ -318,7 +318,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
                     }}>Cancel</button>
                     <button onClick={handleSend} disabled={!msgText.trim()} style={{
                       fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "8px 18px", borderRadius: 10,
-                      border: "none", background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
+                      border: "none", background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32",
                       cursor: msgText.trim() ? "pointer" : "not-allowed", display: "flex", alignItems: "center", gap: 6,
                       opacity: msgText.trim() ? 1 : 0.5, minHeight: 44,
                     }}><Send size={13} /> Send</button>
