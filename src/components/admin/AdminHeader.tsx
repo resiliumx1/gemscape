@@ -411,14 +411,15 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
         }}
       >
         {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-          <h2 style={{ fontFamily: "var(--aura-font-heading)", fontSize: 22, color: "var(--aura-text)", margin: 0 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
+          <h2 style={{ fontFamily: "var(--aura-font-heading)", fontSize: 24, fontWeight: 600, color: "var(--aura-text)", margin: 0, letterSpacing: "-0.02em" }}>
             New Booking
           </h2>
           <button onClick={onClose} style={{
-            background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
-            borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center",
+            background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: 12, width: 36, height: 36, display: "flex", alignItems: "center",
             justifyContent: "center", cursor: "pointer", color: "var(--aura-text-muted)",
+            transition: "all 0.15s",
           }}>
             <X size={16} />
           </button>
