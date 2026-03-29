@@ -670,27 +670,39 @@
   border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* ── Form Inputs ── */
+/* ── Form Inputs — Premium ── */
 .aura-input {
-  background: var(--aura-input-bg);
-  border: 1px solid var(--aura-input-border);
-  border-radius: var(--aura-radius-input);
-  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 14px;
+  height: 48px;
   font-family: var(--aura-font-body);
   font-size: 13px;
   font-weight: 400;
   color: var(--aura-text);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
 }
 
 .aura-input::placeholder {
-  color: var(--aura-text-muted);
+  color: #6B7280;
 }
 
 .aura-input:focus {
-  border-color: var(--aura-teal);
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.aura-light .aura-input {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.aura-light .aura-input:focus {
+  border-color: #B8860B;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
 }
 
 .aura-input-label {
@@ -701,7 +713,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--aura-text-muted);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 /* ── Period Buttons ── */
