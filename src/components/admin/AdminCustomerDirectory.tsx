@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Send, Check } from "lucide-react";
 
-const AdminCustomerDirectory = () => {
+const AdminCustomerDirectory = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [channel, setChannel] = useState<"email" | "sms" | "push">("email");
   const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
@@ -15,8 +15,8 @@ const AdminCustomerDirectory = () => {
   };
 
   return (
-    <div style={{ maxWidth: 600 }}>
-      <div className="aura-glass" style={{ padding: "28px" }}>
+    <div style={{ maxWidth: isMobile ? "100%" : 600 }}>
+      <div className="aura-glass" style={{ padding: isMobile ? "20px" : "28px" }}>
         <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 22, color: "var(--aura-text)", marginBottom: 20 }}>
           Compose Message
         </p>
@@ -27,10 +27,10 @@ const AdminCustomerDirectory = () => {
             <button key={c} onClick={() => setChannel(c)} style={{
               fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: channel === c ? 600 : 400,
               padding: "8px 18px", borderRadius: 10, textTransform: "capitalize", cursor: "pointer",
-              border: `1px solid ${channel === c ? "rgba(60,200,184,0.4)" : "rgba(255,255,255,0.08)"}`,
+              border: `1px solid ${channel === c ? "rgba(60,200,184,0.4)" : "var(--aura-glass-border)"}`,
               background: channel === c ? "rgba(60,200,184,0.1)" : "transparent",
               color: channel === c ? "#3cc8b8" : "var(--aura-text-muted)",
-              transition: "all 0.2s",
+              transition: "all 0.2s", flex: isMobile ? 1 : "none", minHeight: 44,
             }}>{c}</button>
           ))}
         </div>
@@ -41,7 +41,7 @@ const AdminCustomerDirectory = () => {
             <input value={to} onChange={e => setTo(e.target.value)} placeholder={channel === "email" ? "email@example.com" : "+1268..."} style={{
               width: "100%", padding: "10px 14px", borderRadius: 10, fontSize: 13,
               fontFamily: "var(--aura-font-body)", color: "var(--aura-text)",
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", outline: "none",
+              background: "var(--aura-input-bg)", border: "1px solid var(--aura-input-border)", outline: "none", minHeight: 44,
             }} />
           </div>
 
@@ -51,7 +51,7 @@ const AdminCustomerDirectory = () => {
               <input value={subject} onChange={e => setSubject(e.target.value)} placeholder="Message subject" style={{
                 width: "100%", padding: "10px 14px", borderRadius: 10, fontSize: 13,
                 fontFamily: "var(--aura-font-body)", color: "var(--aura-text)",
-                background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", outline: "none",
+                background: "var(--aura-input-bg)", border: "1px solid var(--aura-input-border)", outline: "none", minHeight: 44,
               }} />
             </div>
           )}
@@ -61,22 +61,23 @@ const AdminCustomerDirectory = () => {
             <textarea value={message} onChange={e => setMessage(e.target.value)} rows={5} placeholder="Type your message…" style={{
               width: "100%", padding: "12px 14px", borderRadius: 12, fontSize: 13, resize: "none",
               fontFamily: "var(--aura-font-body)", color: "var(--aura-text)",
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", outline: "none",
+              background: "var(--aura-input-bg)", border: "1px solid var(--aura-input-border)", outline: "none",
             }} />
           </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 20 }}>
           {sent ? (
-            <div style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, color: "#40d8b8" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, color: "var(--aura-success)" }}>
               <Check size={16} /> Message sent successfully
             </div>
           ) : (
-            <button onClick={handleSend} style={{
+            <button onClick={handleSend} disabled={!to.trim() || !message.trim()} style={{
               fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "10px 24px",
-              borderRadius: 10, border: "none", cursor: "pointer",
+              borderRadius: 10, border: "none", cursor: to.trim() && message.trim() ? "pointer" : "not-allowed",
               background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
               display: "flex", alignItems: "center", gap: 6,
+              opacity: to.trim() && message.trim() ? 1 : 0.5, minHeight: 44,
             }}><Send size={13} /> Send</button>
           )}
         </div>
