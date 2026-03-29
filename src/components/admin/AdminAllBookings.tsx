@@ -187,7 +187,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
                         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                           <div style={{
                             width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
-                            background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 11, fontWeight: 700, color: "#060e1a",
+                            background: "linear-gradient(135deg, var(--aura-teal), var(--aura-gold))", fontSize: 11, fontWeight: 700, color: "#fff",
                           }}>{getInitials(b.full_name)}</div>
                           <div>
                             <p style={{ fontWeight: 500, color: "var(--aura-text)", fontSize: 13 }}>{b.full_name}</p>
