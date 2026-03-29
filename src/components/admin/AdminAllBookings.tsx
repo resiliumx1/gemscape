@@ -19,10 +19,10 @@ type Booking = {
 };
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  confirmed: { bg: "rgba(64,216,184,0.12)", text: "#40d8b8", border: "rgba(64,216,184,0.3)" },
-  pending: { bg: "rgba(232,192,64,0.12)", text: "#e8c040", border: "rgba(232,192,64,0.3)" },
-  cancelled: { bg: "rgba(240,104,104,0.12)", text: "#f06868", border: "rgba(240,104,104,0.3)" },
-  completed: { bg: "rgba(96,184,240,0.12)", text: "#60b8f0", border: "rgba(96,184,240,0.3)" },
+  confirmed: { bg: "rgba(16,185,129,0.1)", text: "#10B981", border: "rgba(16,185,129,0.2)" },
+  pending: { bg: "rgba(245,158,11,0.1)", text: "#F59E0B", border: "rgba(245,158,11,0.2)" },
+  cancelled: { bg: "rgba(239,68,68,0.1)", text: "#EF4444", border: "rgba(239,68,68,0.2)" },
+  completed: { bg: "rgba(96,165,250,0.1)", text: "#60A5FA", border: "rgba(96,165,250,0.2)" },
 };
 
 const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
