@@ -273,8 +273,9 @@ const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, 
         <HomeButton />
         <div>
           <h1 style={{
-            fontFamily: "var(--aura-font-heading)", fontSize: 27, fontWeight: 400,
-            color: "var(--aura-text)", lineHeight: 1.1, margin: 0,
+            fontFamily: "var(--aura-font-heading)", fontSize: 32, fontWeight: 600,
+            color: "var(--aura-text)", lineHeight: 1.2, margin: 0,
+            letterSpacing: "-0.02em",
           }}>
             {pageTitle}
           </h1>

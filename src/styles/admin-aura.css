@@ -1,70 +1,76 @@
 /* ═══════════════════════════════════════════════════════════════
-   AURA GLASS ADMIN THEME
-   Glassmorphism design system for Gemscape admin
+   AURA GLASS ADMIN THEME — Midnight Caribbean
+   Premium glassmorphism design system for Gemscape admin
    ═══════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-/* ── CSS Custom Properties ── */
+/* ── CSS Custom Properties — Midnight Caribbean ── */
 .aura-admin {
-  --aura-bg: #060e1a;
-  --aura-text: rgba(255,255,255,0.88);
-  --aura-text-dim: rgba(255,255,255,0.5);
-  --aura-text-muted: rgba(255,255,255,0.3);
-  --aura-text-secondary: rgba(255,255,255,0.55);
-  --aura-glass: rgba(255,255,255,0.055);
-  --aura-glass-border: rgba(255,255,255,0.09);
-  --aura-glass-hover: rgba(255,255,255,0.08);
-  --aura-highlight: rgba(255,255,255,0.06);
-  --aura-sidebar-bg: rgba(8,14,28,0.55);
-  --aura-teal: #3cc8b8;
-  --aura-teal-dim: rgba(60,200,184,0.15);
-  --aura-gold: #d4aa44;
-  --aura-gold-dim: rgba(212,170,68,0.15);
-  --aura-success: #40d8b8;
-  --aura-warning: #e8c040;
-  --aura-danger: #f06868;
-  --aura-info: #60b8f0;
-  --aura-radius-card: 18px;
+  --aura-bg: #0B0F19;
+  --aura-bg-secondary: #111827;
+  --aura-bg-tertiary: #1F2937;
+  --aura-text: #F9FAFB;
+  --aura-text-dim: #9CA3AF;
+  --aura-text-muted: #6B7280;
+  --aura-text-secondary: #9CA3AF;
+  --aura-glass: rgba(17, 24, 39, 0.7);
+  --aura-glass-border: rgba(255, 255, 255, 0.06);
+  --aura-glass-border-hover: rgba(255, 255, 255, 0.12);
+  --aura-glass-hover: rgba(17, 24, 39, 0.85);
+  --aura-highlight: rgba(255, 255, 255, 0.04);
+  --aura-sidebar-bg: rgba(11, 15, 25, 0.85);
+  --aura-teal: #2DD4BF;
+  --aura-teal-dim: rgba(45, 212, 191, 0.1);
+  --aura-gold: #D4AF37;
+  --aura-gold-hover: #E5C158;
+  --aura-gold-dim: rgba(212, 175, 55, 0.1);
+  --aura-success: #10B981;
+  --aura-warning: #F59E0B;
+  --aura-danger: #EF4444;
+  --aura-info: #60A5FA;
+  --aura-radius-card: 16px;
   --aura-radius-btn: 12px;
-  --aura-radius-input: 12px;
-  --aura-blur: blur(22px) saturate(1.4);
+  --aura-radius-input: 10px;
+  --aura-blur: blur(12px) saturate(1.3);
   --aura-font-body: 'DM Sans', sans-serif;
   --aura-font-heading: 'Cormorant Garamond', serif;
-  --aura-input-bg: rgba(255,255,255,0.04);
-  --aura-input-border: rgba(255,255,255,0.08);
-  --aura-grid-stroke: rgba(255,255,255,0.04);
+  --aura-font-mono: 'JetBrains Mono', monospace;
+  --aura-input-bg: rgba(31, 41, 55, 0.6);
+  --aura-input-border: rgba(255, 255, 255, 0.06);
+  --aura-grid-stroke: rgba(255, 255, 255, 0.04);
+  --aura-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --aura-card-shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 4px 10px -3px rgba(0, 0, 0, 0.1);
 }
 
 .aura-admin.aura-light {
-  --aura-bg: #d0dce8;
-  --aura-text: rgba(10,20,40,0.88);
-  --aura-text-dim: rgba(10,20,40,0.55);
-  --aura-text-muted: rgba(10,20,40,0.42);
-  --aura-text-secondary: rgba(10,20,40,0.6);
-  --aura-glass: rgba(255,255,255,0.62);
-  --aura-glass-border: rgba(255,255,255,0.5);
-  --aura-glass-hover: rgba(255,255,255,0.7);
-  --aura-highlight: rgba(0,30,60,0.04);
-  --aura-sidebar-bg: rgba(255,255,255,0.58);
-  --aura-success: #2cb898;
-  --aura-warning: #c8a030;
-  --aura-danger: #d84848;
-  --aura-info: #4898d0;
-  --aura-input-bg: rgba(255,255,255,0.75);
-  --aura-input-border: rgba(0,30,60,0.12);
-  --aura-grid-stroke: rgba(0,0,0,0.07);
-}
-
-/* Light mode specific: card shadow for definition */
-.aura-light .aura-glass,
-.aura-light .aura-card {
-  box-shadow: 0 1px 8px rgba(0,40,80,0.06);
-}
-
-/* Light mode: active nav stronger highlight */
-.aura-light .aura-nav-item.active {
-  background: rgba(60,200,184,0.22);
+  --aura-bg: #E8EDF4;
+  --aura-bg-secondary: #FFFFFF;
+  --aura-bg-tertiary: #F3F4F6;
+  --aura-text: #111827;
+  --aura-text-dim: #4B5563;
+  --aura-text-muted: #9CA3AF;
+  --aura-text-secondary: #6B7280;
+  --aura-glass: rgba(255, 255, 255, 0.7);
+  --aura-glass-border: rgba(0, 0, 0, 0.06);
+  --aura-glass-border-hover: rgba(0, 0, 0, 0.12);
+  --aura-glass-hover: rgba(255, 255, 255, 0.85);
+  --aura-highlight: rgba(0, 0, 0, 0.03);
+  --aura-sidebar-bg: rgba(255, 255, 255, 0.8);
+  --aura-teal: #0D9488;
+  --aura-teal-dim: rgba(13, 148, 136, 0.08);
+  --aura-gold: #B8860B;
+  --aura-gold-hover: #D4AF37;
+  --aura-gold-dim: rgba(184, 134, 11, 0.08);
+  --aura-success: #059669;
+  --aura-warning: #D97706;
+  --aura-danger: #DC2626;
+  --aura-info: #2563EB;
+  --aura-input-bg: rgba(255, 255, 255, 0.8);
+  --aura-input-border: rgba(0, 0, 0, 0.08);
+  --aura-grid-stroke: rgba(0, 0, 0, 0.06);
+  --aura-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --aura-card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
 /* ── Animated Gradient Mesh Background ── */
@@ -80,48 +86,49 @@
 .aura-mesh__orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   will-change: transform;
+  opacity: 0.6;
 }
 
-/* Dark mode orbs */
+/* Dark mode orbs — deeper, more muted */
 .aura-mesh__orb--1 {
   width: 600px; height: 600px;
-  background: rgba(80,35,160,0.38);
+  background: rgba(45, 212, 191, 0.08);
   top: -10%; left: -5%;
   animation: aura-drift-1 28s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--2 {
   width: 700px; height: 700px;
-  background: rgba(15,55,130,0.42);
+  background: rgba(212, 175, 55, 0.06);
   top: 20%; right: -10%;
   animation: aura-drift-2 32s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--3 {
   width: 800px; height: 800px;
-  background: rgba(8,45,85,0.5);
+  background: rgba(11, 15, 25, 0.5);
   bottom: -15%; left: 30%;
   animation: aura-drift-3 36s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--4 {
   width: 500px; height: 500px;
-  background: rgba(15,130,130,0.28);
+  background: rgba(45, 212, 191, 0.05);
   top: 50%; left: -8%;
   animation: aura-drift-4 24s ease-in-out infinite alternate;
 }
 .aura-mesh__orb--5 {
   width: 550px; height: 550px;
-  background: rgba(130,45,110,0.2);
+  background: rgba(96, 165, 250, 0.04);
   bottom: 10%; right: 5%;
   animation: aura-drift-5 40s ease-in-out infinite alternate;
 }
 
 /* Light mode orb overrides */
-.aura-light .aura-mesh__orb--1 { background: rgba(160,140,220,0.35); }
-.aura-light .aura-mesh__orb--2 { background: rgba(130,170,230,0.3); }
-.aura-light .aura-mesh__orb--3 { background: rgba(140,180,220,0.35); }
-.aura-light .aura-mesh__orb--4 { background: rgba(120,210,200,0.25); }
-.aura-light .aura-mesh__orb--5 { background: rgba(200,150,190,0.2); }
+.aura-light .aura-mesh__orb--1 { background: rgba(13, 148, 136, 0.08); }
+.aura-light .aura-mesh__orb--2 { background: rgba(184, 134, 11, 0.06); }
+.aura-light .aura-mesh__orb--3 { background: rgba(200, 210, 230, 0.3); }
+.aura-light .aura-mesh__orb--4 { background: rgba(13, 148, 136, 0.05); }
+.aura-light .aura-mesh__orb--5 { background: rgba(37, 99, 235, 0.04); }
 
 @keyframes aura-drift-1 {
   0% { transform: translate(0,0) scale(1); }
@@ -151,11 +158,14 @@
   -webkit-backdrop-filter: var(--aura-blur);
   border: 1px solid var(--aura-glass-border);
   border-radius: var(--aura-radius-card);
-  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease;
+  box-shadow: var(--aura-card-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .aura-glass:hover {
   background: var(--aura-glass-hover);
+  border-color: var(--aura-glass-border-hover);
+  box-shadow: var(--aura-card-shadow-hover);
 }
 
 /* ── Sidebar ── */
@@ -210,7 +220,7 @@
 .aura-sidebar-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(6,14,26,0.6);
+  background: rgba(11, 15, 25, 0.7);
   backdrop-filter: blur(4px);
   z-index: 199;
   opacity: 0;
@@ -252,7 +262,7 @@
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(60,200,184,0.3);
+  box-shadow: 0 4px 14px rgba(45,212,191,0.2);
 }
 
 .aura-sidebar__brand-text {
@@ -269,12 +279,12 @@
   overflow-y: auto;
   padding: 12px 8px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(60,200,184,0.2) transparent;
+  scrollbar-color: rgba(45,212,191,0.15) transparent;
 }
 
 .aura-sidebar__nav::-webkit-scrollbar { width: 3px; }
 .aura-sidebar__nav::-webkit-scrollbar-track { background: transparent; }
-.aura-sidebar__nav::-webkit-scrollbar-thumb { background: rgba(60,200,184,0.2); border-radius: 3px; }
+.aura-sidebar__nav::-webkit-scrollbar-thumb { background: rgba(45,212,191,0.15); border-radius: 3px; }
 
 .aura-sidebar__section-label {
   font-family: var(--aura-font-body);
@@ -327,7 +337,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  opacity: 0.7;
+  opacity: 0.6;
   transition: opacity 0.2s ease;
 }
 
@@ -353,7 +363,7 @@
   gap: 10px;
   padding: 10px;
   border-radius: var(--aura-radius-btn);
-  background: var(--aura-glass);
+  background: var(--aura-highlight);
 }
 
 .aura-sidebar__user-avatar {
@@ -396,7 +406,7 @@
   width: 100%;
   padding: 8px 10px;
   margin-top: 8px;
-  background: var(--aura-glass);
+  background: var(--aura-highlight);
   border: 1px solid var(--aura-glass-border);
   border-radius: var(--aura-radius-btn);
   color: var(--aura-text-dim);
@@ -411,6 +421,7 @@
 .aura-theme-toggle:hover {
   background: var(--aura-glass-hover);
   color: var(--aura-text);
+  border-color: var(--aura-glass-border-hover);
 }
 
 /* ── Main Area ── */
@@ -441,7 +452,9 @@
 
 .aura-topbar__title {
   font-family: var(--aura-font-heading);
-  font-size: 24px;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--aura-text);
 }
 
@@ -489,25 +502,26 @@
 }
 
 .aura-btn--primary {
-  background: linear-gradient(135deg, var(--aura-teal), #2aa89a);
+  background: linear-gradient(135deg, var(--aura-teal), #0D9488);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(60,200,184,0.3);
+  box-shadow: 0 4px 14px rgba(45,212,191,0.2);
 }
 
 .aura-btn--primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(60,200,184,0.45);
+  box-shadow: 0 6px 20px rgba(45,212,191,0.3);
 }
 
 .aura-btn--ghost {
-  background: var(--aura-glass);
+  background: var(--aura-highlight);
   border: 1px solid var(--aura-glass-border);
   color: var(--aura-text-dim);
 }
 
 .aura-btn--ghost:hover {
-  border-color: rgba(60,200,184,0.3);
+  border-color: var(--aura-glass-border-hover);
   color: var(--aura-text);
+  background: var(--aura-glass);
 }
 
 /* ── Content Area ── */
@@ -517,40 +531,44 @@
   overflow-y: auto;
 }
 
-/* ── Cards (Glass) ── */
+/* ── Cards (Glass) — Premium Glassmorphism ── */
 .aura-card {
   background: var(--aura-glass);
   backdrop-filter: var(--aura-blur);
   -webkit-backdrop-filter: var(--aura-blur);
   border: 1px solid var(--aura-glass-border);
   border-radius: var(--aura-radius-card);
-  padding: 18px;
-  transition: all 0.3s ease;
+  padding: 24px;
+  box-shadow: var(--aura-card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
 
 .aura-card:hover {
   background: var(--aura-glass-hover);
+  border-color: var(--aura-glass-border-hover);
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  box-shadow: var(--aura-card-shadow-hover);
 }
 
 /* ── Typography ── */
 .aura-heading {
   font-family: var(--aura-font-heading);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--aura-text);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-.aura-h1 { font-size: 27px; }
-.aura-h2 { font-size: 21px; }
+.aura-h1 { font-size: 32px; }
+.aura-h2 { font-size: 20px; }
 .aura-h3 { font-size: 18px; }
 
 .aura-body {
   font-family: var(--aura-font-body);
   font-weight: 400;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--aura-text-dim);
   line-height: 1.5;
 }
@@ -558,17 +576,18 @@
 .aura-label {
   font-family: var(--aura-font-body);
   font-weight: 600;
-  font-size: 9px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 1.4px;
+  letter-spacing: 0.05em;
   color: var(--aura-text-muted);
 }
 
 .aura-metric {
-  font-family: var(--aura-font-body);
-  font-weight: 700;
-  font-size: 26px;
+  font-family: var(--aura-font-mono);
+  font-weight: 500;
+  font-size: 28px;
   color: var(--aura-text);
+  letter-spacing: -0.01em;
 }
 
 /* ── Tables ── */
@@ -579,30 +598,31 @@
   border: 1px solid var(--aura-glass-border);
   border-radius: var(--aura-radius-card);
   overflow: hidden;
+  box-shadow: var(--aura-card-shadow);
 }
 
 .aura-table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--aura-font-body);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .aura-table th {
   font-weight: 600;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   color: var(--aura-text-muted);
-  padding: 12px 16px;
+  padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid var(--aura-glass-border);
 }
 
 .aura-table td {
-  padding: 12px 16px;
+  padding: 14px 16px;
   color: var(--aura-text-dim);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--aura-glass-border);
   font-weight: 400;
 }
 
@@ -627,27 +647,27 @@
 }
 
 .aura-status--pending {
-  background: rgba(232,192,64,0.12);
+  background: rgba(245, 158, 11, 0.1);
   color: var(--aura-warning);
-  border: 1px solid rgba(232,192,64,0.25);
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .aura-status--confirmed {
-  background: rgba(64,216,184,0.12);
+  background: rgba(16, 185, 129, 0.1);
   color: var(--aura-success);
-  border: 1px solid rgba(64,216,184,0.25);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .aura-status--completed {
-  background: rgba(96,184,240,0.12);
+  background: rgba(96, 165, 250, 0.1);
   color: var(--aura-info);
-  border: 1px solid rgba(96,184,240,0.25);
+  border: 1px solid rgba(96, 165, 250, 0.2);
 }
 
 .aura-status--cancelled {
-  background: rgba(240,104,104,0.12);
+  background: rgba(239, 68, 68, 0.1);
   color: var(--aura-danger);
-  border: 1px solid rgba(240,104,104,0.25);
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 /* ── Form Inputs ── */
@@ -655,9 +675,9 @@
   background: var(--aura-input-bg);
   border: 1px solid var(--aura-input-border);
   border-radius: var(--aura-radius-input);
-  padding: 9px 14px;
+  padding: 10px 14px;
   font-family: var(--aura-font-body);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   color: var(--aura-text);
   outline: none;
@@ -677,9 +697,9 @@
   display: block;
   font-family: var(--aura-font-body);
   font-weight: 600;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.05em;
   color: var(--aura-text-muted);
   margin-bottom: 6px;
 }
@@ -701,14 +721,14 @@
 .aura-period-btn:hover {
   background: var(--aura-teal-dim);
   color: var(--aura-text);
-  border-color: rgba(60,200,184,0.2);
+  border-color: rgba(45, 212, 191, 0.2);
 }
 
 .aura-period-btn.active {
-  background: linear-gradient(135deg, var(--aura-teal), #2aa89a);
+  background: linear-gradient(135deg, var(--aura-teal), #0D9488);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 2px 10px rgba(60,200,184,0.3);
+  box-shadow: 0 2px 10px rgba(45, 212, 191, 0.25);
 }
 
 /* ── Progress Bar ── */
@@ -730,7 +750,7 @@
 .aura-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(6,14,26,0.6);
+  background: rgba(11, 15, 25, 0.7);
   backdrop-filter: blur(6px);
   z-index: 100;
   display: flex;
@@ -754,15 +774,15 @@
   justify-content: space-between;
   align-items: baseline;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--aura-glass-border);
 }
 
 .aura-drawer__label {
   font-family: var(--aura-font-body);
   font-weight: 600;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
   color: var(--aura-text-muted);
 }
 
@@ -786,12 +806,12 @@
 }
 
 .aura-trend--up {
-  background: rgba(64,216,184,0.12);
+  background: rgba(16, 185, 129, 0.1);
   color: var(--aura-success);
 }
 
 .aura-trend--down {
-  background: rgba(240,104,104,0.12);
+  background: rgba(239, 68, 68, 0.1);
   color: var(--aura-danger);
 }
 
@@ -800,7 +820,7 @@
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: var(--aura-glass);
+  background: var(--aura-highlight);
   border: 1px solid var(--aura-glass-border);
   color: var(--aura-text-dim);
   display: flex;
@@ -837,7 +857,7 @@
     width: 100%;
   }
   .aura-card {
-    padding: 14px;
+    padding: 16px;
   }
   .aura-card:hover {
     transform: none;

@@ -6,7 +6,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { DollarSign, TrendingUp, Target } from "lucide-react";
+import { DollarSign } from "lucide-react";
 
 const GlassTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
@@ -71,9 +71,9 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
   const trendData = trendPeriod === "week" ? WEEKLY_DATA : trendPeriod === "month" ? MONTHLY_DATA : yearlyData;
 
   const kpis = [
-    { label: "Monthly Revenue", value: "$14,330", change: "+22%", positive: true, icon: <DollarSign size={18} />, glow: "#3cc8b8" },
-    { label: "Avg Booking Value", value: "$520", change: "+8%", positive: true, icon: <TrendingUp size={18} />, glow: "#d4aa44" },
-    { label: "Conversion Rate", value: "68%", change: "-2%", positive: false, icon: <Target size={18} />, glow: "#60b8f0" },
+    { label: "Monthly Revenue", value: "$14,330", change: "+22%", positive: true, glow: "#2DD4BF" },
+    { label: "Avg Booking Value", value: "$520", change: "+8%", positive: true, glow: "#D4AF37" },
+    { label: "Conversion Rate", value: "68%", change: "-2%", positive: false, glow: "#60A5FA" },
   ];
 
   return (
@@ -81,21 +81,18 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
       {/* KPI Row */}
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)", gap: 16 }}>
         {kpis.map((k, idx) => (
-          <div key={k.label} className="aura-glass" style={{ padding: "0", overflow: "hidden", gridColumn: isMobile && idx === 2 ? "1 / -1" : "auto" }}>
-            <div style={{ height: 3, background: `linear-gradient(90deg, ${k.glow}, transparent)` }} />
+          <div key={k.label} className="aura-glass" style={{ padding: "0", overflow: "hidden", gridColumn: isMobile && idx === 2 ? "1 / -1" : "auto", borderLeft: `3px solid ${k.glow}` }}>
             <div style={{ padding: "20px 22px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                <div>
-                  <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>{k.label}</p>
-                  <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 28, fontWeight: 800, color: "var(--aura-text)" }}>{k.value}</p>
-                </div>
-                <div style={{ width: 38, height: 38, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--aura-highlight)", color: k.glow }}>
-                  {k.icon}
-                </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", margin: 0 }}>{k.label}</p>
+                <span style={{
+                  fontFamily: "var(--aura-font-mono)", fontSize: 11, fontWeight: 500,
+                  color: k.positive ? "var(--aura-success)" : "var(--aura-danger)",
+                }}>
+                  {k.change}
+                </span>
               </div>
-              <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, color: k.positive ? "var(--aura-success)" : "var(--aura-danger)", marginTop: 8 }}>
-                {k.change} <span style={{ fontWeight: 400, color: "var(--aura-text-muted)", fontSize: 11 }}>vs last month</span>
-              </p>
+              <p style={{ fontFamily: "var(--aura-font-mono)", fontSize: 28, fontWeight: 500, color: "var(--aura-text)", margin: 0, letterSpacing: "-0.01em" }}>{k.value}</p>
             </div>
           </div>
         ))}
