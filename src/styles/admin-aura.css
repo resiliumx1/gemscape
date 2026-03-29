@@ -875,9 +875,6 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .aura-sidebar:not(.aura-sidebar--mobile) {
-    display: none;
-  }
   .aura-content {
     padding: 14px 12px;
   }
@@ -899,6 +896,24 @@
   .aura-card:hover {
     transform: none;
   }
+}
+
+/* ── Light mode dropdown/modal fixes ── */
+.aura-light .aura-notification-dropdown,
+.aura-light .aura-modal-panel {
+  background: var(--aura-notification-bg) !important;
+  color: var(--aura-text) !important;
+  border-color: var(--aura-glass-border) !important;
+}
+
+.aura-light .aura-notification-dropdown button,
+.aura-light .aura-notification-dropdown p,
+.aura-light .aura-notification-dropdown span {
+  color: var(--aura-text) !important;
+}
+
+.aura-light .aura-notification-dropdown button[style*="color: var(--aura-teal)"] {
+  color: var(--aura-teal) !important;
 }
 
 /* ── Smooth transitions for theme switch ── */
