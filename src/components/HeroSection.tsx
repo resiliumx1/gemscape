@@ -1,12 +1,18 @@
+import { useRef } from "react";
 import { useWave } from "@/components/GemscapeWave";
-import heroImage from "@/assets/hero-antigua-sunset.png";
 import BrilliantGem from "@/components/BrilliantGem";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { ChevronDown } from "lucide-react";
 
 const HeroSection = () => {
   const { navigateTo } = useWave();
+  const heroRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
 
   return (
     <section
+      ref={heroRef}
+      className="hero-cinematic"
       style={{
         width: "100vw",
         height: "100vh",
@@ -17,43 +23,98 @@ const HeroSection = () => {
         alignItems: "center",
         justifyContent: "center",
       }}
-      className="hero-centered-wrapper"
     >
-      {/* Full-bleed background photo */}
-      <img
-        src={heroImage}
-        alt="Aerial view of Antigua's turquoise Caribbean coastline at sunset"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 0,
-        }}
-      />
+      {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
+      {!isMobile ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/images/antigua-hero-poster.jpg"
+          className="hero-video"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+          }}
+        >
+          <source src="/videos/antigua-aerial.mp4" type="video/mp4" />
+        </video>
+      ) : (
+        <div
+          className="hero-ken-burns"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            backgroundImage: "url(/images/antigua-hero-poster.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+      )}
 
-      {/* Gradient overlay */}
+      {/* ═══ LAYER 2A — LINEAR GRADIENT OVERLAY ═══ */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "radial-gradient(ellipse at center 40%, rgba(4,20,28,0.55) 0%, rgba(4,20,28,0.82) 60%, rgba(4,20,28,0.95) 100%)",
           zIndex: 1,
+          background:
+            "linear-gradient(180deg, rgba(5,24,30,0.55) 0%, rgba(5,24,30,0.30) 35%, rgba(5,24,30,0.50) 70%, rgba(5,24,30,0.92) 100%)",
         }}
       />
 
-      {/* Centered content */}
+      {/* ═══ LAYER 2B — TEAL AMBIENT GLOW ═══ */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          background:
+            "radial-gradient(ellipse at 50% 40%, rgba(26,138,158,0.08) 0%, transparent 60%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* ═══ LAYER 3 — THREE.JS GEM ═══ */}
+      <div
+        className="hero-gem-floating"
+        style={{
+          position: "absolute",
+          top: "15%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 2,
+          pointerEvents: "auto",
+        }}
+      >
+        <BrilliantGem
+          width={isMobile ? 260 : 420}
+          height={isMobile ? 260 : 420}
+          observerTarget={heroRef as React.RefObject<HTMLElement>}
+        />
+      </div>
+
+      {/* ═══ LAYER 4 — HEADLINE TEXT & CTA ═══ */}
       <div
         className="hero-centered-content"
         style={{
-          position: "relative",
-          zIndex: 2,
+          position: "absolute",
+          bottom: "8%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 3,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
+          width: "90%",
+          maxWidth: 700,
         }}
       >
         {/* Eyebrow */}
@@ -71,7 +132,7 @@ const HeroSection = () => {
           ANTIGUA · CARIBBEAN
         </span>
 
-        {/* Headline + inline gem */}
+        {/* Headline */}
         <h1
           className="hero-headline"
           style={{
@@ -86,23 +147,21 @@ const HeroSection = () => {
         >
           Where Every Journey
           <br />
-          Becomes a
+          Becomes a{" "}
+          <span
+            style={{
+              fontStyle: "italic",
+              fontWeight: 300,
+              background:
+                "linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Gem.
+          </span>
         </h1>
-
-        {/* 3D gem sits tightly below "Becomes a" */}
-        <div
-          className="hero-gem-container"
-          style={{
-            background: "transparent",
-            overflow: "visible",
-            marginTop: "-40px",
-            position: "relative",
-            zIndex: 1,
-            pointerEvents: "auto",
-          }}
-        >
-          <BrilliantGem width={400} height={400} />
-        </div>
 
         {/* Subtext */}
         <p
@@ -111,7 +170,7 @@ const HeroSection = () => {
             color: "rgba(255,255,255,0.55)",
             lineHeight: 1.75,
             maxWidth: 440,
-            marginTop: -20,
+            marginTop: 16,
             fontFamily: "'DM Sans', sans-serif",
           }}
         >
@@ -181,30 +240,54 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Responsive styles */}
+      {/* ═══ SCROLL INDICATOR ═══ */}
+      <div
+        className="hero-scroll-indicator"
+        style={{
+          position: "absolute",
+          bottom: 24,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 3,
+          opacity: 0.4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <ChevronDown size={24} color="#fff" className="hero-chevron-bounce" />
+      </div>
+
+      {/* Responsive + Ken Burns + bounce styles */}
       <style>{`
-        @media (max-width: 1024px) {
-          .hero-gem-container canvas {
-            width: 260px !important;
-            height: 260px !important;
-          }
-          .hero-headline {
-            font-size: clamp(28px, 4.5vw, 48px) !important;
-          }
+        @keyframes kenBurns {
+          0%, 100% { transform: scale(1.0); }
+          50% { transform: scale(1.08); }
+        }
+        .hero-ken-burns {
+          animation: kenBurns 15s ease-in-out infinite alternate;
+        }
+        @keyframes chevronBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(8px); }
+        }
+        .hero-chevron-bounce {
+          animation: chevronBounce 2s ease-in-out infinite;
         }
         @media (max-width: 768px) {
-          .hero-centered-wrapper {
-            height: 100vh !important;
-          }
-          .hero-gem-container {
-            margin-top: -30px !important;
-          }
-          .hero-gem-container canvas {
-            width: 220px !important;
-            height: 220px !important;
+          .hero-gem-floating {
+            top: 12% !important;
           }
           .hero-headline {
             font-size: clamp(24px, 7vw, 36px) !important;
+          }
+          .hero-centered-content {
+            bottom: 12% !important;
+          }
+        }
+        @media (max-width: 1024px) {
+          .hero-headline {
+            font-size: clamp(28px, 4.5vw, 48px) !important;
           }
         }
       `}</style>
