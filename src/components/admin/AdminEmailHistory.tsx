@@ -56,7 +56,16 @@ const AdminEmailHistory = ({ isMobile = false }: { isMobile?: boolean }) => {
         /* Mobile: Card layout */
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {filtered.length === 0 ? (
-            <div className="aura-glass" style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)", fontFamily: "var(--aura-font-body)" }}>No emails found</div>
+            <div className="aura-glass">
+              <div className="aura-empty-state">
+                <div className="aura-empty-state__blob" />
+                <p className="aura-empty-state__title">No communications yet</p>
+                <p className="aura-empty-state__text">Your email and SMS history will appear here once messages are sent</p>
+                <button className="aura-empty-state__action">
+                  Send your first message <ArrowRight size={14} />
+                </button>
+              </div>
+            </div>
           ) : filtered.map(e => {
             const tc = TYPE_COLORS[e.email_type === "sms" ? "sms" : "email"];
             const sc = STATUS_COLORS[e.status] || STATUS_COLORS.delivered;
