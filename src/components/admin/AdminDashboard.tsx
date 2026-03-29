@@ -285,26 +285,28 @@ const AdminDashboard = ({ onNewBooking, isMobile = false, setNav }: AdminDashboa
             ))}
           </div>
         </div>
-        <ResponsiveContainer width="100%" height={isMobile ? 180 : 240}>
+        <ResponsiveContainer width="100%" height={isMobile ? 220 : 300}>
           <AreaChart data={chartData}>
             <defs>
               <linearGradient id="auraRevGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--aura-teal)" stopOpacity={0.35} />
-                <stop offset="100%" stopColor="var(--aura-teal)" stopOpacity={0} />
+                <stop offset="0%" stopColor="#D4AF37" stopOpacity={0.12} />
+                <stop offset="50%" stopColor="#2DD4BF" stopOpacity={0.06} />
+                <stop offset="100%" stopColor="#2DD4BF" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="4 4" />
-            <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} />
-            <YAxis tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} tickFormatter={(v) => `$${v}`} />
+            <CartesianGrid stroke="rgba(255,255,255,0.03)" strokeDasharray="3 3" />
+            <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontFamily: "var(--aura-font-mono)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
             <Tooltip
               contentStyle={{
-                background: "var(--aura-sidebar-bg)", backdropFilter: "var(--aura-blur)",
-                border: "1px solid var(--aura-glass-border)", borderRadius: 12,
-                fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text)",
+                background: "rgba(17, 24, 39, 0.95)", backdropFilter: "blur(12px)",
+                border: "1px solid rgba(212, 175, 55, 0.2)", borderRadius: 12,
+                fontFamily: "var(--aura-font-body)", fontSize: 12, color: "#F9FAFB",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
               }}
               formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
             />
-            <Area type="monotone" dataKey="revenue" stroke="var(--aura-teal)" strokeWidth={2} fill="url(#auraRevGrad)" />
+            <Area type="monotone" dataKey="revenue" stroke="#D4AF37" strokeWidth={2} fill="url(#auraRevGrad)" dot={{ r: 3, fill: "#D4AF37", stroke: "#0B0F19", strokeWidth: 2 }} />
           </AreaChart>
         </ResponsiveContainer>
       </DashCard>
