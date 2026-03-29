@@ -124,23 +124,25 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
                 onClick={() => setSelectedDay(isSelected ? null : dayStr)}
                 style={{
                   minHeight: isMobile ? 48 : 80, padding: "6px 8px", cursor: "pointer",
-                  borderBottom: "1px solid var(--aura-glass-border)",
-                  borderRight: "1px solid var(--aura-glass-border)",
-                  background: isSelected ? "rgba(60,200,184,0.06)" : "transparent",
+                  borderBottom: "1px solid rgba(255,255,255,0.05)",
+                  borderRight: "1px solid rgba(255,255,255,0.05)",
+                  background: isSelected ? "rgba(212,175,55,0.06)" : "transparent",
                   opacity: inMonth ? 1 : 0.3,
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = "var(--aura-highlight)"; }}
+                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = "rgba(255,255,255,0.02)"; }}
                 onMouseLeave={e => { if (!isSelected) e.currentTarget.style.background = "transparent"; }}
               >
-                <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 4 }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 4 }}>
                   <span style={{
-                    fontFamily: "var(--aura-font-body)", fontSize: isMobile ? 11 : 12, fontWeight: today ? 700 : 400,
-                    color: today ? "#060e1a" : "var(--aura-text-dim)",
+                    fontFamily: "var(--aura-font-mono)", fontSize: isMobile ? 11 : 12, fontWeight: today ? 600 : 400,
+                    color: today ? "#0B0F19" : "var(--aura-text-dim)",
                     ...(today ? {
-                      background: "#3cc8b8", borderRadius: 6, padding: "1px 7px",
+                      background: "#D4AF37", borderRadius: "50%", width: 26, height: 26,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
                     } : {}),
                   }}>{format(day, "d")}</span>
+                  {today && <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#D4AF37", marginTop: 2 }} />}
                 </div>
                 {isMobile ? (
                   /* Mobile: colored dots only */
