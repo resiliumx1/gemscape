@@ -12,17 +12,17 @@ interface CalendarBooking {
 }
 
 const STATUS_PILL: Record<string, { bg: string; text: string; border: string }> = {
-  confirmed: { bg: "rgba(64,216,184,0.15)", text: "#40d8b8", border: "rgba(64,216,184,0.3)" },
-  pending: { bg: "rgba(232,192,64,0.15)", text: "#e8c040", border: "rgba(232,192,64,0.3)" },
-  cancelled: { bg: "rgba(240,104,104,0.15)", text: "#f06868", border: "rgba(240,104,104,0.3)" },
-  completed: { bg: "rgba(96,184,240,0.15)", text: "#60b8f0", border: "rgba(96,184,240,0.3)" },
+  confirmed: { bg: "rgba(16,185,129,0.1)", text: "var(--aura-success)", border: "rgba(16,185,129,0.2)" },
+  pending: { bg: "rgba(245,158,11,0.1)", text: "var(--aura-warning)", border: "rgba(245,158,11,0.2)" },
+  cancelled: { bg: "rgba(239,68,68,0.1)", text: "var(--aura-danger)", border: "rgba(239,68,68,0.2)" },
+  completed: { bg: "rgba(96,165,250,0.1)", text: "var(--aura-info)", border: "rgba(96,165,250,0.2)" },
 };
 
 const STATUS_DOT: Record<string, string> = {
-  confirmed: "#40d8b8",
-  pending: "#e8c040",
-  cancelled: "#f06868",
-  completed: "#60b8f0",
+  confirmed: "var(--aura-success)",
+  pending: "var(--aura-warning)",
+  cancelled: "var(--aura-danger)",
+  completed: "var(--aura-info)",
 };
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -124,23 +124,25 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
                 onClick={() => setSelectedDay(isSelected ? null : dayStr)}
                 style={{
                   minHeight: isMobile ? 48 : 80, padding: "6px 8px", cursor: "pointer",
-                  borderBottom: "1px solid var(--aura-glass-border)",
-                  borderRight: "1px solid var(--aura-glass-border)",
-                  background: isSelected ? "rgba(60,200,184,0.06)" : "transparent",
+                  borderBottom: "1px solid rgba(255,255,255,0.05)",
+                  borderRight: "1px solid rgba(255,255,255,0.05)",
+                  background: isSelected ? "rgba(212,175,55,0.06)" : "transparent",
                   opacity: inMonth ? 1 : 0.3,
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = "var(--aura-highlight)"; }}
+                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = "rgba(255,255,255,0.02)"; }}
                 onMouseLeave={e => { if (!isSelected) e.currentTarget.style.background = "transparent"; }}
               >
-                <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 4 }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 4 }}>
                   <span style={{
-                    fontFamily: "var(--aura-font-body)", fontSize: isMobile ? 11 : 12, fontWeight: today ? 700 : 400,
-                    color: today ? "#060e1a" : "var(--aura-text-dim)",
+                    fontFamily: "var(--aura-font-mono)", fontSize: isMobile ? 11 : 12, fontWeight: today ? 600 : 400,
+                    color: today ? "#0B0F19" : "var(--aura-text-dim)",
                     ...(today ? {
-                      background: "#3cc8b8", borderRadius: 6, padding: "1px 7px",
+                      background: "#D4AF37", borderRadius: "50%", width: 26, height: 26,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
                     } : {}),
                   }}>{format(day, "d")}</span>
+                  {today && <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#D4AF37", marginTop: 2 }} />}
                 </div>
                 {isMobile ? (
                   /* Mobile: colored dots only */
@@ -161,12 +163,12 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
                   /* Desktop: text pills */
                   <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                     {dayItems.slice(0, 2).map((item, i) => {
-                      const sc = STATUS_PILL[item.status] || STATUS_PILL.pending;
                       return (
                         <div key={i} style={{
                           fontSize: 9, padding: "2px 5px", borderRadius: 4,
                           fontFamily: "var(--aura-font-body)", fontWeight: 500,
-                          background: sc.bg, color: sc.text,
+                          borderLeft: "2px solid var(--aura-gold)",
+                          background: "rgba(212,175,55,0.06)", color: "var(--aura-text-dim)",
                           overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                         }}>
                           {item.time.slice(0, 5)} {item.guest.split(" ")[0]}
@@ -230,10 +232,14 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
       )}
 
       {selectedDay && dayBookings.length === 0 && (
-        <div className="aura-glass" style={{ marginTop: 16, padding: "30px 24px", textAlign: "center" }}>
-          <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, color: "var(--aura-text-muted)" }}>
-            No bookings on {format(new Date(selectedDay + "T12:00:00"), "MMMM d, yyyy")}
-          </p>
+        <div className="aura-glass" style={{ marginTop: 16 }}>
+          <div className="aura-empty-state" style={{ padding: "40px 24px" }}>
+            <div className="aura-empty-state__blob" style={{ width: 80, height: 80 }} />
+            <p className="aura-empty-state__title">No bookings</p>
+            <p className="aura-empty-state__text" style={{ fontSize: 13 }}>
+              No bookings on {format(new Date(selectedDay + "T12:00:00"), "MMMM d, yyyy")}
+            </p>
+          </div>
         </div>
       )}
     </div>

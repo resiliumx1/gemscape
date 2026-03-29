@@ -389,8 +389,8 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
       onClick={onClose}
       style={{
         position: "fixed", inset: 0, zIndex: 200,
-        background: "rgba(6,14,26,0.5)",
-        backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+        background: "rgba(11, 15, 25, 0.95)",
+        backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}
     >
@@ -403,22 +403,23 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
         style={{
           width: isMobile ? "96%" : 520,
           maxWidth: "96vw", maxHeight: "90vh", overflowY: "auto",
-          background: "var(--aura-sidebar-bg)",
-          backdropFilter: "var(--aura-blur)", WebkitBackdropFilter: "var(--aura-blur)",
-          border: "1px solid var(--aura-glass-border)",
-          borderRadius: isMobile ? 14 : "var(--aura-radius-card)", padding: isMobile ? 20 : 28,
-          boxShadow: "0 30px 80px rgba(0,0,0,0.4)",
+          background: "rgba(17, 24, 39, 0.95)",
+          backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          borderRadius: 24, padding: isMobile ? 24 : 32,
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
         }}
       >
         {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-          <h2 style={{ fontFamily: "var(--aura-font-heading)", fontSize: 22, color: "var(--aura-text)", margin: 0 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
+          <h2 style={{ fontFamily: "var(--aura-font-heading)", fontSize: 24, fontWeight: 600, color: "var(--aura-text)", margin: 0, letterSpacing: "-0.02em" }}>
             New Booking
           </h2>
           <button onClick={onClose} style={{
-            background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
-            borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center",
+            background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: 12, width: 36, height: 36, display: "flex", alignItems: "center",
             justifyContent: "center", cursor: "pointer", color: "var(--aura-text-muted)",
+            transition: "all 0.15s",
           }}>
             <X size={16} />
           </button>
@@ -426,7 +427,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
 
         <form onSubmit={handleSubmit}>
           {/* Client Name + Email */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14, marginBottom: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16, marginBottom: 16 }}>
             <div>
               <label className="aura-input-label">Client Name *</label>
               <input className="aura-input" required value={formData.client_name || ""} onChange={e => set("client_name", e.target.value)} placeholder="Full name" />
@@ -438,7 +439,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Phone */}
-          <div style={{ marginBottom: 14 }}>
+          <div style={{ marginBottom: 16 }}>
             <label className="aura-input-label">Phone</label>
             <div style={{ position: "relative" }}>
               <Phone size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
@@ -447,7 +448,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Tour Select */}
-          <div style={{ marginBottom: 14 }}>
+          <div style={{ marginBottom: 16 }}>
             <label className="aura-input-label">Tour *</label>
             <select className="aura-input" required value={formData.tour || ""} onChange={e => set("tour", e.target.value)}>
               <option value="">Select a tour…</option>
@@ -458,7 +459,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Date + Time + Guests */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 14, marginBottom: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
             <div>
               <label className="aura-input-label">Date *</label>
               <Popover>
@@ -504,15 +505,16 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Buttons */}
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 24 }}>
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 28 }}>
             <button
               type="button"
               onClick={onClose}
               style={{
-                padding: "10px 24px", borderRadius: "var(--aura-radius-btn)",
-                background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+                padding: "0 24px", height: 48, borderRadius: 12,
+                background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
                 color: "var(--aura-text-dim)", fontFamily: "var(--aura-font-body)",
-                fontSize: 12, fontWeight: 500, cursor: "pointer", minHeight: 44,
+                fontSize: 13, fontWeight: 500, cursor: "pointer",
+                transition: "all 0.15s",
               }}
             >
               Cancel
@@ -521,15 +523,18 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
               type="submit"
               disabled={submitting || !canSubmit}
               style={{
-                padding: "10px 28px", borderRadius: "var(--aura-radius-btn)",
-                background: "linear-gradient(135deg, var(--aura-gold), #c49830)",
-                border: "none", color: "#fff",
-                fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
+                padding: "0 28px", height: 48, borderRadius: 12,
+                background: "linear-gradient(135deg, #D4AF37 0%, #B8960E 100%)",
+                border: "none", color: "#0B0F19",
+                fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600,
                 cursor: submitting || !canSubmit ? "not-allowed" : "pointer",
                 opacity: submitting || !canSubmit ? 0.5 : 1,
-                boxShadow: "0 4px 14px rgba(212,170,68,0.35)",
-                transition: "all 0.2s", minHeight: 44,
+                boxShadow: "0 4px 14px rgba(212,175,55,0.25)",
+                transition: "all 0.2s",
+                filter: "brightness(1)",
               }}
+              onMouseEnter={e => { if (!submitting && canSubmit) e.currentTarget.style.filter = "brightness(1.1)"; }}
+              onMouseLeave={e => { e.currentTarget.style.filter = "brightness(1)"; }}
             >
               {submitting ? "Creating…" : "Create Booking"}
             </button>

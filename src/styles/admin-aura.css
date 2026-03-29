@@ -670,27 +670,39 @@
   border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* ── Form Inputs ── */
+/* ── Form Inputs — Premium ── */
 .aura-input {
-  background: var(--aura-input-bg);
-  border: 1px solid var(--aura-input-border);
-  border-radius: var(--aura-radius-input);
-  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 14px;
+  height: 48px;
   font-family: var(--aura-font-body);
   font-size: 13px;
   font-weight: 400;
   color: var(--aura-text);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
 }
 
 .aura-input::placeholder {
-  color: var(--aura-text-muted);
+  color: #6B7280;
 }
 
 .aura-input:focus {
-  border-color: var(--aura-teal);
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.aura-light .aura-input {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.aura-light .aura-input:focus {
+  border-color: #B8860B;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
 }
 
 .aura-input-label {
@@ -701,7 +713,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--aura-text-muted);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 /* ── Period Buttons ── */
@@ -876,10 +888,93 @@
   transition: background 0.6s ease;
 }
 
-/* Override admin border-radius: 0 from global styles */
+/* Override admin border-radius from global styles */
 .aura-admin button,
 .aura-admin input,
 .aura-admin textarea,
 .aura-admin select {
-  border-radius: var(--aura-radius-input) !important;
+  border-radius: 12px !important;
+}
+
+/* ── Page Content Entrance Animation ── */
+@keyframes aura-page-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.aura-content > * {
+  animation: aura-page-enter 0.3s ease-out both;
+}
+
+/* ── Button Micro-interactions ── */
+.aura-admin button:not(.aura-nav-item):not(.aura-theme-toggle):hover {
+  transform: scale(1.02);
+}
+
+/* ── Premium Empty State ── */
+.aura-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.aura-empty-state__blob {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.15), rgba(45, 212, 191, 0.08) 60%, transparent);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.aura-empty-state__blob::after {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70% 70%, rgba(45, 212, 191, 0.12), transparent);
+}
+
+.aura-empty-state__title {
+  font-family: var(--aura-font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--aura-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.aura-empty-state__text {
+  font-family: var(--aura-font-body);
+  font-size: 14px;
+  color: var(--aura-text-dim);
+  margin-bottom: 20px;
+  max-width: 280px;
+}
+
+.aura-empty-state__action {
+  font-family: var(--aura-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--aura-gold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+}
+
+.aura-empty-state__action:hover {
+  opacity: 0.8;
 }
