@@ -150,7 +150,7 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
                 <Pie data={DONUT_DATA} cx="50%" cy="50%" innerRadius={55} outerRadius={85} dataKey="value" stroke="none">
                   {DONUT_DATA.map((_, i) => <Cell key={i} fill={DONUT_COLORS[i]} />)}
                 </Pie>
-                <Tooltip content={<GlassTooltip />} />
+                <Tooltip content={<GlassTooltip />} offset={20} wrapperStyle={{ zIndex: 100 }} />
               </PieChart>
             </ResponsiveContainer>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1, width: "100%" }}>

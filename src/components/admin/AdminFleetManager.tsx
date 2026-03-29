@@ -140,7 +140,7 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
               }}>Cancel</button>
               <button onClick={handleSave} disabled={saving} style={{
                 flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, padding: "10px", borderRadius: "var(--aura-radius-btn)",
-                border: "none", background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32", cursor: "pointer", minHeight: 44,
+                border: "none", background: "linear-gradient(135deg, var(--aura-teal), #1a9a8a)", color: "#fff", cursor: "pointer", minHeight: 44,
               }}>{saving ? "Saving…" : "Save"}</button>
             </div>
           </div>
