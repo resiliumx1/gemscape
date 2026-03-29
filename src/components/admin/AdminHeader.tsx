@@ -459,7 +459,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Date + Time + Guests */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 14, marginBottom: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
             <div>
               <label className="aura-input-label">Date *</label>
               <Popover>
