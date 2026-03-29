@@ -111,19 +111,20 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
             ))}
           </div>
         </div>
-        <ResponsiveContainer width="100%" height={isMobile ? 180 : 280}>
+        <ResponsiveContainer width="100%" height={isMobile ? 220 : 300}>
           <AreaChart data={trendData}>
             <defs>
               <linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#3cc8b8" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="#3cc8b8" stopOpacity={0} />
+                <stop offset="0%" stopColor="#D4AF37" stopOpacity={0.12} />
+                <stop offset="50%" stopColor="#2DD4BF" stopOpacity={0.06} />
+                <stop offset="100%" stopColor="#2DD4BF" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="4 4" />
+            <CartesianGrid stroke="rgba(255,255,255,0.03)" strokeDasharray="3 3" />
             <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={v => `$${v.toLocaleString()}`} />
+            <YAxis tick={{ fontFamily: "var(--aura-font-mono)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={v => `$${v.toLocaleString()}`} />
             <Tooltip content={<GlassTooltip />} />
-            <Area type="monotone" dataKey="revenue" stroke="#3cc8b8" strokeWidth={2} fill="url(#tealGrad)" name="Revenue" />
+            <Area type="monotone" dataKey="revenue" stroke="#D4AF37" strokeWidth={2} fill="url(#tealGrad)" name="Revenue" dot={{ r: 3, fill: "#D4AF37", stroke: "#0B0F19", strokeWidth: 2 }} />
           </AreaChart>
         </ResponsiveContainer>
       </div>
