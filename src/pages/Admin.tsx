@@ -61,7 +61,6 @@ const Admin = () => {
   const [isDark, setIsDark] = useState(true);
   const [showNewBooking, setShowNewBooking] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [profilePic, setProfilePic] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -75,7 +74,7 @@ const Admin = () => {
 
   const handleNavClick = (key: string) => {
     setActiveTab(key);
-    if (isMobile) setDrawerOpen(false);
+    if (isMobile) setCollapsed(true);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +110,7 @@ const Admin = () => {
 
   const sidebarContent = (
     <>
-      <div className="aura-sidebar__brand" onClick={() => !isMobile && setCollapsed(!collapsed)} style={{ cursor: isMobile ? "default" : "pointer" }}>
+      <div className="aura-sidebar__brand" onClick={() => setCollapsed(!collapsed)} style={{ cursor: "pointer" }}>
         {profilePic ? (
           <div style={{ width: 36, height: 36, borderRadius: 10, overflow: "hidden", flexShrink: 0 }}>
             <img src={profilePic} alt="Profile" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -123,12 +122,6 @@ const Admin = () => {
       </div>
 
       <nav className="aura-sidebar__nav">
-        {isMobile && (
-          <button onClick={() => { setDrawerOpen(false); navigate("/"); }} className="aura-nav-item">
-            <span className="aura-nav-item__icon"><Home size={18} strokeWidth={1.5} /></span>
-            <span className="aura-sidebar__text">Back to Home</span>
-          </button>
-        )}
         {NAV_SECTIONS.map((section) => (
           <div key={section.label}>
             <span className="aura-sidebar__section-label">{section.label}</span>
@@ -154,12 +147,10 @@ const Admin = () => {
           {isDark ? <Sun size={14} /> : <Moon size={14} />}
           <span className="aura-sidebar__text">{isDark ? "Light Mode" : "Dark Mode"}</span>
         </button>
-        {!isMobile && (
-          <button className="aura-theme-toggle" onClick={() => setCollapsed(!collapsed)} style={{ marginTop: 4 }}>
-            {collapsed ? <PanelLeft size={14} /> : <PanelLeftClose size={14} />}
-            <span className="aura-sidebar__text">{collapsed ? "Expand" : "Collapse"}</span>
-          </button>
-        )}
+        <button className="aura-theme-toggle" onClick={() => setCollapsed(!collapsed)} style={{ marginTop: 4 }}>
+          {collapsed ? <PanelLeft size={14} /> : <PanelLeftClose size={14} />}
+          <span className="aura-sidebar__text">{collapsed ? "Expand" : "Collapse"}</span>
+        </button>
       </div>
     </>
   );
@@ -182,27 +173,16 @@ const Admin = () => {
           <div className="aura-mesh__orb aura-mesh__orb--5" />
         </div>
 
-        {isMobile && (
-          <>
-            <div className={`aura-sidebar-backdrop ${drawerOpen ? "visible" : ""}`} onClick={() => setDrawerOpen(false)} />
-            <aside className={`aura-sidebar aura-sidebar--mobile ${drawerOpen ? "open" : ""}`} style={{ width: 260 }}>
-              {sidebarContent}
-            </aside>
-          </>
-        )}
-
-        {!isMobile && (
-          <aside className={`aura-sidebar ${collapsed ? "collapsed" : ""}`}>
-            {sidebarContent}
-          </aside>
-        )}
+        <aside className={`aura-sidebar ${collapsed ? "collapsed" : ""}`}>
+          {sidebarContent}
+        </aside>
 
         <main className="aura-main">
           <AdminHeader
             pageTitle={PAGE_TITLES[activeTab] || "Dashboard"}
             onNewBooking={() => setShowNewBooking(true)}
             isMobile={isMobile}
-            onMenuToggle={() => setDrawerOpen(!drawerOpen)}
+            onMenuToggle={() => setCollapsed(!collapsed)}
             onNavigateSettings={() => setActiveTab("settings")}
             onNavigateDashboard={() => setActiveTab("dashboard")}
             profilePic={profilePic}
