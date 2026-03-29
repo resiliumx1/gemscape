@@ -391,7 +391,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
   return (
     <div onClick={onClose} style={{
       position: "fixed", inset: 0, zIndex: 200,
-      background: "rgba(4,16,20,0.92)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+      background: "rgba(4,16,20,0.72)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
       display: "flex", alignItems: "center", justifyContent: "center",
     }}>
       <motion.div
