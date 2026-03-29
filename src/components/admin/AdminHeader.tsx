@@ -505,15 +505,16 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Buttons */}
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 24 }}>
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 28 }}>
             <button
               type="button"
               onClick={onClose}
               style={{
-                padding: "10px 24px", borderRadius: "var(--aura-radius-btn)",
-                background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+                padding: "0 24px", height: 48, borderRadius: 12,
+                background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
                 color: "var(--aura-text-dim)", fontFamily: "var(--aura-font-body)",
-                fontSize: 12, fontWeight: 500, cursor: "pointer", minHeight: 44,
+                fontSize: 13, fontWeight: 500, cursor: "pointer",
+                transition: "all 0.15s",
               }}
             >
               Cancel
@@ -522,15 +523,18 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
               type="submit"
               disabled={submitting || !canSubmit}
               style={{
-                padding: "10px 28px", borderRadius: "var(--aura-radius-btn)",
-                background: "linear-gradient(135deg, var(--aura-gold), #c49830)",
-                border: "none", color: "#fff",
-                fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
+                padding: "0 28px", height: 48, borderRadius: 12,
+                background: "linear-gradient(135deg, #D4AF37 0%, #B8960E 100%)",
+                border: "none", color: "#0B0F19",
+                fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600,
                 cursor: submitting || !canSubmit ? "not-allowed" : "pointer",
                 opacity: submitting || !canSubmit ? 0.5 : 1,
-                boxShadow: "0 4px 14px rgba(212,170,68,0.35)",
-                transition: "all 0.2s", minHeight: 44,
+                boxShadow: "0 4px 14px rgba(212,175,55,0.25)",
+                transition: "all 0.2s",
+                filter: "brightness(1)",
               }}
+              onMouseEnter={e => { if (!submitting && canSubmit) e.currentTarget.style.filter = "brightness(1.1)"; }}
+              onMouseLeave={e => { e.currentTarget.style.filter = "brightness(1)"; }}
             >
               {submitting ? "Creating…" : "Create Booking"}
             </button>
