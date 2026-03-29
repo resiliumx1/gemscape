@@ -439,7 +439,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
           </div>
 
           {/* Phone */}
-          <div style={{ marginBottom: 14 }}>
+          <div style={{ marginBottom: 16 }}>
             <label className="aura-input-label">Phone</label>
             <div style={{ position: "relative" }}>
               <Phone size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
