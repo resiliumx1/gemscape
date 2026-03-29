@@ -6,7 +6,7 @@ import type { Tables } from "@/integrations/supabase/types";
 
 type ReviewItem = Tables<"review_queue">;
 
-const AdminReviewRequests = () => {
+const AdminReviewRequests = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [items, setItems] = useState<ReviewItem[]>([]);
   const [sending, setSending] = useState<string | null>(null);
 
@@ -20,7 +20,7 @@ const AdminReviewRequests = () => {
   }, [items]);
 
   const reviewed = thisMonth.filter(i => i.review_left);
-  const needsResponse = items.filter(i => i.review_left && !i.clicked).length; // proxy
+  const needsResponse = items.filter(i => i.review_left && !i.clicked).length;
 
   const handleSendNow = async (item: ReviewItem) => {
     setSending(item.id);
@@ -50,9 +50,9 @@ const AdminReviewRequests = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
       {/* KPI Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-        {kpis.map(k => (
-          <div key={k.label} className="aura-glass" style={{ padding: 0, overflow: "hidden" }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)", gap: 16 }}>
+        {kpis.map((k, idx) => (
+          <div key={k.label} className="aura-glass" style={{ padding: 0, overflow: "hidden", gridColumn: isMobile && idx === 2 ? "1 / -1" : "auto" }}>
             <div style={{ height: 3, background: `linear-gradient(90deg, ${k.glow}, transparent)` }} />
             <div style={{ padding: "20px 22px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -61,7 +61,7 @@ const AdminReviewRequests = () => {
                   <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 28, fontWeight: 800, color: "var(--aura-text)" }}>{k.value}</p>
                   {k.extra}
                 </div>
-                <div style={{ width: 38, height: 38, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.06)", color: k.glow }}>
+                <div style={{ width: 38, height: 38, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--aura-highlight)", color: k.glow }}>
                   {k.icon}
                 </div>
               </div>
@@ -81,8 +81,8 @@ const AdminReviewRequests = () => {
           const hasReview = item.review_left;
           const initials = item.customer_name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
           return (
-            <div key={item.id} className="aura-glass" style={{ padding: "20px 24px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div key={item.id} className="aura-glass" style={{ padding: isMobile ? "16px" : "20px 24px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 12 : 0 }}>
                 <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                   <div style={{
                     width: 40, height: 40, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center",
@@ -98,13 +98,13 @@ const AdminReviewRequests = () => {
                     </div>
                     <p style={{
                       fontFamily: "var(--aura-font-body)", fontSize: 13, fontStyle: "italic",
-                      color: "var(--aura-text-secondary)", marginTop: 10, lineHeight: 1.6,
+                      color: "var(--aura-text-dim)", marginTop: 10, lineHeight: 1.6,
                     }}>
                       "{hasReview ? "Amazing experience! The tour was incredible and our guide was very knowledgeable." : "Review pending…"}"
                     </p>
                   </div>
                 </div>
-                <div>
+                <div style={{ alignSelf: isMobile ? "flex-end" : "auto" }}>
                   {hasReview ? (
                     <span style={{
                       padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
@@ -114,7 +114,7 @@ const AdminReviewRequests = () => {
                     <button onClick={() => handleSendNow(item)} disabled={sending === item.id} style={{
                       fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600,
                       padding: "6px 16px", borderRadius: 10, border: "none", cursor: "pointer",
-                      background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
+                      background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a", minHeight: 44,
                     }}>{sending === item.id ? "Sending…" : "Respond"}</button>
                   ) : (
                     <span style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)" }}>Sent</span>

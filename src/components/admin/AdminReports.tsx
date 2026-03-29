@@ -17,13 +17,7 @@ const RECENT_DOWNLOADS = [
   { name: 'Executive Overview — Q1 2026', fmt: 'PDF', time: 'Mar 24', size: '210 KB' },
 ];
 
-const sectionStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.025)',
-  border: '1px solid rgba(255,255,255,0.06)',
-  borderRadius: 14, padding: '18px 20px', marginBottom: 16,
-};
-
-const AdminReports = () => {
+const AdminReports = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [dateFilter, setDateFilter] = useState({ range: 'this-month', from: '', to: '' });
 
   const handleGenerate = async (type: string, format: string) => {
@@ -33,19 +27,19 @@ const AdminReports = () => {
   return (
     <div>
       {/* Date filter */}
-      <div style={sectionStyle}>
-        <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(94,200,224,0.7)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 12 }}>
+      <div className="aura-glass" style={{ padding: '18px 20px', marginBottom: 16 }}>
+        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: 'var(--aura-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 12 }}>
           Report Period
         </p>
         <ReportDateFilter onChange={setDateFilter} />
       </div>
 
       {/* Report grid */}
-      <div style={sectionStyle}>
-        <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(94,200,224,0.7)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
+      <div className="aura-glass" style={{ padding: '18px 20px', marginBottom: 16 }}>
+        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: 'var(--aura-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
           Available Reports
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 12 }}>
           {REPORT_TYPES.map(r => (
             <ReportCard key={r.type} {...r} onGenerate={handleGenerate} />
           ))}
@@ -53,26 +47,27 @@ const AdminReports = () => {
       </div>
 
       {/* Recent downloads */}
-      <div style={sectionStyle}>
-        <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(94,200,224,0.7)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
+      <div className="aura-glass" style={{ padding: '18px 20px' }}>
+        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: 'var(--aura-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
           Recent Downloads
         </p>
         {RECENT_DOWNLOADS.map((h, i) => (
           <div key={i} style={{
             display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0',
-            borderBottom: i < RECENT_DOWNLOADS.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+            borderBottom: i < RECENT_DOWNLOADS.length - 1 ? '1px solid var(--aura-glass-border)' : 'none',
           }}>
             <span style={{ fontSize: 18 }}>
               {h.fmt === 'PDF' ? '📄' : h.fmt === 'XLSX' ? '📑' : '📋'}
             </span>
             <div style={{ flex: 1 }}>
-              <p style={{ fontSize: 12, fontWeight: 500, color: '#dff3f8' }}>{h.name}</p>
-              <p style={{ fontSize: 10, color: 'rgba(223,243,248,0.35)', marginTop: 1 }}>{h.time} · {h.size}</p>
+              <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 500, color: 'var(--aura-text)' }}>{h.name}</p>
+              <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 10, color: 'var(--aura-text-muted)', marginTop: 1 }}>{h.time} · {h.size}</p>
             </div>
             <span style={{
               padding: '3px 9px', borderRadius: 6, fontSize: 9.5, fontWeight: 700,
-              background: 'rgba(26,138,158,0.12)', color: '#5ec8e0',
-              border: '1px solid rgba(94,200,224,0.2)', cursor: 'pointer',
+              background: 'rgba(60,200,184,0.12)', color: 'var(--aura-teal)',
+              border: '1px solid rgba(60,200,184,0.2)', cursor: 'pointer',
+              fontFamily: "var(--aura-font-body)",
             }}>
               Re-download
             </span>

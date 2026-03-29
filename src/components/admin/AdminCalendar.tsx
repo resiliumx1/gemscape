@@ -18,10 +18,17 @@ const STATUS_PILL: Record<string, { bg: string; text: string; border: string }> 
   completed: { bg: "rgba(96,184,240,0.15)", text: "#60b8f0", border: "rgba(96,184,240,0.3)" },
 };
 
+const STATUS_DOT: Record<string, string> = {
+  confirmed: "#40d8b8",
+  pending: "#e8c040",
+  cancelled: "#f06868",
+  completed: "#60b8f0",
+};
+
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const AdminCalendar = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 3, 1)); // April 2026
+const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
+  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 3, 1));
   const [bookings, setBookings] = useState<CalendarBooking[]>([]);
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
@@ -78,13 +85,13 @@ const AdminCalendar = () => {
         <div style={{ display: "flex", gap: 6 }}>
           <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} style={{
             width: 36, height: 36, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
-            background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "var(--aura-text-muted)", cursor: "pointer",
-            backdropFilter: "blur(12px)",
+            background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)", color: "var(--aura-text-muted)", cursor: "pointer",
+            minWidth: 44, minHeight: 44,
           }}><ChevronLeft size={16} /></button>
           <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} style={{
             width: 36, height: 36, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
-            background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "var(--aura-text-muted)", cursor: "pointer",
-            backdropFilter: "blur(12px)",
+            background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)", color: "var(--aura-text-muted)", cursor: "pointer",
+            minWidth: 44, minHeight: 44,
           }}><ChevronRight size={16} /></button>
         </div>
       </div>
@@ -92,7 +99,7 @@ const AdminCalendar = () => {
       {/* Calendar Grid */}
       <div className="aura-glass" style={{ padding: 0, overflow: "hidden" }}>
         {/* Day headers */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", borderBottom: "1px solid var(--aura-glass-border)" }}>
           {DAYS.map(d => (
             <div key={d} style={{
               padding: "12px 8px", textAlign: "center",
@@ -116,45 +123,63 @@ const AdminCalendar = () => {
                 key={dayStr}
                 onClick={() => setSelectedDay(isSelected ? null : dayStr)}
                 style={{
-                  minHeight: 80, padding: "6px 8px", cursor: "pointer",
-                  borderBottom: "1px solid rgba(255,255,255,0.04)",
-                  borderRight: "1px solid rgba(255,255,255,0.04)",
+                  minHeight: isMobile ? 48 : 80, padding: "6px 8px", cursor: "pointer",
+                  borderBottom: "1px solid var(--aura-glass-border)",
+                  borderRight: "1px solid var(--aura-glass-border)",
                   background: isSelected ? "rgba(60,200,184,0.06)" : "transparent",
                   opacity: inMonth ? 1 : 0.3,
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
+                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = "var(--aura-highlight)"; }}
                 onMouseLeave={e => { if (!isSelected) e.currentTarget.style.background = "transparent"; }}
               >
                 <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 4 }}>
                   <span style={{
-                    fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: today ? 700 : 400,
-                    color: today ? "#060e1a" : "var(--aura-text-secondary)",
+                    fontFamily: "var(--aura-font-body)", fontSize: isMobile ? 11 : 12, fontWeight: today ? 700 : 400,
+                    color: today ? "#060e1a" : "var(--aura-text-dim)",
                     ...(today ? {
                       background: "#3cc8b8", borderRadius: 6, padding: "1px 7px",
                     } : {}),
                   }}>{format(day, "d")}</span>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  {dayItems.slice(0, 2).map((item, i) => {
-                    const sc = STATUS_PILL[item.status] || STATUS_PILL.pending;
-                    return (
-                      <div key={i} style={{
-                        fontSize: 9, padding: "2px 5px", borderRadius: 4,
-                        fontFamily: "var(--aura-font-body)", fontWeight: 500,
-                        background: sc.bg, color: sc.text,
-                        overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-                      }}>
-                        {item.time.slice(0, 5)} {item.guest.split(" ")[0]}
-                      </div>
-                    );
-                  })}
-                  {dayItems.length > 2 && (
-                    <span style={{ fontSize: 9, color: "var(--aura-text-muted)", fontFamily: "var(--aura-font-body)" }}>
-                      +{dayItems.length - 2} more
-                    </span>
-                  )}
-                </div>
+                {isMobile ? (
+                  /* Mobile: colored dots only */
+                  dayItems.length > 0 && (
+                    <div style={{ display: "flex", gap: 3, flexWrap: "wrap" }}>
+                      {dayItems.slice(0, 4).map((item, i) => (
+                        <div key={i} style={{
+                          width: 6, height: 6, borderRadius: "50%",
+                          background: STATUS_DOT[item.status] || STATUS_DOT.pending,
+                        }} />
+                      ))}
+                      {dayItems.length > 4 && (
+                        <span style={{ fontSize: 8, color: "var(--aura-text-muted)" }}>+{dayItems.length - 4}</span>
+                      )}
+                    </div>
+                  )
+                ) : (
+                  /* Desktop: text pills */
+                  <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    {dayItems.slice(0, 2).map((item, i) => {
+                      const sc = STATUS_PILL[item.status] || STATUS_PILL.pending;
+                      return (
+                        <div key={i} style={{
+                          fontSize: 9, padding: "2px 5px", borderRadius: 4,
+                          fontFamily: "var(--aura-font-body)", fontWeight: 500,
+                          background: sc.bg, color: sc.text,
+                          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+                        }}>
+                          {item.time.slice(0, 5)} {item.guest.split(" ")[0]}
+                        </div>
+                      );
+                    })}
+                    {dayItems.length > 2 && (
+                      <span style={{ fontSize: 9, color: "var(--aura-text-muted)", fontFamily: "var(--aura-font-body)" }}>
+                        +{dayItems.length - 2} more
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
@@ -163,7 +188,7 @@ const AdminCalendar = () => {
 
       {/* Day Detail Panel */}
       {selectedDay && dayBookings.length > 0 && (
-        <div className="aura-glass" style={{ marginTop: 16, padding: "20px 24px" }}>
+        <div className="aura-glass" style={{ marginTop: 16, padding: isMobile ? "16px" : "20px 24px" }}>
           <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 19, color: "var(--aura-text)", marginBottom: 16 }}>
             {format(new Date(selectedDay + "T12:00:00"), "EEEE, MMMM d, yyyy")}
           </p>
@@ -172,7 +197,9 @@ const AdminCalendar = () => {
               const sc = STATUS_PILL[b.status] || STATUS_PILL.pending;
               return (
                 <div key={i} style={{
-                  display: "flex", alignItems: "center", justifyContent: "space-between",
+                  display: "flex", alignItems: isMobile ? "flex-start" : "center",
+                  flexDirection: isMobile ? "column" : "row",
+                  justifyContent: "space-between", gap: isMobile ? 8 : 0,
                   padding: "12px 0",
                   borderBottom: i < dayBookings.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
                 }}>
@@ -186,9 +213,9 @@ const AdminCalendar = () => {
                       <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)" }}>{b.service}</p>
                     </div>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "var(--aura-font-body)", fontSize: 12 }}>
-                    <span style={{ color: "var(--aura-text-secondary)" }}>{b.time}</span>
-                    <span style={{ color: "var(--aura-text-secondary)" }}>{b.guests} guest{b.guests !== 1 ? "s" : ""}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 10 : 16, fontFamily: "var(--aura-font-body)", fontSize: 12, flexWrap: "wrap" }}>
+                    <span style={{ color: "var(--aura-text-dim)" }}>{b.time}</span>
+                    <span style={{ color: "var(--aura-text-dim)" }}>{b.guests} guest{b.guests !== 1 ? "s" : ""}</span>
                     <span style={{
                       padding: "3px 10px", borderRadius: 20, fontSize: 11, fontWeight: 600,
                       background: sc.bg, color: sc.text, border: `1px solid ${sc.border}`, textTransform: "capitalize",

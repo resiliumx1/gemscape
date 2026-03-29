@@ -3,7 +3,7 @@
    Glassmorphism design system for Gemscape admin
    ═══════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
 
 /* ── CSS Custom Properties ── */
 .aura-admin {
@@ -11,9 +11,11 @@
   --aura-text: rgba(255,255,255,0.88);
   --aura-text-dim: rgba(255,255,255,0.5);
   --aura-text-muted: rgba(255,255,255,0.3);
+  --aura-text-secondary: rgba(255,255,255,0.55);
   --aura-glass: rgba(255,255,255,0.055);
   --aura-glass-border: rgba(255,255,255,0.09);
   --aura-glass-hover: rgba(255,255,255,0.08);
+  --aura-highlight: rgba(255,255,255,0.06);
   --aura-sidebar-bg: rgba(8,14,28,0.55);
   --aura-teal: #3cc8b8;
   --aura-teal-dim: rgba(60,200,184,0.15);
@@ -27,23 +29,42 @@
   --aura-radius-btn: 12px;
   --aura-radius-input: 12px;
   --aura-blur: blur(22px) saturate(1.4);
-  --aura-font-body: 'Outfit', sans-serif;
-  --aura-font-heading: 'Instrument Serif', serif;
+  --aura-font-body: 'DM Sans', sans-serif;
+  --aura-font-heading: 'Cormorant Garamond', serif;
+  --aura-input-bg: rgba(255,255,255,0.04);
+  --aura-input-border: rgba(255,255,255,0.08);
+  --aura-grid-stroke: rgba(255,255,255,0.04);
 }
 
 .aura-admin.aura-light {
   --aura-bg: #d0dce8;
   --aura-text: rgba(10,20,40,0.88);
   --aura-text-dim: rgba(10,20,40,0.55);
-  --aura-text-muted: rgba(10,20,40,0.35);
-  --aura-glass: rgba(255,255,255,0.48);
-  --aura-glass-border: rgba(255,255,255,0.45);
-  --aura-glass-hover: rgba(255,255,255,0.55);
-  --aura-sidebar-bg: rgba(255,255,255,0.52);
+  --aura-text-muted: rgba(10,20,40,0.42);
+  --aura-text-secondary: rgba(10,20,40,0.6);
+  --aura-glass: rgba(255,255,255,0.62);
+  --aura-glass-border: rgba(255,255,255,0.5);
+  --aura-glass-hover: rgba(255,255,255,0.7);
+  --aura-highlight: rgba(0,30,60,0.04);
+  --aura-sidebar-bg: rgba(255,255,255,0.58);
   --aura-success: #2cb898;
   --aura-warning: #c8a030;
   --aura-danger: #d84848;
   --aura-info: #4898d0;
+  --aura-input-bg: rgba(255,255,255,0.75);
+  --aura-input-border: rgba(0,30,60,0.12);
+  --aura-grid-stroke: rgba(0,0,0,0.07);
+}
+
+/* Light mode specific: card shadow for definition */
+.aura-light .aura-glass,
+.aura-light .aura-card {
+  box-shadow: 0 1px 8px rgba(0,40,80,0.06);
+}
+
+/* Light mode: active nav stronger highlight */
+.aura-light .aura-nav-item.active {
+  background: rgba(60,200,184,0.22);
 }
 
 /* ── Animated Gradient Mesh Background ── */
@@ -170,6 +191,38 @@
   white-space: nowrap;
 }
 
+/* ── Mobile Sidebar Drawer ── */
+.aura-sidebar--mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.aura-sidebar--mobile.open {
+  transform: translateX(0);
+}
+
+.aura-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6,14,26,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.aura-sidebar-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* ── Sidebar Brand ── */
 .aura-sidebar__brand {
   display: flex;
@@ -196,6 +249,7 @@
   justify-content: center;
   font-family: var(--aura-font-heading);
   font-size: 20px;
+  font-weight: 700;
   color: #fff;
   flex-shrink: 0;
   box-shadow: 0 4px 14px rgba(60,200,184,0.3);
@@ -203,7 +257,7 @@
 
 .aura-sidebar__brand-text {
   font-family: var(--aura-font-heading);
-  font-size: 20px;
+  font-size: 21px;
   color: var(--aura-text);
   line-height: 1;
   transition: opacity 0.25s ease;
@@ -252,6 +306,7 @@
   text-align: left;
   position: relative;
   gap: 10px;
+  min-height: 36px;
 }
 
 .aura-nav-item:hover {
@@ -366,6 +421,7 @@
   flex-direction: column;
   position: relative;
   z-index: 1;
+  overflow-x: hidden;
 }
 
 /* ── Topbar ── */
@@ -385,7 +441,7 @@
 
 .aura-topbar__title {
   font-family: var(--aura-font-heading);
-  font-size: 22px;
+  font-size: 24px;
   color: var(--aura-text);
 }
 
@@ -397,8 +453,8 @@
 
 .aura-topbar__search {
   width: 220px;
-  background: var(--aura-glass);
-  border: 1px solid var(--aura-glass-border);
+  background: var(--aura-input-bg);
+  border: 1px solid var(--aura-input-border);
   border-radius: var(--aura-radius-input);
   padding: 8px 12px 8px 34px;
   font-family: var(--aura-font-body);
@@ -487,9 +543,9 @@
   color: var(--aura-text);
 }
 
-.aura-h1 { font-size: 24px; }
-.aura-h2 { font-size: 20px; }
-.aura-h3 { font-size: 17px; }
+.aura-h1 { font-size: 27px; }
+.aura-h2 { font-size: 21px; }
+.aura-h3 { font-size: 18px; }
 
 .aura-body {
   font-family: var(--aura-font-body);
@@ -596,8 +652,8 @@
 
 /* ── Form Inputs ── */
 .aura-input {
-  background: var(--aura-glass);
-  border: 1px solid var(--aura-glass-border);
+  background: var(--aura-input-bg);
+  border: 1px solid var(--aura-input-border);
   border-radius: var(--aura-radius-input);
   padding: 9px 14px;
   font-family: var(--aura-font-body);
@@ -659,7 +715,7 @@
 .aura-progress {
   height: 4px;
   border-radius: 2px;
-  background: rgba(255,255,255,0.06);
+  background: var(--aura-highlight);
   margin-top: 12px;
   overflow: hidden;
 }
@@ -762,14 +818,29 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .aura-sidebar {
+  .aura-sidebar:not(.aura-sidebar--mobile) {
     display: none;
   }
   .aura-content {
-    padding: 16px;
+    padding: 14px 12px;
   }
   .aura-topbar {
-    padding: 0 16px;
+    padding: 0 12px;
+    height: auto;
+    min-height: 56px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .aura-topbar__search {
+    width: 100%;
+  }
+  .aura-card {
+    padding: 14px;
+  }
+  .aura-card:hover {
+    transform: none;
   }
 }
 

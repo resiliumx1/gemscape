@@ -1,9 +1,10 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, DollarSign, TrendingUp, FileText, Briefcase,
   Star, Truck, CalendarDays, MessageSquare, Mail, Settings,
-  Sun, Moon, PanelLeftClose, PanelLeft,
+  Sun, Moon, PanelLeftClose, PanelLeft, Menu, Home,
 } from "lucide-react";
 import { AdminHeader, NewBookingModal } from "@/components/admin/AdminHeader";
 import "@/styles/admin-aura.css";
@@ -83,23 +84,106 @@ const Admin = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [showNewBooking, setShowNewBooking] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const handleNavClick = (key: string) => {
+    setActiveTab(key);
+    if (isMobile) setDrawerOpen(false);
+  };
 
   const renderContent = () => {
     switch (activeTab) {
-      case "dashboard": return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
-      case "revenue": return <AdminRevenue />;
+      case "dashboard": return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} isMobile={isMobile} setNav={setActiveTab} />;
+      case "revenue": return <AdminRevenue isMobile={isMobile} />;
       case "forecasting": return <AdminForecasting />;
-      case "reports": return <AdminReports />;
-      case "all-bookings": return <AdminAllBookings />;
-      case "reviews": return <AdminReviewRequests />;
-      case "fleet": return <AdminFleetManager />;
-      case "calendar": return <AdminCalendar />;
-      case "comms": return <AdminCustomerDirectory />;
-      case "email-history": return <AdminEmailHistory />;
-      case "settings": return <AdminSettings isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />;
-      default: return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} />;
+      case "reports": return <AdminReports isMobile={isMobile} />;
+      case "all-bookings": return <AdminAllBookings isMobile={isMobile} />;
+      case "reviews": return <AdminReviewRequests isMobile={isMobile} />;
+      case "fleet": return <AdminFleetManager isMobile={isMobile} />;
+      case "calendar": return <AdminCalendar isMobile={isMobile} />;
+      case "comms": return <AdminCustomerDirectory isMobile={isMobile} />;
+      case "email-history": return <AdminEmailHistory isMobile={isMobile} />;
+      case "settings": return <AdminSettings isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} isMobile={isMobile} />;
+      default: return <AdminDashboard onNewBooking={() => setShowNewBooking(true)} isMobile={isMobile} setNav={setActiveTab} />;
     }
   };
+
+  const sidebarContent = (
+    <>
+      {/* Brand */}
+      <div className="aura-sidebar__brand" onClick={() => !isMobile && setCollapsed(!collapsed)} style={{ cursor: isMobile ? "default" : "pointer" }}>
+        <div className="aura-sidebar__logo">G</div>
+        <span className="aura-sidebar__brand-text">Gemscape</span>
+      </div>
+
+      {/* Nav */}
+      <nav className="aura-sidebar__nav">
+        {/* Mobile: Home link */}
+        {isMobile && (
+          <button
+            onClick={() => { setDrawerOpen(false); navigate("/"); }}
+            className="aura-nav-item"
+          >
+            <span className="aura-nav-item__icon"><Home size={18} strokeWidth={1.5} /></span>
+            <span className="aura-sidebar__text">Back to Home</span>
+          </button>
+        )}
+        {NAV_SECTIONS.map((section) => (
+          <div key={section.label}>
+            <span className="aura-sidebar__section-label">{section.label}</span>
+            {section.items.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => handleNavClick(item.key)}
+                className={`aura-nav-item ${activeTab === item.key ? "active" : ""}`}
+              >
+                <span className="aura-nav-item__icon">{item.icon}</span>
+                <span className="aura-sidebar__text">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        ))}
+      </nav>
+
+      {/* Footer */}
+      <div className="aura-sidebar__footer">
+        <div className="aura-sidebar__user">
+          <div className="aura-sidebar__user-avatar">GA</div>
+          <div className="aura-sidebar__user-info">
+            <div className="aura-sidebar__user-name">Gemscape Admin</div>
+            <div className="aura-sidebar__user-role">Administrator</div>
+          </div>
+        </div>
+
+        {/* Theme toggle */}
+        <button className="aura-theme-toggle" onClick={() => setIsDark(!isDark)}>
+          {isDark ? <Sun size={14} /> : <Moon size={14} />}
+          <span className="aura-sidebar__text">{isDark ? "Light Mode" : "Dark Mode"}</span>
+        </button>
+
+        {/* Collapse toggle — desktop only */}
+        {!isMobile && (
+          <button
+            className="aura-theme-toggle"
+            onClick={() => setCollapsed(!collapsed)}
+            style={{ marginTop: 4 }}
+          >
+            {collapsed ? <PanelLeft size={14} /> : <PanelLeftClose size={14} />}
+            <span className="aura-sidebar__text">{collapsed ? "Expand" : "Collapse"}</span>
+          </button>
+        )}
+      </div>
+    </>
+  );
 
   return (
     <>
@@ -108,7 +192,7 @@ const Admin = () => {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <div className={`aura-admin ${isDark ? "" : "aura-light"} min-h-screen flex`}>
+      <div className={`aura-admin ${isDark ? "" : "aura-light"} min-h-screen flex`} style={{ overflowX: "hidden" }}>
         {/* Animated mesh background */}
         <div className="aura-mesh">
           <div className="aura-mesh__orb aura-mesh__orb--1" />
@@ -118,60 +202,22 @@ const Admin = () => {
           <div className="aura-mesh__orb aura-mesh__orb--5" />
         </div>
 
-        {/* Sidebar */}
-        <aside className={`aura-sidebar ${collapsed ? "collapsed" : ""}`}>
-          {/* Brand */}
-          <div className="aura-sidebar__brand">
-            <div className="aura-sidebar__logo">G</div>
-            <span className="aura-sidebar__brand-text">Gemscape</span>
-          </div>
+        {/* Mobile Sidebar Drawer */}
+        {isMobile && (
+          <>
+            <div className={`aura-sidebar-backdrop ${drawerOpen ? "visible" : ""}`} onClick={() => setDrawerOpen(false)} />
+            <aside className={`aura-sidebar aura-sidebar--mobile ${drawerOpen ? "open" : ""}`} style={{ width: 260 }}>
+              {sidebarContent}
+            </aside>
+          </>
+        )}
 
-          {/* Nav */}
-          <nav className="aura-sidebar__nav">
-            {NAV_SECTIONS.map((section) => (
-              <div key={section.label}>
-                <span className="aura-sidebar__section-label">{section.label}</span>
-                {section.items.map((item) => (
-                  <button
-                    key={item.key}
-                    onClick={() => setActiveTab(item.key)}
-                    className={`aura-nav-item ${activeTab === item.key ? "active" : ""}`}
-                  >
-                    <span className="aura-nav-item__icon">{item.icon}</span>
-                    <span className="aura-sidebar__text">{item.label}</span>
-                  </button>
-                ))}
-              </div>
-            ))}
-          </nav>
-
-          {/* Footer */}
-          <div className="aura-sidebar__footer">
-            <div className="aura-sidebar__user">
-              <div className="aura-sidebar__user-avatar">GA</div>
-              <div className="aura-sidebar__user-info">
-                <div className="aura-sidebar__user-name">Gemscape Admin</div>
-                <div className="aura-sidebar__user-role">Administrator</div>
-              </div>
-            </div>
-
-            {/* Theme toggle */}
-            <button className="aura-theme-toggle" onClick={() => setIsDark(!isDark)}>
-              {isDark ? <Sun size={14} /> : <Moon size={14} />}
-              <span className="aura-sidebar__text">{isDark ? "Light Mode" : "Dark Mode"}</span>
-            </button>
-
-            {/* Collapse toggle */}
-            <button
-              className="aura-theme-toggle"
-              onClick={() => setCollapsed(!collapsed)}
-              style={{ marginTop: 4 }}
-            >
-              {collapsed ? <PanelLeft size={14} /> : <PanelLeftClose size={14} />}
-              <span className="aura-sidebar__text">{collapsed ? "Expand" : "Collapse"}</span>
-            </button>
-          </div>
-        </aside>
+        {/* Desktop Sidebar */}
+        {!isMobile && (
+          <aside className={`aura-sidebar ${collapsed ? "collapsed" : ""}`}>
+            {sidebarContent}
+          </aside>
+        )}
 
         {/* Main */}
         <main className="aura-main">
@@ -179,6 +225,9 @@ const Admin = () => {
           <AdminHeader
             pageTitle={PAGE_TITLES[activeTab] || "Dashboard"}
             onNewBooking={() => setShowNewBooking(true)}
+            isMobile={isMobile}
+            onMenuToggle={() => setDrawerOpen(!drawerOpen)}
+            onNavigateSettings={() => setActiveTab("settings")}
           />
 
           {/* Content */}
@@ -195,7 +244,7 @@ const Admin = () => {
       </div>
 
       {/* New Booking Glass Modal */}
-      {showNewBooking && <NewBookingModal onClose={() => setShowNewBooking(false)} />}
+      {showNewBooking && <NewBookingModal onClose={() => setShowNewBooking(false)} isMobile={isMobile} />}
     </>
   );
 };

@@ -25,7 +25,7 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }
   completed: { bg: "rgba(96,184,240,0.12)", text: "#60b8f0", border: "rgba(96,184,240,0.3)" },
 };
 
-const AdminAllBookings = () => {
+const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
@@ -68,6 +68,7 @@ const AdminAllBookings = () => {
   };
 
   const handleSend = () => {
+    if (!msgText.trim()) return;
     setSent(true);
     setTimeout(() => { setSent(false); setMsgModal(null); setMsgText(""); }, 2000);
   };
@@ -84,102 +85,161 @@ const AdminAllBookings = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       {/* Filter Buttons */}
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 8, overflowX: isMobile ? "auto" : "visible", flexWrap: isMobile ? "nowrap" : "wrap", WebkitOverflowScrolling: "touch" as any }}>
         {filters.map(f => (
           <button key={f.key} onClick={() => setFilter(f.key)} style={{
             fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: filter === f.key ? 600 : 400,
-            padding: "8px 16px", borderRadius: 10,
-            border: `1px solid ${filter === f.key ? "rgba(60,200,184,0.4)" : "rgba(255,255,255,0.08)"}`,
-            background: filter === f.key ? "rgba(60,200,184,0.1)" : "rgba(255,255,255,0.04)",
+            padding: "8px 16px", borderRadius: 10, whiteSpace: "nowrap",
+            border: `1px solid ${filter === f.key ? "rgba(60,200,184,0.4)" : "var(--aura-glass-border)"}`,
+            background: filter === f.key ? "rgba(60,200,184,0.1)" : "var(--aura-glass)",
             color: filter === f.key ? "#3cc8b8" : "var(--aura-text-muted)", cursor: "pointer",
-            backdropFilter: "blur(12px)", transition: "all 0.2s",
+            backdropFilter: "blur(12px)", transition: "all 0.2s", minHeight: isMobile ? 44 : "auto",
           }}>
             {f.label} <span style={{ marginLeft: 6, opacity: 0.6 }}>({f.count})</span>
           </button>
         ))}
       </div>
 
-      {/* Table */}
-      <div className="aura-glass" style={{ padding: 0, overflow: "hidden" }}>
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "var(--aura-font-body)", fontSize: 13 }}>
-            <thead>
-              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                {["Client", "Tour", "Date & Time", "Guests", "Amount", "Status", "Actions"].map(h => (
-                  <th key={h} style={{
-                    padding: "14px 16px", textAlign: "left", fontSize: 11, fontWeight: 500,
-                    color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em",
-                  }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {loading ? (
-                <tr><td colSpan={7} style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)" }}>Loading…</td></tr>
-              ) : filtered.length === 0 ? (
-                <tr><td colSpan={7} style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)" }}>No bookings found</td></tr>
-              ) : filtered.map(b => {
-                const sc = STATUS_COLORS[b.status || "pending"] || STATUS_COLORS.pending;
-                return (
-                  <tr key={b.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", transition: "background 0.2s", cursor: "default" }}
-                    onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.03)")}
-                    onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
-                    <td style={{ padding: "12px 16px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                        <div style={{
-                          width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
-                          background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 11, fontWeight: 700, color: "#060e1a",
-                        }}>{getInitials(b.full_name)}</div>
-                        <div>
-                          <p style={{ fontWeight: 500, color: "var(--aura-text)", fontSize: 13 }}>{b.full_name}</p>
-                          <p style={{ fontSize: 11, color: "var(--aura-text-muted)" }}>{b.email}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td style={{ padding: "12px 16px", color: "var(--aura-text-secondary)" }}>{b.service_type}</td>
-                    <td style={{ padding: "12px 16px", color: "var(--aura-text-secondary)" }}>
-                      {b.tour_date ? format(new Date(b.tour_date), "MMM d, yyyy") : "—"}
-                    </td>
-                    <td style={{ padding: "12px 16px", color: "var(--aura-text-secondary)" }}>{b.party_size}</td>
-                    <td style={{ padding: "12px 16px", fontWeight: 600, color: "var(--aura-text)" }}>
-                      ${b.total_estimate?.toLocaleString() || "0"}
-                    </td>
-                    <td style={{ padding: "12px 16px" }}>
-                      <span style={{
-                        padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                        background: sc.bg, color: sc.text, border: `1px solid ${sc.border}`, textTransform: "capitalize",
-                      }}>{b.status || "pending"}</span>
-                    </td>
-                    <td style={{ padding: "12px 16px" }}>
-                      <div style={{ display: "flex", gap: 6 }}>
-                        <button onClick={() => setMsgModal(b)} title="Message" style={{
-                          width: 30, height: 30, borderRadius: 8, border: "1px solid rgba(255,255,255,0.08)",
-                          background: "rgba(255,255,255,0.04)", color: "#60b8f0", cursor: "pointer",
-                          display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(8px)",
-                        }}><MessageSquare size={14} /></button>
-                        {b.status === "pending" && (
-                          <button onClick={() => updateStatus(b.id, "confirmed")} title="Confirm" style={{
-                            width: 30, height: 30, borderRadius: 8, border: "1px solid rgba(64,216,184,0.2)",
-                            background: "rgba(64,216,184,0.08)", color: "#40d8b8", cursor: "pointer",
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                          }}><Check size={14} /></button>
-                        )}
-                        {b.status !== "cancelled" && (
-                          <button onClick={() => updateStatus(b.id, "cancelled")} title="Cancel" style={{
-                            width: 30, height: 30, borderRadius: 8, border: "1px solid rgba(240,104,104,0.2)",
-                            background: "rgba(240,104,104,0.08)", color: "#f06868", cursor: "pointer",
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                          }}><XIcon size={14} /></button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+      {/* Mobile: Card layout */}
+      {isMobile ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {loading ? (
+            <div className="aura-glass" style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)", fontFamily: "var(--aura-font-body)" }}>Loading…</div>
+          ) : filtered.length === 0 ? (
+            <div className="aura-glass" style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)", fontFamily: "var(--aura-font-body)" }}>No bookings found</div>
+          ) : filtered.map(b => {
+            const sc = STATUS_COLORS[b.status || "pending"] || STATUS_COLORS.pending;
+            return (
+              <div key={b.id} className="aura-glass" style={{ padding: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                  <div style={{
+                    width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
+                    background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 11, fontWeight: 700, color: "#060e1a", flexShrink: 0,
+                  }}>{getInitials(b.full_name)}</div>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontFamily: "var(--aura-font-body)", fontWeight: 500, color: "var(--aura-text)", fontSize: 13 }}>{b.full_name}</p>
+                    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)" }}>{b.email}</p>
+                  </div>
+                  <span style={{
+                    padding: "4px 10px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                    background: sc.bg, color: sc.text, border: `1px solid ${sc.border}`, textTransform: "capitalize",
+                  }}>{b.status || "pending"}</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 4, fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text-dim)", marginBottom: 10 }}>
+                  <span>{b.service_type}</span>
+                  <span>{b.tour_date ? format(new Date(b.tour_date), "MMM d, yyyy") : "—"} · {b.party_size} guest{b.party_size !== 1 ? "s" : ""}</span>
+                  <span style={{ fontWeight: 600, color: "var(--aura-text)" }}>${b.total_estimate?.toLocaleString() || "0"}</span>
+                </div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={() => setMsgModal(b)} style={{
+                    flex: 1, padding: "8px", borderRadius: 8, border: "1px solid var(--aura-glass-border)",
+                    background: "var(--aura-glass)", color: "var(--aura-info)", cursor: "pointer",
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                    fontFamily: "var(--aura-font-body)", fontSize: 11, minHeight: 44,
+                  }}><MessageSquare size={14} /> Message</button>
+                  {b.status === "pending" && (
+                    <button onClick={() => updateStatus(b.id, "confirmed")} style={{
+                      flex: 1, padding: "8px", borderRadius: 8, border: "1px solid rgba(64,216,184,0.2)",
+                      background: "rgba(64,216,184,0.08)", color: "#40d8b8", cursor: "pointer",
+                      display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                      fontFamily: "var(--aura-font-body)", fontSize: 11, minHeight: 44,
+                    }}><Check size={14} /> Confirm</button>
+                  )}
+                  {b.status !== "cancelled" && (
+                    <button onClick={() => updateStatus(b.id, "cancelled")} style={{
+                      padding: "8px 12px", borderRadius: 8, border: "1px solid rgba(240,104,104,0.2)",
+                      background: "rgba(240,104,104,0.08)", color: "#f06868", cursor: "pointer",
+                      display: "flex", alignItems: "center", justifyContent: "center", minHeight: 44,
+                    }}><XIcon size={14} /></button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </div>
+      ) : (
+        /* Desktop: Table */
+        <div className="aura-glass" style={{ padding: 0, overflow: "hidden" }}>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "var(--aura-font-body)", fontSize: 13 }}>
+              <thead>
+                <tr style={{ borderBottom: "1px solid var(--aura-glass-border)" }}>
+                  {["Client", "Tour", "Date & Time", "Guests", "Amount", "Status", "Actions"].map(h => (
+                    <th key={h} style={{
+                      padding: "14px 16px", textAlign: "left", fontSize: 11, fontWeight: 500,
+                      color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em",
+                    }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr><td colSpan={7} style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)" }}>Loading…</td></tr>
+                ) : filtered.length === 0 ? (
+                  <tr><td colSpan={7} style={{ padding: 40, textAlign: "center", color: "var(--aura-text-muted)" }}>No bookings found</td></tr>
+                ) : filtered.map(b => {
+                  const sc = STATUS_COLORS[b.status || "pending"] || STATUS_COLORS.pending;
+                  return (
+                    <tr key={b.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", transition: "background 0.2s", cursor: "default" }}
+                      onMouseEnter={e => (e.currentTarget.style.background = "var(--aura-teal-dim)")}
+                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                      <td style={{ padding: "12px 16px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                          <div style={{
+                            width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
+                            background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 11, fontWeight: 700, color: "#060e1a",
+                          }}>{getInitials(b.full_name)}</div>
+                          <div>
+                            <p style={{ fontWeight: 500, color: "var(--aura-text)", fontSize: 13 }}>{b.full_name}</p>
+                            <p style={{ fontSize: 11, color: "var(--aura-text-muted)" }}>{b.email}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td style={{ padding: "12px 16px", color: "var(--aura-text-dim)" }}>{b.service_type}</td>
+                      <td style={{ padding: "12px 16px", color: "var(--aura-text-dim)" }}>
+                        {b.tour_date ? format(new Date(b.tour_date), "MMM d, yyyy") : "—"}
+                      </td>
+                      <td style={{ padding: "12px 16px", color: "var(--aura-text-dim)" }}>{b.party_size}</td>
+                      <td style={{ padding: "12px 16px", fontWeight: 600, color: "var(--aura-text)" }}>
+                        ${b.total_estimate?.toLocaleString() || "0"}
+                      </td>
+                      <td style={{ padding: "12px 16px" }}>
+                        <span style={{
+                          padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                          background: sc.bg, color: sc.text, border: `1px solid ${sc.border}`, textTransform: "capitalize",
+                        }}>{b.status || "pending"}</span>
+                      </td>
+                      <td style={{ padding: "12px 16px" }}>
+                        <div style={{ display: "flex", gap: 6 }}>
+                          <button onClick={() => setMsgModal(b)} title="Message" style={{
+                            width: 30, height: 30, borderRadius: 8, border: "1px solid var(--aura-glass-border)",
+                            background: "var(--aura-glass)", color: "#60b8f0", cursor: "pointer",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                          }}><MessageSquare size={14} /></button>
+                          {b.status === "pending" && (
+                            <button onClick={() => updateStatus(b.id, "confirmed")} title="Confirm" style={{
+                              width: 30, height: 30, borderRadius: 8, border: "1px solid rgba(64,216,184,0.2)",
+                              background: "rgba(64,216,184,0.08)", color: "#40d8b8", cursor: "pointer",
+                              display: "flex", alignItems: "center", justifyContent: "center",
+                            }}><Check size={14} /></button>
+                          )}
+                          {b.status !== "cancelled" && (
+                            <button onClick={() => updateStatus(b.id, "cancelled")} title="Cancel" style={{
+                              width: 30, height: 30, borderRadius: 8, border: "1px solid rgba(240,104,104,0.2)",
+                              background: "rgba(240,104,104,0.08)", color: "#f06868", cursor: "pointer",
+                              display: "flex", alignItems: "center", justifyContent: "center",
+                            }}><XIcon size={14} /></button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Messaging Modal */}
       <AnimatePresence>
@@ -196,8 +256,9 @@ const AdminAllBookings = () => {
               initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
               onClick={e => e.stopPropagation()}
               style={{
-                width: 440, background: "rgba(12,20,36,0.85)", backdropFilter: "blur(22px) saturate(1.4)",
-                border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18, padding: "28px 28px 24px",
+                width: isMobile ? "96%" : 440, background: "var(--aura-sidebar-bg)", backdropFilter: "var(--aura-blur)",
+                border: "1px solid var(--aura-glass-border)", borderRadius: isMobile ? 14 : 18, padding: "28px 28px 24px",
+                maxHeight: "90vh", overflowY: "auto",
               }}
             >
               {sent ? (
@@ -206,10 +267,15 @@ const AdminAllBookings = () => {
                     width: 48, height: 48, borderRadius: 14, margin: "0 auto 16px", display: "flex", alignItems: "center", justifyContent: "center",
                     background: "rgba(64,216,184,0.12)", color: "#40d8b8",
                   }}><Check size={24} /></div>
-                  <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 20, color: "var(--aura-text)" }}>Message Sent</p>
+                  <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 22, color: "var(--aura-text)" }}>Message Sent</p>
                   <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text-muted)", marginTop: 6 }}>
                     Your {channel} has been sent to {msgModal.full_name}
                   </p>
+                  <button onClick={() => { setMsgModal(null); setSent(false); }} style={{
+                    marginTop: 16, fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "10px 24px",
+                    borderRadius: 10, border: "none", cursor: "pointer",
+                    background: "linear-gradient(135deg, var(--aura-teal), #2aa89a)", color: "#fff", minHeight: 44,
+                  }}>Done</button>
                 </div>
               ) : (
                 <>
@@ -225,9 +291,10 @@ const AdminAllBookings = () => {
                       <button key={c} onClick={() => setChannel(c)} style={{
                         fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: channel === c ? 600 : 400,
                         padding: "6px 14px", borderRadius: 8, textTransform: "capitalize",
-                        border: `1px solid ${channel === c ? "rgba(60,200,184,0.4)" : "rgba(255,255,255,0.08)"}`,
+                        border: `1px solid ${channel === c ? "rgba(60,200,184,0.4)" : "var(--aura-glass-border)"}`,
                         background: channel === c ? "rgba(60,200,184,0.1)" : "transparent",
                         color: channel === c ? "#3cc8b8" : "var(--aura-text-muted)", cursor: "pointer",
+                        flex: isMobile ? 1 : "none", minHeight: 44,
                       }}>{c}</button>
                     ))}
                   </div>
@@ -237,7 +304,7 @@ const AdminAllBookings = () => {
                     placeholder="Type your message…"
                     rows={4}
                     style={{
-                      width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
+                      width: "100%", background: "var(--aura-input-bg)", border: "1px solid var(--aura-input-border)",
                       borderRadius: 12, padding: "12px 14px", color: "var(--aura-text)", resize: "none",
                       fontFamily: "var(--aura-font-body)", fontSize: 13, outline: "none",
                     }}
@@ -246,12 +313,14 @@ const AdminAllBookings = () => {
                   <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 16 }}>
                     <button onClick={() => setMsgModal(null)} style={{
                       fontFamily: "var(--aura-font-body)", fontSize: 12, padding: "8px 18px", borderRadius: 10,
-                      border: "1px solid rgba(255,255,255,0.08)", background: "transparent", color: "var(--aura-text-muted)", cursor: "pointer",
+                      border: "1px solid var(--aura-glass-border)", background: "transparent", color: "var(--aura-text-muted)",
+                      cursor: "pointer", minHeight: 44,
                     }}>Cancel</button>
-                    <button onClick={handleSend} style={{
+                    <button onClick={handleSend} disabled={!msgText.trim()} style={{
                       fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "8px 18px", borderRadius: 10,
                       border: "none", background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
-                      cursor: "pointer", display: "flex", alignItems: "center", gap: 6,
+                      cursor: msgText.trim() ? "pointer" : "not-allowed", display: "flex", alignItems: "center", gap: 6,
+                      opacity: msgText.trim() ? 1 : 0.5, minHeight: 44,
                     }}><Send size={13} /> Send</button>
                   </div>
                 </>

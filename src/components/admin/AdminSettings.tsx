@@ -5,6 +5,7 @@ import { Sun, Moon } from "lucide-react";
 interface SettingsProps {
   isDark?: boolean;
   onToggleTheme?: () => void;
+  isMobile?: boolean;
 }
 
 interface SiteSettings {
@@ -14,7 +15,7 @@ interface SiteSettings {
   business_name: string;
 }
 
-const AdminSettings = ({ isDark = true, onToggleTheme }: SettingsProps) => {
+const AdminSettings = ({ isDark = true, onToggleTheme, isMobile = false }: SettingsProps) => {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -48,10 +49,10 @@ const AdminSettings = ({ isDark = true, onToggleTheme }: SettingsProps) => {
   );
 
   return (
-    <div style={{ maxWidth: 520, display: "flex", flexDirection: "column", gap: 20 }}>
+    <div style={{ maxWidth: isMobile ? "100%" : 520, display: "flex", flexDirection: "column", gap: 20 }}>
       {/* Business Profile */}
-      <div className="aura-glass" style={{ padding: "24px 28px" }}>
-        <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 20, color: "var(--aura-text)", marginBottom: 20 }}>
+      <div className="aura-glass" style={{ padding: isMobile ? "20px" : "24px 28px" }}>
+        <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 21, color: "var(--aura-text)", marginBottom: 20 }}>
           Business Profile
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -63,34 +64,34 @@ const AdminSettings = ({ isDark = true, onToggleTheme }: SettingsProps) => {
         <button onClick={handleSave} disabled={saving} style={{
           width: "100%", marginTop: 20, fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
           padding: "10px", borderRadius: 10, border: "none", cursor: "pointer",
-          background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
+          background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a", minHeight: 44,
         }}>{saving ? "Saving…" : saved ? "Saved ✓" : "Save Changes"}</button>
       </div>
 
       {/* Appearance */}
-      <div className="aura-glass" style={{ padding: "24px 28px" }}>
-        <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 20, color: "var(--aura-text)", marginBottom: 20 }}>
+      <div className="aura-glass" style={{ padding: isMobile ? "20px" : "24px 28px" }}>
+        <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 21, color: "var(--aura-text)", marginBottom: 20 }}>
           Appearance
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <button onClick={() => isDark && onToggleTheme?.()} style={{
             padding: "20px", borderRadius: 14, cursor: "pointer",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
-            border: `2px solid ${!isDark ? "rgba(60,200,184,0.5)" : "rgba(255,255,255,0.08)"}`,
-            background: !isDark ? "rgba(60,200,184,0.08)" : "rgba(255,255,255,0.04)",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 10, flex: 1,
+            border: `2px solid ${!isDark ? "rgba(60,200,184,0.5)" : "var(--aura-glass-border)"}`,
+            background: !isDark ? "rgba(60,200,184,0.08)" : "var(--aura-glass)",
             color: !isDark ? "#3cc8b8" : "var(--aura-text-muted)",
-            transition: "all 0.2s",
+            transition: "all 0.2s", minHeight: 44,
           }}>
             <Sun size={24} />
             <span style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600 }}>Light</span>
           </button>
           <button onClick={() => !isDark && onToggleTheme?.()} style={{
             padding: "20px", borderRadius: 14, cursor: "pointer",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
-            border: `2px solid ${isDark ? "rgba(60,200,184,0.5)" : "rgba(255,255,255,0.08)"}`,
-            background: isDark ? "rgba(60,200,184,0.08)" : "rgba(255,255,255,0.04)",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 10, flex: 1,
+            border: `2px solid ${isDark ? "rgba(60,200,184,0.5)" : "var(--aura-glass-border)"}`,
+            background: isDark ? "rgba(60,200,184,0.08)" : "var(--aura-glass)",
             color: isDark ? "#3cc8b8" : "var(--aura-text-muted)",
-            transition: "all 0.2s",
+            transition: "all 0.2s", minHeight: 44,
           }}>
             <Moon size={24} />
             <span style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600 }}>Dark</span>
@@ -107,7 +108,7 @@ const GlassInput = ({ label, value, onChange, type = "text" }: { label: string; 
     <input type={type} value={value} onChange={e => onChange(e.target.value)} style={{
       width: "100%", padding: "10px 14px", borderRadius: 10, fontSize: 13,
       fontFamily: "var(--aura-font-body)", color: "var(--aura-text)",
-      background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", outline: "none",
+      background: "var(--aura-input-bg)", border: "1px solid var(--aura-input-border)", outline: "none", minHeight: 44,
     }} />
   </div>
 );

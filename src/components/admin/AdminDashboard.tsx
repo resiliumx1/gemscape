@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { format, startOfMonth, startOfWeek, startOfYear, subMonths, subWeeks, subYears, eachDayOfInterval, eachMonthOfInterval, formatDistanceToNow } from "date-fns";
+import { format, startOfMonth, startOfWeek, startOfYear, subMonths, eachDayOfInterval, eachMonthOfInterval, formatDistanceToNow } from "date-fns";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { motion } from "framer-motion";
+import { toast } from "sonner";
 import {
   DollarSign, CalendarDays, UserPlus, Compass, GripVertical,
   ArrowUp, ArrowDown, Download, Star, Check, Plus,
@@ -14,6 +14,8 @@ type ChartRange = "week" | "month" | "year";
 
 interface AdminDashboardProps {
   onNewBooking?: () => void;
+  isMobile?: boolean;
+  setNav?: (key: string) => void;
 }
 
 /* ── Drag-and-Drop Hook ── */
@@ -43,36 +45,40 @@ const useDragReorder = (initialOrder: string[]) => {
 };
 
 /* ── DragHandle ── */
-const DragHandle = () => (
-  <div style={{
-    position: "absolute", top: 14, left: 14, opacity: 0.3,
-    cursor: "grab", color: "var(--aura-text-muted)",
-  }}>
-    <GripVertical size={16} />
-  </div>
-);
+const DragHandle = ({ hidden }: { hidden?: boolean }) => {
+  if (hidden) return null;
+  return (
+    <div style={{
+      position: "absolute", top: 14, left: 14, opacity: 0.3,
+      cursor: "grab", color: "var(--aura-text-muted)",
+    }}>
+      <GripVertical size={16} />
+    </div>
+  );
+};
 
 /* ── Glass Card Wrapper ── */
 const DashCard = ({
-  id, children, onDragStart, onDragEnter, onDragEnd, style,
+  id, children, onDragStart, onDragEnter, onDragEnd, style, isMobile,
 }: {
   id: string; children: React.ReactNode;
   onDragStart: (id: string) => void;
   onDragEnter: (id: string) => void;
   onDragEnd: () => void;
   style?: React.CSSProperties;
+  isMobile?: boolean;
 }) => (
   <div
-    draggable
-    onDragStart={() => onDragStart(id)}
-    onDragEnter={() => onDragEnter(id)}
-    onDragEnd={onDragEnd}
+    draggable={!isMobile}
+    onDragStart={() => !isMobile && onDragStart(id)}
+    onDragEnter={() => !isMobile && onDragEnter(id)}
+    onDragEnd={() => !isMobile && onDragEnd()}
     onDragOver={(e) => e.preventDefault()}
     className="aura-card"
     style={{ position: "relative", cursor: "default", ...style }}
   >
-    <DragHandle />
-    <div style={{ paddingLeft: 20 }}>{children}</div>
+    <DragHandle hidden={isMobile} />
+    <div style={{ paddingLeft: isMobile ? 0 : 20 }}>{children}</div>
   </div>
 );
 
@@ -82,9 +88,7 @@ const KpiCard = ({ icon, label, value, change, glowColor, accentColor }: {
   change: number; glowColor: string; accentColor: string;
 }) => (
   <div className="aura-card" style={{ position: "relative", overflow: "hidden", padding: "18px 18px 14px" }}>
-    {/* Top glow line */}
     <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: accentColor, borderRadius: "18px 18px 0 0" }} />
-
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
       <div style={{
         width: 40, height: 40, borderRadius: 12,
@@ -105,7 +109,6 @@ const KpiCard = ({ icon, label, value, change, glowColor, accentColor }: {
         {Math.abs(change)}%
       </div>
     </div>
-
     <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 26, fontWeight: 800, color: "var(--aura-text)", lineHeight: 1, margin: 0 }}>
       {value}
     </p>
@@ -125,7 +128,7 @@ const ACTIVITY_ICONS: Record<string, { icon: React.ReactNode; color: string }> =
 };
 
 /* ── Dashboard ── */
-const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
+const AdminDashboard = ({ onNewBooking, isMobile = false, setNav }: AdminDashboardProps) => {
   const { format: formatPrice } = useCurrency();
   const [chartRange, setChartRange] = useState<ChartRange>("month");
   const [tourBookings, setTourBookings] = useState<any[]>([]);
@@ -207,7 +210,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
       });
     }
 
-    // month → weekly buckets
     const weeks: { name: string; revenue: number }[] = [];
     for (let w = 0; w < 4; w++) {
       const wStart = new Date(start.getFullYear(), start.getMonth(), start.getDate() + w * 7);
@@ -223,7 +225,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
 
   /* Activity feed */
   const activityFeed = useMemo(() => {
-    const items = allBookings
+    return allBookings
       .sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""))
       .slice(0, 6)
       .map(b => ({
@@ -232,7 +234,6 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
         detail: b.email,
         time: b.created_at ? formatDistanceToNow(new Date(b.created_at), { addSuffix: true }) : "recently",
       }));
-    return items;
   }, [tourBookings, rentalBookings]);
 
   /* Tasks */
@@ -259,10 +260,16 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
       .map(([name, data]) => ({ name, ...data, rating: 4.5 + Math.random() * 0.5 }));
   }, [tourBookings]);
 
+  /* Generate report handler */
+  const handleGenerate = (title: string) => {
+    toast("Report generating…", { description: `Preparing ${title}` });
+    setTimeout(() => toast.success(`${title} ready!`), 2000);
+  };
+
   /* Render cards by order */
   const cardMap: Record<string, React.ReactNode> = {
     kpi: (
-      <div key="kpi" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 }}>
+      <div key="kpi" style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 14 }}>
         <KpiCard icon={<DollarSign size={18} color="var(--aura-teal)" />} label="Total Revenue" value={formatPrice(totalRevenue)} change={revChange} glowColor="rgba(60,200,184,0.2)" accentColor="var(--aura-teal)" />
         <KpiCard icon={<CalendarDays size={18} color="var(--aura-gold)" />} label="Active Bookings" value={activeBookings} change={8} glowColor="rgba(212,170,68,0.2)" accentColor="var(--aura-gold)" />
         <KpiCard icon={<UserPlus size={18} color="var(--aura-info)" />} label="New Clients" value={newClients || 3} change={15} glowColor="rgba(96,184,240,0.2)" accentColor="var(--aura-info)" />
@@ -271,7 +278,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     ),
 
     revenue: (
-      <DashCard key="revenue" id="revenue" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd}>
+      <DashCard key="revenue" id="revenue" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd} isMobile={isMobile}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
           <h3 className="aura-heading aura-h3">Revenue Overview</h3>
           <div style={{ display: "flex", gap: 6 }}>
@@ -282,7 +289,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
             ))}
           </div>
         </div>
-        <ResponsiveContainer width="100%" height={240}>
+        <ResponsiveContainer width="100%" height={isMobile ? 180 : 240}>
           <AreaChart data={chartData}>
             <defs>
               <linearGradient id="auraRevGrad" x1="0" y1="0" x2="0" y2="1">
@@ -290,7 +297,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
                 <stop offset="100%" stopColor="var(--aura-teal)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="rgba(255,255,255,0.04)" strokeDasharray="4 4" />
+            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="4 4" />
             <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} />
             <YAxis tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} tickFormatter={(v) => `$${v}`} />
             <Tooltip
@@ -308,7 +315,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     ),
 
     activity: (
-      <DashCard key="activity" id="activity" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd}>
+      <DashCard key="activity" id="activity" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd} isMobile={isMobile}>
         <h3 className="aura-heading aura-h3" style={{ marginBottom: 14 }}>Recent Activity</h3>
         <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {activityFeed.length === 0 && (
@@ -345,7 +352,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     ),
 
     tasks: (
-      <DashCard key="tasks" id="tasks" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd}>
+      <DashCard key="tasks" id="tasks" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd} isMobile={isMobile}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <h3 className="aura-heading aura-h3">Tasks</h3>
           <span style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)" }}>
@@ -360,6 +367,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
               style={{
                 display: "flex", alignItems: "center", gap: 10, padding: "8px 0",
                 cursor: "pointer", borderBottom: "1px solid rgba(255,255,255,0.04)",
+                minHeight: isMobile ? 44 : "auto",
               }}
             >
               <div style={{
@@ -385,13 +393,13 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
         <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
           <input
             className="aura-input"
-            style={{ flex: 1, fontSize: 12 }}
+            style={{ flex: 1, fontSize: 12, minHeight: isMobile ? 44 : "auto" }}
             placeholder="Add a task..."
             value={newTask}
             onChange={e => setNewTask(e.target.value)}
             onKeyDown={e => e.key === "Enter" && addTask()}
           />
-          <button onClick={addTask} className="aura-btn aura-btn--primary" style={{ padding: "8px 14px" }}>
+          <button onClick={addTask} disabled={!newTask.trim()} className="aura-btn aura-btn--primary" style={{ padding: "8px 14px", opacity: newTask.trim() ? 1 : 0.5, minHeight: isMobile ? 44 : "auto" }}>
             <Plus size={14} />
           </button>
         </div>
@@ -399,16 +407,16 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     ),
 
     tours: (
-      <DashCard key="tours" id="tours" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd}>
+      <DashCard key="tours" id="tours" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd} isMobile={isMobile}>
         <h3 className="aura-heading aura-h3" style={{ marginBottom: 14 }}>Top Tours</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 12 }}>
           {(topTours.length > 0 ? topTours : [
             { name: "Circumnavigation Tour", count: 0, revenue: 0, rating: 4.8 },
             { name: "Private Charter", count: 0, revenue: 0, rating: 4.9 },
             { name: "Half-Day Tour", count: 0, revenue: 0, rating: 4.6 },
           ]).map((tour, i) => (
             <div key={i} style={{
-              background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+              background: "var(--aura-highlight)", border: "1px solid var(--aura-glass-border)",
               borderRadius: 14, padding: 16, textAlign: "center",
             }}>
               <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, color: "var(--aura-text)", marginBottom: 6 }}>
@@ -433,16 +441,23 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
     ),
 
     reports: (
-      <DashCard key="reports" id="reports" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd}>
-        <h3 className="aura-heading aura-h3" style={{ marginBottom: 14 }}>Quick Reports</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+      <DashCard key="reports" id="reports" onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd} isMobile={isMobile}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+          <h3 className="aura-heading aura-h3">Quick Reports</h3>
+          {setNav && (
+            <button onClick={() => setNav("reports")} className="aura-btn aura-btn--ghost" style={{ fontSize: 11, padding: "4px 12px" }}>
+              Full Reports
+            </button>
+          )}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 12 }}>
           {[
             { icon: <FileText size={18} color="var(--aura-teal)" />, title: "Weekly Summary", desc: "Revenue, bookings & trends" },
             { icon: <UserPlus size={18} color="var(--aura-info)" />, title: "Client Report", desc: "New & returning guests" },
             { icon: <Compass size={18} color="var(--aura-gold)" />, title: "Tour Performance", desc: "Ratings & occupancy" },
           ].map((report, i) => (
             <div key={i} style={{
-              background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+              background: "var(--aura-highlight)", border: "1px solid var(--aura-glass-border)",
               borderRadius: 14, padding: 16,
             }}>
               <div style={{
@@ -459,7 +474,7 @@ const AdminDashboard = ({ onNewBooking }: AdminDashboardProps) => {
               <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)", marginBottom: 12, lineHeight: 1.4 }}>
                 {report.desc}
               </p>
-              <button className="aura-btn aura-btn--ghost" style={{ fontSize: 11, padding: "6px 14px", width: "100%", justifyContent: "center" }}>
+              <button onClick={() => handleGenerate(report.title)} className="aura-btn aura-btn--ghost" style={{ fontSize: 11, padding: "6px 14px", width: "100%", justifyContent: "center" }}>
                 <Download size={12} />
                 Generate
               </button>

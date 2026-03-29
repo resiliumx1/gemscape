@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Home, Search, Plus, Bell, X, Clock,
+  Home, Search, Plus, Bell, X, Clock, Menu,
   CalendarDays as CalIcon, Users, Phone,
 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
@@ -65,7 +65,7 @@ const MOCK_NOTIFICATIONS = [
   { id: "4", text: "Fleet maintenance due: Suzuki Jimny", time: "3 hrs ago", read: true },
 ];
 
-const NotificationBell = () => {
+const NotificationBell = ({ isMobile }: { isMobile: boolean }) => {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS);
   const ref = useRef<HTMLDivElement>(null);
@@ -88,7 +88,7 @@ const NotificationBell = () => {
           background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
           display: "flex", alignItems: "center", justifyContent: "center",
           cursor: "pointer", color: "var(--aura-text-dim)", position: "relative",
-          transition: "all 0.2s",
+          transition: "all 0.2s", minWidth: 36, minHeight: 36,
         }}
       >
         <Bell size={16} />
@@ -109,8 +109,12 @@ const NotificationBell = () => {
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             style={{
-              position: "absolute", top: "calc(100% + 8px)", right: 0,
-              width: 320, background: "var(--aura-sidebar-bg)",
+              position: isMobile ? "fixed" : "absolute",
+              top: isMobile ? 60 : "calc(100% + 8px)",
+              right: isMobile ? 16 : 0,
+              left: isMobile ? 16 : "auto",
+              width: isMobile ? "auto" : 320,
+              background: "var(--aura-sidebar-bg)",
               backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)",
               borderRadius: "var(--aura-radius-card)", overflow: "hidden", zIndex: 50,
               boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
@@ -120,7 +124,7 @@ const NotificationBell = () => {
               display: "flex", alignItems: "center", justifyContent: "space-between",
               padding: "14px 16px", borderBottom: "1px solid var(--aura-glass-border)",
             }}>
-              <span style={{ fontFamily: "var(--aura-font-heading)", fontSize: 16, color: "var(--aura-text)" }}>
+              <span style={{ fontFamily: "var(--aura-font-heading)", fontSize: 18, color: "var(--aura-text)" }}>
                 Notifications
               </span>
               <button
@@ -168,10 +172,82 @@ const NotificationBell = () => {
 interface AdminHeaderProps {
   pageTitle: string;
   onNewBooking: () => void;
+  isMobile?: boolean;
+  onMenuToggle?: () => void;
+  onNavigateSettings?: () => void;
 }
 
-const AdminHeader = ({ pageTitle, onNewBooking }: AdminHeaderProps) => {
+const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, onNavigateSettings }: AdminHeaderProps) => {
   const today = format(new Date(), "EEEE, MMMM d, yyyy");
+
+  if (isMobile) {
+    return (
+      <div className="aura-topbar" style={{ flexDirection: "column", alignItems: "stretch", gap: 8, padding: "10px 12px" }}>
+        {/* Row 1: Hamburger + Title + Bell + Avatar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <button onClick={onMenuToggle} style={{
+              width: 44, height: 44, borderRadius: "var(--aura-radius-btn)",
+              background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer", color: "var(--aura-text-dim)",
+            }}>
+              <Menu size={18} />
+            </button>
+            <div>
+              <h1 style={{
+                fontFamily: "var(--aura-font-heading)", fontSize: 22, fontWeight: 400,
+                color: "var(--aura-text)", lineHeight: 1.1, margin: 0,
+              }}>
+                {pageTitle}
+              </h1>
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <NotificationBell isMobile={isMobile} />
+            <div onClick={onNavigateSettings} style={{
+              width: 36, height: 36, borderRadius: "50%",
+              background: "linear-gradient(135deg, var(--aura-teal), var(--aura-gold))",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 700,
+              color: "#fff", cursor: "pointer", flexShrink: 0, minWidth: 36, minHeight: 36,
+            }}>
+              GA
+            </div>
+          </div>
+        </div>
+        {/* Row 2: Search + New Booking */}
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <div style={{ position: "relative", flex: 1 }}>
+            <Search size={14} style={{
+              position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
+              color: "var(--aura-text-muted)",
+            }} />
+            <input
+              className="aura-topbar__search"
+              placeholder="Search..."
+              style={{ width: "100%" }}
+            />
+          </div>
+          <button
+            onClick={onNewBooking}
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 6,
+              background: "linear-gradient(135deg, var(--aura-gold), #c49830)",
+              border: "none", borderRadius: "var(--aura-radius-btn)",
+              padding: "9px 16px", cursor: "pointer",
+              fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
+              color: "#fff", boxShadow: "0 4px 14px rgba(212,170,68,0.35)",
+              whiteSpace: "nowrap", minHeight: 44,
+            }}
+          >
+            <Plus size={14} />
+            New
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="aura-topbar" style={{ height: 64, padding: "0 24px" }}>
@@ -180,7 +256,7 @@ const AdminHeader = ({ pageTitle, onNewBooking }: AdminHeaderProps) => {
         <HomeButton />
         <div>
           <h1 style={{
-            fontFamily: "var(--aura-font-heading)", fontSize: 24, fontWeight: 400,
+            fontFamily: "var(--aura-font-heading)", fontSize: 27, fontWeight: 400,
             color: "var(--aura-text)", lineHeight: 1.1, margin: 0,
           }}>
             {pageTitle}
@@ -224,16 +300,19 @@ const AdminHeader = ({ pageTitle, onNewBooking }: AdminHeaderProps) => {
           />
         </div>
 
-        <NotificationBell />
+        <NotificationBell isMobile={false} />
 
         {/* Avatar */}
-        <div style={{
-          width: 36, height: 36, borderRadius: "50%",
-          background: "linear-gradient(135deg, var(--aura-teal), var(--aura-gold))",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 700,
-          color: "#fff", cursor: "pointer", flexShrink: 0,
-        }}>
+        <div
+          onClick={onNavigateSettings}
+          style={{
+            width: 36, height: 36, borderRadius: "50%",
+            background: "linear-gradient(135deg, var(--aura-teal), var(--aura-gold))",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 700,
+            color: "#fff", cursor: "pointer", flexShrink: 0,
+          }}
+        >
           GA
         </div>
       </div>
@@ -244,6 +323,7 @@ const AdminHeader = ({ pageTitle, onNewBooking }: AdminHeaderProps) => {
 /* ── New Booking Glass Modal ── */
 interface NewBookingModalProps {
   onClose: () => void;
+  isMobile?: boolean;
 }
 
 const TOUR_OPTIONS = [
@@ -253,15 +333,18 @@ const TOUR_OPTIONS = [
   { value: "Flight Concierge", label: "Flight Concierge", price: "$120" },
 ];
 
-const NewBookingModal = ({ onClose }: NewBookingModalProps) => {
+const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) => {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [date, setDate] = useState<Date | undefined>();
 
   const set = (key: string, val: string) => setFormData(prev => ({ ...prev, [key]: val }));
 
+  const canSubmit = formData.client_name && formData.tour && date;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!canSubmit) return;
     setSubmitting(true);
     try {
       const { error } = await supabase.from("bookings").insert({
@@ -300,11 +383,12 @@ const NewBookingModal = ({ onClose }: NewBookingModalProps) => {
         transition={{ duration: 0.25 }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          width: 520, maxWidth: "92vw", maxHeight: "90vh", overflowY: "auto",
+          width: isMobile ? "96%" : 520,
+          maxWidth: "96vw", maxHeight: "90vh", overflowY: "auto",
           background: "var(--aura-sidebar-bg)",
           backdropFilter: "var(--aura-blur)", WebkitBackdropFilter: "var(--aura-blur)",
           border: "1px solid var(--aura-glass-border)",
-          borderRadius: "var(--aura-radius-card)", padding: 28,
+          borderRadius: isMobile ? 14 : "var(--aura-radius-card)", padding: isMobile ? 20 : 28,
           boxShadow: "0 30px 80px rgba(0,0,0,0.4)",
         }}
       >
@@ -324,7 +408,7 @@ const NewBookingModal = ({ onClose }: NewBookingModalProps) => {
 
         <form onSubmit={handleSubmit}>
           {/* Client Name + Email */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14, marginBottom: 14 }}>
             <div>
               <label className="aura-input-label">Client Name *</label>
               <input className="aura-input" required value={formData.client_name || ""} onChange={e => set("client_name", e.target.value)} placeholder="Full name" />
@@ -356,7 +440,7 @@ const NewBookingModal = ({ onClose }: NewBookingModalProps) => {
           </div>
 
           {/* Date + Time + Guests */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginBottom: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 14, marginBottom: 14 }}>
             <div>
               <label className="aura-input-label">Date *</label>
               <Popover>
@@ -367,6 +451,7 @@ const NewBookingModal = ({ onClose }: NewBookingModalProps) => {
                     style={{
                       display: "flex", alignItems: "center", gap: 8,
                       textAlign: "left", color: date ? "var(--aura-text)" : "var(--aura-text-muted)",
+                      minHeight: 44,
                     }}
                   >
                     <CalIcon size={14} />
@@ -388,14 +473,14 @@ const NewBookingModal = ({ onClose }: NewBookingModalProps) => {
               <label className="aura-input-label">Time</label>
               <div style={{ position: "relative" }}>
                 <Clock size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
-                <input type="time" className="aura-input" style={{ paddingLeft: 34 }} value={formData.time || ""} onChange={e => set("time", e.target.value)} />
+                <input type="time" className="aura-input" style={{ paddingLeft: 34, minHeight: 44 }} value={formData.time || ""} onChange={e => set("time", e.target.value)} />
               </div>
             </div>
             <div>
               <label className="aura-input-label">Guests</label>
               <div style={{ position: "relative" }}>
                 <Users size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
-                <input type="number" min="1" className="aura-input" style={{ paddingLeft: 34 }} value={formData.guests || ""} onChange={e => set("guests", e.target.value)} placeholder="1" />
+                <input type="number" min="1" className="aura-input" style={{ paddingLeft: 34, minHeight: 44 }} value={formData.guests || ""} onChange={e => set("guests", e.target.value)} placeholder="1" />
               </div>
             </div>
           </div>
@@ -409,23 +494,23 @@ const NewBookingModal = ({ onClose }: NewBookingModalProps) => {
                 padding: "10px 24px", borderRadius: "var(--aura-radius-btn)",
                 background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
                 color: "var(--aura-text-dim)", fontFamily: "var(--aura-font-body)",
-                fontSize: 12, fontWeight: 500, cursor: "pointer",
+                fontSize: 12, fontWeight: 500, cursor: "pointer", minHeight: 44,
               }}
             >
               Cancel
             </button>
             <button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || !canSubmit}
               style={{
                 padding: "10px 28px", borderRadius: "var(--aura-radius-btn)",
                 background: "linear-gradient(135deg, var(--aura-gold), #c49830)",
                 border: "none", color: "#fff",
                 fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
-                cursor: submitting ? "not-allowed" : "pointer",
-                opacity: submitting ? 0.6 : 1,
+                cursor: submitting || !canSubmit ? "not-allowed" : "pointer",
+                opacity: submitting || !canSubmit ? 0.5 : 1,
                 boxShadow: "0 4px 14px rgba(212,170,68,0.35)",
-                transition: "all 0.2s",
+                transition: "all 0.2s", minHeight: 44,
               }}
             >
               {submitting ? "Creating…" : "Create Booking"}

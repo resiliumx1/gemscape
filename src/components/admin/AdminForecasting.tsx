@@ -1,18 +1,16 @@
-import { useMemo } from "react";
 import {
   LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer,
 } from "recharts";
 import { TrendingUp } from "lucide-react";
 
-/* ── Glass tooltip ── */
 const GlassTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: "rgba(10,18,32,0.82)", backdropFilter: "blur(16px) saturate(1.3)",
-      border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, padding: "10px 14px",
-      fontFamily: "var(--aura-font-body)", fontSize: 12, color: "#e2e8f0",
+      background: "var(--aura-sidebar-bg)", backdropFilter: "var(--aura-blur)",
+      border: "1px solid var(--aura-glass-border)", borderRadius: 12, padding: "10px 14px",
+      fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text)",
     }}>
       <p style={{ fontWeight: 600, marginBottom: 4 }}>{label}</p>
       {payload.map((p: any) => (
@@ -49,7 +47,7 @@ const AdminForecasting = () => {
             <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 40, fontWeight: 800, color: "var(--aura-text)" }}>
               $48,200
             </p>
-            <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 14, fontWeight: 600, color: "#40d8b8", marginTop: 6, display: "flex", alignItems: "center", gap: 6 }}>
+            <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 14, fontWeight: 600, color: "var(--aura-success)", marginTop: 6, display: "flex", alignItems: "center", gap: 6 }}>
               <TrendingUp size={15} /> +34% vs Q1
             </p>
           </div>
@@ -64,7 +62,7 @@ const AdminForecasting = () => {
 
       {/* Forecast Chart */}
       <div className="aura-glass" style={{ padding: "22px 24px" }}>
-        <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 20, color: "var(--aura-text)", marginBottom: 6 }}>
+        <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 21, color: "var(--aura-text)", marginBottom: 6 }}>
           Revenue Forecast
         </p>
         <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text-muted)", marginBottom: 24 }}>
@@ -78,29 +76,27 @@ const AdminForecasting = () => {
                 <stop offset="100%" stopColor="#d4aa44" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="rgba(255,255,255,0.04)" strokeDasharray="4 4" />
+            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="4 4" />
             <XAxis
               dataKey="name"
-              tick={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fill: "rgba(255,255,255,0.35)" }}
+              tick={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fill: "var(--aura-text-muted)" }}
               axisLine={false} tickLine={false}
             />
             <YAxis
-              tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "rgba(255,255,255,0.35)" }}
+              tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }}
               axisLine={false} tickLine={false}
               tickFormatter={v => `$${(v / 1000).toFixed(0)}k`}
             />
             <Tooltip content={<GlassTooltip />} />
-            {/* Forecast area (gold dashed) */}
             <Area
               type="monotone" dataKey="forecast" stroke="#d4aa44" strokeWidth={2}
               strokeDasharray="6 4" fill="url(#forecastGoldGrad)" name="Forecast"
               dot={{ r: 4, fill: "#d4aa44", stroke: "#d4aa44" }}
               connectNulls={false}
             />
-            {/* Actual line (teal solid) */}
             <Line
               type="monotone" dataKey="actual" stroke="#3cc8b8" strokeWidth={2.5}
-              dot={{ r: 5, fill: "#3cc8b8", stroke: "rgba(10,18,32,0.6)", strokeWidth: 2 }}
+              dot={{ r: 5, fill: "#3cc8b8", stroke: "var(--aura-bg)", strokeWidth: 2 }}
               name="Actual" connectNulls={false}
             />
           </AreaChart>
@@ -110,11 +106,11 @@ const AdminForecasting = () => {
         <div style={{ display: "flex", gap: 24, justifyContent: "center", marginTop: 16, fontFamily: "var(--aura-font-body)", fontSize: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div style={{ width: 20, height: 2, background: "#3cc8b8", borderRadius: 1 }} />
-            <span style={{ color: "var(--aura-text-secondary)" }}>Actual</span>
+            <span style={{ color: "var(--aura-text-dim)" }}>Actual</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div style={{ width: 20, height: 2, background: "#d4aa44", borderRadius: 1, borderTop: "2px dashed #d4aa44" }} />
-            <span style={{ color: "var(--aura-text-secondary)" }}>Forecast</span>
+            <span style={{ color: "var(--aura-text-dim)" }}>Forecast</span>
           </div>
         </div>
       </div>
