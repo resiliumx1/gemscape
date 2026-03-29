@@ -11,10 +11,10 @@ const GlassTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: "rgba(6,22,28,0.92)", backdropFilter: "blur(14px)",
-      border: "1px solid var(--aura-glass-border)", borderRadius: 12, padding: "12px 16px",
+      background: "var(--aura-modal-bg, rgba(8,28,34,0.94))", backdropFilter: "blur(8px)",
+      border: "1px solid var(--aura-glass-border)", borderRadius: 10, padding: "8px 14px",
       fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text)",
-      boxShadow: "var(--aura-card-shadow)",
+      boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
     }}>
       <p style={{ fontWeight: 600, marginBottom: 6, fontSize: 11, color: "var(--aura-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
       {payload.map((p: any) => (
@@ -118,7 +118,7 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
                 <stop offset="100%" stopColor="#2cb8a8" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" />
+            <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" vertical={false} />
             <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fontFamily: "var(--aura-font-mono)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={v => `$${v.toLocaleString()}`} />
             <Tooltip content={<GlassTooltip />} />
@@ -133,7 +133,7 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
           <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 19, color: "var(--aura-text)", marginBottom: 20 }}>Monthly Breakdown</p>
           <ResponsiveContainer width="100%" height={isMobile ? 180 : 240}>
             <BarChart data={barData}>
-              <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" />
+              <CartesianGrid stroke="var(--aura-grid-stroke)" strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={v => `$${v.toLocaleString()}`} />
               <Tooltip content={<GlassTooltip />} />
@@ -150,7 +150,7 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
                 <Pie data={DONUT_DATA} cx="50%" cy="50%" innerRadius={55} outerRadius={85} dataKey="value" stroke="none">
                   {DONUT_DATA.map((_, i) => <Cell key={i} fill={DONUT_COLORS[i]} />)}
                 </Pie>
-                <Tooltip content={<GlassTooltip />} />
+                <Tooltip content={<GlassTooltip />} offset={20} wrapperStyle={{ zIndex: 100 }} />
               </PieChart>
             </ResponsiveContainer>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1, width: "100%" }}>

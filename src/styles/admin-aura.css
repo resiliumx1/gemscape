@@ -19,6 +19,7 @@
   --aura-glass-border-hover: rgba(120,200,200,0.20);
   --aura-glass-hover: rgba(8,32,38,0.75);
   --aura-highlight: rgba(120,200,200,0.05);
+  --aura-bg-hover: rgba(120,200,200,0.08);
   --aura-sidebar-bg: rgba(6,22,28,0.72);
   --aura-teal: #2cb8a8;
   --aura-teal-bright: #48dac8;
@@ -41,12 +42,14 @@
   --aura-font-body: 'DM Sans', sans-serif;
   --aura-font-heading: 'Cormorant Garamond', serif;
   --aura-font-mono: 'JetBrains Mono', monospace;
-  --aura-input-bg: rgba(0,0,0,0.25);
-  --aura-input-border: rgba(120,200,200,0.10);
-  --aura-grid-stroke: rgba(120,200,200,0.06);
+  --aura-input-bg: rgba(255,255,255,0.08);
+  --aura-input-border: rgba(255,255,255,0.12);
+  --aura-grid-stroke: rgba(120,200,200,0.04);
   --aura-card-shadow: 0 8px 32px rgba(0,0,0,0.35);
   --aura-card-shadow-hover: 0 12px 40px rgba(0,0,0,0.45);
   --aura-border-light: rgba(120,200,200,0.07);
+  --aura-modal-bg: rgba(8,32,38,0.96);
+  --aura-notification-bg: rgba(6,22,28,0.95);
 }
 
 .aura-admin.aura-light {
@@ -61,7 +64,8 @@
   --aura-glass-border: rgba(0,60,65,0.10);
   --aura-glass-border-hover: rgba(0,60,65,0.18);
   --aura-glass-hover: rgba(255,255,255,0.72);
-  --aura-highlight: rgba(0,60,65,0.045);
+  --aura-highlight: rgba(0,50,50,0.04);
+  --aura-bg-hover: rgba(0,50,50,0.06);
   --aura-sidebar-bg: rgba(238,248,248,0.70);
   --aura-teal: #2cb8a8;
   --aura-teal-bright: #1a9a8a;
@@ -70,19 +74,21 @@
   --aura-gold-hover: #d4ad7c;
   --aura-gold-dim: rgba(184,149,106,0.06);
   --aura-success: #1a9a7e;
-  --aura-warning: #b8922a;
+  --aura-warning: #9a7a18;
   --aura-danger: #c84050;
   --aura-info: #2888c8;
   --aura-success-bg: rgba(26,154,126,0.08);
   --aura-warning-bg: rgba(184,146,42,0.08);
   --aura-danger-bg: rgba(200,64,80,0.08);
   --aura-info-bg: rgba(40,136,200,0.08);
-  --aura-input-bg: rgba(255,255,255,0.72);
+  --aura-input-bg: rgba(0,0,0,0.04);
   --aura-input-border: rgba(0,60,65,0.12);
-  --aura-grid-stroke: rgba(0,60,65,0.05);
+  --aura-grid-stroke: rgba(0,60,65,0.03);
   --aura-card-shadow: 0 8px 32px rgba(0,50,60,0.08);
   --aura-card-shadow-hover: 0 12px 40px rgba(0,50,60,0.12);
   --aura-border-light: rgba(0,60,65,0.06);
+  --aura-modal-bg: rgba(255,255,255,0.97);
+  --aura-notification-bg: rgba(255,255,255,0.97);
 }
 
 /* ── Animated Gradient Mesh Background ── */
@@ -107,7 +113,6 @@
   opacity: 0.6;
 }
 
-/* Dark mode orbs — teal/aquamarine/ocean only */
 .aura-mesh__orb--1 {
   width: 600px; height: 600px;
   background: rgba(26,138,158,0.20);
@@ -139,33 +144,17 @@
   animation: aura-drift-5 40s ease-in-out infinite alternate;
 }
 
-/* Light mode orb overrides */
 .aura-light .aura-mesh__orb--1 { background: rgba(26,138,158,0.08); }
 .aura-light .aura-mesh__orb--2 { background: rgba(14,80,100,0.06); }
 .aura-light .aura-mesh__orb--3 { background: rgba(44,184,168,0.06); }
 .aura-light .aura-mesh__orb--4 { background: rgba(44,184,168,0.05); }
 .aura-light .aura-mesh__orb--5 { background: rgba(184,149,106,0.04); }
 
-@keyframes aura-drift-1 {
-  0% { transform: translate(0,0) scale(1); }
-  100% { transform: translate(80px,60px) scale(1.15); }
-}
-@keyframes aura-drift-2 {
-  0% { transform: translate(0,0) scale(1); }
-  100% { transform: translate(-60px,80px) scale(1.1); }
-}
-@keyframes aura-drift-3 {
-  0% { transform: translate(0,0) scale(1); }
-  100% { transform: translate(50px,-70px) scale(1.2); }
-}
-@keyframes aura-drift-4 {
-  0% { transform: translate(0,0) scale(1); }
-  100% { transform: translate(70px,40px) scale(1.08); }
-}
-@keyframes aura-drift-5 {
-  0% { transform: translate(0,0) scale(1); }
-  100% { transform: translate(-40px,-50px) scale(1.12); }
-}
+@keyframes aura-drift-1 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(80px,60px) scale(1.15); } }
+@keyframes aura-drift-2 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-60px,80px) scale(1.1); } }
+@keyframes aura-drift-3 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(50px,-70px) scale(1.2); } }
+@keyframes aura-drift-4 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(70px,40px) scale(1.08); } }
+@keyframes aura-drift-5 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-40px,-50px) scale(1.12); } }
 
 /* ── Glass Panels ── */
 .aura-glass {
@@ -178,9 +167,8 @@
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Light mode: add subtle definition shadow */
 .aura-light .aura-glass {
-  box-shadow: var(--aura-card-shadow), 0 1px 12px rgba(0,50,60,0.06);
+  box-shadow: var(--aura-card-shadow), 0 1px 12px rgba(0,50,60,0.06), 0 1px 3px rgba(0,50,60,0.04);
 }
 
 .aura-glass:hover {
@@ -204,6 +192,11 @@
   border-right: 1px solid var(--aura-glass-border);
   z-index: 10;
   transition: width 0.35s cubic-bezier(0.4,0,0.2,1), background 0.4s ease, border-color 0.4s ease;
+}
+
+.aura-light .aura-sidebar {
+  background: var(--aura-sidebar-bg);
+  border-right: 1px solid var(--aura-glass-border);
 }
 
 .aura-sidebar.collapsed {
@@ -501,7 +494,7 @@
 
 .aura-topbar__search::placeholder {
   color: var(--aura-text-muted);
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .aura-topbar__search:focus {
@@ -553,7 +546,7 @@
   overflow-y: auto;
 }
 
-/* ── Cards (Glass) — Premium Glassmorphism ── */
+/* ── Cards (Glass) ── */
 .aura-card {
   background: var(--aura-glass);
   backdrop-filter: var(--aura-blur);
@@ -567,7 +560,6 @@
   overflow: hidden;
 }
 
-/* Light mode card definition */
 .aura-light .aura-card {
   box-shadow: var(--aura-card-shadow), 0 1px 12px rgba(0,50,60,0.06);
 }
@@ -659,7 +651,7 @@
 }
 
 .aura-table tbody tr:hover {
-  background: var(--aura-glass-hover);
+  background: var(--aura-bg-hover);
 }
 
 /* ── Status Pills ── */
@@ -715,7 +707,7 @@
 
 .aura-input::placeholder {
   color: var(--aura-text-muted);
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .aura-input:focus {
@@ -726,6 +718,7 @@
 .aura-light .aura-input {
   background: var(--aura-input-bg);
   border-color: var(--aura-input-border);
+  color: var(--aura-text);
 }
 
 .aura-light .aura-input:focus {
@@ -740,7 +733,7 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--aura-text-muted);
+  color: var(--aura-text-secondary);
   margin-bottom: 8px;
 }
 
@@ -879,9 +872,11 @@
 /* ── Select dropdown option backgrounds ── */
 .aura-admin select option {
   background: #0a2028;
+  color: #e4f0f2;
 }
 .aura-light select option {
   background: #f0f8f6;
+  color: #0c2e32;
 }
 
 /* ── Responsive ── */
@@ -919,7 +914,6 @@
   transition-timing-function: ease;
 }
 
-/* Override for elements that shouldn't transition */
 .aura-admin .aura-mesh__orb {
   transition: background 0.6s ease;
 }
@@ -934,14 +928,8 @@
 
 /* ── Page Content Entrance Animation ── */
 @keyframes aura-page-enter {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .aura-content > * {
@@ -1013,4 +1001,69 @@
 
 .aura-empty-state__action:hover {
   opacity: 0.8;
+}
+
+/* ── Filter Input ── */
+.admin-filter-input {
+  background: var(--aura-input-bg);
+  border: 1px solid var(--aura-input-border);
+  border-radius: var(--aura-radius-input);
+  padding: 8px 14px;
+  font-family: var(--aura-font-body);
+  font-size: 12px;
+  color: var(--aura-text);
+  outline: none;
+}
+
+.admin-filter-input::placeholder {
+  color: var(--aura-text-muted);
+}
+
+/* ── Old status class compatibility ── */
+.admin-status-pending {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+  background: var(--aura-warning-bg);
+  color: var(--aura-warning);
+  border: 1px solid rgba(224,184,76,0.25);
+}
+
+.admin-status-confirmed {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+  background: var(--aura-success-bg);
+  color: var(--aura-success);
+  border: 1px solid rgba(60,216,180,0.25);
+}
+
+.admin-status-completed {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+  background: var(--aura-info-bg);
+  color: var(--aura-info);
+  border: 1px solid rgba(88,184,232,0.25);
+}
+
+.admin-status-cancelled {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+  background: var(--aura-danger-bg);
+  color: var(--aura-danger);
+  border: 1px solid rgba(232,96,96,0.25);
 }
