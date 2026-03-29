@@ -122,12 +122,6 @@ const Admin = () => {
       </div>
 
       <nav className="aura-sidebar__nav">
-        {isMobile && (
-          <button onClick={() => { setDrawerOpen(false); navigate("/"); }} className="aura-nav-item">
-            <span className="aura-nav-item__icon"><Home size={18} strokeWidth={1.5} /></span>
-            <span className="aura-sidebar__text">Back to Home</span>
-          </button>
-        )}
         {NAV_SECTIONS.map((section) => (
           <div key={section.label}>
             <span className="aura-sidebar__section-label">{section.label}</span>
