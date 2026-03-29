@@ -40,7 +40,7 @@ const AdminReviewRequests = ({ isMobile = false }: { isMobile?: boolean }) => {
   const kpis = [
     { label: "Average Rating", value: "4.6", icon: <Star size={18} />, glow: "var(--aura-gold)", extra: (
       <div style={{ display: "flex", gap: 2, marginTop: 6 }}>
-        {[1,2,3,4,5].map(s => <Star key={s} size={14} fill={s <= 4 ? "var(--aura-gold)" : "none"} color="var(--aura-gold)" strokeWidth={s === 5 ? 1.5 : 0} />)}
+        {[1,2,3,4,5].map(s => <Star key={s} size={14} fill={s <= 4 ? "#d4ad7c" : "none"} color="#d4ad7c" strokeWidth={s === 5 ? 1.5 : 0} />)}
       </div>
     )},
     { label: "Total Reviews", value: String(reviewed.length || 0), icon: <MessageSquare size={18} />, glow: "var(--aura-teal)" },
