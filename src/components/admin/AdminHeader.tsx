@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Home, Search, Plus, Bell, X, Clock, Menu,
+  Home, Search, Plus, Bell, X, Clock, Menu, Globe,
   CalendarDays as CalIcon, Users, Phone,
 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
