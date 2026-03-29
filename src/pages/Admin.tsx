@@ -228,6 +228,7 @@ const Admin = () => {
             isMobile={isMobile}
             onMenuToggle={() => setDrawerOpen(!drawerOpen)}
             onNavigateSettings={() => setActiveTab("settings")}
+            onNavigateDashboard={() => setActiveTab("dashboard")}
           />
 
           {/* Content */}

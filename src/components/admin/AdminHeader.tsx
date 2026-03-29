@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Home, Search, Plus, Bell, X, Clock, Menu,
+  Home, Search, Plus, Bell, X, Clock, Menu, Globe,
   CalendarDays as CalIcon, Users, Phone,
 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
@@ -116,7 +116,7 @@ const NotificationBell = ({ isMobile }: { isMobile: boolean }) => {
               width: isMobile ? "auto" : 320,
               background: "var(--aura-sidebar-bg)",
               backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)",
-              borderRadius: "var(--aura-radius-card)", overflow: "hidden", zIndex: 50,
+              borderRadius: "var(--aura-radius-card)", overflow: "hidden", zIndex: 9999,
               boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
             }}
           >
@@ -175,33 +175,50 @@ interface AdminHeaderProps {
   isMobile?: boolean;
   onMenuToggle?: () => void;
   onNavigateSettings?: () => void;
+  onNavigateDashboard?: () => void;
 }
 
-const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, onNavigateSettings }: AdminHeaderProps) => {
+const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, onNavigateSettings, onNavigateDashboard }: AdminHeaderProps) => {
+  const navigate = useNavigate();
   const today = format(new Date(), "EEEE, MMMM d, yyyy");
 
   if (isMobile) {
     return (
       <div className="aura-topbar" style={{ flexDirection: "column", alignItems: "stretch", gap: 8, padding: "10px 12px" }}>
-        {/* Row 1: Hamburger + Title + Bell + Avatar */}
+        {/* Row 1: Hamburger + Home + Back to Site + Title + Bell + Avatar */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <button onClick={onMenuToggle} style={{
-              width: 44, height: 44, borderRadius: "var(--aura-radius-btn)",
+              width: 40, height: 40, borderRadius: "var(--aura-radius-btn)",
               background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              cursor: "pointer", color: "var(--aura-text-dim)",
+              cursor: "pointer", color: "var(--aura-text-dim)", flexShrink: 0,
             }}>
               <Menu size={18} />
             </button>
-            <div>
-              <h1 style={{
-                fontFamily: "var(--aura-font-heading)", fontSize: 22, fontWeight: 400,
-                color: "var(--aura-text)", lineHeight: 1.1, margin: 0,
-              }}>
-                {pageTitle}
-              </h1>
-            </div>
+            <button onClick={onNavigateDashboard} title="Dashboard" style={{
+              width: 40, height: 40, borderRadius: "var(--aura-radius-btn)",
+              background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer", color: "var(--aura-text-dim)", flexShrink: 0,
+            }}>
+              <Home size={16} />
+            </button>
+            <button onClick={() => navigate("/")} title="Back to Site" style={{
+              width: 40, height: 40, borderRadius: "var(--aura-radius-btn)",
+              background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer", color: "var(--aura-text-dim)", flexShrink: 0,
+            }}>
+              <Globe size={16} />
+            </button>
+            <h1 style={{
+              fontFamily: "var(--aura-font-heading)", fontSize: 20, fontWeight: 400,
+              color: "var(--aura-text)", lineHeight: 1.1, margin: 0, marginLeft: 4,
+              overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+            }}>
+              {pageTitle}
+            </h1>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <NotificationBell isMobile={isMobile} />
