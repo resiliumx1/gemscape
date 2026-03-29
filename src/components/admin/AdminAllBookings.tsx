@@ -114,7 +114,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                   <div style={{
                     width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
-                    background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 11, fontWeight: 700, color: "#060e1a", flexShrink: 0,
+                    background: "linear-gradient(135deg, var(--aura-teal), var(--aura-gold))", fontSize: 11, fontWeight: 700, color: "#fff", flexShrink: 0,
                   }}>{getInitials(b.full_name)}</div>
                   <div style={{ flex: 1 }}>
                     <p style={{ fontFamily: "var(--aura-font-body)", fontWeight: 500, color: "var(--aura-text)", fontSize: 13 }}>{b.full_name}</p>
@@ -187,7 +187,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
                         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                           <div style={{
                             width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
-                            background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 11, fontWeight: 700, color: "#060e1a",
+                            background: "linear-gradient(135deg, var(--aura-teal), var(--aura-gold))", fontSize: 11, fontWeight: 700, color: "#fff",
                           }}>{getInitials(b.full_name)}</div>
                           <div>
                             <p style={{ fontWeight: 500, color: "var(--aura-text)", fontSize: 13 }}>{b.full_name}</p>
@@ -318,7 +318,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
                     }}>Cancel</button>
                     <button onClick={handleSend} disabled={!msgText.trim()} style={{
                       fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "8px 18px", borderRadius: 10,
-                      border: "none", background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a",
+                      border: "none", background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32",
                       cursor: msgText.trim() ? "pointer" : "not-allowed", display: "flex", alignItems: "center", gap: 6,
                       opacity: msgText.trim() ? 1 : 0.5, minHeight: 44,
                     }}><Send size={13} /> Send</button>

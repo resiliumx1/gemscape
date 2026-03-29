@@ -95,8 +95,8 @@ const NotificationBell = ({ isMobile }: { isMobile: boolean }) => {
         {unread > 0 && (
           <span style={{
             position: "absolute", top: 4, right: 4, width: 8, height: 8,
-            borderRadius: "50%", background: "#f06868",
-            boxShadow: "0 0 6px rgba(240,104,104,0.6)",
+            borderRadius: "50%", background: "var(--aura-danger)",
+            boxShadow: "0 0 6px rgba(232,96,96,0.6)",
           }} />
         )}
       </button>
@@ -114,10 +114,10 @@ const NotificationBell = ({ isMobile }: { isMobile: boolean }) => {
               right: isMobile ? 16 : 0,
               left: isMobile ? 16 : "auto",
               width: isMobile ? "auto" : 320,
-              background: "var(--aura-sidebar-bg)",
+              background: isMobile ? "rgba(6,22,28,0.95)" : "rgba(6,22,28,0.95)",
               backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)",
               borderRadius: "var(--aura-radius-card)", overflow: "hidden", zIndex: 9999,
-              boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
             }}
           >
             <div style={{
@@ -140,15 +140,15 @@ const NotificationBell = ({ isMobile }: { isMobile: boolean }) => {
             <div style={{ maxHeight: 280, overflowY: "auto" }}>
               {notifications.map(n => (
                 <div key={n.id} style={{
-                  padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.04)",
+                  padding: "12px 16px", borderBottom: "1px solid var(--aura-border-light, rgba(120,200,200,0.07))",
                   display: "flex", gap: 10, alignItems: "flex-start",
-                  background: n.read ? "transparent" : "rgba(60,200,184,0.04)",
+                  background: n.read ? "transparent" : "rgba(44,184,168,0.04)",
                   cursor: "pointer",
                 }}>
                   <div style={{
                     width: 6, height: 6, borderRadius: "50%", marginTop: 6, flexShrink: 0,
                     background: n.read ? "transparent" : "var(--aura-teal)",
-                    boxShadow: n.read ? "none" : "0 0 6px rgba(60,200,184,0.5)",
+                    boxShadow: n.read ? "none" : "0 0 6px rgba(44,184,168,0.5)",
                   }} />
                   <div>
                     <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text)", lineHeight: 1.4 }}>
@@ -250,11 +250,11 @@ const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, 
             onClick={onNewBooking}
             style={{
               display: "inline-flex", alignItems: "center", gap: 6,
-              background: "linear-gradient(135deg, var(--aura-gold), #c49830)",
+              background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))",
               border: "none", borderRadius: "var(--aura-radius-btn)",
               padding: "9px 16px", cursor: "pointer",
               fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
-              color: "#fff", boxShadow: "0 4px 14px rgba(212,170,68,0.35)",
+              color: "#0c2e32", boxShadow: "0 4px 14px rgba(184,149,106,0.35)",
               whiteSpace: "nowrap", minHeight: 44,
             }}
           >
@@ -294,11 +294,11 @@ const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, 
           onClick={onNewBooking}
           style={{
             display: "inline-flex", alignItems: "center", gap: 8,
-            background: "linear-gradient(135deg, var(--aura-gold), #c49830)",
+            background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))",
             border: "none", borderRadius: "var(--aura-radius-btn)",
             padding: "9px 20px", cursor: "pointer",
             fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
-            color: "#fff", boxShadow: "0 4px 14px rgba(212,170,68,0.35)",
+            color: "#0c2e32", boxShadow: "0 4px 14px rgba(184,149,106,0.35)",
             transition: "all 0.2s",
           }}
         >
@@ -389,7 +389,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
       onClick={onClose}
       style={{
         position: "fixed", inset: 0, zIndex: 200,
-        background: "rgba(11, 15, 25, 0.95)",
+        background: "rgba(4,16,20,0.92)",
         backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}
@@ -403,9 +403,9 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
         style={{
           width: isMobile ? "96%" : 520,
           maxWidth: "96vw", maxHeight: "90vh", overflowY: "auto",
-          background: "rgba(17, 24, 39, 0.95)",
+          background: "rgba(8,32,38,0.95)",
           backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
+          border: "1px solid var(--aura-glass-border)",
           borderRadius: 24, padding: isMobile ? 24 : 32,
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
         }}
@@ -416,7 +416,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
             New Booking
           </h2>
           <button onClick={onClose} style={{
-            background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
+            background: "var(--aura-highlight)", border: "1px solid var(--aura-glass-border)",
             borderRadius: 12, width: 36, height: 36, display: "flex", alignItems: "center",
             justifyContent: "center", cursor: "pointer", color: "var(--aura-text-muted)",
             transition: "all 0.15s",
@@ -434,47 +434,59 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
             </div>
             <div>
               <label className="aura-input-label">Email *</label>
-              <input type="email" className="aura-input" required value={formData.email || ""} onChange={e => set("email", e.target.value)} placeholder="email@example.com" />
+              <input className="aura-input" type="email" required value={formData.email || ""} onChange={e => set("email", e.target.value)} placeholder="email@example.com" />
             </div>
           </div>
 
           {/* Phone */}
           <div style={{ marginBottom: 16 }}>
             <label className="aura-input-label">Phone</label>
-            <div style={{ position: "relative" }}>
-              <Phone size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
-              <input className="aura-input" style={{ paddingLeft: 34 }} value={formData.phone || ""} onChange={e => set("phone", e.target.value)} placeholder="+1 (268) 000-0000" />
+            <input className="aura-input" value={formData.phone || ""} onChange={e => set("phone", e.target.value)} placeholder="+1 268..." />
+          </div>
+
+          {/* Tour Selection */}
+          <div style={{ marginBottom: 16 }}>
+            <label className="aura-input-label">Tour / Service *</label>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8 }}>
+              {TOUR_OPTIONS.map(tour => (
+                <button
+                  key={tour.value}
+                  type="button"
+                  onClick={() => set("tour", tour.value)}
+                  style={{
+                    padding: "14px 16px", borderRadius: 12, cursor: "pointer",
+                    border: `1px solid ${formData.tour === tour.value ? "var(--aura-teal)" : "var(--aura-glass-border)"}`,
+                    background: formData.tour === tour.value ? "var(--aura-teal-dim)" : "var(--aura-input-bg)",
+                    color: formData.tour === tour.value ? "var(--aura-teal)" : "var(--aura-text-dim)",
+                    fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 500,
+                    textAlign: "left", transition: "all 0.2s",
+                    display: "flex", justifyContent: "space-between", alignItems: "center",
+                  }}
+                >
+                  <span>{tour.label}</span>
+                  <span style={{ fontFamily: "var(--aura-font-mono)", fontSize: 11, color: "var(--aura-text-muted)" }}>{tour.price}</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Tour Select */}
-          <div style={{ marginBottom: 16 }}>
-            <label className="aura-input-label">Tour *</label>
-            <select className="aura-input" required value={formData.tour || ""} onChange={e => set("tour", e.target.value)}>
-              <option value="">Select a tour…</option>
-              {TOUR_OPTIONS.map(t => (
-                <option key={t.value} value={t.value}>{t.label} — {t.price}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Date + Time + Guests */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
+          {/* Date + Guests */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16, marginBottom: 24 }}>
             <div>
               <label className="aura-input-label">Date *</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="aura-input"
+                    className={cn("aura-input")}
                     style={{
                       display: "flex", alignItems: "center", gap: 8,
-                      textAlign: "left", color: date ? "var(--aura-text)" : "var(--aura-text-muted)",
-                      minHeight: 44,
+                      color: date ? "var(--aura-text)" : "var(--aura-text-muted)",
+                      cursor: "pointer", textAlign: "left",
                     }}
                   >
                     <CalIcon size={14} />
-                    {date ? format(date, "MMM d, yyyy") : "Pick date"}
+                    {date ? format(date, "MMM d, yyyy") : "Select date"}
                   </button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start" style={{ zIndex: 300 }}>
@@ -483,62 +495,33 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
                     selected={date}
                     onSelect={setDate}
                     initialFocus
-                    className={cn("p-3 pointer-events-auto")}
+                    className="pointer-events-auto"
                   />
                 </PopoverContent>
               </Popover>
             </div>
             <div>
-              <label className="aura-input-label">Time</label>
-              <div style={{ position: "relative" }}>
-                <Clock size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
-                <input type="time" className="aura-input" style={{ paddingLeft: 34, minHeight: 44 }} value={formData.time || ""} onChange={e => set("time", e.target.value)} />
-              </div>
-            </div>
-            <div>
               <label className="aura-input-label">Guests</label>
-              <div style={{ position: "relative" }}>
-                <Users size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
-                <input type="number" min="1" className="aura-input" style={{ paddingLeft: 34, minHeight: 44 }} value={formData.guests || ""} onChange={e => set("guests", e.target.value)} placeholder="1" />
-              </div>
+              <input className="aura-input" type="number" min="1" max="50" value={formData.guests || "1"} onChange={e => set("guests", e.target.value)} />
             </div>
           </div>
 
-          {/* Buttons */}
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 28 }}>
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                padding: "0 24px", height: 48, borderRadius: 12,
-                background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
-                color: "var(--aura-text-dim)", fontFamily: "var(--aura-font-body)",
-                fontSize: 13, fontWeight: 500, cursor: "pointer",
-                transition: "all 0.15s",
-              }}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={submitting || !canSubmit}
-              style={{
-                padding: "0 28px", height: 48, borderRadius: 12,
-                background: "linear-gradient(135deg, #D4AF37 0%, #B8960E 100%)",
-                border: "none", color: "#0B0F19",
-                fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600,
-                cursor: submitting || !canSubmit ? "not-allowed" : "pointer",
-                opacity: submitting || !canSubmit ? 0.5 : 1,
-                boxShadow: "0 4px 14px rgba(212,175,55,0.25)",
-                transition: "all 0.2s",
-                filter: "brightness(1)",
-              }}
-              onMouseEnter={e => { if (!submitting && canSubmit) e.currentTarget.style.filter = "brightness(1.1)"; }}
-              onMouseLeave={e => { e.currentTarget.style.filter = "brightness(1)"; }}
-            >
-              {submitting ? "Creating…" : "Create Booking"}
-            </button>
-          </div>
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={!canSubmit || submitting}
+            style={{
+              width: "100%", height: 48, borderRadius: 12, border: "none",
+              background: canSubmit ? "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))" : "var(--aura-highlight)",
+              color: canSubmit ? "#0c2e32" : "var(--aura-text-muted)",
+              fontFamily: "var(--aura-font-body)", fontSize: 14, fontWeight: 600,
+              cursor: canSubmit ? "pointer" : "not-allowed",
+              transition: "all 0.2s",
+              letterSpacing: "0.02em",
+            }}
+          >
+            {submitting ? "Creating…" : "Create Booking"}
+          </button>
         </form>
       </motion.div>
     </div>

@@ -38,13 +38,13 @@ const AdminReviewRequests = ({ isMobile = false }: { isMobile?: boolean }) => {
   };
 
   const kpis = [
-    { label: "Average Rating", value: "4.6", icon: <Star size={18} />, glow: "#d4aa44", extra: (
+    { label: "Average Rating", value: "4.6", icon: <Star size={18} />, glow: "var(--aura-gold)", extra: (
       <div style={{ display: "flex", gap: 2, marginTop: 6 }}>
-        {[1,2,3,4,5].map(s => <Star key={s} size={14} fill={s <= 4 ? "#d4aa44" : "none"} color="#d4aa44" strokeWidth={s === 5 ? 1.5 : 0} />)}
+        {[1,2,3,4,5].map(s => <Star key={s} size={14} fill={s <= 4 ? "var(--aura-gold)" : "none"} color="var(--aura-gold)" strokeWidth={s === 5 ? 1.5 : 0} />)}
       </div>
     )},
-    { label: "Total Reviews", value: String(reviewed.length || 0), icon: <MessageSquare size={18} />, glow: "#3cc8b8" },
-    { label: "Needs Response", value: String(needsResponse), icon: <MessageSquare size={18} />, glow: "#e8c040" },
+    { label: "Total Reviews", value: String(reviewed.length || 0), icon: <MessageSquare size={18} />, glow: "var(--aura-teal)" },
+    { label: "Needs Response", value: String(needsResponse), icon: <MessageSquare size={18} />, glow: "var(--aura-warning)" },
   ];
 
   return (
@@ -53,7 +53,7 @@ const AdminReviewRequests = ({ isMobile = false }: { isMobile?: boolean }) => {
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)", gap: 16 }}>
         {kpis.map((k, idx) => (
           <div key={k.label} className="aura-glass" style={{ padding: 0, overflow: "hidden", gridColumn: isMobile && idx === 2 ? "1 / -1" : "auto" }}>
-            <div style={{ height: 3, background: `linear-gradient(90deg, ${k.glow}, transparent)` }} />
+            <div style={{ height: 2, background: `linear-gradient(90deg, transparent 5%, ${k.glow} 50%, transparent 95%)`, opacity: 0.7 }} />
             <div style={{ padding: "20px 22px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
@@ -86,7 +86,7 @@ const AdminReviewRequests = ({ isMobile = false }: { isMobile?: boolean }) => {
                 <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                   <div style={{
                     width: 40, height: 40, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center",
-                    background: "linear-gradient(135deg, #3cc8b8, #d4aa44)", fontSize: 12, fontWeight: 700, color: "#060e1a", flexShrink: 0,
+                    background: "linear-gradient(135deg, var(--aura-teal), var(--aura-gold))", fontSize: 12, fontWeight: 700, color: "#fff", flexShrink: 0,
                   }}>{initials}</div>
                   <div>
                     <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 14, fontWeight: 600, color: "var(--aura-text)" }}>{item.customer_name}</p>
@@ -94,10 +94,10 @@ const AdminReviewRequests = ({ isMobile = false }: { isMobile?: boolean }) => {
                       {item.service_type || "Tour"} · {item.tour_date ? format(new Date(item.tour_date), "MMM d, yyyy") : "—"}
                     </p>
                     <div style={{ display: "flex", gap: 2, marginTop: 6 }}>
-                      {[1,2,3,4,5].map(s => <Star key={s} size={13} fill={s <= 4 ? "#d4aa44" : "none"} color="#d4aa44" strokeWidth={s === 5 ? 1.5 : 0} />)}
+                      {[1,2,3,4,5].map(s => <Star key={s} size={13} fill={s <= 4 ? "var(--aura-gold)" : "none"} color="var(--aura-gold)" strokeWidth={s === 5 ? 1.5 : 0} />)}
                     </div>
                     <p style={{
-                      fontFamily: "var(--aura-font-body)", fontSize: 13, fontStyle: "italic",
+                      fontFamily: "var(--aura-font-body)", fontSize: 12, fontStyle: "italic",
                       color: "var(--aura-text-dim)", marginTop: 10, lineHeight: 1.6,
                     }}>
                       "{hasReview ? "Amazing experience! The tour was incredible and our guide was very knowledgeable." : "Review pending…"}"
@@ -108,13 +108,13 @@ const AdminReviewRequests = ({ isMobile = false }: { isMobile?: boolean }) => {
                   {hasReview ? (
                     <span style={{
                       padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                      background: "rgba(64,216,184,0.12)", color: "#40d8b8", border: "1px solid rgba(64,216,184,0.3)",
+                      background: "var(--aura-success-bg)", color: "var(--aura-success)", border: "1px solid rgba(60,216,180,0.3)",
                     }}>Done</span>
                   ) : !item.sent_at ? (
                     <button onClick={() => handleSendNow(item)} disabled={sending === item.id} style={{
                       fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600,
                       padding: "6px 16px", borderRadius: 10, border: "none", cursor: "pointer",
-                      background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a", minHeight: 44,
+                      background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32", minHeight: 44,
                     }}>{sending === item.id ? "Sending…" : "Respond"}</button>
                   ) : (
                     <span style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)" }}>Sent</span>

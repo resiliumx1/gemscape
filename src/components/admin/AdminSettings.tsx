@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Sun, Moon } from "lucide-react";
+import { toast } from "sonner";
 
 interface SettingsProps {
   isDark?: boolean;
@@ -18,7 +19,6 @@ interface SiteSettings {
 const AdminSettings = ({ isDark = true, onToggleTheme, isMobile = false }: SettingsProps) => {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     supabase.from("site_settings").select("*").limit(1).single().then(({ data }) => {
@@ -36,8 +36,7 @@ const AdminSettings = ({ isDark = true, onToggleTheme, isMobile = false }: Setti
       updated_at: new Date().toISOString(),
     }).eq("id", settings.id);
     setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    toast.success("Settings saved");
   };
 
   const setField = (key: keyof SiteSettings, value: string) => {
@@ -64,8 +63,8 @@ const AdminSettings = ({ isDark = true, onToggleTheme, isMobile = false }: Setti
         <button onClick={handleSave} disabled={saving} style={{
           width: "100%", marginTop: 20, fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
           padding: "10px", borderRadius: 10, border: "none", cursor: "pointer",
-          background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a", minHeight: 44,
-        }}>{saving ? "Saving…" : saved ? "Saved ✓" : "Save Changes"}</button>
+          background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0c2e32", minHeight: 44,
+        }}>{saving ? "Saving…" : "Save Changes"}</button>
       </div>
 
       {/* Appearance */}
@@ -77,9 +76,9 @@ const AdminSettings = ({ isDark = true, onToggleTheme, isMobile = false }: Setti
           <button onClick={() => isDark && onToggleTheme?.()} style={{
             padding: "20px", borderRadius: 14, cursor: "pointer",
             display: "flex", flexDirection: "column", alignItems: "center", gap: 10, flex: 1,
-            border: `2px solid ${!isDark ? "rgba(60,200,184,0.5)" : "var(--aura-glass-border)"}`,
-            background: !isDark ? "rgba(60,200,184,0.08)" : "var(--aura-glass)",
-            color: !isDark ? "#3cc8b8" : "var(--aura-text-muted)",
+            border: `2px solid ${!isDark ? "rgba(44,184,168,0.5)" : "var(--aura-glass-border)"}`,
+            background: !isDark ? "var(--aura-teal-dim)" : "var(--aura-glass)",
+            color: !isDark ? "var(--aura-teal)" : "var(--aura-text-muted)",
             transition: "all 0.2s", minHeight: 44,
           }}>
             <Sun size={24} />
@@ -88,9 +87,9 @@ const AdminSettings = ({ isDark = true, onToggleTheme, isMobile = false }: Setti
           <button onClick={() => !isDark && onToggleTheme?.()} style={{
             padding: "20px", borderRadius: 14, cursor: "pointer",
             display: "flex", flexDirection: "column", alignItems: "center", gap: 10, flex: 1,
-            border: `2px solid ${isDark ? "rgba(60,200,184,0.5)" : "var(--aura-glass-border)"}`,
-            background: isDark ? "rgba(60,200,184,0.08)" : "var(--aura-glass)",
-            color: isDark ? "#3cc8b8" : "var(--aura-text-muted)",
+            border: `2px solid ${isDark ? "rgba(44,184,168,0.5)" : "var(--aura-glass-border)"}`,
+            background: isDark ? "var(--aura-teal-dim)" : "var(--aura-glass)",
+            color: isDark ? "var(--aura-teal)" : "var(--aura-text-muted)",
             transition: "all 0.2s", minHeight: 44,
           }}>
             <Moon size={24} />
