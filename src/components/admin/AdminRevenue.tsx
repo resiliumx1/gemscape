@@ -139,7 +139,7 @@ const AdminRevenue = ({ isMobile = false }: { isMobile?: boolean }) => {
               <XAxis dataKey="name" tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fill: "var(--aura-text-muted)" }} axisLine={false} tickLine={false} tickFormatter={v => `$${v.toLocaleString()}`} />
               <Tooltip content={<GlassTooltip />} />
-              <Bar dataKey="revenue" fill="#3cc8b8" radius={[6, 6, 0, 0]} name="Revenue" />
+              <Bar dataKey="revenue" fill="#D4AF37" radius={[6, 6, 0, 0]} name="Revenue" />
             </BarChart>
           </ResponsiveContainer>
         </div>
