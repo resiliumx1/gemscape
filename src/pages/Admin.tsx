@@ -74,7 +74,7 @@ const Admin = () => {
 
   const handleNavClick = (key: string) => {
     setActiveTab(key);
-    if (isMobile) setDrawerOpen(false);
+    if (isMobile) setCollapsed(true);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
