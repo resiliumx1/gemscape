@@ -389,8 +389,8 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
       onClick={onClose}
       style={{
         position: "fixed", inset: 0, zIndex: 200,
-        background: "rgba(6,14,26,0.5)",
-        backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+        background: "rgba(11, 15, 25, 0.95)",
+        backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}
     >
@@ -403,11 +403,11 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
         style={{
           width: isMobile ? "96%" : 520,
           maxWidth: "96vw", maxHeight: "90vh", overflowY: "auto",
-          background: "var(--aura-sidebar-bg)",
-          backdropFilter: "var(--aura-blur)", WebkitBackdropFilter: "var(--aura-blur)",
-          border: "1px solid var(--aura-glass-border)",
-          borderRadius: isMobile ? 14 : "var(--aura-radius-card)", padding: isMobile ? 20 : 28,
-          boxShadow: "0 30px 80px rgba(0,0,0,0.4)",
+          background: "rgba(17, 24, 39, 0.95)",
+          backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          borderRadius: 24, padding: isMobile ? 24 : 32,
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
         }}
       >
         {/* Header */}
