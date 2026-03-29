@@ -163,12 +163,12 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
                   /* Desktop: text pills */
                   <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                     {dayItems.slice(0, 2).map((item, i) => {
-                      const sc = STATUS_PILL[item.status] || STATUS_PILL.pending;
                       return (
                         <div key={i} style={{
                           fontSize: 9, padding: "2px 5px", borderRadius: 4,
                           fontFamily: "var(--aura-font-body)", fontWeight: 500,
-                          background: sc.bg, color: sc.text,
+                          borderLeft: "2px solid var(--aura-gold)",
+                          background: "rgba(212,175,55,0.06)", color: "var(--aura-text-dim)",
                           overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                         }}>
                           {item.time.slice(0, 5)} {item.guest.split(" ")[0]}
