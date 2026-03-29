@@ -175,9 +175,11 @@ interface AdminHeaderProps {
   isMobile?: boolean;
   onMenuToggle?: () => void;
   onNavigateSettings?: () => void;
+  onNavigateDashboard?: () => void;
 }
 
-const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, onNavigateSettings }: AdminHeaderProps) => {
+const AdminHeader = ({ pageTitle, onNewBooking, isMobile = false, onMenuToggle, onNavigateSettings, onNavigateDashboard }: AdminHeaderProps) => {
+  const navigate = useNavigate();
   const today = format(new Date(), "EEEE, MMMM d, yyyy");
 
   if (isMobile) {
