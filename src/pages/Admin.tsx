@@ -25,7 +25,7 @@ const AdminReports = lazy(() => import("@/components/admin/AdminReports"));
 interface NavItem { key: string; label: string; icon: React.ReactNode }
 interface NavSection { label: string; items: NavItem[] }
 
-const IC = { size: 18, strokeWidth: 1.5 };
+const IC = { size: 22, strokeWidth: 1.5 };
 
 const NAV_SECTIONS: NavSection[] = [
   {

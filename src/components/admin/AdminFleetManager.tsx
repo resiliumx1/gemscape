@@ -55,52 +55,57 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <button onClick={openNew} style={{
-          fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "8px 18px",
-          borderRadius: 10, border: "none", cursor: "pointer",
-          background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a", minHeight: 44,
+          fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, padding: "10px 20px",
+          borderRadius: "var(--aura-radius-btn)", border: "none", cursor: "pointer",
+          background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0B0F19", minHeight: 44,
         }}>+ Add Vehicle</button>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
         {vehicles.map(v => {
           const fuel = getFuel(v.id);
-          const fuelColor = fuel > 60 ? "#40d8b8" : fuel > 30 ? "#e8c040" : "#f06868";
+          const fuelColor = fuel > 60 ? "var(--aura-success)" : fuel > 30 ? "var(--aura-warning)" : "var(--aura-danger)";
           const statusPill = v.available
-            ? { bg: "rgba(64,216,184,0.12)", text: "#40d8b8", border: "rgba(64,216,184,0.3)", label: "Active" }
-            : { bg: "rgba(232,192,64,0.12)", text: "#e8c040", border: "rgba(232,192,64,0.3)", label: "Maintenance" };
+            ? { bg: "rgba(16, 185, 129, 0.1)", text: "var(--aura-success)", border: "rgba(16, 185, 129, 0.2)", label: "Active" }
+            : { bg: "rgba(245, 158, 11, 0.1)", text: "var(--aura-warning)", border: "rgba(245, 158, 11, 0.2)", label: "Maintenance" };
 
           return (
-            <div key={v.id} className="aura-glass" style={{ padding: "22px 24px", cursor: "pointer" }} onClick={() => openEdit(v)}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+            <div key={v.id} className="aura-glass" style={{ padding: "24px", cursor: "pointer" }} onClick={() => openEdit(v)}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
                 <div>
-                  <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 21, color: "var(--aura-text)" }}>{v.name}</p>
-                  <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)", marginTop: 4 }}>
+                  <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 20, fontWeight: 600, color: "var(--aura-text)", letterSpacing: "-0.02em" }}>{v.name}</p>
+                  <p style={{ fontFamily: "var(--aura-font-mono)", fontSize: 12, color: "var(--aura-text-muted)", marginTop: 6 }}>
                     {v.seats} seats · {v.transmission} · ${v.daily_rate}/day
                   </p>
                 </div>
                 <span style={{
-                  padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                  padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 500,
                   background: statusPill.bg, color: statusPill.text, border: `1px solid ${statusPill.border}`,
-                }}>{statusPill.label}</span>
+                  fontFamily: "var(--aura-font-body)", display: "flex", alignItems: "center", gap: 5,
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: statusPill.text }} />
+                  {statusPill.label}
+                </span>
               </div>
 
-              <div style={{ marginBottom: 10 }}>
-                <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)", marginBottom: 2 }}>Captain: TBD</p>
-                <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)" }}>Next trip: —</p>
+              <div style={{ marginBottom: 14 }}>
+                <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text-muted)", marginBottom: 2 }}>Captain: TBD</p>
+                <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, color: "var(--aura-text-muted)" }}>Next trip: —</p>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Fuel size={13} style={{ color: "var(--aura-text-muted)" }} />
-                <div style={{ flex: 1, height: 6, borderRadius: 3, background: "var(--aura-highlight)", overflow: "hidden" }}>
-                  <div style={{ width: `${fuel}%`, height: "100%", borderRadius: 3, background: fuelColor, transition: "width 0.3s" }} />
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <Fuel size={14} style={{ color: "var(--aura-text-muted)" }} />
+                <div style={{ flex: 1, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
+                  <div style={{ width: `${fuel}%`, height: "100%", borderRadius: 2, background: fuelColor, transition: "width 0.3s" }} />
                 </div>
-                <span style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: fuelColor, minWidth: 30 }}>{fuel}%</span>
+                <span style={{ fontFamily: "var(--aura-font-mono)", fontSize: 11, fontWeight: 500, color: fuelColor, minWidth: 30 }}>{fuel}%</span>
               </div>
 
-              <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+              <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
                 <button onClick={e => { e.stopPropagation(); toggleAvailability(v); }} style={{
-                  flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 11, padding: "6px 0", borderRadius: 8, cursor: "pointer",
-                  border: "1px solid var(--aura-glass-border)", background: "var(--aura-glass)", color: "var(--aura-text-muted)", minHeight: 44,
+                  flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 12, padding: "8px 0", borderRadius: "var(--aura-radius-btn)", cursor: "pointer",
+                  border: "1px solid var(--aura-glass-border)", background: "transparent", color: "var(--aura-text-dim)", minHeight: 44,
+                  transition: "all 0.15s ease",
                 }}>{v.available ? "Set Maintenance" : "Set Active"}</button>
               </div>
             </div>
@@ -110,31 +115,32 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       {/* Edit Modal */}
       {editing && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(6,14,26,0.6)", backdropFilter: "blur(14px)" }}
+        <div style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(11,15,25,0.7)", backdropFilter: "blur(14px)" }}
           onClick={() => setEditing(null)}>
           <div onClick={e => e.stopPropagation()} style={{
-            width: isMobile ? "96%" : 480, maxHeight: "85vh", overflowY: "auto", background: "var(--aura-sidebar-bg)",
-            backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)", borderRadius: isMobile ? 14 : 18, padding: "28px",
+            width: isMobile ? "96%" : 480, maxHeight: "85vh", overflowY: "auto", background: "rgba(17, 24, 39, 0.95)",
+            backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)", borderRadius: "var(--aura-radius-card)", padding: "28px",
+            boxShadow: "0 24px 64px rgba(0,0,0,0.4)",
           }}>
-            <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 22, color: "var(--aura-text)", marginBottom: 20 }}>
+            <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 22, fontWeight: 600, color: "var(--aura-text)", marginBottom: 24, letterSpacing: "-0.02em" }}>
               {isNew ? "Add Vehicle" : "Edit Vehicle"}
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <GlassInput label="Vehicle Name" value={editing.name || ""} onChange={v => setField("name", v)} />
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14 }}>
                 <GlassInput label="Seats" type="number" value={String(editing.seats || 0)} onChange={v => setField("seats", parseInt(v) || 0)} />
                 <GlassInput label="Daily Rate ($)" type="number" value={String(editing.daily_rate || 0)} onChange={v => setField("daily_rate", parseFloat(v) || 0)} />
               </div>
               <GlassInput label="Features (comma-separated)" value={featuresStr} onChange={setFeaturesStr} />
             </div>
-            <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+            <div style={{ display: "flex", gap: 10, marginTop: 24 }}>
               <button onClick={() => setEditing(null)} style={{
-                flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 12, padding: "10px", borderRadius: 10,
-                border: "1px solid var(--aura-glass-border)", background: "transparent", color: "var(--aura-text-muted)", cursor: "pointer", minHeight: 44,
+                flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 13, padding: "10px", borderRadius: "var(--aura-radius-btn)",
+                border: "1px solid var(--aura-glass-border)", background: "transparent", color: "var(--aura-text-dim)", cursor: "pointer", minHeight: 44,
               }}>Cancel</button>
               <button onClick={handleSave} disabled={saving} style={{
-                flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, padding: "10px", borderRadius: 10,
-                border: "none", background: "linear-gradient(135deg, #d4aa44, #c49a38)", color: "#060e1a", cursor: "pointer", minHeight: 44,
+                flex: 1, fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, padding: "10px", borderRadius: "var(--aura-radius-btn)",
+                border: "none", background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))", color: "#0B0F19", cursor: "pointer", minHeight: 44,
               }}>{saving ? "Saving…" : "Save"}</button>
             </div>
           </div>
@@ -146,9 +152,9 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
 
 const GlassInput = ({ label, value, onChange, type = "text" }: { label: string; value: string; onChange: (v: string) => void; type?: string }) => (
   <div>
-    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, color: "var(--aura-text-muted)", marginBottom: 6 }}>{label}</p>
+    <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600, color: "var(--aura-text-muted)", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
     <input type={type} value={value} onChange={e => onChange(e.target.value)} style={{
-      width: "100%", padding: "10px 14px", borderRadius: 10, fontSize: 13,
+      width: "100%", padding: "10px 14px", borderRadius: "var(--aura-radius-input)", fontSize: 13,
       fontFamily: "var(--aura-font-body)", color: "var(--aura-text)",
       background: "var(--aura-input-bg)", border: "1px solid var(--aura-input-border)", outline: "none", minHeight: 44,
     }} />
