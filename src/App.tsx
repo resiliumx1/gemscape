@@ -34,17 +34,26 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // Lenis smooth scroll
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical" as const,
-      smoothWheel: true,
-    });
+    // Don't initialize Lenis on admin pages — it hijacks scroll events
+    const isAdmin = window.location.pathname.startsWith('/admin');
 
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
+    let lenis: Lenis | null = null;
+
+    if (!isAdmin) {
+      lenis = new Lenis({
+        duration: 1.4,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical" as const,
+        smoothWheel: true,
+      });
+
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis!.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      // Ensure Lenis classes are removed on admin
+      document.documentElement.classList.remove('lenis', 'lenis-smooth');
+    }
 
     // Page load overlay
     gsap.to("#page-transition", {
@@ -55,7 +64,7 @@ const App = () => {
     });
 
     return () => {
-      lenis.destroy();
+      if (lenis) lenis.destroy();
     };
   }, []);
 
