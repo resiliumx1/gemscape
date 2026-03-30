@@ -561,8 +561,8 @@ button, input, textarea, select, a {
   position: relative;
   overflow: hidden;
   display: inline-block;
-  background: hsl(var(--gem-coral));
-  color: #ffffff;
+  background: linear-gradient(135deg, #b8956a 0%, #d4ad7c 100%);
+  color: #05181e;
   padding: 16px 40px;
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
