@@ -95,8 +95,8 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
     }, 950);
   }, [onComplete]);
 
-  const handleVideoError = useCallback(() => {
-    console.error("IntroSplash: video failed to load, skipping intro");
+  const handleVideoError = useCallback((e: any) => {
+    console.error("[IntroSplash] Video error:", e?.target?.error?.message || "unknown");
     sessionStorage.setItem("introPlayed", "true");
     setStage("done");
     onComplete();
