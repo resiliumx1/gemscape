@@ -85,7 +85,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`gem-nav${scrolled ? " scrolled" : ""}`}
+        className={`gem-nav${scrolled ? " scrolled" : ""}${!isHome ? " solid" : ""}`}
         role="navigation"
         aria-label="Main navigation"
       >

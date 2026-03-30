@@ -56,7 +56,7 @@ const Footer = () => {
 
       {/* Bottom row */}
       <div className="gem-footer__bottom">
-        <span>© 2025 Gemscape Travel and Tours. All rights reserved.</span>
+        <span>© 2026 Gemscape Travel and Tours. All rights reserved.</span>
         <span>Built with pride in Antigua</span>
       </div>
       <div style={{

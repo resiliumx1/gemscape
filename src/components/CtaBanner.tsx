@@ -58,7 +58,7 @@ const CtaBanner = () => {
             Start Planning
           </button>
           <a
-            href="https://wa.me/12680000000"
+            href="https://wa.me/12687644367"
             target="_blank"
             rel="noopener noreferrer"
             className="cta-banner__btn-whatsapp"
