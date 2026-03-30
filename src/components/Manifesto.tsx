@@ -5,43 +5,43 @@ import WaveDivider from "@/components/WaveDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const QUOTE =
-  "We're not a booking engine. We're a small, proudly Antiguan team who knows every bay, every pilot, every road. When you travel with Gemscape, you're not getting a package — you're getting an insider.";
+const LINES = [
+  { text: "We're not a booking engine.", highlight: false },
+  { text: "We're a small, proudly Antiguan team", highlight: false },
+  { text: "who knows every hidden bay,", highlight: false },
+  { text: "every back road, every pilot by name.", highlight: false },
+  { text: "When you travel with Gemscape,", highlight: true },
+  { text: "you don't get a package —", highlight: false },
+  { text: "you get an insider.", highlight: true },
+];
 
 const Manifesto = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const wordsRef = useRef<HTMLDivElement>(null);
+  const linesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (!wordsRef.current) return;
-      const words = wordsRef.current.querySelectorAll(".manifesto__word");
+      if (!linesRef.current) return;
+      const lines = linesRef.current.querySelectorAll(".manifesto__line");
 
-      gsap.fromTo(
-        words,
-        { opacity: 0.12, color: "rgba(255,255,255,0.12)" },
-        {
-          opacity: 1,
-          color: "white",
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-            end: "bottom 30%",
-            scrub: 1.5,
-          },
-        }
-      );
-
-      // Fallback: after 3s ensure all words are visible
-      const fallbackTimer = setTimeout(() => {
-        words.forEach((w) => {
-          (w as HTMLElement).style.opacity = "1";
-          (w as HTMLElement).style.color = "white";
-        });
-      }, 3000);
-
-      return () => clearTimeout(fallbackTimer);
+      lines.forEach((line, i) => {
+        gsap.fromTo(
+          line,
+          { opacity: 0.08, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: line,
+              start: "top 85%",
+              end: "top 55%",
+              scrub: 1,
+            },
+          }
+        );
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -49,19 +49,26 @@ const Manifesto = () => {
   return (
     <section ref={sectionRef} className="manifesto" style={{ background: '#0B2A3B' }}>
       <div className="manifesto__watermark" aria-hidden="true">ANTIGUA</div>
-      <div className="manifesto__content">
+      <div className="manifesto__content" style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
         <span className="manifesto__mark">{"\u201C"}</span>
-        <div ref={wordsRef} className="manifesto__quote">
-          {QUOTE.split(" ").map((word, i) => (
-            <span key={i} className="manifesto__word">
-              {word}{" "}
+        <div ref={linesRef} className="manifesto__quote" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {LINES.map((line, i) => (
+            <span
+              key={i}
+              className="manifesto__line"
+              style={{
+                display: "block",
+                opacity: 0.08,
+                color: line.highlight ? "#b8956a" : "white",
+                fontWeight: line.highlight ? 500 : 300,
+              }}
+            >
+              {line.text}
             </span>
           ))}
         </div>
         <p className="manifesto__attr">— Gemscape Travel &amp; Tours, St. John's, Antigua</p>
       </div>
-
-      {/* Waves */}
       <WaveDivider variant="ocean" height={120} />
     </section>
   );
