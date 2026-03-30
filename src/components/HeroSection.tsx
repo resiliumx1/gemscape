@@ -59,38 +59,24 @@ const HeroSection = () => {
       }}
     >
       {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
-      {!isMobile ? (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/images/antigua-hero-poster.jpg"
-          className="hero-video"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 0,
-          }}
-        >
-          <source src="/videos/antigua-aerial.mp4" type="video/mp4" />
-        </video>
-      ) : (
-        <div
-          className="hero-ken-burns"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            backgroundImage: "url(/images/antigua-hero-poster.jpg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-      )}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/images/antigua-hero-poster.jpg"
+        className="hero-video"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
+        }}
+      >
+        <source src="/videos/antigua-aerial.mp4" type="video/mp4" />
+      </video>
 
       {/* ═══ LAYER 2A — LINEAR GRADIENT OVERLAY ═══ */}
       <div
@@ -308,13 +294,6 @@ const HeroSection = () => {
           justify-content: center;
         }
 
-        @keyframes kenBurns {
-          0%, 100% { transform: scale(1.0); }
-          50% { transform: scale(1.08); }
-        }
-        .hero-ken-burns {
-          animation: kenBurns 15s ease-in-out infinite alternate;
-        }
         @keyframes chevronBounce {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(8px); }
