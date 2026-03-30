@@ -146,6 +146,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
         autoPlay
         muted
         playsInline
+        preload="auto"
         onEnded={triggerExit}
         onError={handleVideoError}
         onLoadedData={() => {
