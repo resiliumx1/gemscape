@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass } from "lucide-react";
+import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
@@ -364,6 +364,7 @@ export default function Navbar() {
           <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Sparkles} label="CONCIERGE" href="/concierge" pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Mail} label="CONTACT" href="/contact" pulse={false} onNavigate={handleNav} />
         </motion.nav>
 
         {/* Right controls */}
@@ -473,6 +474,7 @@ export default function Navbar() {
                     {[
                       { icon: Diamond, label: "RENTALS", href: "/rentals" },
                       { icon: Sparkles, label: "CONCIERGE", href: "/concierge" },
+                      { icon: Mail, label: "CONTACT", href: "/contact" },
                     ].map((item) => (
                       <motion.button
                         key={item.label}

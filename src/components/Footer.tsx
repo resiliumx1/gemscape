@@ -229,7 +229,7 @@ const Footer = () => {
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
               <Phone size={14} style={{ color: "rgba(201,168,76,0.6)", marginTop: 3, flexShrink: 0 }} />
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
-                +1 (268) 764-GEMS
+                <a href="tel:+12687805510" style={{ color: "inherit", textDecoration: "none" }}>+1 (268) 780-5510</a>
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>

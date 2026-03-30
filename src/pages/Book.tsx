@@ -33,22 +33,30 @@ const Book = () => {
       <Navbar />
 
       {/* Hero */}
-      <section ref={heroRef} className="book-hero">
-        <div className="book-hero__grain" />
-        <div className="book-hero__content">
-          <span ref={eyebrowRef} className="eyebrow" style={{ opacity: 0, justifyContent: "center" }}>
-            Book Your Experience
-          </span>
-          <h1 ref={h1Ref} className="book-hero__h1" style={{ opacity: 0 }}>
-            Let's Plan Your Antigua.
-          </h1>
-          <p ref={subRef} className="book-hero__sub" style={{ opacity: 0 }}>
-            Select a service and tell us about your journey.
-          </p>
-        </div>
+      <section ref={heroRef} style={{ background: "#05181e", padding: "160px 24px 60px", textAlign: "center" }}>
+        <span ref={eyebrowRef} style={{
+          opacity: 0, fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)",
+          textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500, display: "block",
+        }}>
+          BOOK WITH GEMSCAPE
+        </span>
+        <h1 ref={h1Ref} style={{
+          opacity: 0, fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)",
+          fontWeight: 400, color: "#fff", marginTop: 12,
+        }}>
+          Plan Your Antigua Experience.
+        </h1>
+        <p ref={subRef} style={{
+          opacity: 0, fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16,
+          color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0",
+        }}>
+          Select a service and tell us about your journey.
+        </p>
       </section>
 
-      <BookingWizard initialService={initialService} />
+      <div style={{ background: "#05181e", minHeight: "60vh" }}>
+        <BookingWizard initialService={initialService} />
+      </div>
 
       <Footer />
       <WhatsAppFab />

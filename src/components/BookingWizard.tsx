@@ -1,55 +1,38 @@
 import { useState, useMemo } from "react";
-import { format as dateFormat, differenceInDays, addDays, addYears } from "date-fns";
-import { CalendarIcon, Loader2, Check, Minus, Plus } from "lucide-react";
+import { format as dateFormat, addDays, addYears } from "date-fns";
+import { Anchor, Map, Plane, Sailboat, CalendarIcon, Check, Minus, Plus, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
-/* ── constants ── */
 const SERVICES = [
-  {
-    id: "circumnavigation",
-    name: "Island Circumnavigation",
-    desc: "Full-day private guided tour of Antigua's 365 beaches, hidden coves, and historic landmarks.",
-    price: "From $280 per group",
-    basePrice: 280,
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=85",
-  },
-  {
-    id: "concierge",
-    name: "Flight Concierge",
-    desc: "VIP airport arrivals, private charter booking, and seamless inter-island transfer coordination.",
-    price: "From $150 per person",
-    basePrice: 150,
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=85",
-  },
-  {
-    id: "charter",
-    name: "Private Charter",
-    desc: "Half or full-day private vessel charter — your route, your pace, your crew.",
-    price: "From $480 per charter",
-    basePrice: 480,
-    image: "https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=600&q=85",
-  },
+  { id: "circumnavigation", icon: Anchor, title: "Island Circumnavigation", desc: "Full-day private tour of Antigua's coastline — every hidden cove, beach, and bay.", price: "From $280 per group", basePrice: 280, badge: "Full Day" },
+  { id: "heritage", icon: Map, title: "Heritage & Discovery", desc: "Shirley Heights, English Harbour, local rum, and roads no tourist map shows.", price: "From $180 per group", basePrice: 180, badge: "Half Day" },
+  { id: "concierge", icon: Plane, title: "Flight Concierge", desc: "VIP airport arrivals, private charter booking, and seamless transfer coordination.", price: "From $150 per person", basePrice: 150, badge: "Arrival / Departure" },
+  { id: "charter", icon: Sailboat, title: "Private Charter", desc: "Your vessel, your route, your crew. Half or full-day on the Caribbean Sea.", price: "From $480 per charter", basePrice: 480, badge: "Half or Full Day" },
 ];
 
-const COUNTRIES = [
-  "Antigua and Barbuda","Australia","Barbados","Canada","Dominica","France",
-  "Germany","Italy","Jamaica","Netherlands","Saint Lucia","Trinidad and Tobago",
-  "United Kingdom","United States","Other",
-];
+const COUNTRIES = ["Antigua and Barbuda","Australia","Barbados","Canada","Dominica","France","Germany","Italy","Jamaica","Netherlands","Saint Lucia","Trinidad and Tobago","United Kingdom","United States","Other"];
+const REFERRALS = ["Google","Instagram","TripAdvisor","Friend / Referral","Other"];
+const STEP_LABELS = ["Service", "Details", "Your Info", "Review"];
 
-const REFERRAL_SOURCES = [
-  "Instagram","Google","TripAdvisor","Hotel Concierge","Friend/Family","Other",
-];
+interface Props { initialService?: string; }
 
-interface BookingWizardProps {
-  initialService?: string;
-}
+/* ── Stepper component ── */
+const NumStepper = ({ value, onChange, min = 1, max = 20, label }: { value: number; onChange: (n: number) => void; min?: number; max?: number; label: string }) => (
+  <div>
+    <label className="gem-form-label">{label}</label>
+    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+      <button type="button" onClick={() => onChange(Math.max(min, value - 1))} className="gem-stepper-btn"><Minus size={14} /></button>
+      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#fff", minWidth: 28, textAlign: "center" }}>{value}</span>
+      <button type="button" onClick={() => onChange(Math.min(max, value + 1))} className="gem-stepper-btn"><Plus size={14} /></button>
+    </div>
+  </div>
+);
 
-const BookingWizard = ({ initialService }: BookingWizardProps) => {
+const BookingWizard = ({ initialService }: Props) => {
   const { format: formatPrice } = useCurrency();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
@@ -59,498 +42,455 @@ const BookingWizard = ({ initialService }: BookingWizardProps) => {
 
   // Step 1
   const [serviceType, setServiceType] = useState(initialService || "");
-
-  // Step 2 — common
+  // Step 2
   const [tourDate, setTourDate] = useState<Date | undefined>();
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-
-  // Step 2 — circumnavigation
+  const [guests, setGuests] = useState(2);
   const [startTime, setStartTime] = useState("");
-  const [pace, setPace] = useState("");
-  const [lunch, setLunch] = useState("");
-
-  // Step 2 — concierge
-  const [conciergeType, setConciergeType] = useState("");
+  const [specialRequests, setSpecialRequests] = useState("");
   const [flightNumber, setFlightNumber] = useState("");
-  const [airport, setAirport] = useState("");
+  const [airline, setAirline] = useState("");
   const [hotelName, setHotelName] = useState("");
-  const [transferRequired, setTransferRequired] = useState(false);
-
-  // Step 2 — charter
   const [charterDuration, setCharterDuration] = useState("");
-  const [departurePoint, setDeparturePoint] = useState("");
-  const [activityPref, setActivityPref] = useState("");
-
+  const [departureMarina, setDepartureMarina] = useState("");
   // Step 3
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
-  const [accommodation, setAccommodation] = useState("");
   const [referral, setReferral] = useState("");
-  const [specialRequests, setSpecialRequests] = useState("");
+  const [consent, setConsent] = useState(false);
 
-  const selectedService = SERVICES.find((s) => s.id === serviceType);
-  const partySize = adults + children;
+  const selectedService = SERVICES.find(s => s.id === serviceType);
 
   const estimate = useMemo(() => {
     if (!selectedService) return 0;
-    if (serviceType === "concierge") return selectedService.basePrice * adults;
+    if (serviceType === "concierge") return selectedService.basePrice * guests;
     return selectedService.basePrice;
-  }, [serviceType, adults, selectedService]);
+  }, [serviceType, guests, selectedService]);
 
   const validateStep = (s: number): boolean => {
     const e: Record<string, string> = {};
     if (s === 1 && !serviceType) e.serviceType = "Please select a service";
-    if (s === 2) {
-      if (!tourDate) e.tourDate = "Required";
-      if (adults < 1) e.adults = "At least 1 adult";
-    }
+    if (s === 2 && !tourDate) e.tourDate = "Please select a date";
     if (s === 3) {
       if (!fullName.trim()) e.fullName = "Required";
       if (!email.trim()) e.email = "Required";
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "Invalid email";
       if (!phone.trim()) e.phone = "Required";
-      if (!country) e.country = "Required";
+      if (!consent) e.consent = "Please agree to continue";
     }
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const next = () => {
-    if (validateStep(step)) setStep((s) => Math.min(s + 1, 4));
-  };
-  const prev = () => setStep((s) => Math.max(s - 1, 1));
-
-  const buildAddOns = (): string[] => {
-    const addOns: string[] = [];
-    if (serviceType === "circumnavigation") {
-      if (startTime) addOns.push(`start:${startTime}`);
-      if (pace) addOns.push(`pace:${pace}`);
-      if (lunch) addOns.push(`lunch:${lunch}`);
-    }
-    if (serviceType === "concierge") {
-      if (conciergeType) addOns.push(`type:${conciergeType}`);
-      if (airport) addOns.push(`airport:${airport}`);
-      if (transferRequired) addOns.push("transfer:yes");
-    }
-    if (serviceType === "charter") {
-      if (charterDuration) addOns.push(`duration:${charterDuration}`);
-      if (departurePoint) addOns.push(`departure:${departurePoint}`);
-      if (activityPref) addOns.push(`activity:${activityPref}`);
-    }
-    return addOns;
-  };
+  const next = () => { if (validateStep(step)) setStep(s => Math.min(s + 1, 4)); };
+  const prev = () => setStep(s => Math.max(s - 1, 1));
 
   const handleSubmit = async () => {
     if (!validateStep(3)) { setStep(3); return; }
     setLoading(true);
+    const addOns: string[] = [];
+    if (startTime) addOns.push(`start:${startTime}`);
+    if (charterDuration) addOns.push(`duration:${charterDuration}`);
+    if (departureMarina) addOns.push(`marina:${departureMarina}`);
+    if (airline) addOns.push(`airline:${airline}`);
 
-    const { data, error } = await supabase
-      .from("bookings")
-      .insert({
-        service_type: serviceType,
-        full_name: fullName.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-        country,
-        tour_date: dateFormat(tourDate!, "yyyy-MM-dd"),
-        party_size: partySize,
-        adults,
-        children: children > 0 ? children : null,
-        pickup_location: accommodation.trim() || null,
-        flight_details: flightNumber.trim() || null,
-        special_requests: specialRequests.trim() || null,
-        add_ons: buildAddOns().length > 0 ? buildAddOns() : null,
-        total_estimate: estimate > 0 ? estimate : null,
-      })
-      .select("booking_ref")
-      .single();
+    const { data, error } = await supabase.from("bookings").insert({
+      service_type: serviceType,
+      full_name: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      country: country || null,
+      tour_date: dateFormat(tourDate!, "yyyy-MM-dd"),
+      party_size: guests,
+      adults: guests,
+      pickup_location: hotelName.trim() || null,
+      flight_details: flightNumber.trim() || null,
+      special_requests: specialRequests.trim() || null,
+      add_ons: addOns.length > 0 ? addOns : null,
+      total_estimate: estimate > 0 ? estimate : null,
+    }).select("booking_ref").single();
 
     setLoading(false);
-    if (error) {
-      setErrors({ submit: "Something went wrong. Please try again." });
-      return;
-    }
+    if (error) { setErrors({ submit: "Something went wrong. Please try again." }); return; }
     setBookingRef(data?.booking_ref || "");
     setSubmitted(true);
-  };
-
-  const reset = () => {
-    setStep(1);
-    setSubmitted(false);
-    setServiceType("");
-    setTourDate(undefined);
-    setAdults(2);
-    setChildren(0);
-    setStartTime("");
-    setPace("");
-    setLunch("");
-    setConciergeType("");
-    setFlightNumber("");
-    setAirport("");
-    setHotelName("");
-    setTransferRequired(false);
-    setCharterDuration("");
-    setDeparturePoint("");
-    setActivityPref("");
-    setFullName("");
-    setEmail("");
-    setPhone("");
-    setCountry("");
-    setAccommodation("");
-    setReferral("");
-    setSpecialRequests("");
-    setErrors({});
   };
 
   /* ── SUCCESS ── */
   if (submitted) {
     return (
-      <div className="bw-success">
-        <div className="bw-success__diamond">◆</div>
-        <h1 className="bw-success__h1">Booking Confirmed.</h1>
-        <p className="bw-success__ref">{bookingRef}</p>
-        <p className="bw-success__desc">
-          We've sent a confirmation to {email}. Our team will contact you within
-          24 hours to finalise your experience.
+      <div style={{ maxWidth: 600, margin: "0 auto", padding: "80px 24px", textAlign: "center" }}>
+        <svg width="64" height="64" viewBox="0 0 64 64" style={{ margin: "0 auto 24px" }}>
+          <circle cx="32" cy="32" r="30" fill="none" stroke="#2cb8a8" strokeWidth="2" />
+          <path d="M20 32 L28 40 L44 24" fill="none" stroke="#2cb8a8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <animate attributeName="stroke-dasharray" from="0 100" to="50 100" dur="0.6s" fill="freeze" />
+          </path>
+        </svg>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 400, color: "#fff", marginBottom: 12 }}>
+          Booking Request Received.
+        </h2>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 32 }}>
+          We'll be in touch within 2 hours to confirm your experience and send your detailed itinerary.
         </p>
-        <div className="bw-success__actions">
-          <button className="bw-btn bw-btn--navy" onClick={reset}>
-            Book Another Experience
-          </button>
-          <a
-            href="https://wa.me/12681234567"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bw-btn bw-btn--ghost"
-          >
-            WhatsApp Us Now
-          </a>
+        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+          <a href="https://wa.me/12687805510" target="_blank" rel="noopener noreferrer" style={{
+            background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.3)", borderRadius: 8,
+            padding: "14px 28px", color: "#25D366", fontFamily: "'DM Sans', sans-serif", fontSize: 12,
+            fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
+          }}>WhatsApp Us Now</a>
+          <a href="/" style={{
+            border: "1px solid rgba(255,255,255,0.15)", borderRadius: 8, padding: "14px 28px",
+            color: "rgba(255,255,255,0.6)", fontFamily: "'DM Sans', sans-serif", fontSize: 12,
+            fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
+          }}>Back to Home</a>
         </div>
       </div>
     );
   }
 
-  const STEP_LABELS = ["Service", "Details", "Your Info", "Review"];
+  const isTour = serviceType === "circumnavigation" || serviceType === "heritage";
 
   return (
-    <>
+    <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 100px" }}>
       {/* Step indicator */}
-      <div className="bw-stepper">
-        <div className="bw-stepper__inner">
-          {STEP_LABELS.map((label, i) => {
-            const num = i + 1;
-            const isActive = num === step;
-            const isComplete = num < step;
-            return (
-              <button
-                key={label}
-                className={cn(
-                  "bw-stepper__step",
-                  isActive && "bw-stepper__step--active",
-                  isComplete && "bw-stepper__step--complete",
-                )}
-                onClick={() => { if (isComplete) setStep(num); }}
-                disabled={num > step}
-              >
-                {isComplete && <Check size={12} strokeWidth={2.5} />}
-                {label}
-              </button>
-            );
-          })}
-          <div className="bw-stepper__line">
-            <div className="bw-stepper__fill" style={{ width: `${((step - 1) / 3) * 100}%` }} />
-          </div>
-        </div>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 0, marginBottom: 48 }}>
+        {STEP_LABELS.map((label, i) => {
+          const num = i + 1;
+          const isActive = num === step;
+          const isComplete = num < step;
+          return (
+            <div key={label} style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, cursor: isComplete ? "pointer" : "default" }}
+                onClick={() => { if (isComplete) setStep(num); }}>
+                <div style={{
+                  width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 13, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
+                  background: isComplete ? "#b8956a" : isActive ? "#2cb8a8" : "rgba(255,255,255,0.08)",
+                  color: isComplete || isActive ? "#fff" : "rgba(255,255,255,0.3)",
+                  transition: "all 0.3s ease",
+                }}>
+                  {isComplete ? <Check size={14} /> : num}
+                </div>
+                <span style={{
+                  fontSize: 10, letterSpacing: ".15em", textTransform: "uppercase",
+                  fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
+                  color: isActive ? "#fff" : "rgba(255,255,255,0.3)",
+                }}>{label}</span>
+              </div>
+              {i < 3 && (
+                <div style={{
+                  width: 48, height: 2, margin: "0 8px", marginBottom: 24,
+                  background: isComplete ? "#b8956a" : "rgba(255,255,255,0.1)",
+                  transition: "background 0.3s ease",
+                }} />
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      {/* Steps */}
-      <div className="bw-body">
-        {step === 1 && (
-          <div className="bw-step">
-            <p className="bw-instruction">What would you like to experience?</p>
-            {errors.serviceType && <p className="rb-error" style={{ textAlign: "center" }}>{errors.serviceType}</p>}
-            <div className="bw-services-grid">
-              {SERVICES.map((svc) => (
-                <button
-                  key={svc.id}
-                  className={cn("bw-svc-card", serviceType === svc.id && "bw-svc-card--selected")}
-                  onClick={() => { setServiceType(svc.id); setErrors({}); }}
-                >
-                  {serviceType === svc.id && <span className="bw-svc-card__check">◆</span>}
-                  <div className="bw-svc-card__img-wrap">
-                    <img src={svc.image} alt={svc.name} loading="lazy" width={600} height={338} />
-                  </div>
-                  <div className="bw-svc-card__body">
-                    <h3 className="bw-svc-card__name">{svc.name}</h3>
-                    <p className="bw-svc-card__desc">{svc.desc}</p>
-                    <span className="bw-svc-card__price">{`From ${formatPrice(svc.basePrice)}${svc.id === 'concierge' ? ' per person' : svc.id === 'charter' ? ' per charter' : ' per group'}`}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div className="bw-nav">
-              <button className="bw-btn bw-btn--navy" onClick={next} disabled={!serviceType}>
-                Continue →
+      {errors.submit && <p style={{ color: "#e05a5a", textAlign: "center", marginBottom: 24, fontSize: 14 }}>{errors.submit}</p>}
+
+      {/* Step 1 */}
+      {step === 1 && (
+        <div>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 8 }}>
+            What would you like to experience?
+          </h3>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.4)", textAlign: "center", marginBottom: 32 }}>
+            Select one to continue.
+          </p>
+          {errors.serviceType && <p className="gem-form-error" style={{ textAlign: "center", marginBottom: 16 }}>{errors.serviceType}</p>}
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="bw-svc-grid">
+            {SERVICES.map(svc => (
+              <button key={svc.id} onClick={() => { setServiceType(svc.id); setErrors({}); }} style={{
+                background: serviceType === svc.id ? "rgba(44,184,168,0.08)" : "rgba(255,255,255,0.03)",
+                border: serviceType === svc.id ? "2px solid #2cb8a8" : "1px solid rgba(255,255,255,0.08)",
+                boxShadow: serviceType === svc.id ? "0 0 0 4px rgba(44,184,168,0.1)" : "none",
+                borderRadius: 12, padding: "28px 24px", cursor: "pointer", textAlign: "left",
+                transition: "all 0.25s ease", display: "flex", flexDirection: "column", gap: 12,
+              }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <svc.icon size={24} style={{ color: "#2cb8a8" }} />
+                  <span style={{ fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", background: "rgba(255,255,255,0.06)", padding: "4px 10px", borderRadius: 999 }}>
+                    {svc.badge}
+                  </span>
+                </div>
+                <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "#fff" }}>{svc.title}</h4>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>{svc.desc}</p>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#C9A84C", fontWeight: 500 }}>{svc.price}</span>
               </button>
-            </div>
+            ))}
           </div>
-        )}
 
-        {step === 2 && (
-          <div className="bw-step bw-step--narrow">
-            <fieldset className="rb-fieldset">
-              <legend className="rb-legend">Date & Party Size</legend>
-              <div className="rb-field">
-                <label className="rb-label">Tour Date</label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button className={cn("rb-date-btn", errors.tourDate && "rb-input--error")}>
-                      <CalendarIcon size={14} style={{ opacity: 0.5 }} />
-                      {tourDate ? dateFormat(tourDate, "PPP") : "Select date"}
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={tourDate}
-                      onSelect={(d) => { setTourDate(d); setErrors((p) => ({ ...p, tourDate: "" })); }}
-                      disabled={(d) => d < addDays(new Date(), 1) || d > addYears(new Date(), 2)}
-                      initialFocus
-                      className="p-3 pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
-                {errors.tourDate && <span className="rb-error">{errors.tourDate}</span>}
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
+            <button onClick={next} disabled={!serviceType} style={{
+              background: serviceType ? "linear-gradient(135deg, #1a8a9e, #2cb8a8)" : "rgba(255,255,255,0.08)",
+              color: serviceType ? "#fff" : "rgba(255,255,255,0.3)",
+              border: "none", borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600,
+              letterSpacing: ".12em", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
+              cursor: serviceType ? "pointer" : "not-allowed", transition: "all 0.3s",
+            }}>Continue →</button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 2 */}
+      {step === 2 && (
+        <div style={{ maxWidth: 560, margin: "0 auto" }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 32 }}>
+            Experience Details
+          </h3>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <div>
+              <label className="gem-form-label">{serviceType === "concierge" ? "ARRIVAL DATE" : serviceType === "charter" ? "CHARTER DATE" : "TOUR DATE"}</label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className={cn("gem-form-input", errors.tourDate && "gem-form-input--error")} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+                    <CalendarIcon size={14} style={{ opacity: 0.5 }} />
+                    {tourDate ? dateFormat(tourDate, "PPP") : "Select date"}
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar mode="single" selected={tourDate} onSelect={d => { setTourDate(d); setErrors(p => ({ ...p, tourDate: "" })); }}
+                    disabled={d => d < addDays(new Date(), 1) || d > addYears(new Date(), 2)} initialFocus className="p-3 pointer-events-auto" />
+                </PopoverContent>
+              </Popover>
+              {errors.tourDate && <span className="gem-form-error">{errors.tourDate}</span>}
+            </div>
+
+            <NumStepper value={guests} onChange={setGuests} min={1} max={isTour ? 20 : serviceType === "charter" ? 10 : 12}
+              label={serviceType === "concierge" ? "PASSENGERS" : "NUMBER OF GUESTS"} />
+
+            {isTour && (
+              <div>
+                <label className="gem-form-label">PREFERRED START TIME</label>
+                <select className="gem-form-input" value={startTime} onChange={e => setStartTime(e.target.value)}>
+                  <option value="">Select time</option>
+                  <option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>Flexible</option>
+                </select>
               </div>
-
-              <div className="rb-row">
-                <div className="rb-field">
-                  <label className="rb-label">Adults</label>
-                  <div className="bw-stepper-input">
-                    <button type="button" onClick={() => setAdults(Math.max(1, adults - 1))} className="bw-stepper-btn"><Minus size={14} /></button>
-                    <span className="bw-stepper-value">{adults}</span>
-                    <button type="button" onClick={() => setAdults(Math.min(20, adults + 1))} className="bw-stepper-btn"><Plus size={14} /></button>
-                  </div>
-                </div>
-                <div className="rb-field">
-                  <label className="rb-label">Children (0–12)</label>
-                  <div className="bw-stepper-input">
-                    <button type="button" onClick={() => setChildren(Math.max(0, children - 1))} className="bw-stepper-btn"><Minus size={14} /></button>
-                    <span className="bw-stepper-value">{children}</span>
-                    <button type="button" onClick={() => setChildren(Math.min(15, children + 1))} className="bw-stepper-btn"><Plus size={14} /></button>
-                  </div>
-                </div>
-              </div>
-              <p className="bw-guests-total">{partySize} guest{partySize !== 1 ? "s" : ""} total</p>
-            </fieldset>
-
-            {serviceType === "circumnavigation" && (
-              <fieldset className="rb-fieldset">
-                <legend className="rb-legend">Circumnavigation Options</legend>
-                <div className="rb-field">
-                  <label className="rb-label">Preferred Start Time</label>
-                  <select className="rb-select" value={startTime} onChange={(e) => setStartTime(e.target.value)}>
-                    <option value="">Select time</option>
-                    <option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option>
-                  </select>
-                </div>
-                <div className="rb-field">
-                  <label className="rb-label">Pace Preference</label>
-                  <select className="rb-select" value={pace} onChange={(e) => setPace(e.target.value)}>
-                    <option value="">Select pace</option>
-                    <option>Leisurely (more stops)</option><option>Active (full island)</option><option>Custom — tell us</option>
-                  </select>
-                </div>
-                <div className="rb-field">
-                  <label className="rb-label">Lunch Preference</label>
-                  <select className="rb-select" value={lunch} onChange={(e) => setLunch(e.target.value)}>
-                    <option value="">Select option</option>
-                    <option>Include beachside lunch</option><option>I'll arrange my own</option>
-                  </select>
-                </div>
-              </fieldset>
             )}
 
             {serviceType === "concierge" && (
-              <fieldset className="rb-fieldset">
-                <legend className="rb-legend">Concierge Details</legend>
-                <div className="rb-field">
-                  <label className="rb-label">Service Type</label>
-                  <select className="rb-select" value={conciergeType} onChange={(e) => setConciergeType(e.target.value)}>
-                    <option value="">Select type</option>
-                    <option>Airport Arrival</option><option>Airport Departure</option>
-                    <option>Full Trip Coordination</option><option>Private Charter Booking</option>
-                  </select>
+              <>
+                <div>
+                  <label className="gem-form-label">FLIGHT NUMBER</label>
+                  <input className="gem-form-input" value={flightNumber} onChange={e => setFlightNumber(e.target.value)} placeholder="e.g. AA 1234" maxLength={20} />
                 </div>
-                <div className="rb-row">
-                  <div className="rb-field">
-                    <label className="rb-label">Flight Number (if known)</label>
-                    <input type="text" className="rb-input" value={flightNumber} onChange={(e) => setFlightNumber(e.target.value)} maxLength={20} />
-                  </div>
-                  <div className="rb-field">
-                    <label className="rb-label">Airport</label>
-                    <select className="rb-select" value={airport} onChange={(e) => setAirport(e.target.value)}>
-                      <option value="">Select airport</option>
-                      <option>V.C. Bird International (ANU)</option><option>Other — specify</option>
-                    </select>
-                  </div>
+                <div>
+                  <label className="gem-form-label">AIRLINE</label>
+                  <input className="gem-form-input" value={airline} onChange={e => setAirline(e.target.value)} placeholder="e.g. American Airlines" maxLength={100} />
                 </div>
-                <div className="rb-field">
-                  <label className="rb-label">Hotel / Accommodation</label>
-                  <input type="text" className="rb-input" value={hotelName} onChange={(e) => setHotelName(e.target.value)} maxLength={200} />
+                <div>
+                  <label className="gem-form-label">HOTEL / VILLA NAME</label>
+                  <input className="gem-form-input" value={hotelName} onChange={e => setHotelName(e.target.value)} placeholder="Where should we take you?" maxLength={200} />
                 </div>
-                <label className="bw-checkbox">
-                  <input type="checkbox" checked={transferRequired} onChange={(e) => setTransferRequired(e.target.checked)} />
-                  <span>Yes, include ground transfer to/from hotel</span>
-                </label>
-              </fieldset>
+              </>
             )}
 
             {serviceType === "charter" && (
-              <fieldset className="rb-fieldset">
-                <legend className="rb-legend">Charter Details</legend>
-                <div className="rb-field">
-                  <label className="rb-label">Duration</label>
-                  <select className="rb-select" value={charterDuration} onChange={(e) => setCharterDuration(e.target.value)}>
+              <>
+                <div>
+                  <label className="gem-form-label">DURATION</label>
+                  <select className="gem-form-input" value={charterDuration} onChange={e => setCharterDuration(e.target.value)}>
                     <option value="">Select duration</option>
-                    <option>Half Day (4 hours)</option><option>Full Day (8 hours)</option><option>Sunset (3 hours)</option>
+                    <option>Half Day (4 hours)</option><option>Full Day (8 hours)</option>
                   </select>
                 </div>
-                <div className="rb-field">
-                  <label className="rb-label">Departure Point</label>
-                  <select className="rb-select" value={departurePoint} onChange={(e) => setDeparturePoint(e.target.value)}>
-                    <option value="">Select point</option>
-                    <option>English Harbour</option><option>Jolly Harbour</option><option>Dickenson Bay</option>
+                <div>
+                  <label className="gem-form-label">DEPARTURE MARINA</label>
+                  <select className="gem-form-input" value={departureMarina} onChange={e => setDepartureMarina(e.target.value)}>
+                    <option value="">Select marina</option>
+                    <option>English Harbour</option><option>Jolly Harbour</option><option>Heritage Quay</option><option>Other</option>
                   </select>
                 </div>
-                <div className="rb-field">
-                  <label className="rb-label">Activity Preference</label>
-                  <select className="rb-select" value={activityPref} onChange={(e) => setActivityPref(e.target.value)}>
-                    <option value="">Select activity</option>
-                    <option>Snorkelling + beaches</option><option>Scenic coastal cruise</option>
-                    <option>Fishing</option><option>Custom</option>
-                  </select>
-                </div>
-              </fieldset>
+              </>
             )}
 
-            <div className="bw-nav bw-nav--between">
-              <button className="bw-btn bw-btn--ghost" onClick={prev}>← Back</button>
-              <button className="bw-btn bw-btn--navy" onClick={next}>Continue →</button>
+            <div>
+              <label className="gem-form-label">ANYTHING SPECIAL?</label>
+              <textarea className="gem-form-input" value={specialRequests} onChange={e => setSpecialRequests(e.target.value)} rows={3}
+                placeholder="Dietary needs, accessibility, celebrations, or anything you'd like us to know." style={{ resize: "vertical" }} maxLength={1000} />
             </div>
           </div>
-        )}
 
-        {step === 3 && (
-          <div className="bw-step bw-step--narrow">
-            <fieldset className="rb-fieldset">
-              <legend className="rb-legend">Your Information</legend>
-              <div className="rb-row">
-                <div className="rb-field">
-                  <label className="rb-label">Full Name</label>
-                  <input type="text" className={cn("rb-input", errors.fullName && "rb-input--error")} value={fullName}
-                    onChange={(e) => { setFullName(e.target.value); setErrors((p) => ({ ...p, fullName: "" })); }} maxLength={100} />
-                  {errors.fullName && <span className="rb-error">{errors.fullName}</span>}
-                </div>
-                <div className="rb-field">
-                  <label className="rb-label">Email Address</label>
-                  <input type="email" className={cn("rb-input", errors.email && "rb-input--error")} value={email}
-                    onChange={(e) => { setEmail(e.target.value); setErrors((p) => ({ ...p, email: "" })); }} maxLength={255} />
-                  {errors.email && <span className="rb-error">{errors.email}</span>}
-                </div>
-              </div>
-              <div className="rb-row">
-                <div className="rb-field">
-                  <label className="rb-label">Phone Number</label>
-                  <input type="tel" className={cn("rb-input", errors.phone && "rb-input--error")} value={phone}
-                    onChange={(e) => { setPhone(e.target.value); setErrors((p) => ({ ...p, phone: "" })); }} placeholder="+1 268..." maxLength={20} />
-                  {errors.phone && <span className="rb-error">{errors.phone}</span>}
-                </div>
-                <div className="rb-field">
-                  <label className="rb-label">Country of Residence</label>
-                  <select className={cn("rb-select", errors.country && "rb-input--error")} value={country}
-                    onChange={(e) => { setCountry(e.target.value); setErrors((p) => ({ ...p, country: "" })); }}>
-                    <option value="">Select country</option>
-                    {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                  {errors.country && <span className="rb-error">{errors.country}</span>}
-                </div>
-              </div>
-              <div className="rb-field">
-                <label className="rb-label">Hotel / Accommodation in Antigua</label>
-                <input type="text" className="rb-input" value={accommodation}
-                  onChange={(e) => setAccommodation(e.target.value)} placeholder="Where are you staying?" maxLength={200} />
-              </div>
-              <div className="rb-field">
-                <label className="rb-label">How Did You Hear About Us?</label>
-                <select className="rb-select" value={referral} onChange={(e) => setReferral(e.target.value)}>
-                  <option value="">Select one</option>
-                  {REFERRAL_SOURCES.map((r) => <option key={r} value={r}>{r}</option>)}
-                </select>
-              </div>
-              <div className="rb-field">
-                <label className="rb-label">Special Requests or Notes</label>
-                <textarea className="rb-textarea" value={specialRequests}
-                  onChange={(e) => setSpecialRequests(e.target.value)}
-                  placeholder="Dietary requirements, mobility considerations, anniversary celebration..."
-                  maxLength={1000} rows={5} />
-              </div>
-            </fieldset>
-            <div className="bw-nav bw-nav--between">
-              <button className="bw-btn bw-btn--ghost" onClick={prev}>← Back</button>
-              <button className="bw-btn bw-btn--navy" onClick={next}>Continue →</button>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32 }}>
+            <button onClick={prev} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
+            <button onClick={next} style={{
+              background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
+              borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
+              fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", cursor: "pointer",
+            }}>Continue →</button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 3 */}
+      {step === 3 && (
+        <div style={{ maxWidth: 640, margin: "0 auto" }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 32 }}>
+            Your Information
+          </h3>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="bw-info-grid">
+            <div>
+              <label className="gem-form-label">FULL NAME</label>
+              <input className={cn("gem-form-input", errors.fullName && "gem-form-input--error")} value={fullName} onChange={e => { setFullName(e.target.value); setErrors(p => ({ ...p, fullName: "" })); }} maxLength={100} />
+              {errors.fullName && <span className="gem-form-error">{errors.fullName}</span>}
+            </div>
+            <div>
+              <label className="gem-form-label">EMAIL ADDRESS</label>
+              <input type="email" className={cn("gem-form-input", errors.email && "gem-form-input--error")} value={email} onChange={e => { setEmail(e.target.value); setErrors(p => ({ ...p, email: "" })); }} maxLength={255} />
+              {errors.email && <span className="gem-form-error">{errors.email}</span>}
+            </div>
+            <div>
+              <label className="gem-form-label">PHONE / WHATSAPP</label>
+              <input type="tel" className={cn("gem-form-input", errors.phone && "gem-form-input--error")} value={phone} onChange={e => { setPhone(e.target.value); setErrors(p => ({ ...p, phone: "" })); }} placeholder="+1 (000) 000-0000" maxLength={20} />
+              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", display: "block", marginTop: 4 }}>We'll send your confirmation here</span>
+              {errors.phone && <span className="gem-form-error">{errors.phone}</span>}
+            </div>
+            <div>
+              <label className="gem-form-label">COUNTRY OF RESIDENCE</label>
+              <select className="gem-form-input" value={country} onChange={e => setCountry(e.target.value)}>
+                <option value="">Select country</option>
+                {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+            <div style={{ gridColumn: "1 / -1" }}>
+              <label className="gem-form-label">HOW DID YOU HEAR ABOUT US?</label>
+              <select className="gem-form-input" value={referral} onChange={e => setReferral(e.target.value)}>
+                <option value="">Select (optional)</option>
+                {REFERRALS.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
             </div>
           </div>
-        )}
 
-        {step === 4 && (
-          <div className="bw-step bw-step--narrow">
-            <div className="bw-review-card">
-              {selectedService && (
-                <div className="bw-review-header">
-                  <img src={selectedService.image} alt={selectedService.name} className="bw-review-thumb" />
-                  <span className="bw-review-badge">{selectedService.name}</span>
-                </div>
-              )}
+          <label style={{ display: "flex", alignItems: "flex-start", gap: 12, marginTop: 24, cursor: "pointer" }}>
+            <input type="checkbox" checked={consent} onChange={e => { setConsent(e.target.checked); setErrors(p => ({ ...p, consent: "" })); }}
+              style={{ marginTop: 3, accentColor: "#2cb8a8" }} />
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.5 }}>
+              I agree to receive my booking confirmation and trip details by email.
+            </span>
+          </label>
+          {errors.consent && <span className="gem-form-error">{errors.consent}</span>}
 
-              <div className="bw-review-rows">
-                <div className="bw-review-row"><span>Date</span><span>{tourDate ? dateFormat(tourDate, "PPP") : "—"}</span></div>
-                <div className="bw-review-row"><span>Party Size</span><span>{adults} adult{adults > 1 ? "s" : ""}{children > 0 ? `, ${children} child${children > 1 ? "ren" : ""}` : ""}</span></div>
-                <div className="bw-review-row"><span>Guest</span><span>{fullName}</span></div>
-                <div className="bw-review-row"><span>Email</span><span>{email}</span></div>
-                <div className="bw-review-row"><span>Phone</span><span>{phone}</span></div>
-                <div className="bw-review-row"><span>Country</span><span>{country}</span></div>
-                {accommodation && <div className="bw-review-row"><span>Accommodation</span><span>{accommodation}</span></div>}
-                {specialRequests && <div className="bw-review-row"><span>Notes</span><span>{specialRequests}</span></div>}
-              </div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32 }}>
+            <button onClick={prev} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
+            <button onClick={next} style={{
+              background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
+              borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
+              fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", cursor: "pointer",
+            }}>Review Booking →</button>
+          </div>
+        </div>
+      )}
 
-              <div className="bw-review-estimate">
-                <span className="bw-review-estimate__label">Estimated starting from:</span>
-                <span className="bw-review-estimate__value">{formatPrice(estimate)}</span>
-              </div>
-              <p className="bw-review-note">
-                Final pricing confirmed within 24 hours. No payment required now — we'll invoice you after confirmation.
-              </p>
-              <p className="bw-review-cancel">
-                Free cancellation up to 48 hours before your tour date.
-              </p>
+      {/* Step 4 — Review */}
+      {step === 4 && (
+        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 32 }}>
+            Review Your Booking
+          </h3>
 
-              {errors.submit && <p className="rb-error" style={{ textAlign: "center", marginTop: "16px" }}>{errors.submit}</p>}
-
-              <button className="bw-confirm-btn" onClick={handleSubmit} disabled={loading}>
-                {loading ? <Loader2 size={18} className="animate-spin" /> : "Confirm Booking"}
-              </button>
+          {/* Experience summary */}
+          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <span style={{ fontSize: 10, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR EXPERIENCE</span>
+              <button onClick={() => setStep(1)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
             </div>
-            <div className="bw-nav">
-              <button className="bw-btn bw-btn--ghost" onClick={prev}>← Back</button>
+            {selectedService && (
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                <selectedService.icon size={20} style={{ color: "#2cb8a8" }} />
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff" }}>{selectedService.title}</span>
+              </div>
+            )}
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif" }}>
+              {tourDate && <span>Date: {dateFormat(tourDate, "PPP")}</span>}
+              <span>Guests: {guests}</span>
+              {startTime && <span>Start: {startTime}</span>}
+              {charterDuration && <span>Duration: {charterDuration}</span>}
+              {flightNumber && <span>Flight: {flightNumber}</span>}
+              {estimate > 0 && <span style={{ color: "#C9A84C", fontWeight: 500 }}>Estimated: {formatPrice(estimate)}</span>}
             </div>
           </div>
-        )}
-      </div>
-    </>
+
+          {/* Contact summary */}
+          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <span style={{ fontSize: 10, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR DETAILS</span>
+              <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif" }}>
+              <span>{fullName}</span>
+              <span>{email.replace(/(.{2}).*(@.*)/, "$1***$2")}</span>
+              {phone && <span>{phone}</span>}
+            </div>
+          </div>
+
+          {/* What happens next */}
+          <div style={{ background: "rgba(44,184,168,0.04)", border: "1px solid rgba(44,184,168,0.15)", borderRadius: 12, padding: 28, marginBottom: 32 }}>
+            <span style={{ fontSize: 10, letterSpacing: ".15em", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 16 }}>WHAT HAPPENS NEXT</span>
+            {[
+              "We'll confirm availability within 2 hours",
+              "You'll receive a detailed itinerary by email",
+              "Full payment is only taken on the day — no charge now",
+            ].map(text => (
+              <div key={text} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <Check size={14} style={{ color: "#2cb8a8", flexShrink: 0 }} />
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{text}</span>
+              </div>
+            ))}
+          </div>
+
+          <button onClick={handleSubmit} disabled={loading} style={{
+            background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
+            borderRadius: 8, padding: "18px 40px", fontSize: 14, fontWeight: 600, letterSpacing: ".15em",
+            fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", cursor: loading ? "wait" : "pointer",
+            width: "100%", opacity: loading ? 0.6 : 1, transition: "opacity 0.3s",
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+          }}>
+            {loading && <Loader2 size={16} className="animate-spin" />}
+            {loading ? "Submitting..." : "Send Booking Request →"}
+          </button>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", marginTop: 12, lineHeight: 1.6 }}>
+            By submitting you agree to our booking terms. No payment is taken at this stage.
+          </p>
+        </div>
+      )}
+
+      <style>{`
+        .gem-form-label {
+          font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+          letter-spacing: 0.12em; color: rgba(255,255,255,0.45);
+          text-transform: uppercase; display: block; margin-bottom: 8px;
+        }
+        .gem-form-input {
+          background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 8px; padding: 14px 16px; color: #fff;
+          font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
+          width: 100%; transition: border-color 0.25s ease;
+        }
+        .gem-form-input:focus { border-color: rgba(44,184,168,0.6); box-shadow: 0 0 0 3px rgba(44,184,168,0.08); }
+        .gem-form-input::placeholder { color: rgba(255,255,255,0.25); }
+        .gem-form-input--error { border-color: #e05a5a !important; }
+        .gem-form-error { font-size: 11px; color: #e05a5a; margin-top: 4px; display: block; }
+        .gem-stepper-btn {
+          width: 36px; height: 36px; border-radius: 50%;
+          border: 1px solid rgba(201,168,76,0.3); background: transparent;
+          color: rgba(255,255,255,0.6); cursor: pointer; display: flex;
+          align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .gem-stepper-btn:hover { border-color: rgba(201,168,76,0.6); color: #fff; }
+        @media (max-width: 640px) {
+          .bw-svc-grid { grid-template-columns: 1fr !important; }
+          .bw-info-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </div>
   );
 };
 

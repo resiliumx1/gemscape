@@ -17,6 +17,8 @@ import Admin from "./pages/Admin.tsx";
 import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
+import Contact from "./pages/Contact.tsx";
+import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider, PageWrapper } from "@/components/PageTransitionWave";
 import IntroSplash from "@/components/IntroSplash";
 
@@ -83,6 +85,8 @@ const App = () => {
               <Route path="/rentals" element={<PageWrapper><Rentals /></PageWrapper>} />
               <Route path="/book" element={<PageWrapper><Book /></PageWrapper>} />
               <Route path="/concierge" element={<PageWrapper><Concierge /></PageWrapper>} />
+              <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+              <Route path="/experiences" element={<PageWrapper><Experiences /></PageWrapper>} />
               
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
