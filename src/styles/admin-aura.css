@@ -60,13 +60,13 @@
   --aura-text-dim: #2e6a72;
   --aura-text-muted: #4a808a;
   --aura-text-secondary: #2e6a72;
-  --aura-glass: rgba(255,255,255,0.58);
-  --aura-glass-border: rgba(0,60,65,0.10);
+  --aura-glass: rgba(255,255,255,0.72);
+  --aura-glass-border: rgba(0,60,65,0.08);
   --aura-glass-border-hover: rgba(0,60,65,0.18);
-  --aura-glass-hover: rgba(255,255,255,0.72);
-  --aura-highlight: rgba(0,50,50,0.04);
-  --aura-bg-hover: rgba(0,50,50,0.06);
-  --aura-sidebar-bg: rgba(238,248,248,0.70);
+  --aura-glass-hover: rgba(255,255,255,0.82);
+  --aura-highlight: rgba(0,50,55,0.04);
+  --aura-bg-hover: rgba(0,50,55,0.06);
+  --aura-sidebar-bg: rgba(238,248,248,0.85);
   --aura-teal: #2cb8a8;
   --aura-teal-bright: #1a9a8a;
   --aura-teal-dim: rgba(44,184,168,0.08);
@@ -81,14 +81,14 @@
   --aura-warning-bg: rgba(184,146,42,0.08);
   --aura-danger-bg: rgba(200,64,80,0.08);
   --aura-info-bg: rgba(40,136,200,0.08);
-  --aura-input-bg: rgba(0,0,0,0.04);
+  --aura-input-bg: rgba(0,40,50,0.04);
   --aura-input-border: rgba(0,60,65,0.12);
-  --aura-grid-stroke: rgba(0,60,65,0.03);
-  --aura-card-shadow: 0 8px 32px rgba(0,50,60,0.08);
-  --aura-card-shadow-hover: 0 12px 40px rgba(0,50,60,0.12);
+  --aura-grid-stroke: rgba(0,60,65,0.06);
+  --aura-card-shadow: 0 1px 16px rgba(0,50,60,0.07);
+  --aura-card-shadow-hover: 0 4px 24px rgba(0,50,60,0.10);
   --aura-border-light: rgba(0,60,65,0.06);
-  --aura-modal-bg: rgba(255,255,255,0.97);
-  --aura-notification-bg: rgba(255,255,255,0.97);
+  --aura-modal-bg: rgba(252,254,254,0.98);
+  --aura-notification-bg: rgba(252,254,254,0.97);
 }
 
 /* ── Animated Gradient Mesh Background ── */
