@@ -550,8 +550,6 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
         gemGeometry.dispose();
         gemMaterial.dispose();
         edgesGeo.dispose();
-        reflectorGeometry.dispose();
-        reflector.dispose();
         _sparkleGeo.dispose();
         _sparkleMat.dispose();
         if (canvas.parentElement) canvas.parentElement.removeChild(canvas);
