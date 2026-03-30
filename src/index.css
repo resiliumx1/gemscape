@@ -2578,25 +2578,28 @@ button, input, textarea, select, a {
 }
 
 .rentals-preview__btn--primary {
-  border: 1px solid hsl(var(--gem-aqua));
-  color: hsl(var(--gem-aqua));
-  background: transparent;
+  background: linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%);
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
 }
 
 .rentals-preview__btn--primary:hover {
-  background: hsl(var(--gem-aqua));
-  color: hsl(var(--gem-navy));
+  box-shadow: 0 6px 20px rgba(26,138,158,0.4);
+  transform: translateY(-1px);
 }
 
 .rentals-preview__btn--ghost {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(201,168,76,0.5);
+  color: #c9a84c;
   background: transparent;
+  padding: 13px 32px;
 }
 
 .rentals-preview__btn--ghost:hover {
-  border-color: #fff;
-  color: #fff;
+  border-color: #c9a84c;
+  background: rgba(201,168,76,0.1);
+  color: #c9a84c;
 }
 
 .rentals-preview__right {
