@@ -184,6 +184,7 @@ const ProfileAvatar = ({ profilePic, onUpload, onRemove, onNavigateSettings, siz
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.95 }}
             transition={{ duration: 0.15 }}
+            className="aura-notification-dropdown"
             style={{
               position: "absolute", top: "calc(100% + 8px)", right: 0, width: 180,
               background: "var(--aura-notification-bg, rgba(6,22,28,0.95))",
