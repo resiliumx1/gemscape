@@ -13,7 +13,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Admin from "./pages/Admin.tsx";
-import AdminLogin from "./pages/AdminLogin.tsx";
+
 import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
