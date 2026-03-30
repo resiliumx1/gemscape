@@ -81,6 +81,21 @@ const HeroSection = () => {
         }}
       />
 
+      {/* ═══ LAYER 3 — GEM GLOW ═══ */}
+      <div
+        style={{
+          position: "absolute",
+          top: "15%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: isMobile ? 360 : 520,
+          height: isMobile ? 360 : 520,
+          background: "radial-gradient(ellipse, rgba(26,138,158,0.18) 0%, transparent 70%)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
+
       {/* ═══ LAYER 3 — THREE.JS GEM ═══ */}
       <div
         className="hero-gem-floating"
@@ -94,8 +109,8 @@ const HeroSection = () => {
         }}
       >
         <BrilliantGem
-          width={isMobile ? 260 : 420}
-          height={isMobile ? 260 : 420}
+          width={isMobile ? 320 : 500}
+          height={isMobile ? 320 : 500}
           observerTarget={heroRef as React.RefObject<HTMLElement>}
         />
       </div>
@@ -204,7 +219,7 @@ const HeroSection = () => {
           <button
             onClick={() => navigateTo("/book")}
             style={{
-              background: "#C9A84C",
+              background: "linear-gradient(135deg, #b8956a 0%, #d4ad7c 100%)",
               color: "#05181e",
               fontSize: 11,
               fontWeight: 600,
@@ -249,13 +264,12 @@ const HeroSection = () => {
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 3,
-          opacity: 0.4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <ChevronDown size={24} color="#fff" className="hero-chevron-bounce" />
+        <ChevronDown size={28} color="rgba(201,168,76,0.8)" className="hero-chevron-bounce" />
       </div>
 
       {/* Responsive + Ken Burns + bounce styles */}
