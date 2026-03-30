@@ -17,6 +17,7 @@ const SERVICES = [
       "Our rental fleet — from premium SUVs to sailing catamarans — is hand-selected for comfort, style, and the freedom to explore Antigua entirely on your own terms.",
     priceUsd: 65,
     priceSuffix: "/day",
+    route: "/rentals",
   },
   {
     number: "02",
@@ -27,6 +28,7 @@ const SERVICES = [
       "Our signature full-island journey takes you all the way around Antigua — past hidden coves, historic forts, and sleepy fishing villages that no cruise ship ever reaches.",
     priceUsd: 280,
     priceSuffix: " per group",
+    route: "/book",
   },
   {
     number: "03",
@@ -37,6 +39,7 @@ const SERVICES = [
       "From the moment you land at V.C. Bird International to the second your wheels lift off, we handle every detail. Private charters, VIP meet-and-greet, transfers. Not one stressful moment.",
     priceUsd: 150,
     priceSuffix: " per person",
+    route: "/concierge",
   },
 ];
 
