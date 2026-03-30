@@ -357,12 +357,9 @@ export default function Navbar() {
           className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
           aria-label="Gemscape home"
         >
-          <img
-            src="/images/gemscape-logo.png"
-            alt="Gemscape Travel & Tours"
-            className="h-[44px] sm:h-[52px] w-auto object-contain"
-            style={{ background: "transparent", minWidth: 120 }}
-          />
+          <div style={{ width: 52, height: 52, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <BrilliantGem width={48} height={48} />
+          </div>
         </motion.button>
 
         {/* Desktop Nav */}
