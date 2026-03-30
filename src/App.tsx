@@ -73,7 +73,7 @@ const App = () => {
     <CurrencyProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {showIntro && window.location.pathname !== '/admin' && <CinematicIntro onComplete={handleIntroComplete} />}
+        {showIntro && window.location.pathname !== '/admin' && <IntroSplash onComplete={handleIntroComplete} />}
         <Toaster />
         <Sonner />
         <BrowserRouter>
