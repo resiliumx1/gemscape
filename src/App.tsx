@@ -18,7 +18,7 @@ import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
 import { PageTransitionProvider, PageWrapper } from "@/components/PageTransitionWave";
-import CinematicIntro from "@/components/CinematicIntro";
+import IntroSplash from "@/components/IntroSplash";
 
 gsap.registerPlugin(ScrollTrigger);
 
