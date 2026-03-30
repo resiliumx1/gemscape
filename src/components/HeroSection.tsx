@@ -262,12 +262,12 @@ const HeroSection = () => {
               }}
             >
               <div
-                style={{
+              style={{
                   position: "absolute",
-                  width: "120%",
-                  height: "120%",
+                  width: "80%",
+                  height: "80%",
                   background:
-                    "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
+                    "radial-gradient(ellipse, rgba(44,184,168,0.10) 0%, rgba(26,138,158,0.05) 40%, transparent 65%)",
                   pointerEvents: "none",
                   zIndex: 0,
                   top: "50%",
