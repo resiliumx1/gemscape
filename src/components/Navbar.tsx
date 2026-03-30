@@ -357,8 +357,8 @@ export default function Navbar() {
           className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
           aria-label="Gemscape home"
         >
-          <div style={{ width: 52, height: 52, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <BrilliantGem width={48} height={48} />
+          <div style={{ width: 72, height: 72, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <BrilliantGem width={68} height={68} />
           </div>
         </motion.button>
 
