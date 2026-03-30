@@ -283,14 +283,31 @@
 .aura-sidebar__nav {
   flex: 1;
   overflow-y: auto;
-  padding: 12px 10px;
+  padding: 8px 10px;
   scrollbar-width: thin;
-  scrollbar-color: #2cb8a830 transparent;
+  scrollbar-color: rgba(44,184,168,0.3) transparent;
+  position: relative;
 }
 
-.aura-sidebar__nav::-webkit-scrollbar { width: 3px; }
-.aura-sidebar__nav::-webkit-scrollbar-track { background: transparent; }
-.aura-sidebar__nav::-webkit-scrollbar-thumb { background: #2cb8a830; border-radius: 3px; }
+.sidebar-nav::-webkit-scrollbar { width: 3px; }
+.sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: rgba(44,184,168,0.3); border-radius: 2px; }
+
+/* Scroll fade indicator */
+.aura-sidebar__scroll-fade {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, var(--aura-bg));
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.aura-light .aura-sidebar__scroll-fade {
+  background: linear-gradient(to bottom, transparent, var(--aura-sidebar-bg));
+}
 
 .aura-sidebar__section-label {
   font-family: var(--aura-font-body);
