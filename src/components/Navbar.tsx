@@ -186,13 +186,17 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
       initial="initial"
       whileHover="hover"
       whileTap="tap"
-      className={`relative overflow-hidden px-10 py-3.5 rounded-full border border-gem-gold/40 bg-gradient-to-br from-gem-gold/30 to-gem-gold/10 group shadow-lg shadow-gem-gold/10 ${fullWidth ? "w-full" : ""}`}
+      className={`relative overflow-hidden px-10 py-3.5 rounded-full group shadow-lg ${fullWidth ? "w-full" : ""}`}
+      style={{
+        border: "1px solid rgba(184,149,106,0.35)",
+        background: "linear-gradient(135deg, rgba(26,138,158,0.25) 0%, rgba(44,184,168,0.15) 100%)",
+        boxShadow: "0 4px 15px rgba(26,138,158,0.1)",
+      }}
       variants={{
         initial: { scale: 1 },
         hover: {
           scale: 1.05,
-          boxShadow: "0 0 40px rgba(184, 149, 106, 0.15)",
-          borderColor: "rgba(184, 149, 106, 0.5)",
+          boxShadow: "0 0 40px rgba(44, 184, 168, 0.15)",
         },
         tap: { scale: 0.98 },
       }}
@@ -210,7 +214,7 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
       />
 
       {/* Hover bg */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-gem-gold/40 to-gem-gold/20" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(26,138,158,0.35) 0%, rgba(44,184,168,0.2) 100%)" }} />
 
       {/* Ripples */}
       {ripples.map((ripple) => (
@@ -219,19 +223,20 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
           initial={{ scale: 0, opacity: 0.6 }}
           animate={{ scale: 4, opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute bg-gem-cream/40 rounded-full pointer-events-none z-0"
-          style={{ left: ripple.x - 30, top: ripple.y - 30, width: 60, height: 60 }}
+          className="absolute rounded-full pointer-events-none z-0"
+          style={{ left: ripple.x - 30, top: ripple.y - 30, width: 60, height: 60, background: "rgba(44,184,168,0.3)" }}
         />
       ))}
 
       <div className="relative z-10 flex items-center gap-3">
-        <span className="text-[13px] font-body font-bold tracking-[0.35em] text-gem-gold group-hover:text-gem-gold-light transition-colors">
+        <span className="text-[13px] font-body font-bold tracking-[0.35em] transition-colors" style={{ color: "#d4ad7c" }}>
           BOOK NOW
         </span>
         <motion.div
           animate={{ opacity: [0.8, 1, 0.8], scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="relative z-10 text-gem-gold drop-shadow-[0_0_10px_rgba(184,149,106,0.6)]"
+          className="relative z-10"
+          style={{ color: "#d4ad7c", filter: "drop-shadow(0 0 10px rgba(212,173,124,0.6))" }}
         >
           <Sparkles size={18} fill="currentColor" />
         </motion.div>
