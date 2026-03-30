@@ -325,8 +325,8 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 12px 12px;
-  margin-bottom: 2px;
+  padding: 7px 12px;
+  margin-bottom: 1px;
   background: none;
   border: none;
   border-left: 3px solid transparent;
@@ -334,13 +334,30 @@
   color: var(--aura-text-dim);
   font-family: var(--aura-font-body);
   font-weight: 400;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.15s ease;
   text-align: left;
   position: relative;
   gap: 12px;
-  min-height: 40px;
+  min-height: 36px;
+}
+
+/* Collapsed sidebar: 44x44 click targets */
+.aura-sidebar.collapsed .aura-nav-item {
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+  padding: 0;
+  border-left: none;
+  border-radius: var(--aura-radius-btn);
+  margin: 2px auto;
+  width: 44px;
+}
+
+.aura-sidebar.collapsed .aura-nav-item__icon {
+  width: 22px;
+  height: 22px;
 }
 
 .aura-nav-item:hover {
