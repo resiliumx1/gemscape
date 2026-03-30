@@ -57,7 +57,7 @@ const PAGE_TITLES: Record<string, string> = {
 /* ── Admin Component ── */
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => window.innerWidth < 768);
   const [isDark, setIsDark] = useState(true);
   const [showNewBooking, setShowNewBooking] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -205,6 +205,14 @@ const Admin = () => {
         </main>
 
         {showNewBooking && <NewBookingModal onClose={() => setShowNewBooking(false)} isMobile={isMobile} />}
+
+        {/* Mobile sidebar overlay */}
+        {isMobile && !collapsed && (
+          <div
+            className="aura-sidebar-overlay"
+            onClick={() => setCollapsed(true)}
+          />
+        )}
       </div>
     </>
   );

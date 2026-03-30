@@ -220,26 +220,41 @@
   white-space: nowrap;
 }
 
-/* ── Sidebar collapsed on small screens ── */
+/* ── Mobile sidebar overlay ── */
+.aura-sidebar-overlay {
+  display: none;
+}
+
 @media (max-width: 767px) {
+  .aura-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    background: rgba(4,16,20,0.6);
+    backdrop-filter: blur(4px);
+  }
+
   .aura-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
     width: 260px;
+    transform: translateX(0);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), width 0.35s cubic-bezier(0.4,0,0.2,1);
   }
   .aura-sidebar.collapsed {
-    width: 56px;
+    transform: translateX(-100%);
+    width: 260px;
   }
-  .aura-sidebar.collapsed .aura-sidebar__brand {
-    padding: 16px 8px 12px;
-  }
-  .aura-sidebar.collapsed .aura-nav-item {
-    padding: 10px 8px;
-    justify-content: center;
-    min-height: 48px;
-  }
-  .aura-sidebar.collapsed .aura-nav-item__icon {
-    width: 24px;
-    height: 24px;
-    opacity: 0.7;
+  .aura-sidebar.collapsed .aura-sidebar__text,
+  .aura-sidebar.collapsed .aura-sidebar__section-label,
+  .aura-sidebar.collapsed .aura-sidebar__brand-text,
+  .aura-sidebar.collapsed .aura-sidebar__user-info {
+    opacity: 1;
+    width: auto;
+    overflow: visible;
   }
 }
 
