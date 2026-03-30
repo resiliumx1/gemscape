@@ -122,7 +122,7 @@ const Concierge = () => {
             }}>
               Enquire Now
             </button>
-            <a href="https://wa.me/1268XXXXXXX" target="_blank" rel="noopener noreferrer" style={{
+            <a href="https://wa.me/12687644367" target="_blank" rel="noopener noreferrer" style={{
               background: "transparent", border: "1px solid rgba(201,168,76,0.6)", color: "#C9A84C",
               fontSize: 11, fontWeight: 600, letterSpacing: ".12em", padding: "14px 28px",
               borderRadius: 3, cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
