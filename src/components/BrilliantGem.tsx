@@ -531,6 +531,11 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
         rimHaloPass.uniforms.uHaloIntensity.value = 0.6 + 0.15 * Math.sin(elapsed * 1.2);
         chromaPass.uniforms.uTime.value = elapsed;
 
+        // Animate water reflector ripples
+        if (reflector.userData.shader) {
+          reflector.userData.shader.uniforms.uTime.value = elapsed;
+        }
+
         const flareCycle = elapsed % 5.0;
         const flareActive = flareCycle > 0 && flareCycle < 0.8
           ? smoothstepJS(0, 0.3, flareCycle) * (1.0 - smoothstepJS(0.5, 0.8, flareCycle))
