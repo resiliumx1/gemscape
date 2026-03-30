@@ -306,14 +306,17 @@ const AdminHeader = ({
     );
   }
 
+  const isTablet = typeof window !== "undefined" && window.innerWidth >= 768 && window.innerWidth <= 1024;
+
   return (
-    <div className="aura-topbar" style={{ height: 64, padding: "0 24px" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+    <div className="aura-topbar" style={{ height: 64, padding: isTablet ? "0 16px" : "0 24px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: isTablet ? 10 : 16, minWidth: 0 }}>
         <HomeButton />
-        <div>
+        <div style={{ minWidth: 0 }}>
           <h1 style={{
-            fontFamily: "var(--aura-font-heading)", fontSize: 32, fontWeight: 600,
+            fontFamily: "var(--aura-font-heading)", fontSize: isTablet ? 22 : 32, fontWeight: 600,
             color: "var(--aura-text)", lineHeight: 1.2, margin: 0, letterSpacing: "-0.02em",
+            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
           }}>{pageTitle}</h1>
           <p style={{
             fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 400,
@@ -321,19 +324,19 @@ const AdminHeader = ({
           }}>{today}</p>
         </div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: isTablet ? 6 : 10, flexShrink: 0 }}>
         <button onClick={onNewBooking} style={{
           display: "inline-flex", alignItems: "center", gap: 8,
           background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))",
           border: "none", borderRadius: "var(--aura-radius-btn)",
-          padding: "9px 20px", cursor: "pointer",
+          padding: isTablet ? "9px 14px" : "9px 20px", cursor: "pointer",
           fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 600,
           color: "#0c2e32", boxShadow: "0 4px 14px rgba(184,149,106,0.35)",
-          transition: "all 0.2s",
-        }}><Plus size={14} /> New Booking</button>
+          transition: "all 0.2s", whiteSpace: "nowrap",
+        }}><Plus size={14} /> {isTablet ? "New" : "New Booking"}</button>
         <div style={{ position: "relative" }}>
           <Search size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
-          <input className="aura-topbar__search" placeholder="Search..." style={{ width: 180 }} />
+          <input className="aura-topbar__search" placeholder="Search..." style={{ width: isTablet ? 140 : 180 }} />
         </div>
         <NotificationBell isMobile={false} />
         <ProfileAvatar

@@ -170,7 +170,7 @@ const Admin = () => {
 
       <input type="file" accept="image/*" ref={fileInputRef} style={{ display: "none" }} onChange={handleFileUpload} />
 
-      <div className={`aura-admin ${isDark ? "" : "aura-light"} min-h-screen flex`}>
+      <div className={`aura-admin ${isDark ? "" : "aura-light"}`} style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
         <div className="aura-mesh">
           <div className="aura-mesh__orb aura-mesh__orb--1" />
           <div className="aura-mesh__orb aura-mesh__orb--2" />
