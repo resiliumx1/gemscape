@@ -41,7 +41,36 @@ const AnimatedStars = () => {
 const HeroSection = () => {
   const { navigateTo } = useWave();
   const heroRef = useRef<HTMLElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    video.muted = true;
+    const attemptPlay = () => {
+      video.play().catch((err) => {
+        console.warn('Hero video autoplay blocked:', err.message);
+        const playOnInteraction = () => {
+          video.play().catch(() => {});
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+          document.removeEventListener('keydown', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction, { once: true });
+        document.addEventListener('touchstart', playOnInteraction, { once: true });
+        document.addEventListener('keydown', playOnInteraction, { once: true });
+      });
+    };
+    if (video.readyState >= 2) {
+      attemptPlay();
+    } else {
+      video.addEventListener('canplay', attemptPlay, { once: true });
+    }
+    return () => {
+      video.removeEventListener('canplay', attemptPlay);
+    };
+  }, []);
 
   return (
     <section
