@@ -1,5 +1,4 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import BrilliantGem from "@/components/BrilliantGem";
 import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -357,9 +356,12 @@ export default function Navbar() {
           className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
           aria-label="Gemscape home"
         >
-          <div style={{ width: 72, height: 72, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <BrilliantGem width={68} height={68} />
-          </div>
+          <img
+            src="/images/gemscape-logo.png"
+            alt="Gemscape Travel & Tours"
+            className="h-[44px] sm:h-[52px] w-auto object-contain"
+            style={{ background: "transparent", minWidth: 120 }}
+          />
         </motion.button>
 
         {/* Desktop Nav */}
