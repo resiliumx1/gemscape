@@ -343,14 +343,14 @@ export default function Navbar() {
           style={{ y: logoY }}
           variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
           aria-label="Gemscape home"
         >
           <img
             src="/images/gemscape-logo.png"
             alt="Gemscape Travel & Tours"
-            className="h-[44px] sm:h-[52px] w-auto"
-            style={{ background: "transparent" }}
+            className="h-[44px] sm:h-[52px] w-auto object-contain"
+            style={{ background: "transparent", minWidth: 120 }}
           />
         </motion.button>
 
@@ -359,7 +359,7 @@ export default function Navbar() {
           style={{ y: navY }}
           variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="hidden lg:flex items-center gap-6 ml-auto mr-8"
+          className="hidden lg:flex items-center gap-4 ml-auto mr-6"
         >
           <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
