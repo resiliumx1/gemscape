@@ -25,7 +25,7 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
       const { EffectComposer } = await import("three/examples/jsm/postprocessing/EffectComposer.js");
       const { RenderPass } = await import("three/examples/jsm/postprocessing/RenderPass.js");
       const { ShaderPass } = await import("three/examples/jsm/postprocessing/ShaderPass.js");
-      const { Reflector } = await import("three/examples/jsm/objects/Reflector.js");
+      
 
       if (destroyed) return;
 
@@ -340,43 +340,6 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
       gemGroup.scale.set(0.34, 0.34, 0.34);
       scene.add(gemGroup);
 
-      // ── WATER REFLECTION PLANE ──
-      const reflectorGeometry = new THREE.PlaneGeometry(4, 4, 64, 64);
-      const reflector = new Reflector(reflectorGeometry, {
-        clipBias: 0.003,
-        textureWidth: 512,
-        textureHeight: 512,
-        color: new THREE.Color(0x0a2a33),
-      });
-      reflector.position.set(0, -1.0, 0);
-      reflector.rotation.x = -Math.PI / 2;
-      scene.add(reflector);
-
-      // Patch reflector material for ripple distortion + edge fade
-      reflector.material.onBeforeCompile = (shader: any) => {
-        shader.uniforms.uTime = { value: 0 };
-        reflector.userData.shader = shader;
-
-        shader.vertexShader = shader.vertexShader.replace(
-          '#include <begin_vertex>',
-          `#include <begin_vertex>
-           float waveA = sin(position.x * 3.0 + uTime * 1.2) * 0.018;
-           float waveB = sin(position.z * 4.5 + uTime * 0.9) * 0.014;
-           float waveC = sin((position.x + position.z) * 2.5 + uTime * 1.6) * 0.010;
-           transformed.y += waveA + waveB + waveC;`
-        );
-
-        shader.fragmentShader = 'uniform float uTime;\n' + shader.fragmentShader;
-        shader.fragmentShader = shader.fragmentShader.replace(
-          'gl_FragColor = vec4( blendOverlay( reflectionSample.rgb, color ), 1.0 );',
-          `vec2 distToCenter = vUv - vec2(0.5);
-           float edgeFade = 1.0 - smoothstep(0.25, 0.5, length(distToCenter));
-           vec3 waterTint = vec3(0.05, 0.18, 0.22);
-           vec3 finalColor = mix(waterTint, blendOverlay(reflectionSample.rgb, color), 0.65);
-           gl_FragColor = vec4(finalColor, edgeFade * 0.72);`
-        );
-      };
-      reflector.material.transparent = true;
 
       // ── 3-POINT LIGHTING ──
       const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
@@ -531,10 +494,6 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
         rimHaloPass.uniforms.uHaloIntensity.value = 0.6 + 0.15 * Math.sin(elapsed * 1.2);
         chromaPass.uniforms.uTime.value = elapsed;
 
-        // Animate water reflector ripples
-        if (reflector.userData.shader) {
-          reflector.userData.shader.uniforms.uTime.value = elapsed;
-        }
 
         const flareCycle = elapsed % 5.0;
         const flareActive = flareCycle > 0 && flareCycle < 0.8
@@ -591,8 +550,6 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
         gemGeometry.dispose();
         gemMaterial.dispose();
         edgesGeo.dispose();
-        reflectorGeometry.dispose();
-        reflector.dispose();
         _sparkleGeo.dispose();
         _sparkleMat.dispose();
         if (canvas.parentElement) canvas.parentElement.removeChild(canvas);
