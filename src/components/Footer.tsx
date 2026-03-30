@@ -48,7 +48,7 @@ const Footer = () => {
           <span className="gem-footer__label">Contact</span>
           <div className="gem-footer__contact">
             <span>St. John's, Antigua, W.I.</span>
-            <span>WhatsApp: +1 (268) 000-0000</span>
+            <span>WhatsApp: +1 (268) 764-GEMS</span>
             <a href="mailto:info@gemscapetours.com">info@gemscapetours.com</a>
           </div>
         </div>
