@@ -219,7 +219,7 @@ const HeroSection = () => {
           <button
             onClick={() => navigateTo("/book")}
             style={{
-              background: "#C9A84C",
+              background: "linear-gradient(135deg, #b8956a 0%, #d4ad7c 100%)",
               color: "#05181e",
               fontSize: 11,
               fontWeight: 600,
