@@ -1,7 +1,7 @@
 const WhatsAppFab = () => {
   return (
     <a
-      href="https://wa.me/1268XXXXXXX"
+      href="https://wa.me/12687644367"
       target="_blank"
       rel="noopener"
       className="whatsapp-fab"

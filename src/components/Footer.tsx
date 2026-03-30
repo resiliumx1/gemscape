@@ -48,7 +48,7 @@ const Footer = () => {
           <span className="gem-footer__label">Contact</span>
           <div className="gem-footer__contact">
             <span>St. John's, Antigua, W.I.</span>
-            <span>WhatsApp: +1 (268) 000-0000</span>
+            <span>WhatsApp: +1 (268) 764-GEMS</span>
             <a href="mailto:info@gemscapetours.com">info@gemscapetours.com</a>
           </div>
         </div>
@@ -56,7 +56,7 @@ const Footer = () => {
 
       {/* Bottom row */}
       <div className="gem-footer__bottom">
-        <span>© 2025 Gemscape Travel and Tours. All rights reserved.</span>
+        <span>© 2026 Gemscape Travel and Tours. All rights reserved.</span>
         <span>Built with pride in Antigua</span>
       </div>
       <div style={{

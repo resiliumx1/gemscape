@@ -26,6 +26,7 @@ const Navbar = () => {
   const mobileLinksRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { navigateTo } = useWaveNav();
+  const isHome = location.pathname === "/";
 
   const isRouteLink = (link: NavItem): link is { label: string; to: string; icon: React.ReactNode } => "to" in link;
 
@@ -84,7 +85,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`gem-nav${scrolled ? " scrolled" : ""}`}
+        className={`gem-nav${scrolled ? " scrolled" : ""}${!isHome ? " solid" : ""}`}
         role="navigation"
         aria-label="Main navigation"
       >
