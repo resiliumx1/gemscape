@@ -121,18 +121,24 @@ const Admin = () => {
         <span className="aura-sidebar__brand-text">Gemscape</span>
       </div>
 
-      <nav className="aura-sidebar__nav">
+      <nav className="aura-sidebar__nav sidebar-nav">
         {NAV_SECTIONS.map((section) => (
           <div key={section.label}>
-            <span className="aura-sidebar__section-label">{section.label}</span>
+            {!collapsed && <span className="aura-sidebar__section-label">{section.label}</span>}
             {section.items.map((item) => (
-              <button key={item.key} onClick={() => handleNavClick(item.key)} className={`aura-nav-item ${activeTab === item.key ? "active" : ""}`}>
+              <button
+                key={item.key}
+                onClick={() => handleNavClick(item.key)}
+                className={`aura-nav-item ${activeTab === item.key ? "active" : ""}`}
+                title={collapsed ? item.label : undefined}
+              >
                 <span className="aura-nav-item__icon">{item.icon}</span>
                 <span className="aura-sidebar__text">{item.label}</span>
               </button>
             ))}
           </div>
         ))}
+        <div className="aura-sidebar__scroll-fade" />
       </nav>
 
       <div className="aura-sidebar__footer">

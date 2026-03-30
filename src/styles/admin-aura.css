@@ -935,19 +935,30 @@
 /* ── Light mode dropdown/modal fixes ── */
 .aura-light .aura-notification-dropdown,
 .aura-light .aura-modal-panel {
-  background: var(--aura-notification-bg) !important;
+  background: var(--aura-modal-bg) !important;
   color: var(--aura-text) !important;
-  border-color: var(--aura-glass-border) !important;
+  border: 1px solid rgba(0,60,65,0.10) !important;
+  box-shadow: 0 8px 40px rgba(0,50,60,0.12) !important;
 }
 
 .aura-light .aura-notification-dropdown button,
 .aura-light .aura-notification-dropdown p,
-.aura-light .aura-notification-dropdown span {
+.aura-light .aura-notification-dropdown span,
+.aura-light .aura-modal-panel label,
+.aura-light .aura-modal-panel h2,
+.aura-light .aura-modal-panel input,
+.aura-light .aura-modal-panel button,
+.aura-light .aura-modal-panel span {
   color: var(--aura-text) !important;
 }
 
 .aura-light .aura-notification-dropdown button[style*="color: var(--aura-teal)"] {
   color: var(--aura-teal) !important;
+}
+
+/* Light mode table row hover */
+.aura-light .aura-table tbody tr:hover {
+  background: rgba(0,50,55,0.03);
 }
 
 /* ── Smooth transitions for theme switch ── */
