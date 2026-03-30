@@ -12,6 +12,7 @@ const CARDS = [
     title: "Island Circumnavigation",
     desc: "Full-island private tour — every cove, every beach, every hidden bay.",
     alt: "Private sailing catamaran on Antigua waters",
+    route: "/book",
   },
   {
     image: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=85",
@@ -19,6 +20,7 @@ const CARDS = [
     title: "Heritage & Discovery",
     desc: "History, local rum, and roads no tourist map would ever show you.",
     alt: "Aerial island coastline view from Gemscape circumnavigation tour",
+    route: "/book",
   },
   {
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85",
@@ -26,6 +28,7 @@ const CARDS = [
     title: "Flight Concierge",
     desc: "From wheels down to your first sunset drink. We handle everything.",
     alt: "Golden hour flight view — Gemscape flight concierge Antigua",
+    route: "/concierge",
   },
 ];
 
