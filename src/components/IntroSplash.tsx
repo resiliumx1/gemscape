@@ -15,6 +15,24 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
     return () => clearTimeout(t);
   }, []);
 
+  // Imperatively ensure autoplay works
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    const attemptPlay = () => {
+      video.play().catch(() => {});
+    };
+    if (video.readyState >= 2) {
+      attemptPlay();
+    } else {
+      video.addEventListener('canplay', attemptPlay, { once: true });
+    }
+    return () => {
+      video.removeEventListener('canplay', attemptPlay);
+    };
+  }, []);
+
   // Auto-dismiss if video never loads within 4s
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -146,6 +164,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
         autoPlay
         muted
         playsInline
+        preload="auto"
         onEnded={triggerExit}
         onError={handleVideoError}
         onLoadedData={() => {

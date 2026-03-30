@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import BrilliantGem from "@/components/BrilliantGem";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -41,7 +41,36 @@ const AnimatedStars = () => {
 const HeroSection = () => {
   const { navigateTo } = useWave();
   const heroRef = useRef<HTMLElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    video.muted = true;
+    const attemptPlay = () => {
+      video.play().catch((err) => {
+        console.warn('Hero video autoplay blocked:', err.message);
+        const playOnInteraction = () => {
+          video.play().catch(() => {});
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+          document.removeEventListener('keydown', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction, { once: true });
+        document.addEventListener('touchstart', playOnInteraction, { once: true });
+        document.addEventListener('keydown', playOnInteraction, { once: true });
+      });
+    };
+    if (video.readyState >= 2) {
+      attemptPlay();
+    } else {
+      video.addEventListener('canplay', attemptPlay, { once: true });
+    }
+    return () => {
+      video.removeEventListener('canplay', attemptPlay);
+    };
+  }, []);
 
   return (
     <section
@@ -60,10 +89,12 @@ const HeroSection = () => {
     >
       {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
       <video
+        ref={heroVideoRef}
         autoPlay
         loop
         muted
         playsInline
+        preload="auto"
         poster="/images/antigua-hero-poster.jpg"
         className="hero-video"
         style={{
@@ -73,6 +104,10 @@ const HeroSection = () => {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
+          opacity: 0.38,
+        }}
+        onError={(e) => {
+          (e.currentTarget as HTMLVideoElement).style.display = 'none';
         }}
       >
         <source src="/videos/antigua-aerial.mp4" type="video/mp4" />
@@ -85,7 +120,8 @@ const HeroSection = () => {
           inset: 0,
           zIndex: 1,
           background:
-            "linear-gradient(180deg, rgba(5,24,30,0.55) 0%, rgba(5,24,30,0.30) 35%, rgba(5,24,30,0.50) 70%, rgba(5,24,30,0.92) 100%)",
+            "linear-gradient(180deg, rgba(5,24,30,0.45) 0%, rgba(5,24,30,0.30) 40%, rgba(5,24,30,0.65) 85%, rgba(5,24,30,0.88) 100%)",
+          pointerEvents: "none",
         }}
       />
 
