@@ -187,12 +187,19 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: var(--aura-bg);
   border-right: 1px solid var(--aura-glass-border);
   z-index: 10;
   transition: width 0.35s cubic-bezier(0.4,0,0.2,1), background 0.4s ease, border-color 0.4s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(44,184,168,0.3) transparent;
 }
+
+.aura-sidebar::-webkit-scrollbar { width: 3px; }
+.aura-sidebar::-webkit-scrollbar-track { background: transparent; }
+.aura-sidebar::-webkit-scrollbar-thumb { background: rgba(44,184,168,0.3); border-radius: 2px; }
 
 .aura-light .aura-sidebar {
   background: var(--aura-sidebar-bg);
@@ -219,7 +226,7 @@
     width: 260px;
   }
   .aura-sidebar.collapsed {
-    width: 52px;
+    width: 56px;
   }
   .aura-sidebar.collapsed .aura-sidebar__brand {
     padding: 16px 8px 12px;
@@ -227,7 +234,17 @@
   .aura-sidebar.collapsed .aura-nav-item {
     padding: 10px 8px;
     justify-content: center;
+    min-height: 48px;
   }
+  .aura-sidebar.collapsed .aura-nav-item__icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+  }
+}
+
+.aura-light .aura-sidebar.collapsed .aura-nav-item__icon {
+  opacity: 0.8 !important;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -343,21 +360,21 @@
   min-height: 36px;
 }
 
-/* Collapsed sidebar: 44x44 click targets */
+/* Collapsed sidebar: 48x48 click targets */
 .aura-sidebar.collapsed .aura-nav-item {
-  min-height: 44px;
-  min-width: 44px;
+  min-height: 48px;
+  min-width: 48px;
   justify-content: center;
   padding: 0;
   border-left: none;
   border-radius: var(--aura-radius-btn);
   margin: 2px auto;
-  width: 44px;
+  width: 48px;
 }
 
 .aura-sidebar.collapsed .aura-nav-item__icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .aura-nav-item:hover {
@@ -574,6 +591,7 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+  height: calc(100vh - 56px);
 }
 
 /* ── Cards (Glass) ── */
@@ -939,24 +957,60 @@
 .aura-light .aura-modal-panel {
   background: var(--aura-modal-bg) !important;
   color: var(--aura-text) !important;
-  border: 1px solid rgba(0,60,65,0.10) !important;
-  box-shadow: 0 8px 40px rgba(0,50,60,0.12) !important;
+  border: 1px solid rgba(0,60,65,0.12) !important;
+  box-shadow: 0 8px 40px rgba(0,50,60,0.15) !important;
 }
 
 .aura-light .aura-notification-dropdown button,
 .aura-light .aura-notification-dropdown p,
 .aura-light .aura-notification-dropdown span,
+.aura-light .aura-notification-dropdown div,
 .aura-light .aura-modal-panel label,
 .aura-light .aura-modal-panel h2,
-.aura-light .aura-modal-panel input,
-.aura-light .aura-modal-panel button,
-.aura-light .aura-modal-panel span {
+.aura-light .aura-modal-panel h3,
+.aura-light .aura-modal-panel p,
+.aura-light .aura-modal-panel span,
+.aura-light .aura-modal-panel div,
+.aura-light .aura-modal-panel button {
   color: var(--aura-text) !important;
+}
+
+.aura-light .aura-modal-panel input,
+.aura-light .aura-modal-panel textarea,
+.aura-light .aura-modal-panel select {
+  color: var(--aura-text) !important;
+  background: rgba(0,40,50,0.06) !important;
+  border-color: rgba(0,60,65,0.15) !important;
+}
+
+.aura-light .aura-modal-panel input::placeholder,
+.aura-light .aura-modal-panel textarea::placeholder {
+  color: var(--aura-text-muted) !important;
+}
+
+.aura-light .aura-modal-panel .aura-input-label {
+  color: var(--aura-text-secondary) !important;
 }
 
 .aura-light .aura-notification-dropdown button[style*="color: var(--aura-teal)"] {
   color: var(--aura-teal) !important;
 }
+
+.aura-light .aura-modal-panel button[style*="color: var(--aura-danger)"],
+.aura-light .aura-notification-dropdown button[style*="color: var(--aura-danger)"] {
+  color: var(--aura-danger) !important;
+}
+
+/* ── Calendar grid internal scroll ── */
+.aura-calendar-scroll {
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(44,184,168,0.3) transparent;
+}
+.aura-calendar-scroll::-webkit-scrollbar { width: 4px; }
+.aura-calendar-scroll::-webkit-scrollbar-track { background: transparent; }
+.aura-calendar-scroll::-webkit-scrollbar-thumb { background: rgba(44,184,168,0.3); border-radius: 2px; }
 
 /* Light mode table row hover */
 .aura-light .aura-table tbody tr:hover {

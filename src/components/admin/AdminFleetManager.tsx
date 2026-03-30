@@ -115,10 +115,11 @@ const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       {/* Edit Modal */}
       {editing && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(4,16,20,0.7)", backdropFilter: "blur(14px)" }}
+        <div style={{ position: "fixed", inset: 0, zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(4,16,20,0.7)", backdropFilter: "blur(14px)" }}
           onClick={() => setEditing(null)}>
-          <div onClick={e => e.stopPropagation()} style={{
-            width: isMobile ? "96%" : 480, maxHeight: "85vh", overflowY: "auto", background: "rgba(8,32,38,0.95)",
+          <div onClick={e => e.stopPropagation()} className="aura-modal-panel" style={{
+            width: isMobile ? "96%" : 480, maxHeight: "90vh", overflowY: "auto",
+            background: "var(--aura-modal-bg)",
             backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)", borderRadius: "var(--aura-radius-card)", padding: "28px",
             boxShadow: "0 24px 64px rgba(0,0,0,0.4)",
           }}>
