@@ -99,9 +99,16 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
 
   const handleVideoError = useCallback((e: any) => {
     console.error("[IntroSplash] Video error:", e?.target?.error?.message || "unknown");
-    sessionStorage.setItem("introPlayed", "true");
-    setStage("done");
-    onComplete();
+    setVideoError(true);
+    // Don't dismiss immediately — show the logo fallback for 3s then exit
+    setTimeout(() => {
+      sessionStorage.setItem("introPlayed", "true");
+      setStage("curtain");
+      setTimeout(() => {
+        setStage("done");
+        onComplete();
+      }, 950);
+    }, 3000);
   }, [onComplete]);
 
   const handleVideoLoaded = useCallback(() => {
