@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
