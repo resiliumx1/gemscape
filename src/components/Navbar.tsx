@@ -479,7 +479,7 @@ export default function Navbar() {
                         variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
                         whileHover={{ x: 8, backgroundColor: "rgba(44, 184, 168, 0.05)" }}
                         whileTap={{ scale: 0.97 }}
-                        onClick={() => handleNav(item.href, item.isHash)}
+                        onClick={() => handleNav(item.href)}
                         className="flex items-center gap-4 text-white/80 hover:text-white p-3 rounded-xl transition-colors cursor-pointer group w-full text-left"
                       >
                         <item.icon size={20} className="text-gem-teal group-hover:text-gem-aqua transition-colors" />
