@@ -90,9 +90,9 @@ const Experiences = () => {
               <h3 className="exp-card__title">{card.title}</h3>
               <p className="exp-card__desc">{card.desc}</p>
               <a
-                href="/book"
+                href={card.route}
                 className="exp-card__link"
-                onClick={(e) => { e.preventDefault(); navigateTo("/book", "tidal"); }}
+                onClick={(e) => { e.preventDefault(); navigateTo(card.route, "tidal"); }}
               >
                 Discover <span className="exp-card__arrow">→</span>
               </a>

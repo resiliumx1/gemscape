@@ -117,9 +117,9 @@ const Services = () => {
                 from {format(s.priceUsd)}{s.priceSuffix}
               </span>
               <a
-                href="/book"
+                href={s.route}
                 className="services__explore"
-                onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+                onClick={(e) => { e.preventDefault(); navigateTo(s.route, "crash"); }}
               >
                 Explore <span className="services__arrow">→</span>
               </a>
