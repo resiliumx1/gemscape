@@ -89,10 +89,12 @@ const HeroSection = () => {
     >
       {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
       <video
+        ref={heroVideoRef}
         autoPlay
         loop
         muted
         playsInline
+        preload="auto"
         poster="/images/antigua-hero-poster.jpg"
         className="hero-video"
         style={{
@@ -102,6 +104,10 @@ const HeroSection = () => {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
+          opacity: 0.38,
+        }}
+        onError={(e) => {
+          (e.currentTarget as HTMLVideoElement).style.display = 'none';
         }}
       >
         <source src="/videos/antigua-aerial.mp4" type="video/mp4" />
