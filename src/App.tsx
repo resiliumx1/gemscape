@@ -20,7 +20,7 @@ import Concierge from "./pages/Concierge.tsx";
 import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider, PageWrapper } from "@/components/PageTransitionWave";
-import IntroSplash from "@/components/IntroSplash";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
