@@ -250,31 +250,39 @@ const HeroSection = () => {
               Explore Services
             </button>
           </div>
-        </div>
 
-        {/* RIGHT COLUMN — GEM */}
-        <div className="hero-gem-col">
-          {/* Atmospheric glow behind gem */}
-          <div
-            style={{
-              position: "absolute",
-              width: "120%",
-              height: "120%",
-              background:
-                "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
-              pointerEvents: "none",
-              zIndex: 0,
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-          <div className="hero-gem-canvas" style={{ position: "relative", zIndex: 1 }}>
-            <BrilliantGem
-              width={isMobile ? 220 : 500}
-              height={isMobile ? 220 : 500}
-              observerTarget={heroRef as React.RefObject<HTMLElement>}
-            />
+          {/* Gem — below CTAs */}
+          <div className="hero-gem-inline">
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  width: "120%",
+                  height: "120%",
+                  background:
+                    "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              />
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <BrilliantGem
+                  width={isMobile ? 180 : 280}
+                  height={isMobile ? 180 : 280}
+                  observerTarget={heroRef as React.RefObject<HTMLElement>}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
