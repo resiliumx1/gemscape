@@ -1,67 +1,159 @@
 
 
-# Root Cause Analysis & Fix Plan
+# Gemscape — Global Fixes, New Pages, and Form Redesigns
 
-## WHY THE FIXES AREN'T WORKING
+This is a large multi-prompt implementation covering phone number fixes, two new pages, and three form redesigns. Here is the execution plan.
 
-I found **3 critical architectural bugs** that explain ALL the issues:
+---
 
-### Bug 1: NewBookingModal is OUTSIDE the theme wrapper
-In `Admin.tsx`, the `NewBookingModal` renders at line 208 — **AFTER** the closing `</div>` of the `.aura-admin` wrapper (line 206). This means all `.aura-light .aura-modal-panel` CSS rules **never apply** to the booking modal. The modal sits outside the light mode class scope entirely. This is why you can't see anything in light mode.
+## Prompt 1: Global Fixes
 
-```text
-<div class="aura-admin aura-light">   ← line 173
-  <aside>sidebar</aside>
-  <main>content</main>
-</div>                                 ← line 206 — CLOSES here
-<NewBookingModal />                    ← line 208 — OUTSIDE .aura-light!
+### 1A. Phone Number Replacement
+Replace all placeholder phone numbers across 4 files:
+- **`src/components/Footer.tsx`**: `+1 (268) 764-GEMS` → `+1 (268) 780-5510`
+- **`src/components/WhatsAppFab.tsx`**: `wa.me/12687644367` → `wa.me/12687805510`
+- **`src/components/CtaBanner.tsx`**: `wa.me/12687644367` → `wa.me/12687805510`
+- **`src/pages/Concierge.tsx`**: Replace both the WhatsApp link (`wa.me/12687644367`) and the `+1 (268) XXX-XXXX` phone text, make it a clickable `tel:+12687805510` link
+
+### 1B. Create `/contact` Page
+New file: **`src/pages/Contact.tsx`**
+- Two-column layout (left: contact details cards, right: form)
+- Left column: Phone/WhatsApp, Email, Location, WhatsApp CTA button — each in a dark card with gold border
+- Right column: Form with Full Name, Email, Phone, Service Interest (select), Message (textarea), Submit button
+- On submit: insert into a new `contact_enquiries` database table, then show inline success state
+- Dark navy styling consistent with site
+
+### 1C. Create `/experiences` Page
+New file: **`src/pages/Experiences.tsx`**
+- Page header with eyebrow, heading, subheading
+- 3-column grid of experience cards (Island Circumnavigation, Heritage & Discovery, Private Charter)
+- Card styling with gold border, hover state transitioning to teal
+- CTA buttons link to `/book`
+
+### 1D. Route Registration & Navbar
+- **`src/App.tsx`**: Add routes for `/contact` and `/experiences` wrapped in `<PageWrapper>`
+- **`src/components/Navbar.tsx`**: Add "CONTACT" nav item to both desktop nav and mobile drawer
+
+### 1E. Database Migration
+Create `contact_enquiries` table:
+```sql
+CREATE TABLE public.contact_enquiries (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  full_name text NOT NULL,
+  email text NOT NULL,
+  phone text,
+  service_interest text,
+  message text NOT NULL,
+  created_at timestamptz DEFAULT now()
+);
+ALTER TABLE public.contact_enquiries ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow anonymous inserts" ON public.contact_enquiries
+  FOR INSERT WITH CHECK (true);
 ```
 
-### Bug 2: Scroll architecture is broken
-The `.aura-main` has `min-height: 100vh` with NO overflow. The `.aura-content` inside it has `overflow-y: auto; height: calc(100vh - 56px)`. But on mobile, the topbar height is NOT 56px — it's auto/variable (search bar + buttons = ~120px). So `calc(100vh - 56px)` gives the content area TOO MUCH height, and the scroll doesn't behave correctly. The sidebar uses `position: sticky` which only works when the **page** scrolls — but since scroll is trapped inside `.aura-content`, the page never scrolls, so sticky is irrelevant.
+---
 
-**Fix**: Remove the trapped scroll. Let the page itself scroll (`.aura-main` gets `overflow-y: auto; height: 100vh`). Make the topbar `position: sticky; top: 0` so it stays fixed. The sidebar already has `position: sticky; height: 100vh` which will work once the scroll is on `.aura-main`.
+## Prompt 2: `/book` Page Redesign
 
-### Bug 3: Header layout uses `isMobile` only (no tablet breakpoint)
-The header switches between a fully stacked mobile layout and full desktop at exactly 768px. There is no tablet handling, causing layout issues between 768-1024px where elements crowd together.
+Rebuild **`src/pages/Book.tsx`** and **`src/components/BookingWizard.tsx`** entirely.
+
+### Step Indicator
+Horizontal 4-step progress bar (Service → Details → Your Info → Review) with numbered circles, connecting lines, and completion checkmarks.
+
+### Step 1: Service Selection
+2x2 grid of service cards with Lucide icons (Anchor, Map, Plane, Sailboat). Each card shows title, description, price tag, and duration badge. Selected state has teal border + glow. "Continue →" button disabled until selection.
+
+### Step 2: Experience Details
+Conditional fields based on Step 1 selection:
+- **Tours**: Date picker, guest stepper (±), start time select, special requests textarea
+- **Flight Concierge**: Arrival date, flight number, airline, passengers stepper, hotel name, special requests
+- **Private Charter**: Date, duration select, guests stepper, departure marina select, special requests
+
+Guest stepper: custom `[-] N [+]` component with gold-bordered circular buttons.
+
+### Step 3: Your Info
+Two-column layout: Name/Email/Phone (left), Country/Referral source (right). Email consent checkbox required to proceed.
+
+### Step 4: Review & Confirm
+Summary card with editable sections, "What Happens Next" checklist, and primary "Send Booking Request →" button. No payment messaging.
+
+### Success State
+Animated SVG checkmark, confirmation message, WhatsApp + Home CTAs.
+
+### Form Styling
+All inputs: dark translucent background, teal focus ring, uppercase 11px labels, red error states.
+
+Submits to existing `bookings` table (already has all needed columns).
 
 ---
 
-## Exact Changes
+## Prompt 3: `/rentals` Booking Form Redesign
 
-### File 1: `src/pages/Admin.tsx`
-- **Move `NewBookingModal` INSIDE the `.aura-admin` div** (before the closing `</div>` at line 206). This is the #1 fix for light mode visibility.
-- Remove `overflowX: "hidden"` inline style from `.aura-admin` div — let CSS handle it.
+Replace **`src/components/RentalBookingForm.tsx`** with a streamlined 2-step inquiry.
 
-### File 2: `src/styles/admin-aura.css`
+### Step 1: Vehicle & Dates Card
+Single dark card with gold border containing:
+- Vehicle select (pre-populated if user clicked "Book This Vehicle")
+- Pickup/Return date pickers side-by-side
+- Pickup location select
+- Add-on toggle chips (GPS, Child Seat, Extra Driver, Premium Insurance)
+- Live pricing summary card
 
-**Fix scroll architecture:**
-- `.aura-main`: change to `height: 100vh; overflow-y: auto; overflow-x: hidden` (remove `min-height`)
-- `.aura-topbar`: add `position: sticky; top: 0; z-index: 50; flex-shrink: 0`
-- `.aura-content`: remove `overflow-y: auto; height: calc(100vh - 56px)` — just use `flex: 1; padding: 20px`
-- This makes the main area scroll naturally, topbar sticks at top, sidebar sticks via its existing sticky
+### Step 2: Your Details (reveals on dates selected)
+Smooth reveal animation. Three fields in a row: Name, Email, Phone. Plus special requests textarea. Submit button.
 
-**Strengthen light mode modal overrides:**
-- Add fallback rule: elements with `class="aura-modal-panel"` that are inside `.aura-light` now work because the modal is inside the wrapper
-- Add a GLOBAL rule as safety net: `.aura-light .aura-modal-panel, .aura-modal-panel[data-theme="light"]` for any edge cases
+The form will still insert into the existing `rental_bookings` table. Since the redesigned form removes `driver_license`, `license_country`, and `dropoff_location` (which are required in the current schema), we need a migration to make those columns nullable:
 
-**Tablet header responsive:**
-- Add `@media (min-width: 768px) and (max-width: 1024px)` rules for `.aura-topbar`: reduce title font to 22px, reduce gaps, keep same desktop layout structure
+```sql
+ALTER TABLE public.rental_bookings 
+  ALTER COLUMN driver_license DROP NOT NULL,
+  ALTER COLUMN license_country DROP NOT NULL,
+  ALTER COLUMN dropoff_location DROP NOT NULL;
+```
 
-### File 3: `src/components/admin/AdminHeader.tsx`
-- Add `isTablet` detection (768-1024px range) — either receive it as prop or detect internally
-- For tablet: use desktop layout but with smaller font sizes and tighter spacing
-- Ensure consistent header layout: title + search + new booking + bell + avatar all on one row at tablet+
+### Success State
+Checkmark, confirmation heading, WhatsApp button.
 
 ---
 
-## Summary of What Each Fix Solves
+## Prompt 4: `/concierge` Form Rebuild
 
-| Issue | Root Cause | Fix |
-|-------|-----------|-----|
-| Light mode modals invisible | Modal outside `.aura-light` wrapper | Move inside wrapper |
-| Can't scroll content | Scroll trapped in wrong container | Move scroll to `.aura-main` |
-| Sidebar doesn't follow scroll | `sticky` irrelevant when page doesn't scroll | Fix scroll container |
-| Header layout inconsistent on tablet | No tablet breakpoint | Add 768-1024px responsive rules |
-| Fleet/Calendar modals in light mode | Already inside wrapper — CSS works | Already fixed by existing CSS |
+Rebuild the enquiry form section of **`src/pages/Concierge.tsx`**.
+
+### Layout
+Two-column: left sidebar (40%) with contact info + WhatsApp CTA, right (60%) with the form.
+
+### Left Sidebar
+- "We Respond Personally" heading
+- Phone + email contact details
+- "Chat on WhatsApp →" gold outline button
+- Italic confidentiality note
+
+### Right Form
+Fields: Name, Email, Phone/WhatsApp, Arrival/Departure dates (side-by-side), Passengers stepper, Services chips (multi-select: Airport Meet & Greet, Private Transfer, Charter Booking, Hotel Booking, Itinerary Planning, Restaurant Reservations), Additional details textarea.
+
+Submits to existing `concierge_enquiries` table (existing columns cover name, email, whatsapp, arrival_date, departure_date, guests, requirements — the selected services chips will be joined into the requirements field).
+
+### Success State
+Same pattern: checkmark, heading, WhatsApp button.
+
+---
+
+## Summary of Files
+
+| Action | File |
+|--------|------|
+| Edit | `src/components/Footer.tsx` (phone) |
+| Edit | `src/components/WhatsAppFab.tsx` (WhatsApp URL) |
+| Edit | `src/components/CtaBanner.tsx` (WhatsApp URL) |
+| Edit | `src/pages/Concierge.tsx` (full form rebuild + phone fix) |
+| Edit | `src/App.tsx` (add routes) |
+| Edit | `src/components/Navbar.tsx` (add Contact nav item) |
+| Edit | `src/pages/Book.tsx` (simplified hero) |
+| Rewrite | `src/components/BookingWizard.tsx` (complete redesign) |
+| Rewrite | `src/components/RentalBookingForm.tsx` (2-step redesign) |
+| Create | `src/pages/Contact.tsx` |
+| Create | `src/pages/Experiences.tsx` |
+| Migration | Create `contact_enquiries` table |
+| Migration | Make `rental_bookings` columns nullable |
 
