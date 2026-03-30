@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import BrilliantGem from "@/components/BrilliantGem";
 import { useIsMobile } from "@/hooks/use-mobile";
