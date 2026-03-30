@@ -4,9 +4,11 @@ import WaveDivider from "@/components/WaveDivider";
 type Stage = "playing" | "fadeVideo" | "ripple" | "curtain" | "done";
 
 const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
+  console.log("[IntroSplash] Component rendering");
   const [stage, setStage] = useState<Stage>("playing");
   const [showSkip, setShowSkip] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
