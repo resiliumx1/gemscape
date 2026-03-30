@@ -483,7 +483,7 @@ const NewBookingModal = ({ onClose, isMobile = false }: NewBookingModalProps) =>
 
           <button type="submit" disabled={!canSubmit || submitting} style={{
             width: "100%", height: 48, borderRadius: 12, border: "none",
-            background: canSubmit ? "linear-gradient(135deg, #b8956a, #d4ad7c)" : "var(--aura-highlight)",
+          background: canSubmit ? "linear-gradient(135deg, #2cb8a8, #48dac8)" : "var(--aura-highlight)",
             color: canSubmit ? "#ffffff" : "var(--aura-text-muted)",
             fontFamily: "var(--aura-font-body)", fontSize: 14, fontWeight: 700,
             cursor: canSubmit ? "pointer" : "not-allowed", transition: "all 0.2s", letterSpacing: "0.02em",
