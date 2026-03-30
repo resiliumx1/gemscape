@@ -225,7 +225,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
             cursor: "pointer",
             fontSize: "11px",
             letterSpacing: "0.12em",
-            color: "rgba(255,255,255,0.35)",
+            color: "rgba(0,0,0,0.35)",
             fontFamily: "inherit",
             padding: "8px",
           }}
