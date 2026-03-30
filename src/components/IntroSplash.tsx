@@ -103,6 +103,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
   }, [onComplete]);
 
   const handleVideoLoaded = useCallback(() => {
+    console.log("[IntroSplash] onLoadedData fired");
     setVideoReady(true);
   }, []);
 
