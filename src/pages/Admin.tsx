@@ -66,6 +66,17 @@ const Admin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Remove Lenis smooth scroll classes on admin to prevent scroll hijacking
+    document.documentElement.classList.remove('lenis', 'lenis-smooth');
+    document.documentElement.style.overflowY = 'auto';
+    document.body.style.overflowY = 'auto';
+    return () => {
+      document.documentElement.style.overflowY = '';
+      document.body.style.overflowY = '';
+    };
+  }, []);
+
+  useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener("resize", check);
