@@ -205,6 +205,14 @@ const Admin = () => {
         </main>
 
         {showNewBooking && <NewBookingModal onClose={() => setShowNewBooking(false)} isMobile={isMobile} />}
+
+        {/* Mobile sidebar overlay */}
+        {isMobile && !collapsed && (
+          <div
+            className="aura-sidebar-overlay"
+            onClick={() => setCollapsed(true)}
+          />
+        )}
       </div>
     </>
   );
