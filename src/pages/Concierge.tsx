@@ -95,7 +95,7 @@ const Concierge = () => {
           position: "relative", zIndex: 2,
           paddingLeft: "clamp(40px, 6vw, 96px)", maxWidth: 600,
         }}>
-          <img src="/images/gemscape-logo.png" alt="Gemscape" className="bg-transparent" style={{ height: 56, width: "auto", marginBottom: 24, opacity: 0.95, background: "none", backgroundColor: "transparent" }} />
+          
           <span style={{
             fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)",
             textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
