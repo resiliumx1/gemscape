@@ -131,6 +131,36 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_enquiries: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string
+          id: string
+          message: string
+          phone: string | null
+          service_interest: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name: string
+          id?: string
+          message: string
+          phone?: string | null
+          service_interest?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string
+          phone?: string | null
+          service_interest?: string | null
+        }
+        Relationships: []
+      }
       customer_notes: {
         Row: {
           created_at: string
@@ -216,12 +246,12 @@ export type Database = {
           country: string | null
           created_at: string | null
           daily_rate: number | null
-          driver_license: string
-          dropoff_location: string
+          driver_license: string | null
+          dropoff_location: string | null
           email: string
           full_name: string
           id: string
-          license_country: string
+          license_country: string | null
           notes: string | null
           phone: string
           pickup_date: string
@@ -241,12 +271,12 @@ export type Database = {
           country?: string | null
           created_at?: string | null
           daily_rate?: number | null
-          driver_license: string
-          dropoff_location: string
+          driver_license?: string | null
+          dropoff_location?: string | null
           email: string
           full_name: string
           id?: string
-          license_country: string
+          license_country?: string | null
           notes?: string | null
           phone: string
           pickup_date: string
@@ -266,12 +296,12 @@ export type Database = {
           country?: string | null
           created_at?: string | null
           daily_rate?: number | null
-          driver_license?: string
-          dropoff_location?: string
+          driver_license?: string | null
+          dropoff_location?: string | null
           email?: string
           full_name?: string
           id?: string
-          license_country?: string
+          license_country?: string | null
           notes?: string | null
           phone?: string
           pickup_date?: string
