@@ -364,8 +364,6 @@ export default function Navbar() {
           <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Sparkles} label="CONCIERGE" href="/concierge" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Gem} label="ABOUT" href="#why-gemscape" isHash pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Gem} label="CONTACT" href="#contact" isHash pulse={false} onNavigate={handleNav} />
         </motion.nav>
 
         {/* Right controls */}
