@@ -1,43 +1,215 @@
 import { useRef, useEffect } from "react";
 import { useWave } from "@/components/GemscapeWave";
-import BrilliantGem from "@/components/BrilliantGem";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ChevronDown, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import * as THREE from "three";
 
-const AnimatedStars = () => {
+/* ── Inline 3D Gem (sits inside the headline) ── */
+function InlineGem({ size = 88 }: { size?: number }) {
+  const mountRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const el = mountRef.current;
+    if (!el) return;
+
+    const SIZE = size;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(SIZE, SIZE);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
+    el.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.set(0, 0.3, 3.2);
+    camera.lookAt(0, 0, 0);
+
+    // Brilliant-cut gem geometry
+    const gemGeo = new THREE.ConeGeometry(0.7, 1.1, 8, 1);
+    const gemMat = new THREE.MeshPhysicalMaterial({
+      color: 0x2cb8a8,
+      metalness: 0,
+      roughness: 0,
+      transmission: 0.95,
+      thickness: 0.8,
+      ior: 2.42,
+      clearcoat: 1,
+      clearcoatRoughness: 0,
+      transparent: true,
+      opacity: 0.92,
+    });
+    const gem = new THREE.Mesh(gemGeo, gemMat);
+    gem.rotation.x = Math.PI;
+    scene.add(gem);
+
+    // Gold wireframe edges
+    const edgesGeo = new THREE.EdgesGeometry(gemGeo);
+    const edgesMat = new THREE.LineBasicMaterial({
+      color: 0xd4ad7c,
+      linewidth: 1,
+      transparent: true,
+      opacity: 0.85,
+    });
+    const wireframe = new THREE.LineSegments(edgesGeo, edgesMat);
+    wireframe.rotation.x = Math.PI;
+    scene.add(wireframe);
+
+    // Flat top cap
+    const capGeo = new THREE.CylinderGeometry(0.7, 0.7, 0.08, 8);
+    const capMat = new THREE.MeshPhysicalMaterial({
+      color: 0x2cb8a8,
+      transmission: 0.9,
+      roughness: 0,
+      ior: 2.42,
+      transparent: true,
+      opacity: 0.85,
+    });
+    const cap = new THREE.Mesh(capGeo, capMat);
+    cap.position.y = 0.55;
+    scene.add(cap);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+    const p1 = new THREE.PointLight(0x3cc8b8, 3, 10);
+    p1.position.set(2, 3, 2);
+    scene.add(p1);
+    const p2 = new THREE.PointLight(0xd4ad7c, 2, 10);
+    p2.position.set(-2, -1, 2);
+    scene.add(p2);
+    const p3 = new THREE.PointLight(0xffffff, 1.5, 10);
+    p3.position.set(0, 0, 3);
+    scene.add(p3);
+
+    let frameId: number;
+    let t = 0;
+    const animate = () => {
+      frameId = requestAnimationFrame(animate);
+      t += 0.012;
+      gem.rotation.y = t * 0.4;
+      wireframe.rotation.y = t * 0.4;
+      cap.rotation.y = t * 0.4;
+      const floatY = Math.sin(t * 0.8) * 0.04;
+      gem.position.y = floatY;
+      wireframe.position.y = floatY;
+      cap.position.y = 0.55 + floatY;
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      renderer.dispose();
+      if (el.contains(renderer.domElement)) {
+        el.removeChild(renderer.domElement);
+      }
+    };
+  }, [size]);
+
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 14 }}>
-      <div style={{ display: "flex", gap: 4 }}>
-        {[0, 1, 2, 3, 4].map((i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, scale: 0, rotate: -180 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ delay: 1.8 + i * 0.12, type: "spring", stiffness: 300, damping: 15 }}
-            style={{ color: "#C9A84C", fontSize: 22, display: "inline-block" }}
-          >
-            <Star size={20} fill="#C9A84C" strokeWidth={0} />
-          </motion.span>
-        ))}
-      </div>
-      <motion.span
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2.4, duration: 0.6 }}
+    <span
+      ref={mountRef}
+      data-inline-gem
+      style={{
+        display: "inline-block",
+        width: size,
+        height: size,
+        verticalAlign: "middle",
+        position: "relative",
+        top: -4,
+      }}
+    />
+  );
+}
+
+/* ── Animated Stars ── */
+const AnimatedStars = () => (
+  <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 14 }}>
+    <div style={{ display: "flex", gap: 4 }}>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, scale: 0, rotate: -180 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ delay: 1.8 + i * 0.12, type: "spring", stiffness: 300, damping: 15 }}
+          style={{ color: "#C9A84C", fontSize: 22, display: "inline-block" }}
+        >
+          <Star size={20} fill="#C9A84C" strokeWidth={0} />
+        </motion.span>
+      ))}
+    </div>
+    <motion.span
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 2.4, duration: 0.6 }}
+      style={{
+        fontSize: 13,
+        color: "rgba(255,255,255,0.5)",
+        fontFamily: "'DM Sans', sans-serif",
+        fontWeight: 400,
+      }}
+    >
+      Rated 5 stars by over <strong style={{ color: "#C9A84C", fontWeight: 600 }}>1,000+</strong> travellers
+    </motion.span>
+  </div>
+);
+
+/* ── Stat Cards (right column) ── */
+const stats = [
+  { value: "365", label: "Beaches in Antigua" },
+  { value: "500+", label: "Happy Travellers" },
+  { value: "5★", label: "Average Rating" },
+];
+
+const StatCards = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+    {stats.map((s, i) => (
+      <motion.div
+        key={s.label}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2 + i * 0.2, duration: 0.7, ease: "easeOut" }}
         style={{
-          fontSize: 13,
-          color: "rgba(255,255,255,0.5)",
-          fontFamily: "'DM Sans', sans-serif",
-          fontWeight: 400,
+          background: "rgba(255,255,255,0.05)",
+          border: "1px solid rgba(201,168,76,0.2)",
+          borderRadius: 16,
+          padding: "24px 32px",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
         }}
       >
-        Rated 5 stars by over <strong style={{ color: "#C9A84C", fontWeight: 600 }}>1,000+</strong> travellers
-      </motion.span>
-    </div>
-  );
-};
+        <div
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: 36,
+            fontWeight: 600,
+            background: "linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            lineHeight: 1.1,
+          }}
+        >
+          {s.value}
+        </div>
+        <div
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 13,
+            color: "rgba(255,255,255,0.55)",
+            marginTop: 4,
+            letterSpacing: ".04em",
+          }}
+        >
+          {s.label}
+        </div>
+      </motion.div>
+    ))}
+  </div>
+);
 
+/* ── Hero Section ── */
 const HeroSection = () => {
   const { navigateTo } = useWave();
   const heroRef = useRef<HTMLElement>(null);
@@ -50,27 +222,29 @@ const HeroSection = () => {
     video.muted = true;
     const attemptPlay = () => {
       video.play().catch((err) => {
-        console.warn('Hero video autoplay blocked:', err.message);
+        console.warn("Hero video autoplay blocked:", err.message);
         const playOnInteraction = () => {
           video.play().catch(() => {});
-          document.removeEventListener('click', playOnInteraction);
-          document.removeEventListener('touchstart', playOnInteraction);
-          document.removeEventListener('keydown', playOnInteraction);
+          document.removeEventListener("click", playOnInteraction);
+          document.removeEventListener("touchstart", playOnInteraction);
+          document.removeEventListener("keydown", playOnInteraction);
         };
-        document.addEventListener('click', playOnInteraction, { once: true });
-        document.addEventListener('touchstart', playOnInteraction, { once: true });
-        document.addEventListener('keydown', playOnInteraction, { once: true });
+        document.addEventListener("click", playOnInteraction, { once: true });
+        document.addEventListener("touchstart", playOnInteraction, { once: true });
+        document.addEventListener("keydown", playOnInteraction, { once: true });
       });
     };
     if (video.readyState >= 2) {
       attemptPlay();
     } else {
-      video.addEventListener('canplay', attemptPlay, { once: true });
+      video.addEventListener("canplay", attemptPlay, { once: true });
     }
     return () => {
-      video.removeEventListener('canplay', attemptPlay);
+      video.removeEventListener("canplay", attemptPlay);
     };
   }, []);
+
+  const gemSize = isMobile ? 64 : 88;
 
   return (
     <section
@@ -87,7 +261,7 @@ const HeroSection = () => {
         justifyContent: "center",
       }}
     >
-      {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
+      {/* ═══ LAYER 1 — DRONE VIDEO ═══ */}
       <video
         ref={heroVideoRef}
         src="/videos/antigua-aerial.mp4"
@@ -108,7 +282,7 @@ const HeroSection = () => {
           opacity: 0.65,
         }}
         onError={(e) => {
-          (e.currentTarget as HTMLVideoElement).style.display = 'none';
+          (e.currentTarget as HTMLVideoElement).style.display = "none";
         }}
       />
 
@@ -119,7 +293,7 @@ const HeroSection = () => {
           inset: 0,
           zIndex: 1,
           background:
-            "linear-gradient(180deg, rgba(5,24,30,0.30) 0%, rgba(5,24,30,0.15) 40%, rgba(5,24,30,0.55) 85%, rgba(5,24,30,0.80) 100%)",
+            "linear-gradient(180deg, rgba(5,24,30,0.50) 0%, rgba(5,24,30,0.35) 35%, rgba(5,24,30,0.55) 70%, rgba(5,24,30,0.90) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -136,11 +310,10 @@ const HeroSection = () => {
         }}
       />
 
-      {/* ═══ LAYER 3 — TWO-COLUMN GRID LAYOUT ═══ */}
+      {/* ═══ LAYER 3 — TWO-COLUMN GRID ═══ */}
       <div className="hero-grid-layout" style={{ position: "relative", zIndex: 3, width: "100%", height: "100%" }}>
-        {/* LEFT COLUMN — TEXT */}
+        {/* LEFT — TEXT */}
         <div className="hero-text-col">
-          {/* Eyebrow */}
           <span
             style={{
               fontSize: 11,
@@ -155,7 +328,7 @@ const HeroSection = () => {
             ANTIGUA · CARIBBEAN
           </span>
 
-          {/* Headline */}
+          {/* Headline with inline 3D gem */}
           <h1
             className="hero-headline"
             style={{
@@ -169,23 +342,22 @@ const HeroSection = () => {
           >
             Where Every Journey
             <br />
-            Becomes a{" "}
+            {"Becomes a "}
+            <InlineGem size={gemSize} />
             <span
               style={{
                 fontStyle: "italic",
                 fontWeight: 300,
-                background:
-                  "linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%)",
+                background: "linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}
             >
-              Gem.
+              .
             </span>
           </h1>
 
-          {/* Subtext */}
           <p
             style={{
               fontSize: 15,
@@ -199,10 +371,8 @@ const HeroSection = () => {
             Antigua, privately. Beautifully. Entirely on your terms.
           </p>
 
-          {/* Animated star rating */}
           <AnimatedStars />
 
-          {/* CTA buttons — 2 options */}
           <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap" }}>
             <button
               onClick={() => navigateTo("/book")}
@@ -252,30 +422,9 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN — GEM */}
-        <div className="hero-gem-col">
-          {/* Atmospheric glow behind gem */}
-          <div
-            style={{
-              position: "absolute",
-              width: "120%",
-              height: "120%",
-              background:
-                "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
-              pointerEvents: "none",
-              zIndex: 0,
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-          <div className="hero-gem-canvas" style={{ position: "relative", zIndex: 1 }}>
-            <BrilliantGem
-              width={isMobile ? 220 : 500}
-              height={isMobile ? 220 : 500}
-              observerTarget={heroRef as React.RefObject<HTMLElement>}
-            />
-          </div>
+        {/* RIGHT — STAT CARDS */}
+        <div className="hero-right-col">
+          <StatCards />
         </div>
       </div>
 
@@ -295,11 +444,10 @@ const HeroSection = () => {
         <ChevronDown size={28} color="rgba(212,173,124,0.7)" className="hero-chevron-bounce" />
       </div>
 
-      {/* Responsive styles */}
       <style>{`
         .hero-grid-layout {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1.2fr 0.8fr;
           align-items: center;
           max-width: 1280px;
           margin: 0 auto;
@@ -315,18 +463,13 @@ const HeroSection = () => {
         .hero-headline {
           font-size: clamp(40px, 5vw, 72px);
         }
-        .hero-gem-col {
+        .hero-right-col {
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
-        }
-        .hero-gem-canvas {
-          width: clamp(300px, 40vw, 560px);
-          height: clamp(300px, 40vw, 560px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          max-width: 360px;
+          justify-self: center;
         }
 
         @keyframes chevronBounce {
@@ -342,11 +485,7 @@ const HeroSection = () => {
           .hero-grid-layout {
             padding: 0 24px;
             gap: 24px;
-            grid-template-columns: 1fr 1fr;
-          }
-          .hero-gem-canvas {
-            width: clamp(240px, 35vw, 380px);
-            height: clamp(240px, 35vw, 380px);
+            grid-template-columns: 1.2fr 0.8fr;
           }
           .hero-headline {
             font-size: clamp(28px, 4.5vw, 48px) !important;
@@ -358,17 +497,14 @@ const HeroSection = () => {
           .hero-grid-layout {
             grid-template-columns: 1fr;
             padding: 0 20px;
-            gap: 0;
+            gap: 24px;
             justify-items: center;
             align-content: center;
           }
-          .hero-gem-col {
-            order: -1;
-            margin-bottom: -8px;
-          }
-          .hero-gem-canvas {
-            width: 180px;
-            height: 180px;
+          .hero-right-col {
+            order: 1;
+            max-width: 100%;
+            width: 100%;
           }
           .hero-text-col {
             align-items: center;
