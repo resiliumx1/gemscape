@@ -1,121 +1,260 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Gem, Diamond, Sparkles, Palmtree, Map, Compass,
-  X, Menu, ChevronDown,
-} from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
 import SkyToggle from "@/components/ui/sky-toggle";
 import { useWaveNav } from "@/components/PageTransitionWave";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-interface NavChild {
+interface DropdownChild {
   label: string;
+  icon: any;
   href: string;
-  icon: React.ReactNode;
-}
-
-interface NavItem {
-  label: string;
-  href: string;
-  icon: React.ReactNode;
   isHash?: boolean;
-  children?: NavChild[];
 }
 
-// ─── Nav Data ────────────────────────────────────────────────────────────────
+interface NavItemProps {
+  icon: any;
+  label: string;
+  href: string;
+  isHash?: boolean;
+  dropdownItems?: DropdownChild[];
+  pulse?: boolean;
+  onNavigate: (href: string, isHash?: boolean) => void;
+}
 
-const NAV_ITEMS: NavItem[] = [
-  {
-    label: "EXPERIENCES",
-    href: "/book",
-    icon: <Gem size={18} />,
-    children: [
-      { label: "ISLAND ADVENTURES", href: "/book", icon: <Palmtree size={13} /> },
-      { label: "CULTURAL TOURS", href: "/book", icon: <Map size={13} /> },
-      { label: "CIRCUMNAVIGATIONS", href: "/book", icon: <Compass size={13} /> },
-    ],
-  },
-  { label: "RENTALS", href: "/rentals", icon: <Diamond size={18} /> },
-  { label: "CONCIERGE", href: "/concierge", icon: <Sparkles size={18} /> },
-  { label: "ABOUT", href: "#why-gemscape", icon: <Gem size={18} />, isHash: true },
-  { label: "CONTACT", href: "#contact", icon: <Gem size={18} />, isHash: true },
-];
+// ─── NavItem ─────────────────────────────────────────────────────────────────
 
-// ─── Desktop Dropdown ─────────────────────────────────────────────────────────
-
-function DesktopDropdown({ item, onNavigate }: { item: NavItem; onNavigate: (href: string, isHash?: boolean) => void }) {
-  const [open, setOpen] = useState(false);
-  const location = useLocation();
-  const isActive = !item.isHash && location.pathname.startsWith(item.href);
+const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true, onNavigate }: NavItemProps) => {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+    <motion.div
+      className="flex items-center gap-3 cursor-pointer group relative px-4 py-2 rounded-xl transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gem-teal/50"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+          setIsHovered(false);
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setIsHovered(false);
+          e.currentTarget.blur();
+        } else if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (!dropdownItems) onNavigate(href, isHash);
+          else setIsHovered(!isHovered);
+        }
+      }}
+      onClick={() => { if (!dropdownItems) onNavigate(href, isHash); }}
+      tabIndex={0}
+      role="button"
+      aria-haspopup={dropdownItems ? "menu" : undefined}
+      aria-expanded={dropdownItems ? isHovered : undefined}
+      whileHover={{
+        backgroundColor: "rgba(184, 149, 106, 0.03)",
+        y: -0.5,
+      }}
+      transition={{ type: "spring", stiffness: 100, damping: 30 }}
     >
-      <button
-        onClick={() => onNavigate(item.href, item.isHash)}
-        className={`flex items-center gap-1.5 text-[11px] font-body font-bold tracking-[0.18em] transition-colors duration-200 py-2 ${
-          isActive ? "text-gem-teal" : "text-foreground/80 hover:text-foreground"
-        }`}
-      >
-        {item.label}
-        {item.children && (
-          <ChevronDown
-            size={12}
-            className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-          />
-        )}
-      </button>
+      {isHovered && <div className="absolute top-full left-0 w-full h-6 z-50" />}
 
-      {item.children && (
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-              className="absolute top-full left-0 mt-2 min-w-[200px] rounded-xl overflow-hidden z-50 border border-gem-teal/15"
-              style={{
-                background: "rgba(5, 24, 30, 0.97)",
-                backdropFilter: "blur(20px)",
-              }}
-            >
-              {item.children.map((child) => (
-                <button
-                  key={child.label}
-                  onClick={() => { setOpen(false); onNavigate(child.href); }}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-body font-bold tracking-widest text-white/50 hover:text-gem-teal hover:bg-gem-teal/5 transition-colors"
-                >
-                  <span className="text-gem-teal/60">{child.icon}</span>
-                  {child.label}
-                </button>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="relative">
+        <motion.div
+          className="absolute inset-0 bg-gem-gold/20 blur-2xl rounded-full"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: isHovered ? 0.4 : 0,
+            scale: isHovered ? 1.2 : 0.8,
+          }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        />
+
+        <motion.div
+          animate={
+            isHovered
+              ? { scale: [1.05, 1.1, 1.05], color: "#b8956a", opacity: 1 }
+              : pulse
+              ? { opacity: [0.6, 1, 0.6], scale: 1, color: "#2cb8a8" }
+              : { opacity: 1, scale: 1, color: "#2cb8a8" }
+          }
+          transition={{
+            duration: isHovered ? 3 : 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="relative z-10 transition-all duration-700"
+        >
+          <Icon size={20} strokeWidth={1} className="absolute inset-0 opacity-30 blur-[3px] translate-x-[1px] translate-y-[1px]" />
+          <Icon size={20} strokeWidth={1.1} className="relative drop-shadow-[0_0_10px_rgba(44,184,168,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(184,149,106,0.5)] transition-all duration-700" />
+        </motion.div>
+      </div>
+
+      <span className="text-[11px] font-body font-bold tracking-[0.3em] text-white/80 group-hover:text-white transition-all duration-300 relative">
+        {label}
+        <motion.div
+          className="absolute -bottom-1 left-0 h-[1px] bg-gem-teal/50"
+          initial={{ width: 0 }}
+          animate={{ width: isHovered ? "100%" : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      </span>
+
+      {/* Dropdown */}
+      {dropdownItems && (
+        <motion.div
+          role="menu"
+          aria-label={`${label} submenu`}
+          initial={{ opacity: 0, y: 15, scale: 0.95, rotateX: -20 }}
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            y: isHovered ? 0 : 15,
+            scale: isHovered ? 1 : 0.95,
+            rotateX: isHovered ? 0 : -20,
+            pointerEvents: isHovered ? ("auto" as const) : ("none" as const),
+          }}
+          style={{ originY: 0, perspective: 1000 }}
+          transition={{
+            duration: isHovered ? 0.6 : 0.5,
+            delay: isHovered ? 0.2 : 0,
+            ease: isHovered ? [0.23, 1, 0.32, 1] : [0.4, 0, 0.2, 1],
+          }}
+          className="absolute top-full left-0 mt-4 w-64 bg-gem-navy/95 backdrop-blur-2xl border border-gem-teal/15 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
+        >
+          <div className="py-3">
+            {dropdownItems.map((item, idx) => (
+              <motion.div
+                key={item.label}
+                role="menuitem"
+                tabIndex={isHovered ? 0 : -1}
+                onClick={() => { setIsHovered(false); onNavigate(item.href, item.isHash); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setIsHovered(false);
+                    onNavigate(item.href, item.isHash);
+                  }
+                }}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -12 }}
+                transition={{
+                  delay: isHovered ? idx * 0.06 + 0.2 : 0,
+                  duration: 0.4,
+                  ease: "easeOut",
+                }}
+                whileHover={{ backgroundColor: "rgba(44, 184, 168, 0.1)" }}
+                className="px-6 py-3.5 text-[10px] font-body font-bold tracking-[0.2em] text-white/60 hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
+              >
+                <item.icon size={16} className="text-gem-teal/60 group-hover/item:text-gem-teal transition-colors" />
+                <span className="flex-1">{item.label.toUpperCase()}</span>
+                <motion.div className="opacity-0 group-hover/item:opacity-100 transition-opacity" whileHover={{ x: 3 }}>
+                  <Diamond size={10} className="text-gem-teal" />
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gem-teal/30 to-transparent" />
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
-}
+};
 
-// ─── Main Navbar ──────────────────────────────────────────────────────────────
+// ─── BookNow Button ──────────────────────────────────────────────────────────
 
-export function Navbar() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; onClick: () => void }) => {
+  const [ripples, setRipples] = useState<{ x: number; y: number; id: number }[]>([]);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now();
+    setRipples((prev) => [...prev, { x, y, id }]);
+    setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 800);
+    onClick();
+  };
+
+  return (
+    <motion.button
+      onClick={handleClick}
+      initial="initial"
+      whileHover="hover"
+      whileTap="tap"
+      className={`relative overflow-hidden px-10 py-3.5 rounded-full border border-gem-gold/40 bg-gradient-to-br from-gem-gold/30 to-gem-gold/10 group shadow-lg shadow-gem-gold/10 ${fullWidth ? "w-full" : ""}`}
+      variants={{
+        initial: { scale: 1 },
+        hover: {
+          scale: 1.05,
+          boxShadow: "0 0 40px rgba(184, 149, 106, 0.15)",
+          borderColor: "rgba(184, 149, 106, 0.5)",
+        },
+        tap: { scale: 0.98 },
+      }}
+    >
+      {/* Shimmer */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-25deg] pointer-events-none"
+        variants={{
+          initial: { x: "-150%" },
+          hover: {
+            x: "150%",
+            transition: { duration: 1.2, repeat: Infinity, repeatDelay: 0.8, ease: "linear" },
+          },
+        }}
+      />
+
+      {/* Hover bg */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-gem-gold/40 to-gem-gold/20" />
+
+      {/* Ripples */}
+      {ripples.map((ripple) => (
+        <motion.span
+          key={ripple.id}
+          initial={{ scale: 0, opacity: 0.6 }}
+          animate={{ scale: 4, opacity: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="absolute bg-gem-cream/40 rounded-full pointer-events-none z-0"
+          style={{ left: ripple.x - 30, top: ripple.y - 30, width: 60, height: 60 }}
+        />
+      ))}
+
+      <div className="relative z-10 flex items-center gap-3">
+        <span className="text-[13px] font-body font-bold tracking-[0.35em] text-gem-gold group-hover:text-gem-gold-light transition-colors">
+          BOOK NOW
+        </span>
+        <motion.div
+          animate={{ opacity: [0.8, 1, 0.8], scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="relative z-10 text-gem-gold drop-shadow-[0_0_10px_rgba(184,149,106,0.6)]"
+        >
+          <Sparkles size={18} fill="currentColor" />
+        </motion.div>
+      </div>
+    </motion.button>
+  );
+};
+
+// ─── Main Navbar ─────────────────────────────────────────────────────────────
+
+export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const { scrollY } = useScroll();
   const location = useLocation();
   const { navigateTo } = useWaveNav();
 
   const isHomepage = location.pathname === "/";
-  const isLightPage = !isHomepage;
+
+  const logoY = useTransform(scrollY, [0, 1000], [0, -15]);
+  const navY = useTransform(scrollY, [0, 1000], [0, -8]);
+  const buttonY = useTransform(scrollY, [0, 1000], [0, -12]);
 
   // Dark mode init
   useEffect(() => {
@@ -127,22 +266,21 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close drawer on route change
+  // Close menu on route change
   useEffect(() => {
-    setDrawerOpen(false);
-    setExpandedItem(null);
+    setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Lock body scroll when drawer is open
+  // Lock body scroll
   useEffect(() => {
-    document.body.style.overflow = drawerOpen ? "hidden" : "";
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [drawerOpen]);
+  }, [isMenuOpen]);
 
   const toggleTheme = (checked: boolean) => {
     setIsDark(checked);
@@ -156,6 +294,7 @@ export function Navbar() {
   };
 
   const handleNav = (href: string, isHash?: boolean) => {
+    setIsMenuOpen(false);
     if (isHash) {
       if (location.pathname !== "/") {
         navigateTo("/");
@@ -172,249 +311,230 @@ export function Navbar() {
     }
   };
 
-  const navSolid = scrolled || isLightPage;
+  const navSolid = isScrolled || !isHomepage;
+
+  // Nav data
+  const experiencesSubs: DropdownChild[] = [
+    { label: "Island Adventures", icon: Palmtree, href: "/book" },
+    { label: "Cultural Tours", icon: Map, href: "/book" },
+    { label: "Circumnavigations", icon: Compass, href: "/book" },
+  ];
 
   return (
-    <>
-      <header
-        className="fixed top-0 left-0 right-0 z-[100] flex items-center px-4 md:px-8 transition-all duration-300"
-        style={{
-          height: "68px",
-          backgroundColor: navSolid ? "rgba(5, 24, 30, 0.97)" : "transparent",
-          backdropFilter: navSolid ? "blur(20px)" : "none",
-          boxShadow: navSolid ? "0 1px 0 rgba(44, 184, 168, 0.1)" : "none",
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${
+        navSolid
+          ? "bg-gem-navy/80 backdrop-blur-xl py-3 border-gem-teal/10 shadow-2xl"
+          : "bg-transparent py-4 sm:py-6 border-transparent"
+      }`}
+    >
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
         }}
+        className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between"
       >
         {/* Logo */}
-        <button
+        <motion.button
           onClick={() => navigateTo("/")}
-          className="flex items-center gap-3 mr-auto flex-shrink-0"
+          style={{ y: logoY }}
+          variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
           aria-label="Gemscape home"
         >
           <img
             src="/images/gemscape-logo.png"
             alt="Gemscape Travel & Tours"
-            className="h-[44px] w-auto"
+            className="h-[44px] sm:h-[52px] w-auto"
             style={{ background: "transparent" }}
           />
-        </button>
+        </motion.button>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8 mx-auto">
-          {NAV_ITEMS.map((item) => (
-            <DesktopDropdown key={item.label} item={item} onNavigate={handleNav} />
-          ))}
-        </nav>
-
-        {/* Desktop Right Controls */}
-        <div className="hidden lg:flex items-center gap-4 ml-auto">
-          <CurrencyToggle />
-          <button
-            onClick={() => navigateTo("/book")}
-            className="px-5 py-2.5 text-[11px] font-body font-bold tracking-[0.18em] text-white rounded-lg transition-all duration-200 hover:opacity-90 active:scale-95"
-            style={{
-              background: "linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)",
-            }}
-          >
-            BOOK NOW
-          </button>
-          <SkyToggle checked={isDark} onChange={toggleTheme} />
-        </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setDrawerOpen(true)}
-          className="lg:hidden ml-auto flex items-center justify-center w-11 h-11 rounded-xl transition-colors"
-          style={{ color: "#b8956a" }}
-          aria-label="Open navigation menu"
+        <motion.nav
+          style={{ y: navY }}
+          variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="hidden lg:flex items-center gap-12"
         >
-          <Menu size={24} />
-        </button>
-      </header>
+          <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
+          <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Sparkles} label="CONCIERGE" href="/concierge" pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Gem} label="ABOUT" href="#why-gemscape" isHash pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Gem} label="CONTACT" href="#contact" isHash pulse={false} onNavigate={handleNav} />
+        </motion.nav>
 
-      {/* Mobile Drawer */}
+        {/* Right controls */}
+        <motion.div
+          variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-center gap-4 sm:gap-6"
+        >
+          <div className="hidden sm:block">
+            <CurrencyToggle />
+          </div>
+          <motion.div style={{ y: buttonY }} className="hidden md:block">
+            <BookNowButton onClick={() => navigateTo("/book")} />
+          </motion.div>
+          <SkyToggle checked={isDark} onChange={toggleTheme} />
+
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="lg:hidden p-2 rounded-full transition-all duration-300 active:scale-90"
+            style={{ color: "#b8956a" }}
+            aria-label="Open navigation menu"
+          >
+            <Menu size={24} />
+          </button>
+        </motion.div>
+      </motion.div>
+
+      {/* ─── Mobile Drawer ─── */}
       <AnimatePresence>
-        {drawerOpen && (
-          <>
+        {isMenuOpen && (
+          <div className="fixed inset-0 z-[100] lg:hidden">
             <motion.div
-              key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={() => setDrawerOpen(false)}
-              className="fixed inset-0 z-[110]"
-              style={{ backgroundColor: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
+              transition={{ duration: 0.4 }}
+              onClick={() => setIsMenuOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
 
             <motion.div
-              key="drawer"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 260 }}
-              className="fixed top-0 right-0 bottom-0 z-[120] flex flex-col"
-              style={{
-                width: "min(320px, 90vw)",
-                background: "rgba(5, 24, 30, 0.99)",
-                borderLeft: "1px solid rgba(44, 184, 168, 0.12)",
-                backdropFilter: "blur(30px)",
-              }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-gem-navy border-l border-gem-teal/10 shadow-2xl flex flex-col p-8"
             >
-              {/* Drawer Header */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-gem-teal/10">
+              {/* Drawer header */}
+              <div className="flex items-center justify-between mb-12">
                 <img src="/images/gemscape-logo.png" alt="Gemscape" className="h-8 w-auto" style={{ background: "transparent" }} />
-                <button
-                  onClick={() => setDrawerOpen(false)}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-white/40 hover:text-white transition-colors border border-white/[0.08]"
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-gem-teal p-2 hover:bg-gem-teal/10 rounded-full transition-colors"
                   aria-label="Close menu"
                 >
-                  <X size={18} />
-                </button>
+                  <X size={24} />
+                </motion.button>
               </div>
 
-              {/* Drawer Body */}
-              <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-8">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-body font-bold tracking-[0.3em] text-gem-teal/50 uppercase mb-4">
+              <motion.div
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={{
+                  open: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+                  closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+                }}
+                className="flex flex-col gap-8 flex-1"
+              >
+                {/* Nav section */}
+                <div className="flex flex-col gap-4">
+                  <motion.span
+                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                    className="text-[10px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
+                  >
                     Navigation
-                  </span>
-
-                  {NAV_ITEMS.map((item, i) => (
+                  </motion.span>
+                  <div className="flex flex-col gap-4">
+                    {/* Experiences with sub-items */}
                     <motion.div
-                      key={item.label}
-                      initial={{ opacity: 0, x: 24 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + i * 0.06, duration: 0.3 }}
+                      variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                      whileHover={{ x: 8, backgroundColor: "rgba(44, 184, 168, 0.05)" }}
+                      whileTap={{ scale: 0.97 }}
+                      className="flex flex-col gap-2 p-3 rounded-xl transition-colors cursor-pointer group"
                     >
-                      {item.children ? (
-                        <div>
-                          <button
-                            onClick={() =>
-                              setExpandedItem(expandedItem === item.label ? null : item.label)
-                            }
-                            className="w-full flex items-center gap-4 p-3 rounded-xl transition-colors text-left group"
-                            style={{
-                              backgroundColor:
-                                expandedItem === item.label
-                                  ? "rgba(44, 184, 168, 0.07)"
-                                  : "transparent",
-                            }}
+                      <button onClick={() => handleNav("/book")} className="flex items-center gap-4 text-white/80 group-hover:text-white w-full text-left">
+                        <Gem size={20} className="text-gem-teal group-hover:text-gem-aqua transition-colors" />
+                        <span className="text-sm font-body font-bold tracking-[0.2em]">EXPERIENCES</span>
+                      </button>
+                      <div className="pl-9 flex flex-col gap-3 mt-2">
+                        {experiencesSubs.map((sub) => (
+                          <motion.button
+                            key={sub.label}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => handleNav(sub.href, sub.isHash)}
+                            className="flex items-center gap-3 text-white/40 hover:text-gem-teal transition-colors text-left"
                           >
-                            <span className="text-gem-teal group-hover:text-gem-aqua transition-colors">
-                              {item.icon}
-                            </span>
-                            <span className="text-[13px] font-body font-bold tracking-[0.2em] text-white/80 group-hover:text-white flex-1">
-                              {item.label}
-                            </span>
-                            <motion.div
-                              animate={{ rotate: expandedItem === item.label ? 180 : 0 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <ChevronDown size={14} className="text-white/30" />
-                            </motion.div>
-                          </button>
-
-                          <AnimatePresence>
-                            {expandedItem === item.label && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.22, ease: "easeInOut" }}
-                                className="overflow-hidden"
-                              >
-                                <div className="pl-9 flex flex-col gap-1 pb-2 pt-1">
-                                  {item.children.map((child) => (
-                                    <button
-                                      key={child.label}
-                                      onClick={() => { setDrawerOpen(false); handleNav(child.href); }}
-                                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/40 hover:text-gem-teal transition-colors"
-                                    >
-                                      <span className="text-gem-teal/50">{child.icon}</span>
-                                      <span className="text-[10px] font-body font-bold tracking-widest">
-                                        {child.label}
-                                      </span>
-                                    </button>
-                                  ))}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => { setDrawerOpen(false); handleNav(item.href, item.isHash); }}
-                          className="w-full flex items-center gap-4 p-3 rounded-xl text-white/80 hover:text-white group transition-colors text-left"
-                        >
-                          <span className="text-gem-teal group-hover:text-gem-aqua transition-colors">
-                            {item.icon}
-                          </span>
-                          <span className="text-[13px] font-body font-bold tracking-[0.2em]">
-                            {item.label}
-                          </span>
-                        </button>
-                      )}
+                            <sub.icon size={14} />
+                            <span className="text-[10px] font-body font-bold tracking-widest">{sub.label.toUpperCase()}</span>
+                          </motion.button>
+                        ))}
+                      </div>
                     </motion.div>
-                  ))}
+
+                    {/* Simple items */}
+                    {[
+                      { icon: Diamond, label: "RENTALS", href: "/rentals" },
+                      { icon: Sparkles, label: "CONCIERGE", href: "/concierge" },
+                      { icon: Gem, label: "ABOUT", href: "#why-gemscape", isHash: true },
+                      { icon: Gem, label: "CONTACT", href: "#contact", isHash: true },
+                    ].map((item) => (
+                      <motion.button
+                        key={item.label}
+                        variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                        whileHover={{ x: 8, backgroundColor: "rgba(44, 184, 168, 0.05)" }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => handleNav(item.href, item.isHash)}
+                        className="flex items-center gap-4 text-white/80 hover:text-white p-3 rounded-xl transition-colors cursor-pointer group w-full text-left"
+                      >
+                        <item.icon size={20} className="text-gem-teal group-hover:text-gem-aqua transition-colors" />
+                        <span className="text-sm font-body font-bold tracking-[0.2em]">{item.label}</span>
+                      </motion.button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Divider */}
                 <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.35, duration: 0.4 }}
-                  className="h-px origin-left bg-gem-teal/15"
+                  variants={{ open: { opacity: 1, scaleX: 1 }, closed: { opacity: 0, scaleX: 0 } }}
+                  className="h-[1px] w-full bg-gem-teal/15 origin-left"
                 />
 
                 {/* Settings */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4, duration: 0.3 }}
-                  className="flex flex-col gap-5"
-                >
-                  <span className="text-[10px] font-body font-bold tracking-[0.3em] text-gem-teal/50 uppercase">
+                <div className="flex flex-col gap-6">
+                  <motion.span
+                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                    className="text-[10px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
+                  >
                     Settings
-                  </span>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-body font-bold tracking-[0.2em] text-white/70">
-                      CURRENCY
-                    </span>
+                  </motion.span>
+                  <motion.div
+                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="text-sm font-body font-bold tracking-[0.2em] text-white/80">CURRENCY</span>
                     <CurrencyToggle />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-body font-bold tracking-[0.2em] text-white/70">
-                      THEME
-                    </span>
+                  </motion.div>
+                  <motion.div
+                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="text-sm font-body font-bold tracking-[0.2em] text-white/80">THEME</span>
                     <SkyToggle checked={isDark} onChange={toggleTheme} />
-                  </div>
-                </motion.div>
-              </div>
+                  </motion.div>
+                </div>
 
-              {/* Drawer Footer */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45, duration: 0.3 }}
-                className="px-6 pb-8 pt-4 border-t border-gem-teal/10"
-              >
-                <button
-                  onClick={() => { setDrawerOpen(false); navigateTo("/book"); }}
-                  className="flex items-center justify-center w-full py-4 rounded-xl text-[12px] font-body font-bold tracking-[0.2em] text-white transition-opacity hover:opacity-90 active:scale-95"
-                  style={{
-                    background: "linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)",
-                  }}
+                {/* Book Now */}
+                <motion.div
+                  variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }}
+                  className="mt-auto pt-8"
                 >
-                  BOOK NOW
-                </button>
+                  <BookNowButton fullWidth onClick={() => handleNav("/book")} />
+                </motion.div>
               </motion.div>
             </motion.div>
-          </>
+          </div>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }
-
-export default Navbar;
