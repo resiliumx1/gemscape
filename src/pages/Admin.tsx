@@ -170,7 +170,7 @@ const Admin = () => {
 
       <input type="file" accept="image/*" ref={fileInputRef} style={{ display: "none" }} onChange={handleFileUpload} />
 
-      <div className={`aura-admin ${isDark ? "" : "aura-light"} min-h-screen flex`} style={{ overflowX: "hidden" }}>
+      <div className={`aura-admin ${isDark ? "" : "aura-light"} min-h-screen flex`}>
         <div className="aura-mesh">
           <div className="aura-mesh__orb aura-mesh__orb--1" />
           <div className="aura-mesh__orb aura-mesh__orb--2" />
@@ -203,9 +203,9 @@ const Admin = () => {
             </Suspense>
           </div>
         </main>
-      </div>
 
-      {showNewBooking && <NewBookingModal onClose={() => setShowNewBooking(false)} isMobile={isMobile} />}
+        {showNewBooking && <NewBookingModal onClose={() => setShowNewBooking(false)} isMobile={isMobile} />}
+      </div>
     </>
   );
 };

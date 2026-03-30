@@ -952,6 +952,20 @@
   }
 }
 
+/* ── Tablet header ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .aura-topbar {
+    height: 56px;
+    padding: 0 16px;
+  }
+  .aura-topbar h1 {
+    font-size: 22px !important;
+  }
+  .aura-topbar__search {
+    width: 140px;
+  }
+}
+
 /* ── Light mode dropdown/modal fixes ── */
 .aura-light .aura-notification-dropdown,
 .aura-light .aura-modal-panel {
