@@ -360,21 +360,21 @@
   min-height: 36px;
 }
 
-/* Collapsed sidebar: 44x44 click targets */
+/* Collapsed sidebar: 48x48 click targets */
 .aura-sidebar.collapsed .aura-nav-item {
-  min-height: 44px;
-  min-width: 44px;
+  min-height: 48px;
+  min-width: 48px;
   justify-content: center;
   padding: 0;
   border-left: none;
   border-radius: var(--aura-radius-btn);
   margin: 2px auto;
-  width: 44px;
+  width: 48px;
 }
 
 .aura-sidebar.collapsed .aura-nav-item__icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .aura-nav-item:hover {
