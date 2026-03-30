@@ -1,45 +1,42 @@
 
 
-# Fix: Intro Video Not Playing (Blue Screen)
+# Fix Hero Color Tint + Intro Video Playback
 
-## Root Cause Analysis
+## Issue 1: Orange/Yellow Hue on Hero
 
-After inspecting the code and network requests, I found **three compounding issues** preventing the intro video from playing:
+Comparing your screenshots, the current hero has a warm orange cast that shouldn't be there. The root cause is the video element's `opacity: 0.38` — this makes the aerial footage nearly transparent, letting the parent's dark green `bg-[#022c22]` bleed through heavily. Combined with the gradient overlay on top, the natural blue-green ocean tones shift warm.
 
-1. **`<source>` errors are silent.** The video uses a `<source>` child element, but the `onError` handler is on the `<video>` parent. In all major browsers, `<source>` load failures do NOT bubble up to the `<video>` element's `onError` — they silently fail. So if the video can't load, the component just shows the navy blue background (`#05181e`) with no error ever logged.
+### Fix in `src/components/HeroSection.tsx`
+- Increase the video `opacity` from `0.38` to `0.65` so the natural video/poster colors dominate
+- Adjust the gradient overlay to be lighter (reduce the alpha values) so it darkens for text readability without adding a color cast
+- Change the overlay gradient from the current heavy `rgba(5,24,30,...)` to softer values: top 0.3, middle 0.15, bottom 0.55, base 0.80
 
-2. **The 4-second auto-dismiss kills the component too early.** There's a `setTimeout` at 4s that force-completes the intro if the video hasn't finished. On slower connections or with large files, the video hasn't even buffered by then. The user sees blue for 4 seconds, then the splash vanishes — no video ever played.
+## Issue 2: Intro Video Still Not Playing
 
-3. **No `loadeddata` confirmation.** The logo fallback (zIndex 1) sits behind the video (zIndex 2), but the video element has no visible dimensions until it actually loads frames. So the user sees: blue background → maybe logo briefly → blue background with invisible 0×0 video → auto-dismiss at 4s.
+The video files exist at `public/videos/intro.mp4`. Two likely causes remain:
 
-## Fix Plan
+**A. `sessionStorage` prevents replay**: Once `introPlayed` is set to `"true"`, the intro never shows again in that browser tab. The user may have triggered this during earlier testing and now never sees the intro at all (App.tsx line 30-32 checks this on mount).
 
-### File: `src/components/IntroSplash.tsx`
+**B. Hero video still uses `<source>` child tag**: On line 113 of HeroSection.tsx, the hero video still has `<source src="/videos/antigua-aerial.mp4">` as a child element instead of a direct `src` attribute — the same silent-failure pattern we fixed in IntroSplash. This needs the same fix.
 
-**A. Switch from `<source>` to direct `src` on the video element**
-Replace the `<source src="/videos/intro.mp4">` child with a `src="/videos/intro.mp4"` attribute directly on the `<video>` tag. This ensures `onError` fires properly on the video element itself.
+**C. Video codec / size in preview**: If the intro.mp4 uses H.265/HEVC codec, some browsers won't play it and won't fire `onError`. Adding a `canplay` + `play()` retry and logging will surface this.
 
-**B. Add proper load/error detection with fallback**
-- On `loadeddata` event: hide the logo, confirm video is actually rendering frames
-- On `error` event: immediately skip the intro (don't wait 4 seconds staring at blue)
-- Keep the skip button as a safety valve
+### Fixes
 
-**C. Extend or remove the aggressive 4s timeout**
-Change the auto-dismiss from 4s to 10s. This gives the video time to buffer on mobile/slow connections. The skip button (appears at 2s) provides the escape hatch if users don't want to wait.
+**`src/components/IntroSplash.tsx`**:
+- Add `onCanPlay` handler alongside `onLoadedData` — both set `videoReady(true)` and call `play()`
+- Add console.log statements to track: video element mount, loadeddata fired, canplay fired, error fired — to diagnose if the video is actually loading
+- Ensure the `useEffect` autoplay logic also calls `play()` inside the `canplay` listener after setting videoReady
 
-**D. Add an interaction-based fallback for blocked autoplay**
-Same pattern used in HeroSection — if `play()` is rejected, add a one-time click/touch listener to retry.
+**`src/components/HeroSection.tsx`**:
+- Move `src="/videos/antigua-aerial.mp4"` from `<source>` child to direct `src` attribute on `<video>` (same pattern as IntroSplash fix)
+- Increase video opacity from `0.38` to `0.65`
+- Lighten the gradient overlay alpha values
 
-### Summary of changes
+### Summary
 
-```
-src/components/IntroSplash.tsx
-├── <video> gets src= attribute directly (remove <source> child)
-├── onError fires reliably → immediate skip on failure
-├── onLoadedData hides logo, confirms playback
-├── Auto-dismiss timeout: 4s → 10s
-└── Autoplay-blocked fallback: retry on first user interaction
-```
-
-Single file edit, no other files affected.
+| File | Changes |
+|------|---------|
+| `src/components/HeroSection.tsx` | Fix `<source>` → direct `src`, increase video opacity to 0.65, lighten overlay gradient |
+| `src/components/IntroSplash.tsx` | Add `onCanPlay` handler, add diagnostic console.logs |
 
