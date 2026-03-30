@@ -90,6 +90,7 @@ const HeroSection = () => {
       {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
       <video
         ref={heroVideoRef}
+        src="/videos/antigua-aerial.mp4"
         autoPlay
         loop
         muted
@@ -104,14 +105,12 @@ const HeroSection = () => {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
-          opacity: 0.38,
+          opacity: 0.65,
         }}
         onError={(e) => {
           (e.currentTarget as HTMLVideoElement).style.display = 'none';
         }}
-      >
-        <source src="/videos/antigua-aerial.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* ═══ LAYER 2A — LINEAR GRADIENT OVERLAY ═══ */}
       <div
@@ -120,7 +119,7 @@ const HeroSection = () => {
           inset: 0,
           zIndex: 1,
           background:
-            "linear-gradient(180deg, rgba(5,24,30,0.45) 0%, rgba(5,24,30,0.30) 40%, rgba(5,24,30,0.65) 85%, rgba(5,24,30,0.88) 100%)",
+            "linear-gradient(180deg, rgba(5,24,30,0.30) 0%, rgba(5,24,30,0.15) 40%, rgba(5,24,30,0.55) 85%, rgba(5,24,30,0.80) 100%)",
           pointerEvents: "none",
         }}
       />
