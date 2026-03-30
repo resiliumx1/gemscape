@@ -790,26 +790,27 @@ button, input, textarea, select, a {
 .services__row-num {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
-  font-size: 52px;
+  font-size: 3.5rem;
   line-height: 1;
-  color: hsl(var(--gem-sand));
+  color: #b8956a;
+  opacity: 1;
   transition: color 0.4s ease;
   display: block;
   padding-left: 16px;
 }
 
 .services__row.active .services__row-num {
-  color: hsl(var(--gem-gold));
-  font-weight: 600;
+  color: #b8956a;
+  font-weight: 300;
 }
 
 .services__row-title {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--text-primary);
+  letter-spacing: 0.18em;
+  color: #05181e;
   margin-top: 4px;
   display: block;
   padding-left: 16px;

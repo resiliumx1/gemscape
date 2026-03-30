@@ -264,13 +264,12 @@ const HeroSection = () => {
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 3,
-          opacity: 0.4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <ChevronDown size={24} color="#fff" className="hero-chevron-bounce" />
+        <ChevronDown size={28} color="rgba(201,168,76,0.8)" className="hero-chevron-bounce" />
       </div>
 
       {/* Responsive + Ken Burns + bounce styles */}
