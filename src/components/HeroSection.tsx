@@ -294,13 +294,6 @@ const HeroSection = () => {
           justify-content: center;
         }
 
-        @keyframes kenBurns {
-          0%, 100% { transform: scale(1.0); }
-          50% { transform: scale(1.08); }
-        }
-        .hero-ken-burns {
-          animation: kenBurns 15s ease-in-out infinite alternate;
-        }
         @keyframes chevronBounce {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(8px); }
