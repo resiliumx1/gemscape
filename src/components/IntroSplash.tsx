@@ -4,9 +4,11 @@ import WaveDivider from "@/components/WaveDivider";
 type Stage = "playing" | "fadeVideo" | "ripple" | "curtain" | "done";
 
 const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
+  console.log("[IntroSplash] Component rendering");
   const [stage, setStage] = useState<Stage>("playing");
   const [showSkip, setShowSkip] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -97,9 +99,16 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
 
   const handleVideoError = useCallback((e: any) => {
     console.error("[IntroSplash] Video error:", e?.target?.error?.message || "unknown");
-    sessionStorage.setItem("introPlayed", "true");
-    setStage("done");
-    onComplete();
+    setVideoError(true);
+    // Don't dismiss immediately — show the logo fallback for 3s then exit
+    setTimeout(() => {
+      sessionStorage.setItem("introPlayed", "true");
+      setStage("curtain");
+      setTimeout(() => {
+        setStage("done");
+        onComplete();
+      }, 950);
+    }, 3000);
   }, [onComplete]);
 
   const handleVideoLoaded = useCallback(() => {
@@ -180,7 +189,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
           height: 80,
           width: "auto",
           zIndex: 1,
-          opacity: stage === "playing" && !videoReady ? 1 : 0,
+          opacity: (stage === "playing" && !videoReady) || videoError ? 1 : 0,
           transition: "opacity 0.4s ease-out",
           pointerEvents: "none",
           background: "none",
@@ -206,7 +215,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
           height: "70vh",
           maxWidth: "80vw",
           objectFit: "contain",
-          opacity: stage === "playing" && videoReady ? 1 : 0,
+          opacity: stage === "playing" && !videoError ? 1 : 0,
           transition: "opacity 0.4s ease-out",
         }}
       />
