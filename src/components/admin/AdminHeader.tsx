@@ -306,14 +306,17 @@ const AdminHeader = ({
     );
   }
 
+  const isTablet = typeof window !== "undefined" && window.innerWidth >= 768 && window.innerWidth <= 1024;
+
   return (
-    <div className="aura-topbar" style={{ height: 64, padding: "0 24px" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+    <div className="aura-topbar" style={{ height: 64, padding: isTablet ? "0 16px" : "0 24px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: isTablet ? 10 : 16, minWidth: 0 }}>
         <HomeButton />
-        <div>
+        <div style={{ minWidth: 0 }}>
           <h1 style={{
-            fontFamily: "var(--aura-font-heading)", fontSize: 32, fontWeight: 600,
+            fontFamily: "var(--aura-font-heading)", fontSize: isTablet ? 22 : 32, fontWeight: 600,
             color: "var(--aura-text)", lineHeight: 1.2, margin: 0, letterSpacing: "-0.02em",
+            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
           }}>{pageTitle}</h1>
           <p style={{
             fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 400,

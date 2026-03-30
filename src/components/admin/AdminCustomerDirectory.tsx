@@ -28,7 +28,7 @@ const AdminCustomerDirectory = ({ isMobile = false }: { isMobile?: boolean }) =>
           {(["email", "sms", "push"] as const).map(c => (
             <button key={c} onClick={() => setChannel(c)} style={{
               fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: channel === c ? 600 : 400,
-              padding: "8px 18px", borderRadius: 10, textTransform: "capitalize", cursor: "pointer",
+              padding: "8px 18px", borderRadius: 10, textTransform: "uppercase", cursor: "pointer",
               border: `1px solid ${channel === c ? "rgba(44,184,168,0.4)" : "var(--aura-glass-border)"}`,
               background: channel === c ? "var(--aura-teal-dim)" : "transparent",
               color: channel === c ? "var(--aura-teal)" : "var(--aura-text-muted)",
