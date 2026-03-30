@@ -109,7 +109,7 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
             }}>{d}</div>
           ))}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }}>
+        <div className="aura-calendar-scroll" style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }}>
           {days.map(day => {
             const dayStr = format(day, "yyyy-MM-dd");
             const inMonth = isSameMonth(day, calDate);
