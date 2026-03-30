@@ -25,6 +25,7 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
       const { EffectComposer } = await import("three/examples/jsm/postprocessing/EffectComposer.js");
       const { RenderPass } = await import("three/examples/jsm/postprocessing/RenderPass.js");
       const { ShaderPass } = await import("three/examples/jsm/postprocessing/ShaderPass.js");
+      const { Reflector } = await import("three/examples/jsm/objects/Reflector.js");
 
       if (destroyed) return;
 
