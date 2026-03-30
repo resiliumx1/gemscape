@@ -2,7 +2,41 @@ import { useRef } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import BrilliantGem from "@/components/BrilliantGem";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Car, Plane, Star } from "lucide-react";
+import { motion } from "framer-motion";
+
+const AnimatedStars = () => {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 14 }}>
+      <div style={{ display: "flex", gap: 4 }}>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ delay: 1.8 + i * 0.12, type: "spring", stiffness: 300, damping: 15 }}
+            style={{ color: "#C9A84C", fontSize: 20, display: "inline-block" }}
+          >
+            <Star size={18} fill="#C9A84C" strokeWidth={0} />
+          </motion.span>
+        ))}
+      </div>
+      <motion.span
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 2.4, duration: 0.6 }}
+        style={{
+          fontSize: 13,
+          color: "rgba(255,255,255,0.5)",
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 400,
+        }}
+      >
+        Rated 5 stars by over <strong style={{ color: "#C9A84C", fontWeight: 600 }}>1,000+</strong> travellers
+      </motion.span>
+    </div>
+  );
+};
 
 const HeroSection = () => {
   const { navigateTo } = useWave();
@@ -85,7 +119,7 @@ const HeroSection = () => {
       <div
         style={{
           position: "absolute",
-          top: "15%",
+          top: "8%",
           left: "50%",
           transform: "translateX(-50%)",
           width: isMobile ? 360 : 520,
@@ -96,12 +130,12 @@ const HeroSection = () => {
         }}
       />
 
-      {/* ═══ LAYER 3 — THREE.JS GEM ═══ */}
+      {/* ═══ LAYER 3 — THREE.JS GEM (above eyebrow) ═══ */}
       <div
         className="hero-gem-floating"
         style={{
           position: "absolute",
-          top: "15%",
+          top: "8%",
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 2,
@@ -109,8 +143,8 @@ const HeroSection = () => {
         }}
       >
         <BrilliantGem
-          width={isMobile ? 320 : 500}
-          height={isMobile ? 320 : 500}
+          width={isMobile ? 260 : 420}
+          height={isMobile ? 260 : 420}
           observerTarget={heroRef as React.RefObject<HTMLElement>}
         />
       </div>
@@ -120,7 +154,7 @@ const HeroSection = () => {
         className="hero-centered-content"
         style={{
           position: "absolute",
-          bottom: "8%",
+          bottom: "6%",
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 3,
@@ -184,38 +218,20 @@ const HeroSection = () => {
             fontSize: 15,
             color: "rgba(255,255,255,0.55)",
             lineHeight: 1.75,
-            maxWidth: 440,
+            maxWidth: 480,
             marginTop: 16,
             fontFamily: "'DM Sans', sans-serif",
           }}
         >
-          Private rentals, island circumnavigation, and flight concierge —
-          crafted for those who demand the extraordinary.
+          Private rentals, island circumnavigation, immersive cultural tours, 
+          beach explorations, and flight concierge — crafted for those who demand the extraordinary.
         </p>
 
-        {/* Star rating */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            marginTop: 10,
-          }}
-        >
-          <span style={{ color: "#C9A84C", fontSize: 13 }}>★★★★★</span>
-          <span
-            style={{
-              fontSize: 12,
-              color: "rgba(255,255,255,0.4)",
-              fontFamily: "'DM Sans', sans-serif",
-            }}
-          >
-            Rated 5 stars by over 500 travellers
-          </span>
-        </div>
+        {/* Animated star rating */}
+        <AnimatedStars />
 
-        {/* CTA buttons */}
-        <div style={{ display: "flex", gap: 14, marginTop: 22 }}>
+        {/* CTA buttons — 3 options */}
+        <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap", justifyContent: "center" }}>
           <button
             onClick={() => navigateTo("/book")}
             style={{
@@ -224,33 +240,62 @@ const HeroSection = () => {
               fontSize: 11,
               fontWeight: 600,
               letterSpacing: ".12em",
-              padding: "14px 28px",
+              padding: "14px 24px",
               border: "none",
               borderRadius: 3,
               cursor: "pointer",
               fontFamily: "'DM Sans', sans-serif",
               textTransform: "uppercase",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
             }}
           >
-            Explore Experiences
+            Book Now
           </button>
           <button
-            onClick={() => navigateTo("/book")}
+            onClick={() => navigateTo("/rentals")}
             style={{
               background: "transparent",
-              border: "1px solid rgba(201,168,76,0.6)",
+              border: "1px solid rgba(201,168,76,0.5)",
               color: "#C9A84C",
               fontSize: 11,
               fontWeight: 600,
               letterSpacing: ".12em",
-              padding: "14px 28px",
+              padding: "14px 24px",
               borderRadius: 3,
               cursor: "pointer",
               fontFamily: "'DM Sans', sans-serif",
               textTransform: "uppercase",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
             }}
           >
-            Book Now
+            <Car size={14} />
+            Rentals
+          </button>
+          <button
+            onClick={() => navigateTo("/concierge")}
+            style={{
+              background: "transparent",
+              border: "1px solid rgba(94,200,224,0.4)",
+              color: "#5ec8e0",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: ".12em",
+              padding: "14px 24px",
+              borderRadius: 3,
+              cursor: "pointer",
+              fontFamily: "'DM Sans', sans-serif",
+              textTransform: "uppercase",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <Plane size={14} />
+            Concierge
           </button>
         </div>
       </div>
@@ -290,13 +335,13 @@ const HeroSection = () => {
         }
         @media (max-width: 768px) {
           .hero-gem-floating {
-            top: 12% !important;
+            top: 6% !important;
           }
           .hero-headline {
             font-size: clamp(24px, 7vw, 36px) !important;
           }
           .hero-centered-content {
-            bottom: 12% !important;
+            bottom: 10% !important;
           }
         }
         @media (max-width: 1024px) {
