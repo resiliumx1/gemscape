@@ -189,7 +189,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
           height: 80,
           width: "auto",
           zIndex: 1,
-          opacity: stage === "playing" && !videoReady ? 1 : 0,
+          opacity: (stage === "playing" && !videoReady) || videoError ? 1 : 0,
           transition: "opacity 0.4s ease-out",
           pointerEvents: "none",
           background: "none",
