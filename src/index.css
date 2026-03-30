@@ -467,6 +467,32 @@ button, input, textarea, select, a {
   color: hsl(var(--gem-gold)) !important;
 }
 
+/* ========== ALWAYS-DARK SECTIONS (immune to day/night toggle) ========== */
+.hero-cinematic,
+.hero,
+header,
+footer,
+.section-dark,
+.quote-section,
+.rentals-preview {
+  background-color: #05181e !important;
+  color-scheme: dark !important;
+}
+
+.hero-cinematic,
+.hero-cinematic *,
+.hero,
+.hero *,
+header,
+header * {
+  --bg-primary: #05181e !important;
+  --bg-secondary: #071f27 !important;
+  --bg-tertiary: #0a2530 !important;
+  --text-primary: #EDE8DC !important;
+  --text-secondary: #C4BBA8 !important;
+  --card-bg: #0a2530 !important;
+}
+
 /* ========== HERO ========== */
 .hero {
   height: 100dvh;
