@@ -1,232 +1,140 @@
-import React from 'react';
-import styled from 'styled-components';
+import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 interface SkyToggleProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
 }
 
-const SkyToggle: React.FC<SkyToggleProps> = ({ checked, onChange }) => {
+const SkyToggle = ({ checked: isDark, onChange }: SkyToggleProps) => {
+  const isDay = !isDark;
+
+  const stars = useMemo(
+    () =>
+      Array.from({ length: 5 }, () => ({
+        w: Math.random() * 2 + 1,
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        dur: 2 + Math.random() * 2,
+        delay: Math.random() * 2,
+      })),
+    []
+  );
+
   return (
-    <StyledWrapper>
-      <label className="theme-switch">
-        <input
-          type="checkbox"
-          className="theme-switch__checkbox"
-          checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
+    <motion.div
+      onClick={() => onChange(!isDark)}
+      whileHover={{ scale: 1.05, borderColor: "rgba(255, 255, 255, 0.3)" }}
+      className="relative flex items-center border border-white/10 rounded-full p-1 cursor-pointer w-16 h-8 sm:w-20 sm:h-10 overflow-hidden transition-all duration-300"
+      role="switch"
+      aria-checked={isDark}
+      aria-label={isDay ? "Switch to dark mode" : "Switch to light mode"}
+    >
+      {/* Background */}
+      <motion.div
+        className="absolute inset-0 rounded-full"
+        animate={{
+          background: isDay
+            ? "linear-gradient(to right, #0891b2, #0e7490)"
+            : "linear-gradient(to right, #0f172a, #1e1b4b)",
+        }}
+        transition={{ duration: 0.5 }}
+      />
+
+      {/* Clouds (Day) */}
+      <motion.div
+        className="absolute inset-0 opacity-30"
+        animate={{ opacity: isDay ? 0.3 : 0, y: isDay ? 0 : 10 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div
+          animate={{ x: [-2, 2, -2] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1 left-2 w-4 h-2 bg-white rounded-full blur-[1px]"
         />
-        <div className="theme-switch__container">
-          <div className="theme-switch__clouds" />
-          <div className="theme-switch__stars-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.70206C136.607 6.54545 136.996 7.## 137 8.45929C136.996 7.## 136.607 6.54545 135.831 5.70206Z"
-                fill="currentColor"
-              />
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M31 23.3545C32.111 23.2995 33.055 22.8503 33.831 22.0069C34.607 21.1635 34.996 20.## 35 19.4593C34.996 20.## 34.607 21.1635 33.831 22.0069C33.055 22.8503 32.111 23.2995 31 23.3545Z"
-                fill="currentColor"
-              />
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M51 8.35447C52.111 8.29946 53.055 7.85027 53.831 7.00688C54.607 6.16348 54.996 5.## 55 4.45929C54.996 5.## 54.607 6.16348 53.831 7.00688C53.055 7.85027 52.111 8.29946 51 8.35447Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
-          <div className="theme-switch__circle-container">
-            <div className="theme-switch__sun-moon-container">
-              <div className="theme-switch__moon">
-                <div className="theme-switch__spot" />
-                <div className="theme-switch__spot" />
-                <div className="theme-switch__spot" />
-              </div>
-            </div>
-          </div>
+        <motion.div
+          animate={{ x: [2, -2, 2] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-2 right-4 w-6 h-3 bg-white rounded-full blur-[1px]"
+        />
+      </motion.div>
+
+      {/* Stars (Night) */}
+      {!isDay && (
+        <div className="absolute inset-0">
+          {stars.map((s, i) => (
+            <motion.div
+              key={i}
+              className="absolute bg-white rounded-full"
+              style={{ width: s.w, height: s.w, top: `${s.top}%`, left: `${s.left}%` }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0], scale: [0.8, 1.2, 0.8] }}
+              transition={{ duration: s.dur, repeat: Infinity, delay: s.delay }}
+            />
+          ))}
         </div>
-      </label>
-    </StyledWrapper>
+      )}
+
+      {/* Sun / Moon orb */}
+      <motion.div
+        className="absolute w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center z-20"
+        animate={{ x: isDay ? (typeof window !== "undefined" && window.innerWidth < 640 ? 24 : 40) : 0 }}
+        transition={{ type: "spring", stiffness: 150, damping: 15 }}
+      >
+        <motion.div
+          className="w-full h-full rounded-full relative overflow-hidden"
+          animate={{
+            backgroundColor: isDay ? "#facc15" : "#e2e8f0",
+            boxShadow: isDay
+              ? "0 0 25px rgba(250,204,21,0.9)"
+              : "0 0 15px rgba(226,232,240,0.4)",
+            rotate: isDay ? 360 : -360,
+            scale: isDay ? [1, 1.1, 1] : 1,
+          }}
+          transition={{
+            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+            scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+            backgroundColor: { duration: 0.5 },
+            boxShadow: { duration: 0.5 },
+          }}
+        >
+          {isDay ? (
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              {Array.from({ length: 12 }, (_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-yellow-400/60 to-transparent"
+                  style={{ transform: `rotate(${i * 30}deg)` }}
+                />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0">
+              <motion.div
+                animate={{ opacity: [0.2, 0.4, 0.2] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-1 left-1 w-2 h-2 bg-slate-400/30 rounded-full"
+              />
+              <motion.div
+                animate={{ opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute bottom-2 right-2 w-1 h-1 bg-slate-400/30 rounded-full"
+              />
+              <motion.div
+                animate={{ opacity: [0.2, 0.4, 0.2] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute top-4 right-1 w-1.5 h-1.5 bg-slate-400/30 rounded-full"
+              />
+            </motion.div>
+          )}
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
-
-const StyledWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  .theme-switch {
-    --toggle-size: 16px;
-    --container-width: 5.625em;
-    --container-height: 2.5em;
-    --container-radius: 6.25em;
-    --container-light-bg: #3D7EAE;
-    --container-night-bg: #1D1F2C;
-    --circle-container-diameter: 3.375em;
-    --sun-moon-diameter: 2.125em;
-    --sun-bg: #ECCA2F;
-    --moon-bg: #C4C9D1;
-    --spot-color: #959DB1;
-    --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
-    --stars-color: #fff;
-    --clouds-color: #F3FDFF;
-    --back-clouds-color: #AACADF;
-    --transition: .5s cubic-bezier(0, -0.02, 0.4, 1.25);
-    --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
-  }
-
-  .theme-switch, .theme-switch *, .theme-switch *::before, .theme-switch *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-size: var(--toggle-size);
-  }
-
-  .theme-switch__container {
-    width: var(--container-width);
-    height: var(--container-height);
-    background-color: var(--container-light-bg);
-    border-radius: var(--container-radius);
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
-    transition: var(--transition);
-    position: relative;
-  }
-
-  .theme-switch__container::before {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    box-shadow: 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset, 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset;
-    border-radius: var(--container-radius);
-  }
-
-  .theme-switch__checkbox {
-    display: none;
-  }
-
-  .theme-switch__circle-container {
-    width: var(--circle-container-diameter);
-    height: var(--circle-container-diameter);
-    background-color: rgba(255, 255, 255, 0.1);
-    position: absolute;
-    left: var(--circle-container-offset);
-    top: var(--circle-container-offset);
-    border-radius: var(--container-radius);
-    box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), 0 0 0 0.625em rgba(255, 255, 255, 0.1), 0 0 0 1.25em rgba(255, 255, 255, 0.1);
-    display: flex;
-    transition: var(--circle-transition);
-    pointer-events: none;
-  }
-
-  .theme-switch__sun-moon-container {
-    pointer-events: auto;
-    position: relative;
-    z-index: 2;
-    width: var(--sun-moon-diameter);
-    height: var(--sun-moon-diameter);
-    margin: auto;
-    border-radius: var(--container-radius);
-    background-color: var(--sun-bg);
-    box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #a1872a inset;
-    filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
-    overflow: hidden;
-    transition: var(--transition);
-  }
-
-  .theme-switch__moon {
-    transform: translateX(100%);
-    width: 100%;
-    height: 100%;
-    background-color: var(--moon-bg);
-    border-radius: inherit;
-    box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #969696 inset;
-    transition: var(--transition);
-    position: relative;
-  }
-
-  .theme-switch__spot {
-    position: absolute;
-    top: 0.75em;
-    left: 0.312em;
-    width: 0.75em;
-    height: 0.75em;
-    border-radius: var(--container-radius);
-    background-color: var(--spot-color);
-    box-shadow: 0em 0.0312em 0.062em rgba(0, 0, 0, 0.25) inset;
-  }
-
-  .theme-switch__spot:nth-of-type(2) {
-    width: 0.375em;
-    height: 0.375em;
-    top: 0.937em;
-    left: 1.375em;
-  }
-
-  .theme-switch__spot:nth-last-of-type(3) {
-    width: 0.25em;
-    height: 0.25em;
-    top: 0.312em;
-    left: 0.812em;
-  }
-
-  .theme-switch__clouds {
-    width: 1.25em;
-    height: 1.25em;
-    background-color: var(--clouds-color);
-    border-radius: var(--container-radius);
-    position: absolute;
-    bottom: -0.625em;
-    left: 0.312em;
-    box-shadow: 0.937em 0.312em var(--clouds-color), -0.312em -0.312em var(--back-clouds-color), 1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color), 2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color), 2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color), 3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color), 4.5em -0.312em var(--clouds-color), 3.375em -0.437em var(--back-clouds-color), 4.625em -1.75em 0 0.437em var(--clouds-color), 4em -0.625em var(--back-clouds-color), 4.125em -2.125em 0 0.437em var(--back-clouds-color);
-    transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
-  }
-
-  .theme-switch__stars-container {
-    position: absolute;
-    color: var(--stars-color);
-    top: -100%;
-    left: 0.312em;
-    width: 2.75em;
-    height: auto;
-    transition: var(--transition);
-  }
-
-  /* Checked states */
-  .theme-switch__checkbox:checked + .theme-switch__container {
-    background-color: var(--container-night-bg);
-  }
-
-  .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
-    left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
-  }
-
-  .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container:hover {
-    left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter) - 0.187em);
-  }
-
-  .theme-switch__circle-container:hover {
-    left: calc(var(--circle-container-offset) + 0.187em);
-  }
-
-  .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
-    transform: translate(0);
-  }
-
-  .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__clouds {
-    bottom: -4.062em;
-  }
-
-  .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__stars-container {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-`;
 
 export default SkyToggle;
