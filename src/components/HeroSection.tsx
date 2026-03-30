@@ -277,8 +277,8 @@ const HeroSection = () => {
               />
               <div style={{ position: "relative", zIndex: 1 }}>
                 <BrilliantGem
-                  width={isMobile ? 180 : 280}
-                  height={isMobile ? 180 : 280}
+                  width={isMobile ? 360 : 560}
+                  height={isMobile ? 360 : 560}
                   observerTarget={heroRef as React.RefObject<HTMLElement>}
                 />
               </div>
