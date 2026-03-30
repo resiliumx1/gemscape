@@ -250,31 +250,39 @@ const HeroSection = () => {
               Explore Services
             </button>
           </div>
-        </div>
 
-        {/* RIGHT COLUMN — GEM */}
-        <div className="hero-gem-col">
-          {/* Atmospheric glow behind gem */}
-          <div
-            style={{
-              position: "absolute",
-              width: "120%",
-              height: "120%",
-              background:
-                "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
-              pointerEvents: "none",
-              zIndex: 0,
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-          <div className="hero-gem-canvas" style={{ position: "relative", zIndex: 1 }}>
-            <BrilliantGem
-              width={isMobile ? 220 : 500}
-              height={isMobile ? 220 : 500}
-              observerTarget={heroRef as React.RefObject<HTMLElement>}
-            />
+          {/* Gem — below CTAs */}
+          <div className="hero-gem-inline">
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  width: "120%",
+                  height: "120%",
+                  background:
+                    "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              />
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <BrilliantGem
+                  width={isMobile ? 180 : 280}
+                  height={isMobile ? 180 : 280}
+                  observerTarget={heroRef as React.RefObject<HTMLElement>}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -298,13 +306,13 @@ const HeroSection = () => {
       {/* Responsive styles */}
       <style>{`
         .hero-grid-layout {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          align-items: center;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
           max-width: 1280px;
           margin: 0 auto;
           padding: 0 48px;
-          gap: 48px;
         }
         .hero-text-col {
           display: flex;
@@ -315,18 +323,11 @@ const HeroSection = () => {
         .hero-headline {
           font-size: clamp(40px, 5vw, 72px);
         }
-        .hero-gem-col {
+        .hero-gem-inline {
+          margin-top: 24px;
           display: flex;
           align-items: center;
-          justify-content: center;
-          position: relative;
-        }
-        .hero-gem-canvas {
-          width: clamp(300px, 40vw, 560px);
-          height: clamp(300px, 40vw, 560px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
         }
 
         @keyframes chevronBounce {
@@ -341,12 +342,6 @@ const HeroSection = () => {
         @media (min-width: 769px) and (max-width: 1024px) {
           .hero-grid-layout {
             padding: 0 24px;
-            gap: 24px;
-            grid-template-columns: 1fr 1fr;
-          }
-          .hero-gem-canvas {
-            width: clamp(240px, 35vw, 380px);
-            height: clamp(240px, 35vw, 380px);
           }
           .hero-headline {
             font-size: clamp(28px, 4.5vw, 48px) !important;
@@ -356,23 +351,16 @@ const HeroSection = () => {
         /* Mobile */
         @media (max-width: 768px) {
           .hero-grid-layout {
-            grid-template-columns: 1fr;
             padding: 0 20px;
-            gap: 0;
-            justify-items: center;
-            align-content: center;
-          }
-          .hero-gem-col {
-            order: -1;
-            margin-bottom: -8px;
-          }
-          .hero-gem-canvas {
-            width: 180px;
-            height: 180px;
+            align-items: center;
           }
           .hero-text-col {
             align-items: center;
             text-align: center;
+          }
+          .hero-gem-inline {
+            justify-content: center;
+            margin-top: 16px;
           }
           .hero-headline {
             font-size: clamp(24px, 7vw, 36px) !important;
