@@ -17,6 +17,8 @@ import Admin from "./pages/Admin.tsx";
 import Rentals from "./pages/Rentals.tsx";
 import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
+import Contact from "./pages/Contact.tsx";
+import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider, PageWrapper } from "@/components/PageTransitionWave";
 import IntroSplash from "@/components/IntroSplash";
 
