@@ -116,7 +116,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "#05181e",
+        background: "#ffffff",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
