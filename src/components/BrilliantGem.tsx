@@ -354,7 +354,7 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
       rimLight.position.set(0, -3, -2);
       scene.add(rimLight);
 
-      const ambientLight = new THREE.AmbientLight(0x1a3040, 0.3);
+      const ambientLight = new THREE.AmbientLight(0x1a3040, 0.09);
       scene.add(ambientLight);
 
       // ── SPARKLE PARTICLES (subtle, 12 particles) ──
