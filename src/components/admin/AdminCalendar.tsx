@@ -182,6 +182,7 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
             );
           })}
         </div>
+        </div>
       </div>
     );
   };
