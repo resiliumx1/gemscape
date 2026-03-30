@@ -486,11 +486,12 @@
 /* ── Main Area ── */
 .aura-main {
   flex: 1;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -498,7 +499,8 @@
 .aura-topbar {
   height: 56px;
   background: var(--aura-glass);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 50;
   backdrop-filter: var(--aura-blur);
   -webkit-backdrop-filter: var(--aura-blur);
@@ -590,8 +592,6 @@
 .aura-content {
   flex: 1;
   padding: 20px;
-  overflow-y: auto;
-  height: calc(100vh - 56px);
 }
 
 /* ── Cards (Glass) ── */
@@ -949,6 +949,20 @@
   }
   .aura-card:hover {
     transform: none;
+  }
+}
+
+/* ── Tablet header ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .aura-topbar {
+    height: 56px;
+    padding: 0 16px;
+  }
+  .aura-topbar h1 {
+    font-size: 22px !important;
+  }
+  .aura-topbar__search {
+    width: 140px;
   }
 }
 
