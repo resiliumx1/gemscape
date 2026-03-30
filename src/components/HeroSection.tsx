@@ -323,15 +323,17 @@ const HeroSection = () => {
           .hero-grid-layout {
             grid-template-columns: 1fr;
             padding: 0 20px;
-            gap: 16px;
+            gap: 0;
             justify-items: center;
+            align-content: center;
           }
           .hero-gem-col {
             order: -1;
+            margin-bottom: -8px;
           }
           .hero-gem-canvas {
-            width: 220px;
-            height: 220px;
+            width: 180px;
+            height: 180px;
           }
           .hero-text-col {
             align-items: center;
