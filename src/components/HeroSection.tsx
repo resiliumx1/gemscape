@@ -264,10 +264,10 @@ const HeroSection = () => {
               <div
               style={{
                   position: "absolute",
-                  width: "80%",
-                  height: "80%",
+                  width: "60%",
+                  height: "60%",
                   background:
-                    "radial-gradient(ellipse, rgba(44,184,168,0.10) 0%, rgba(26,138,158,0.05) 40%, transparent 65%)",
+                    "radial-gradient(ellipse, rgba(44,184,168,0.04) 0%, rgba(26,138,158,0.02) 40%, transparent 65%)",
                   pointerEvents: "none",
                   zIndex: 0,
                   top: "50%",
@@ -277,8 +277,8 @@ const HeroSection = () => {
               />
               <div style={{ position: "relative", zIndex: 1 }}>
                 <BrilliantGem
-                  width={isMobile ? 180 : 280}
-                  height={isMobile ? 180 : 280}
+                  width={isMobile ? 360 : 560}
+                  height={isMobile ? 360 : 560}
                   observerTarget={heroRef as React.RefObject<HTMLElement>}
                 />
               </div>
