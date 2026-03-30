@@ -6,6 +6,7 @@ type Stage = "playing" | "fadeVideo" | "ripple" | "curtain" | "done";
 const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
   const [stage, setStage] = useState<Stage>("playing");
   const [showSkip, setShowSkip] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -15,25 +16,39 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
     return () => clearTimeout(t);
   }, []);
 
-  // Imperatively ensure autoplay works
+  // Imperatively ensure autoplay works + interaction fallback
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
+
     const attemptPlay = () => {
-      video.play().catch(() => {});
+      video.play().catch((err) => {
+        console.warn("Intro video autoplay blocked:", err.message);
+        const playOnInteraction = () => {
+          video.play().catch(() => {});
+          document.removeEventListener("click", playOnInteraction);
+          document.removeEventListener("touchstart", playOnInteraction);
+          document.removeEventListener("keydown", playOnInteraction);
+        };
+        document.addEventListener("click", playOnInteraction, { once: true });
+        document.addEventListener("touchstart", playOnInteraction, { once: true });
+        document.addEventListener("keydown", playOnInteraction, { once: true });
+      });
     };
+
     if (video.readyState >= 2) {
       attemptPlay();
     } else {
-      video.addEventListener('canplay', attemptPlay, { once: true });
+      video.addEventListener("canplay", attemptPlay, { once: true });
     }
+
     return () => {
-      video.removeEventListener('canplay', attemptPlay);
+      video.removeEventListener("canplay", attemptPlay);
     };
   }, []);
 
-  // Auto-dismiss if video never loads within 4s
+  // Auto-dismiss if video never loads within 10s
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (stage === "playing") {
@@ -41,7 +56,7 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
         setStage("done");
         onComplete();
       }
-    }, 4000);
+    }, 10000);
     return () => clearTimeout(timeout);
   }, [stage, onComplete]);
 
@@ -79,6 +94,10 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
     setStage("done");
     onComplete();
   }, [onComplete]);
+
+  const handleVideoLoaded = useCallback(() => {
+    setVideoReady(true);
+  }, []);
 
   if (stage === "done") return null;
 
@@ -140,36 +159,38 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
         />
       </div>
 
-      {/* Logo fallback — shows until video loads */}
+      {/* Logo fallback — shows until video is ready */}
       <img
         src="/images/gemscape-logo.png"
         alt="Gemscape Travel and Tours"
         className="bg-transparent"
         style={{
           position: "absolute",
-          top: "50%", left: "50%",
+          top: "50%",
+          left: "50%",
           transform: "translate(-50%, -50%)",
-          height: 80, width: "auto",
+          height: 80,
+          width: "auto",
           zIndex: 1,
-          opacity: stage === "playing" ? 1 : 0,
+          opacity: stage === "playing" && !videoReady ? 1 : 0,
           transition: "opacity 0.4s ease-out",
           pointerEvents: "none",
-          background: "none", backgroundColor: "transparent",
+          background: "none",
+          backgroundColor: "transparent",
         }}
       />
 
-      {/* Video */}
+      {/* Video — using src directly so onError fires reliably */}
       <video
         ref={videoRef}
+        src="/videos/intro.mp4"
         autoPlay
         muted
         playsInline
         preload="auto"
         onEnded={triggerExit}
         onError={handleVideoError}
-        onLoadedData={() => {
-          // Video loaded successfully, it will play
-        }}
+        onLoadedData={handleVideoLoaded}
         style={{
           position: "relative",
           zIndex: 2,
@@ -177,12 +198,10 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
           height: "70vh",
           maxWidth: "80vw",
           objectFit: "contain",
-          opacity: stage === "playing" ? 1 : 0,
+          opacity: stage === "playing" && videoReady ? 1 : 0,
           transition: "opacity 0.4s ease-out",
         }}
-      >
-        <source src="/videos/intro.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Skip button */}
       {showSkip && stage === "playing" && (
