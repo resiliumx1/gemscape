@@ -212,7 +212,7 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
           })}
         </div>
         {/* Time grid */}
-        <div style={{ maxHeight: isMobile ? 400 : 600, overflowY: "auto" }}>
+        <div className="aura-calendar-scroll">
           {HOURS.map(hour => (
             <div key={hour} style={{ display: "grid", gridTemplateColumns: "60px repeat(7, 1fr)", minHeight: 48, borderBottom: "1px solid var(--aura-border-light)" }}>
               <div style={{
