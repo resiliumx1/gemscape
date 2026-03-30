@@ -17,7 +17,7 @@ const AdminCustomerDirectory = ({ isMobile = false }: { isMobile?: boolean }) =>
   };
 
   return (
-    <div style={{ maxWidth: isMobile ? "100%" : 600 }}>
+    <div style={{ maxWidth: isMobile ? "100%" : 600, margin: "0 auto" }}>
       <div className="aura-glass" style={{ padding: isMobile ? "20px" : "28px" }}>
         <p style={{ fontFamily: "var(--aura-font-heading)", fontSize: 22, color: "var(--aura-text)", marginBottom: 20 }}>
           Compose Message

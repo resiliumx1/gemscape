@@ -388,8 +388,8 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
           position: "fixed", inset: 0, zIndex: 200, background: "rgba(4,16,20,0.85)",
           backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center",
         }} onClick={() => setMsgTarget(null)}>
-          <div onClick={e => e.stopPropagation()} style={{
-            width: isMobile ? "92%" : 400, background: "rgba(8,32,38,0.96)",
+          <div onClick={e => e.stopPropagation()} className="aura-modal-panel" style={{
+            width: isMobile ? "92%" : 400, background: "var(--aura-modal-bg)",
             border: "1px solid var(--aura-glass-border)", borderRadius: 20, padding: 28,
             boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
           }}>

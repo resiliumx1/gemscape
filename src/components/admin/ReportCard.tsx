@@ -47,7 +47,7 @@ export default function ReportCard({ type, title, description, lastRun, formats 
     <div
       style={{
         background: `linear-gradient(135deg, ${g0}, ${g1})`,
-        border: '1px solid rgba(255,255,255,0.06)',
+        border: '1px solid var(--aura-glass-border)',
         borderRadius: 13, padding: 16, cursor: 'pointer',
         transition: 'all 0.2s', position: 'relative', overflow: 'hidden',
       }}
@@ -58,7 +58,7 @@ export default function ReportCard({ type, title, description, lastRun, formats 
       }}
       onMouseLeave={e => {
         e.currentTarget.style.transform = '';
-        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+        e.currentTarget.style.borderColor = '';
         e.currentTarget.style.boxShadow = '';
       }}
     >
@@ -71,8 +71,8 @@ export default function ReportCard({ type, title, description, lastRun, formats 
         {icons[type]}
       </div>
 
-      <p style={{ fontSize: 13, fontWeight: 600, color: '#dff3f8', marginBottom: 4 }}>{title}</p>
-      <p style={{ fontSize: 10.5, color: 'rgba(223,243,248,0.45)', lineHeight: 1.45, marginBottom: 12 }}>{description}</p>
+      <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--aura-text)', marginBottom: 4 }}>{title}</p>
+      <p style={{ fontSize: 10.5, color: 'var(--aura-text-muted)', lineHeight: 1.45, marginBottom: 12 }}>{description}</p>
 
       <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginBottom: 10 }}>
         {formats.map(fmt => (
@@ -94,8 +94,8 @@ export default function ReportCard({ type, title, description, lastRun, formats 
         ))}
       </div>
 
-      <p style={{ fontSize: 9.5, color: 'rgba(223,243,248,0.3)', display: 'flex', alignItems: 'center', gap: 4 }}>
-        <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#2dd4a0', boxShadow: '0 0 5px #2dd4a0', display: 'inline-block' }} />
+      <p style={{ fontSize: 9.5, color: 'var(--aura-text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}>
+        <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--aura-success)', boxShadow: '0 0 5px var(--aura-success)', display: 'inline-block' }} />
         Last generated: {lastRun}
       </p>
     </div>
