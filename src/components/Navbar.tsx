@@ -364,8 +364,6 @@ export default function Navbar() {
           <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Sparkles} label="CONCIERGE" href="/concierge" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Gem} label="ABOUT" href="#why-gemscape" isHash pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Gem} label="CONTACT" href="#contact" isHash pulse={false} onNavigate={handleNav} />
         </motion.nav>
 
         {/* Right controls */}
@@ -475,15 +473,13 @@ export default function Navbar() {
                     {[
                       { icon: Diamond, label: "RENTALS", href: "/rentals" },
                       { icon: Sparkles, label: "CONCIERGE", href: "/concierge" },
-                      { icon: Gem, label: "ABOUT", href: "#why-gemscape", isHash: true },
-                      { icon: Gem, label: "CONTACT", href: "#contact", isHash: true },
                     ].map((item) => (
                       <motion.button
                         key={item.label}
                         variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
                         whileHover={{ x: 8, backgroundColor: "rgba(44, 184, 168, 0.05)" }}
                         whileTap={{ scale: 0.97 }}
-                        onClick={() => handleNav(item.href, item.isHash)}
+                        onClick={() => handleNav(item.href)}
                         className="flex items-center gap-4 text-white/80 hover:text-white p-3 rounded-xl transition-colors cursor-pointer group w-full text-left"
                       >
                         <item.icon size={20} className="text-gem-teal group-hover:text-gem-aqua transition-colors" />
