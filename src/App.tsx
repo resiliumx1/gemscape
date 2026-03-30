@@ -74,7 +74,7 @@ const App = () => {
               <Route path="/rentals" element={<PageWrapper><Rentals /></PageWrapper>} />
               <Route path="/book" element={<PageWrapper><Book /></PageWrapper>} />
               <Route path="/concierge" element={<PageWrapper><Concierge /></PageWrapper>} />
-              <Route path="/admin/login" element={<AdminLogin />} />
+              
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
