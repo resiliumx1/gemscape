@@ -359,7 +359,7 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
 
       // ── SPARKLE PARTICLES (subtle, 12 particles) ──
       const SPARKLE_COUNT = 12;
-      const GEM_RADIUS = 0.78 * 1.2; // 1.2x bounding radius
+      const GEM_RADIUS = 0.78 * 0.6; // 50% reduced radius
       const _sPos = new Float32Array(SPARKLE_COUNT * 3);
       const _sSize = new Float32Array(SPARKLE_COUNT);
       const _sPhase: number[] = [];
