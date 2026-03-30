@@ -473,8 +473,6 @@ export default function Navbar() {
                     {[
                       { icon: Diamond, label: "RENTALS", href: "/rentals" },
                       { icon: Sparkles, label: "CONCIERGE", href: "/concierge" },
-                      { icon: Gem, label: "ABOUT", href: "#why-gemscape", isHash: true },
-                      { icon: Gem, label: "CONTACT", href: "#contact", isHash: true },
                     ].map((item) => (
                       <motion.button
                         key={item.label}
