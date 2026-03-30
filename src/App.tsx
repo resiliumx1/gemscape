@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
@@ -20,26 +20,13 @@ import Concierge from "./pages/Concierge.tsx";
 import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider, PageWrapper } from "@/components/PageTransitionWave";
-import IntroSplash from "@/components/IntroSplash";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [showIntro, setShowIntro] = useState(() => {
-    const played = sessionStorage.getItem("introPlayed");
-    console.log("[App] introPlayed =", played, "| pathname =", window.location.pathname);
-    // Clear stale flag so intro replays on each new tab/session
-    if (played === "true") {
-      sessionStorage.removeItem("introPlayed");
-    }
-    return true;
-  });
-
-  const handleIntroComplete = useCallback(() => {
-    setShowIntro(false);
-  }, []);
 
   useEffect(() => {
     // Don't initialize Lenis on admin pages — it hijacks scroll events
@@ -81,7 +68,7 @@ const App = () => {
     <CurrencyProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {showIntro && window.location.pathname !== '/admin' && <IntroSplash onComplete={handleIntroComplete} />}
+        
         <Toaster />
         <Sonner />
         <BrowserRouter>
