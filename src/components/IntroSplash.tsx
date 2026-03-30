@@ -20,11 +20,15 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    console.log("[IntroSplash] Video element mounted, readyState:", video.readyState);
     video.muted = true;
 
     const attemptPlay = () => {
-      video.play().catch((err) => {
-        console.warn("Intro video autoplay blocked:", err.message);
+      console.log("[IntroSplash] Attempting play(), readyState:", video.readyState);
+      video.play().then(() => {
+        console.log("[IntroSplash] play() succeeded");
+      }).catch((err) => {
+        console.warn("[IntroSplash] Autoplay blocked:", err.message);
         const playOnInteraction = () => {
           video.play().catch(() => {});
           document.removeEventListener("click", playOnInteraction);
@@ -38,14 +42,17 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
     };
 
     if (video.readyState >= 2) {
+      setVideoReady(true);
       attemptPlay();
     } else {
-      video.addEventListener("canplay", attemptPlay, { once: true });
+      video.addEventListener("canplay", () => {
+        console.log("[IntroSplash] canplay fired");
+        setVideoReady(true);
+        attemptPlay();
+      }, { once: true });
     }
 
-    return () => {
-      video.removeEventListener("canplay", attemptPlay);
-    };
+    return () => {};
   }, []);
 
   // Auto-dismiss if video never loads within 10s
