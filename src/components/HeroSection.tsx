@@ -81,6 +81,21 @@ const HeroSection = () => {
         }}
       />
 
+      {/* ═══ LAYER 3 — GEM GLOW ═══ */}
+      <div
+        style={{
+          position: "absolute",
+          top: "15%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: isMobile ? 360 : 520,
+          height: isMobile ? 360 : 520,
+          background: "radial-gradient(ellipse, rgba(26,138,158,0.18) 0%, transparent 70%)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
+
       {/* ═══ LAYER 3 — THREE.JS GEM ═══ */}
       <div
         className="hero-gem-floating"
@@ -94,8 +109,8 @@ const HeroSection = () => {
         }}
       >
         <BrilliantGem
-          width={isMobile ? 260 : 420}
-          height={isMobile ? 260 : 420}
+          width={isMobile ? 320 : 500}
+          height={isMobile ? 320 : 500}
           observerTarget={heroRef as React.RefObject<HTMLElement>}
         />
       </div>
