@@ -474,6 +474,7 @@ export default function Navbar() {
                     {[
                       { icon: Diamond, label: "RENTALS", href: "/rentals" },
                       { icon: Sparkles, label: "CONCIERGE", href: "/concierge" },
+                      { icon: Mail, label: "CONTACT", href: "/contact" },
                     ].map((item) => (
                       <motion.button
                         key={item.label}
