@@ -359,7 +359,7 @@ export default function Navbar() {
           style={{ y: navY }}
           variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="hidden lg:flex items-center gap-12"
+          className="hidden lg:flex items-center gap-6 ml-auto mr-8"
         >
           <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
@@ -409,7 +409,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-gem-navy border-l border-gem-teal/10 shadow-2xl flex flex-col p-8"
+              className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-[#05181e] border-l border-gem-teal/10 shadow-2xl flex flex-col p-8"
             >
               {/* Drawer header */}
               <div className="flex items-center justify-between mb-12">
