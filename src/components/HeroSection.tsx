@@ -366,6 +366,7 @@ const HeroSection = () => {
             font-size: clamp(24px, 7vw, 36px) !important;
           }
         }
+      `}</style>
     </section>
   );
 };
