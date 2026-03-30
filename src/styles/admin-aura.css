@@ -187,12 +187,19 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: var(--aura-bg);
   border-right: 1px solid var(--aura-glass-border);
   z-index: 10;
   transition: width 0.35s cubic-bezier(0.4,0,0.2,1), background 0.4s ease, border-color 0.4s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(44,184,168,0.3) transparent;
 }
+
+.aura-sidebar::-webkit-scrollbar { width: 3px; }
+.aura-sidebar::-webkit-scrollbar-track { background: transparent; }
+.aura-sidebar::-webkit-scrollbar-thumb { background: rgba(44,184,168,0.3); border-radius: 2px; }
 
 .aura-light .aura-sidebar {
   background: var(--aura-sidebar-bg);
@@ -219,7 +226,7 @@
     width: 260px;
   }
   .aura-sidebar.collapsed {
-    width: 52px;
+    width: 56px;
   }
   .aura-sidebar.collapsed .aura-sidebar__brand {
     padding: 16px 8px 12px;
@@ -227,7 +234,17 @@
   .aura-sidebar.collapsed .aura-nav-item {
     padding: 10px 8px;
     justify-content: center;
+    min-height: 48px;
   }
+  .aura-sidebar.collapsed .aura-nav-item__icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+  }
+}
+
+.aura-light .aura-sidebar.collapsed .aura-nav-item__icon {
+  opacity: 0.8 !important;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
