@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useWave } from "@/components/GemscapeWave";
 import BrilliantGem from "@/components/BrilliantGem";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ChevronDown, Car, Plane, Star } from "lucide-react";
+import { ChevronDown, Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 const AnimatedStars = () => {
@@ -15,9 +15,9 @@ const AnimatedStars = () => {
             initial={{ opacity: 0, scale: 0, rotate: -180 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ delay: 1.8 + i * 0.12, type: "spring", stiffness: 300, damping: 15 }}
-            style={{ color: "#C9A84C", fontSize: 20, display: "inline-block" }}
+            style={{ color: "#C9A84C", fontSize: 22, display: "inline-block" }}
           >
-            <Star size={18} fill="#C9A84C" strokeWidth={0} />
+            <Star size={20} fill="#C9A84C" strokeWidth={0} />
           </motion.span>
         ))}
       </div>
@@ -115,197 +115,154 @@ const HeroSection = () => {
         }}
       />
 
-      {/* ═══ LAYER 3 — GEM GLOW ═══ */}
-      <div
-        style={{
-          position: "absolute",
-          top: "8%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: isMobile ? 360 : 520,
-          height: isMobile ? 360 : 520,
-          background: "radial-gradient(ellipse, rgba(26,138,158,0.18) 0%, transparent 70%)",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* ═══ LAYER 3 — THREE.JS GEM (above eyebrow) ═══ */}
-      <div
-        className="hero-gem-floating"
-        style={{
-          position: "absolute",
-          top: "8%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 2,
-          pointerEvents: "auto",
-        }}
-      >
-        <BrilliantGem
-          width={isMobile ? 260 : 420}
-          height={isMobile ? 260 : 420}
-          observerTarget={heroRef as React.RefObject<HTMLElement>}
-        />
-      </div>
-
-      {/* ═══ LAYER 4 — HEADLINE TEXT & CTA ═══ */}
-      <div
-        className="hero-centered-content"
-        style={{
-          position: "absolute",
-          bottom: "6%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 3,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-          width: "90%",
-          maxWidth: 700,
-        }}
-      >
-        {/* Eyebrow */}
-        <span
-          style={{
-            fontSize: 11,
-            letterSpacing: ".18em",
-            color: "rgba(201,168,76,0.75)",
-            textTransform: "uppercase",
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 500,
-            marginBottom: 14,
-          }}
-        >
-          ANTIGUA · CARIBBEAN
-        </span>
-
-        {/* Headline */}
-        <h1
-          className="hero-headline"
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(32px, 5vw, 64px)",
-            color: "#fff",
-            fontWeight: 400,
-            lineHeight: 1.1,
-            margin: 0,
-            maxWidth: 700,
-          }}
-        >
-          Where Every Journey
-          <br />
-          Becomes a{" "}
+      {/* ═══ LAYER 3 — TWO-COLUMN GRID LAYOUT ═══ */}
+      <div className="hero-grid-layout" style={{ position: "relative", zIndex: 3, width: "100%", height: "100%" }}>
+        {/* LEFT COLUMN — TEXT */}
+        <div className="hero-text-col">
+          {/* Eyebrow */}
           <span
             style={{
-              fontStyle: "italic",
-              fontWeight: 300,
-              background:
-                "linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              fontSize: 11,
+              letterSpacing: ".18em",
+              color: "rgba(201,168,76,0.75)",
+              textTransform: "uppercase",
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 500,
+              marginBottom: 14,
             }}
           >
-            Gem.
+            ANTIGUA · CARIBBEAN
           </span>
-        </h1>
 
-        {/* Subtext */}
-        <p
-          style={{
-            fontSize: 15,
-            color: "rgba(255,255,255,0.55)",
-            lineHeight: 1.75,
-            maxWidth: 480,
-            marginTop: 16,
-            fontFamily: "'DM Sans', sans-serif",
-          }}
-        >
-          Private rentals, island circumnavigation, immersive cultural tours, 
-          beach explorations, and flight concierge — crafted for those who demand the extraordinary.
-        </p>
-
-        {/* Animated star rating */}
-        <AnimatedStars />
-
-        {/* CTA buttons — 3 options */}
-        <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap", justifyContent: "center" }}>
-          <button
-            onClick={() => navigateTo("/book")}
+          {/* Headline */}
+          <h1
+            className="hero-headline"
             style={{
-              background: "linear-gradient(135deg, #b8956a 0%, #d4ad7c 100%)",
-              color: "#05181e",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: ".12em",
-              padding: "14px 24px",
-              border: "none",
-              borderRadius: 3,
-              cursor: "pointer",
-              fontFamily: "'DM Sans', sans-serif",
-              textTransform: "uppercase",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
+              fontFamily: "'Cormorant Garamond', serif",
+              color: "#fff",
+              fontWeight: 400,
+              lineHeight: 1.1,
+              margin: 0,
+              maxWidth: 700,
             }}
           >
-            Book Now
-          </button>
-          <button
-            onClick={() => navigateTo("/rentals")}
+            Where Every Journey
+            <br />
+            Becomes a{" "}
+            <span
+              style={{
+                fontStyle: "italic",
+                fontWeight: 300,
+                background:
+                  "linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Gem.
+            </span>
+          </h1>
+
+          {/* Subtext */}
+          <p
             style={{
-              background: "transparent",
-              border: "1px solid rgba(201,168,76,0.5)",
-              color: "#C9A84C",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: ".12em",
-              padding: "14px 24px",
-              borderRadius: 3,
-              cursor: "pointer",
+              fontSize: 15,
+              color: "rgba(255,255,255,0.55)",
+              lineHeight: 1.75,
+              maxWidth: 480,
+              marginTop: 16,
               fontFamily: "'DM Sans', sans-serif",
-              textTransform: "uppercase",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
             }}
           >
-            <Car size={14} />
-            Rentals
-          </button>
-          <button
-            onClick={() => navigateTo("/concierge")}
+            Antigua, privately. Beautifully. Entirely on your terms.
+          </p>
+
+          {/* Animated star rating */}
+          <AnimatedStars />
+
+          {/* CTA buttons — 2 options */}
+          <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap" }}>
+            <button
+              onClick={() => navigateTo("/book")}
+              style={{
+                background: "linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)",
+                color: "#fff",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: ".12em",
+                padding: "14px 28px",
+                border: "none",
+                borderRadius: 3,
+                cursor: "pointer",
+                fontFamily: "'DM Sans', sans-serif",
+                textTransform: "uppercase",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              Book Now
+            </button>
+            <button
+              onClick={() => {
+                const el = document.getElementById("services");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              style={{
+                background: "transparent",
+                border: "1px solid rgba(201,168,76,0.5)",
+                color: "#C9A84C",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: ".12em",
+                padding: "14px 28px",
+                borderRadius: 3,
+                cursor: "pointer",
+                fontFamily: "'DM Sans', sans-serif",
+                textTransform: "uppercase",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              Explore Services
+            </button>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN — GEM */}
+        <div className="hero-gem-col">
+          {/* Atmospheric glow behind gem */}
+          <div
             style={{
-              background: "transparent",
-              border: "1px solid rgba(94,200,224,0.4)",
-              color: "#5ec8e0",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: ".12em",
-              padding: "14px 24px",
-              borderRadius: 3,
-              cursor: "pointer",
-              fontFamily: "'DM Sans', sans-serif",
-              textTransform: "uppercase",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
+              position: "absolute",
+              width: "120%",
+              height: "120%",
+              background:
+                "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
+              pointerEvents: "none",
+              zIndex: 0,
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
             }}
-          >
-            <Plane size={14} />
-            Concierge
-          </button>
+          />
+          <div className="hero-gem-canvas" style={{ position: "relative", zIndex: 1 }}>
+            <BrilliantGem
+              width={isMobile ? 220 : 500}
+              height={isMobile ? 220 : 500}
+              observerTarget={heroRef as React.RefObject<HTMLElement>}
+            />
+          </div>
         </div>
       </div>
 
-      {/* ═══ SCROLL INDICATOR ═══ */}
+      {/* ═══ SCROLL CHEVRON ═══ */}
       <div
-        className="hero-scroll-indicator"
         style={{
           position: "absolute",
-          bottom: 24,
+          bottom: 32,
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 3,
@@ -314,11 +271,43 @@ const HeroSection = () => {
           alignItems: "center",
         }}
       >
-        <ChevronDown size={28} color="rgba(201,168,76,0.8)" className="hero-chevron-bounce" />
+        <ChevronDown size={28} color="rgba(212,173,124,0.7)" className="hero-chevron-bounce" />
       </div>
 
-      {/* Responsive + Ken Burns + bounce styles */}
+      {/* Responsive styles */}
       <style>{`
+        .hero-grid-layout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 48px;
+          gap: 48px;
+        }
+        .hero-text-col {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+        }
+        .hero-headline {
+          font-size: clamp(40px, 5vw, 72px);
+        }
+        .hero-gem-col {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+        .hero-gem-canvas {
+          width: clamp(300px, 40vw, 560px);
+          height: clamp(300px, 40vw, 560px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
         @keyframes kenBurns {
           0%, 100% { transform: scale(1.0); }
           50% { transform: scale(1.08); }
@@ -333,20 +322,44 @@ const HeroSection = () => {
         .hero-chevron-bounce {
           animation: chevronBounce 2s ease-in-out infinite;
         }
+
+        /* Tablet */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-grid-layout {
+            padding: 0 24px;
+            gap: 24px;
+            grid-template-columns: 1fr 1fr;
+          }
+          .hero-gem-canvas {
+            width: clamp(240px, 35vw, 380px);
+            height: clamp(240px, 35vw, 380px);
+          }
+          .hero-headline {
+            font-size: clamp(28px, 4.5vw, 48px) !important;
+          }
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-          .hero-gem-floating {
-            top: 6% !important;
+          .hero-grid-layout {
+            grid-template-columns: 1fr;
+            padding: 0 20px;
+            gap: 16px;
+            justify-items: center;
+          }
+          .hero-gem-col {
+            order: -1;
+          }
+          .hero-gem-canvas {
+            width: 220px;
+            height: 220px;
+          }
+          .hero-text-col {
+            align-items: center;
+            text-align: center;
           }
           .hero-headline {
             font-size: clamp(24px, 7vw, 36px) !important;
-          }
-          .hero-centered-content {
-            bottom: 10% !important;
-          }
-        }
-        @media (max-width: 1024px) {
-          .hero-headline {
-            font-size: clamp(28px, 4.5vw, 48px) !important;
           }
         }
       `}</style>
