@@ -191,7 +191,7 @@ const ProfileAvatar = ({ profilePic, onUpload, onRemove, onNavigateSettings, siz
               backdropFilter: "var(--aura-blur)", border: "1px solid var(--aura-glass-border)",
               borderRadius: 12, overflow: "hidden", zIndex: 9999,
               boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
-            }
+            }}
           >
             <button onClick={() => { onUpload(); setShowMenu(false); }} style={{
               width: "100%", padding: "10px 14px", background: "none", border: "none",
