@@ -184,6 +184,7 @@ const AdminCalendar = ({ isMobile = false }: { isMobile?: boolean }) => {
         </div>
       </div>
     );
+  };
 
   /* ── WEEK VIEW ── */
   const renderWeek = () => {
