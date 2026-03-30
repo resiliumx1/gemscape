@@ -622,7 +622,7 @@ const HeroSection = () => {
     };
   }, []);
 
-  const gemSize = isMobile ? 88 : 128;
+  const gemSize = isMobile ? 192 : 384;
 
   return (
     <section
