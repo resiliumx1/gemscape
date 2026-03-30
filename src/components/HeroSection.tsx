@@ -277,8 +277,8 @@ const HeroSection = () => {
               />
               <div style={{ position: "relative", zIndex: 1 }}>
                 <BrilliantGem
-                  width={isMobile ? 360 : 560}
-                  height={isMobile ? 360 : 560}
+                  width={isMobile ? 240 : 380}
+                  height={isMobile ? 240 : 380}
                   observerTarget={heroRef as React.RefObject<HTMLElement>}
                 />
               </div>
@@ -313,6 +313,7 @@ const HeroSection = () => {
           max-width: 1280px;
           margin: 0 auto;
           padding: 0 48px;
+          padding-top: 80px;
         }
         .hero-text-col {
           display: flex;
