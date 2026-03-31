@@ -31,12 +31,12 @@ export const useWaveNavigation = () => useContext(WaveNavigationContext);
 
 // ── SVG wave paths (each layer has a unique crest shape) ────
 const WAVE_PATHS = [
-  // Layer 1 (back — deepest color, widest wave)
-  "M0,80 C160,140 340,0 500,80 C660,160 840,0 1000,80 L1000,1000 L0,1000 Z",
-  // Layer 2 (mid)
-  "M0,100 C200,20 300,140 500,100 C700,60 850,160 1000,100 L1000,1000 L0,1000 Z",
-  // Layer 3 (front — lightest color, tightest wave)
-  "M0,60 C120,130 380,10 500,70 C620,130 880,10 1000,60 L1000,1000 L0,1000 Z",
+  // Layer 1 (back) — wide, deep swells
+  "M0,350 C120,150 280,450 500,300 C720,150 880,400 1000,250 L1000,1000 L0,1000 Z",
+  // Layer 2 (mid) — medium frequency
+  "M0,280 C180,420 350,120 500,320 C650,520 820,180 1000,350 L1000,1000 L0,1000 Z",
+  // Layer 3 (front) — tight, dynamic crests
+  "M0,200 C100,380 250,100 400,300 C550,500 700,150 850,350 C920,450 960,280 1000,300 L1000,1000 L0,1000 Z",
 ];
 
 // ── Gemscape brand colors for the 3 layers ──────────────────
