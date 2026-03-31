@@ -127,7 +127,7 @@ const BookingWizard = ({ initialService }: Props) => {
             <animate attributeName="stroke-dasharray" from="0 100" to="50 100" dur="0.6s" fill="freeze" />
           </path>
         </svg>
-        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 400, color: "#fff", marginBottom: 12 }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 400, color: "var(--text-primary)", marginBottom: 12 }}>
           Booking Request Received.
         </h2>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 32 }}>
