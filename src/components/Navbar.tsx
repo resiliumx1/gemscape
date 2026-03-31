@@ -345,7 +345,7 @@ export default function Navbar() {
           hidden: { opacity: 0 },
           visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
         }}
-        className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between"
+        className={`max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between pb-3 ${navSolid ? "border-b border-gem-teal/10" : ""}`}
       >
         {/* Logo */}
         <motion.button
