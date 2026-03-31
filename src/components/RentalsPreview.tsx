@@ -12,7 +12,7 @@ const VEHICLES_DATA = [
     category: "SUV",
     rateUsd: 120,
     /* REPLACE WITH REAL VEHICLE PHOTO */
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=800&q=85",
     style: { transform: "rotate(-2deg) scale(0.92)", top: "0px", right: "0px", zIndex: 1 },
   },
   {
