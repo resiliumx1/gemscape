@@ -62,7 +62,7 @@ const Experiences = () => {
       <div className="experiences__header">
         <span className="eyebrow">Curated Experiences</span>
         <h2 className="experiences__h2">
-          Antigua Seen Differently<span className="experiences__dot">.</span>
+          <span className="hero-country-shimmer">Antigua &amp; Barbuda</span> Seen Differently<span className="experiences__dot">.</span>
         </h2>
         <p className="experiences__intro">
           Every journey we design is a private, unhurried encounter with the most beautiful island in the Caribbean.
