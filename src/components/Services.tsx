@@ -431,7 +431,7 @@ export default function Services() {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
-                    fontSize: 11,
+                    fontSize: 13,
                     letterSpacing: ".12em",
                     fontWeight: 600,
                     fontFamily: "'DM Sans', sans-serif",

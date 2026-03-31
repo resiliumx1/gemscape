@@ -261,7 +261,7 @@ const HeroSection = () => {
                 background: 'transparent',
                 border: '1px solid rgba(201,168,76,0.45)',
                 color: '#C9A84C',
-                fontSize: 11,
+                fontSize: 13,
                 fontWeight: 600,
                 letterSpacing: '.12em',
                 padding: '14px 32px',

@@ -215,7 +215,7 @@ export default function CtaBanner() {
                 border: "none",
                 borderRadius: 4,
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
                 letterSpacing: ".14em",
                 textTransform: "uppercase",
