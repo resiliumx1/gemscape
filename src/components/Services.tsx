@@ -318,8 +318,8 @@ export default function Services() {
                         fontWeight: 500,
                         color:
                           isActive || isHov
-                            ? "#fff"
-                            : "rgba(255,255,255,0.5)",
+                            ? "var(--text-primary)"
+                            : "var(--text-secondary)",
                         transition: "color 0.3s ease",
                         letterSpacing: ".02em",
                       }}
