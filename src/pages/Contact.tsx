@@ -48,7 +48,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#05181e" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
         <title>Contact Gemscape Travel & Tours | Get In Touch</title>
         <meta name="description" content="Reach out to Gemscape Travel & Tours. We respond personally within 2 hours. Call, WhatsApp, or send us a message." />

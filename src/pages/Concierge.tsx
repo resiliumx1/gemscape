@@ -155,7 +155,7 @@ const Concierge = () => {
       </section>
 
       {/* Enquiry Form */}
-      <section id="concierge-enquiry" style={{ background: "#05181e", padding: "100px clamp(24px, 5vw, 80px)" }}>
+      <section id="concierge-enquiry" style={{ background: "var(--bg-primary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 64, maxWidth: 1000, margin: "0 auto" }} className="concierge-enquiry-grid">
           {/* Left sidebar */}
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 24 }}>

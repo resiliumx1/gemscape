@@ -54,7 +54,7 @@ const Book = () => {
         </p>
       </section>
 
-      <div style={{ background: "#05181e", minHeight: "60vh" }}>
+      <div style={{ background: "var(--bg-primary)", minHeight: "60vh" }}>
         <BookingWizard initialService={initialService} />
       </div>
 

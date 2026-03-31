@@ -82,7 +82,7 @@ export default function WhyGemscape() {
           position: "relative",
           padding: "100px 24px",
           overflow: "hidden",
-          background: "#05181e",
+          background: "var(--bg-primary)",
         }}
       >
         {/* Background texture */}

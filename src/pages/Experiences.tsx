@@ -39,7 +39,7 @@ const Experiences = () => {
   const { navigateTo } = useWaveNav();
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#05181e" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
         <title>Curated Experiences in Antigua | Gemscape Travel & Tours</title>
         <meta name="description" content="Discover Antigua differently with private island tours, heritage explorations, and luxury charters by Gemscape Travel & Tours." />

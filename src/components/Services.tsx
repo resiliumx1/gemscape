@@ -232,7 +232,7 @@ export default function Services() {
         <div
           className="svc-right"
           style={{
-            background: "#05181e",
+            background: "var(--bg-primary)",
             padding: "80px 64px 80px 56px",
             display: "flex",
             flexDirection: "column",
