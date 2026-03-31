@@ -325,15 +325,14 @@ export default function Navbar() {
 
   return (
     <header
-      data-theme="dark"
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         navSolid
-          ? "backdrop-blur-xl py-1.5 shadow-2xl"
+          ? "backdrop-blur-2xl py-1.5 shadow-[0_4px_30px_rgba(0,0,0,0.15)]"
           : "bg-transparent py-2 sm:py-3"
       }`}
       style={{
-        backgroundColor: navSolid ? "rgba(5, 24, 30, 0.82)" : "transparent",
-        colorScheme: "dark",
+        backgroundColor: navSolid ? "var(--nav-glass-bg)" : "transparent",
+        borderBottom: navSolid ? "1px solid var(--nav-glass-border)" : "none",
       }}
     >
       <motion.div
