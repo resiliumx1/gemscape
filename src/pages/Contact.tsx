@@ -82,22 +82,22 @@ const Contact = () => {
             { icon: MapPin, label: "BASED IN", value: "St. John's, Antigua, W.I.", sub: null, href: null },
           ].map(item => (
             <div key={item.label} style={{
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.15)",
+              background: "var(--card-bg)", border: "1px solid var(--border-color)",
               borderRadius: 8, padding: "20px 24px", display: "flex", alignItems: "flex-start", gap: 16,
             }}>
               <item.icon size={20} style={{ color: "#C9A84C", flexShrink: 0, marginTop: 2 }} />
               <div>
-                <span style={{ fontSize: 10, letterSpacing: ".15em", color: "rgba(255,255,255,0.4)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
+                <span style={{ fontSize: 10, letterSpacing: ".15em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
                   {item.label}
                 </span>
                 {item.href ? (
-                  <a href={item.href} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#fff", textDecoration: "none", fontWeight: 400 }}>
+                  <a href={item.href} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-primary)", textDecoration: "none", fontWeight: 400 }}>
                     {item.value}
                   </a>
                 ) : (
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#fff", fontWeight: 400 }}>{item.value}</span>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-primary)", fontWeight: 400 }}>{item.value}</span>
                 )}
-                {item.sub && <span style={{ display: "block", fontSize: 12, color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif", marginTop: 4 }}>{item.sub}</span>}
+                {item.sub && <span style={{ display: "block", fontSize: 12, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", marginTop: 4 }}>{item.sub}</span>}
               </div>
             </div>
           ))}
