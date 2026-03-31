@@ -245,7 +245,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
       const W = window.innerWidth;
       const H = window.innerHeight;
       const startTime = performance.now();
-      const DURATION = 700;
+      const DURATION = 750;
 
       function loop(now: number) {
         const elapsed = now - startTime;
