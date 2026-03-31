@@ -1876,8 +1876,8 @@ header * {
 .rentals-hero__h1 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
-  font-size: 88px;
-  line-height: 0.92;
+  font-size: clamp(48px, 7vw, 80px);
+  line-height: 0.95;
   color: #fff;
   margin-top: 16px;
 }
