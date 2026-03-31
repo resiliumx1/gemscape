@@ -39,12 +39,23 @@ const WAVE_PATHS = [
   "M0,200 C100,380 250,100 400,300 C550,500 700,150 850,350 C920,450 960,280 1000,300 L1000,1000 L0,1000 Z",
 ];
 
-// ── Gemscape brand colors for the 3 layers ──────────────────
-const WAVE_COLORS = [
-  "#05181e", // navy (back)
-  "#0d4a44", // dark teal (mid)
-  "#2cb8a8", // brand teal (front)
-];
+// ── Route-based color palettes for the 3 layers ─────────────
+const WAVE_COLOR_PALETTES: Record<string, string[]> = {
+  default: [
+    "#05181e",   // navy (back)
+    "#0d4a44",   // dark teal (mid)
+    "#2cb8a8",   // brand teal (front)
+  ],
+  "/experiences": [
+    "#0a2a3c",   // deep ocean blue (back)
+    "#1565a0",   // medium blue (mid)
+    "#4fc3f7",   // light blue (front)
+  ],
+};
+
+const getWaveColors = (path: string): string[] => {
+  return WAVE_COLOR_PALETTES[path] || WAVE_COLOR_PALETTES.default;
+};
 
 // ── Timing constants (ms) ───────────────────────────────────
 const COVER_DURATION = 600;
