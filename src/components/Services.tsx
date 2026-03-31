@@ -51,8 +51,7 @@ const SERVICES = [
     headline: "Freedom with no itinerary.",
     description:
       "Premium SUVs, open-top Jeeps, sailing catamarans. Delivered to your hotel, airport, or marina. Full insurance, 24/7 support, and the freedom to find your own Antigua.",
-    image:
-      "https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1600&q=90",
+    image: jeepImg,
     route: "/rentals",
     accent: "#C9A84C",
   },
