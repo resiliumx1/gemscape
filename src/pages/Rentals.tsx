@@ -100,6 +100,25 @@ const Rentals = () => {
     return () => ctx.revert();
   }, []);
 
+  // Step number animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      stepNumRefs.current.forEach((el, i) => {
+        if (!el) return;
+        gsap.fromTo(
+          el,
+          { opacity: 0, scale: 0.3, y: 30 },
+          {
+            opacity: 1, scale: 1, y: 0,
+            duration: 0.8, ease: "back.out(1.7)", delay: i * 0.15,
+            scrollTrigger: { trigger: howRef.current, start: "top 78%" },
+          }
+        );
+      });
+    }, howRef);
+    return () => ctx.revert();
+  }, []);
+
   // Card reveal animations
   useEffect(() => {
     if (vehicles.length === 0) return;
