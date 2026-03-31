@@ -330,11 +330,11 @@ export default function Navbar() {
       data-theme="dark"
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         navSolid
-          ? "backdrop-blur-xl py-3 shadow-2xl"
-          : "bg-transparent py-4 sm:py-6"
+          ? "backdrop-blur-xl py-1.5 shadow-2xl"
+          : "bg-transparent py-2 sm:py-3"
       }`}
       style={{
-        backgroundColor: navSolid ? "rgba(5, 24, 30, 0.97)" : "transparent",
+        backgroundColor: navSolid ? "rgba(5, 24, 30, 0.82)" : "transparent",
         colorScheme: "dark",
       }}
     >
@@ -345,7 +345,7 @@ export default function Navbar() {
           hidden: { opacity: 0 },
           visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
         }}
-        className={`max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between pb-3 ${navSolid ? "border-b border-gem-teal/10" : ""}`}
+        className={`max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between pb-1.5 ${navSolid ? "border-b border-gem-teal/10" : ""}`}
       >
         {/* Logo */}
         <motion.button
