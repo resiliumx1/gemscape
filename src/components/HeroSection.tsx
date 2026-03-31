@@ -392,7 +392,7 @@ const HeroSection = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          pointer-events: none;
+          pointer-events: auto;
         }
 
         @keyframes chevronBounce {
