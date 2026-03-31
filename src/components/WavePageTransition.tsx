@@ -31,20 +31,31 @@ export const useWaveNavigation = () => useContext(WaveNavigationContext);
 
 // ── SVG wave paths (each layer has a unique crest shape) ────
 const WAVE_PATHS = [
-  // Layer 1 (back — deepest color, widest wave)
-  "M0,80 C160,140 340,0 500,80 C660,160 840,0 1000,80 L1000,1000 L0,1000 Z",
-  // Layer 2 (mid)
-  "M0,100 C200,20 300,140 500,100 C700,60 850,160 1000,100 L1000,1000 L0,1000 Z",
-  // Layer 3 (front — lightest color, tightest wave)
-  "M0,60 C120,130 380,10 500,70 C620,130 880,10 1000,60 L1000,1000 L0,1000 Z",
+  // Layer 1 (back) — wide, deep swells
+  "M0,350 C120,150 280,450 500,300 C720,150 880,400 1000,250 L1000,1000 L0,1000 Z",
+  // Layer 2 (mid) — medium frequency
+  "M0,280 C180,420 350,120 500,320 C650,520 820,180 1000,350 L1000,1000 L0,1000 Z",
+  // Layer 3 (front) — tight, dynamic crests
+  "M0,200 C100,380 250,100 400,300 C550,500 700,150 850,350 C920,450 960,280 1000,300 L1000,1000 L0,1000 Z",
 ];
 
-// ── Gemscape brand colors for the 3 layers ──────────────────
-const WAVE_COLORS = [
-  "#05181e", // navy (back)
-  "#0d4a44", // dark teal (mid)
-  "#2cb8a8", // brand teal (front)
-];
+// ── Route-based color palettes for the 3 layers ─────────────
+const WAVE_COLOR_PALETTES: Record<string, string[]> = {
+  default: [
+    "#05181e",   // navy (back)
+    "#0d4a44",   // dark teal (mid)
+    "#2cb8a8",   // brand teal (front)
+  ],
+  "/experiences": [
+    "#0a2a3c",   // deep ocean blue (back)
+    "#1565a0",   // medium blue (mid)
+    "#4fc3f7",   // light blue (front)
+  ],
+};
+
+const getWaveColors = (path: string): string[] => {
+  return WAVE_COLOR_PALETTES[path] || WAVE_COLOR_PALETTES.default;
+};
 
 // ── Timing constants (ms) ───────────────────────────────────
 const COVER_DURATION = 600;
@@ -81,6 +92,7 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
   const location = useLocation();
   const [isAnimating, setIsAnimating] = useState(false);
   const [phase, setPhase] = useState<"idle" | "cover" | "reveal">("idle");
+  const [activeColors, setActiveColors] = useState<string[]>(WAVE_COLOR_PALETTES.default);
   const pendingPath = useRef<string | null>(null);
   const animationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -97,6 +109,7 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
       if (to === location.pathname || isAnimating) return;
 
       pendingPath.current = to;
+      setActiveColors(getWaveColors(to));
       setIsAnimating(true);
       setPhase("cover");
 
@@ -171,7 +184,7 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
                   display: "block",
                 }}
               >
-                <path d={path} fill={WAVE_COLORS[index]} />
+                <path d={path} fill={activeColors[index]} />
               </svg>
             </div>
           );

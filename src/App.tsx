@@ -71,13 +71,6 @@ const App = () => {
       document.documentElement.classList.remove('lenis', 'lenis-smooth');
     }
 
-    gsap.to("#page-transition", {
-      opacity: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      delay: 0.1,
-    });
-
     return () => {
       if (lenis) lenis.destroy();
     };
