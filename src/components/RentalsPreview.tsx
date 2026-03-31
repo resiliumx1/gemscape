@@ -36,9 +36,9 @@ const FALLBACK_VEHICLES = [
 ];
 
 const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1533929736562-f4fdc46e29e8?w=800&q=85",
-  "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=800&q=85",
-  "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=800&q=85",
+  "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
+  "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&q=85",
+  "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=85",
 ];
 
 const STATS = [

@@ -408,7 +408,7 @@ const Rentals = () => {
             Click anywhere or press Esc to close
           </span>
         </div>
-      )
+      )}
     </>
   );
 };
