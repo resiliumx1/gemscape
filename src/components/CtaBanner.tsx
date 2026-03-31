@@ -133,7 +133,7 @@ export default function CtaBanner() {
             />
             <span
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: ".25em",
                 color: "#C9A84C",
                 fontFamily: "'DM Sans', sans-serif",
@@ -215,7 +215,7 @@ export default function CtaBanner() {
                 border: "none",
                 borderRadius: 4,
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
                 letterSpacing: ".14em",
                 textTransform: "uppercase",
@@ -290,7 +290,7 @@ export default function CtaBanner() {
           padding: 16px 28px;
           border-radius: 4px;
           font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;
@@ -311,7 +311,7 @@ export default function CtaBanner() {
           justify-content: center;
           flex-wrap: wrap;
           font-family: 'DM Sans', sans-serif;
-          font-size: 11px;
+          font-size: 13px;
           color: rgba(255,255,255,0.38);
           letter-spacing: 0.06em;
         }

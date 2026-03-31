@@ -144,7 +144,7 @@ const HeroSection = () => {
           {/* Eyebrow */}
           <span
             style={{
-              fontSize: 11,
+              fontSize: 13,
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.75)",
               textTransform: "uppercase",
@@ -213,7 +213,7 @@ const HeroSection = () => {
                 overflow: 'hidden',
                 background: 'linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)',
                 color: '#fff',
-                fontSize: 11,
+                fontSize: 13,
                 fontWeight: 600,
                 letterSpacing: '.12em',
                 padding: '14px 32px',
@@ -261,7 +261,7 @@ const HeroSection = () => {
                 background: 'transparent',
                 border: '1px solid rgba(201,168,76,0.45)',
                 color: '#C9A84C',
-                fontSize: 11,
+                fontSize: 13,
                 fontWeight: 600,
                 letterSpacing: '.12em',
                 padding: '14px 32px',

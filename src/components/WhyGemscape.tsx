@@ -99,7 +99,7 @@ export default function WhyGemscape() {
           <div className="wg-left">
             <span
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: ".25em",
                 color: "#2cb8a8",
                 fontFamily: "'DM Sans', sans-serif",
@@ -169,7 +169,7 @@ export default function WhyGemscape() {
               <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <span
                   style={{
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 600,
                     color: "var(--text-secondary)",
                     fontFamily: "'DM Sans', sans-serif",
@@ -179,7 +179,7 @@ export default function WhyGemscape() {
                 </span>
                 <span
                   style={{
-                    fontSize: 12,
+                    fontSize: 13,
                     color: "var(--text-tertiary)",
                     fontFamily: "'DM Sans', sans-serif",
                   }}

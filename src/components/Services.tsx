@@ -167,7 +167,7 @@ export default function Services() {
             >
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 12,
                   letterSpacing: ".2em",
                   color: "rgba(255,255,255,0.7)",
                   fontFamily: "'DM Sans', sans-serif",
@@ -259,7 +259,7 @@ export default function Services() {
             />
             <span
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: ".25em",
                 color: "#2cb8a8",
                 fontFamily: "'DM Sans', sans-serif",
@@ -299,7 +299,7 @@ export default function Services() {
                 >
                   <span
                     style={{
-                      fontSize: 11,
+                      fontSize: 13,
                       fontFamily: "'Cormorant Garamond', serif",
                       color: isActive ? s.accent : "var(--text-tertiary)",
                       fontWeight: 400,
@@ -330,7 +330,7 @@ export default function Services() {
                     <span
                       className="svc-item-tag"
                       style={{
-                        fontSize: 9,
+                        fontSize: 12,
                         letterSpacing: ".15em",
                         color: "var(--text-tertiary)",
                         fontFamily: "'DM Sans', sans-serif",
@@ -431,7 +431,7 @@ export default function Services() {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
-                    fontSize: 11,
+                    fontSize: 13,
                     letterSpacing: ".12em",
                     fontWeight: 600,
                     fontFamily: "'DM Sans', sans-serif",

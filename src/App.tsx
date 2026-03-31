@@ -19,6 +19,7 @@ import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
 import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
+import Packages from "./pages/Packages.tsx";
 import WavePageTransition from "@/components/WavePageTransition";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -44,6 +45,7 @@ function AnimatedRoutes() {
       <Route path="/concierge" element={<Concierge />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/experiences" element={<Experiences />} />
+      <Route path="/packages" element={<Packages />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

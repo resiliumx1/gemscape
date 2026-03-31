@@ -95,7 +95,7 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
         </motion.div>
       </div>
 
-      <span className="text-[11px] font-body font-bold tracking-[0.3em] text-[var(--nav-text)] group-hover:text-[var(--nav-text-hover)] transition-all duration-300 relative">
+      <span className="text-[12px] font-body font-bold tracking-[0.3em] text-[var(--nav-text)] group-hover:text-[var(--nav-text-hover)] transition-all duration-300 relative">
         {label}
         <motion.div
           className="absolute -bottom-1 left-0 h-[1px] bg-gem-teal/50"
@@ -148,7 +148,7 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
                   ease: "easeOut",
                 }}
                 whileHover={{ backgroundColor: "rgba(44, 184, 168, 0.1)" }}
-                className="px-6 py-3.5 text-[10px] font-body font-bold tracking-[0.2em] text-[var(--nav-text)] hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
+                className="px-6 py-3.5 text-[12px] font-body font-bold tracking-[0.2em] text-[var(--nav-text)] hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
               >
                 <item.icon size={16} className="text-gem-teal/60 group-hover/item:text-gem-teal transition-colors" />
                 <span className="flex-1">{item.label.toUpperCase()}</span>
@@ -320,6 +320,7 @@ export default function Navbar() {
     { label: "Island Adventures", icon: Palmtree, href: "/book" },
     { label: "Cultural Tours", icon: Map, href: "/book" },
     { label: "Circumnavigations", icon: Compass, href: "/book" },
+    { label: "Signature Packages", icon: Sparkles, href: "/packages" },
   ];
 
   return (
@@ -346,18 +347,20 @@ export default function Navbar() {
         {/* Logo */}
         <motion.button
           onClick={() => navigateTo("/")}
-          
           variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0 gem-logo-wrap"
           aria-label="Gemscape home"
         >
-          <img
-            src="/images/gemscape-logo.png"
-            alt="Gemscape Travel & Tours"
-            className="h-[36px] sm:h-[42px] w-auto object-contain"
-            style={{ background: "transparent", minWidth: 100 }}
-          />
+          <div className="gem-logo-aura">
+            <img
+              src="/images/gemscape-logo.png"
+              alt="Gemscape Travel & Tours"
+              className="h-[36px] sm:h-[42px] w-auto object-contain gem-logo-img"
+              style={{ background: "transparent", minWidth: 100 }}
+            />
+            <div className="gem-logo-shimmer" />
+          </div>
         </motion.button>
 
         {/* Desktop Nav */}
@@ -445,7 +448,7 @@ export default function Navbar() {
                 <div className="flex flex-col gap-4">
                   <motion.span
                     variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="text-[10px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
+                    className="text-[12px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
                   >
                     Navigation
                   </motion.span>
@@ -470,7 +473,7 @@ export default function Navbar() {
                             className="flex items-center gap-3 text-white/40 hover:text-gem-teal transition-colors text-left"
                           >
                             <sub.icon size={14} />
-                            <span className="text-[10px] font-body font-bold tracking-widest">{sub.label.toUpperCase()}</span>
+                            <span className="text-[12px] font-body font-bold tracking-widest">{sub.label.toUpperCase()}</span>
                           </motion.button>
                         ))}
                       </div>
@@ -507,7 +510,7 @@ export default function Navbar() {
                 <div className="flex flex-col gap-6">
                   <motion.span
                     variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="text-[10px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
+                    className="text-[12px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
                   >
                     Settings
                   </motion.span>

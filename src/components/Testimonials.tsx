@@ -129,7 +129,7 @@ export default function Testimonials() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <span
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: ".25em",
                 color: "#2cb8a8",
                 fontFamily: "'DM Sans', sans-serif",
@@ -381,13 +381,13 @@ export default function Testimonials() {
         html:not(.dark) .voa-name { color: #05181e; }
         .voa-origin {
           font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
+          font-size: 13px;
           color: rgba(255,255,255,0.4);
         }
         html:not(.dark) .voa-origin { color: rgba(5,24,30,0.45); }
         .voa-service-badge {
           font-family: 'DM Sans', sans-serif;
-          font-size: 9px;
+          font-size: 12px;
           font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;

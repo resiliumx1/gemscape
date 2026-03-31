@@ -343,7 +343,7 @@ const Experiences = () => {
                 <span style={{
                   fontFamily: "'DM Sans', sans-serif",
                   fontWeight: 600,
-                  fontSize: 10,
+                  fontSize: 12,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase" as const,
                   color: card.accent,
@@ -386,7 +386,7 @@ const Experiences = () => {
                     <span key={h} style={{
                       fontFamily: "'DM Sans', sans-serif",
                       fontWeight: 500,
-                      fontSize: 11,
+                      fontSize: 13,
                       color: "rgba(255,255,255,0.5)",
                       background: "rgba(255,255,255,0.05)",
                       padding: "6px 14px",
@@ -426,7 +426,7 @@ const Experiences = () => {
                     borderRadius: 6,
                     fontFamily: "'DM Sans', sans-serif",
                     fontWeight: 600,
-                    fontSize: 12,
+                    fontSize: 13,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase" as const,
                     cursor: "pointer",

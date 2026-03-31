@@ -129,7 +129,7 @@ const Footer = () => {
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 600,
-              fontSize: 10,
+              fontSize: 12,
               textTransform: "uppercase",
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.8)",
@@ -167,7 +167,7 @@ const Footer = () => {
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 600,
-              fontSize: 10,
+              fontSize: 12,
               textTransform: "uppercase",
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.8)",
@@ -209,7 +209,7 @@ const Footer = () => {
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 600,
-              fontSize: 10,
+              fontSize: 12,
               textTransform: "uppercase",
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.8)",
@@ -272,7 +272,7 @@ const Footer = () => {
           style={{
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 300,
-            fontSize: 12,
+            fontSize: 13,
             color: "rgba(255,255,255,0.3)",
           }}
         >
@@ -282,7 +282,7 @@ const Footer = () => {
           style={{
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 300,
-            fontSize: 12,
+            fontSize: 13,
             color: "rgba(255,255,255,0.3)",
           }}
         >
@@ -296,7 +296,7 @@ const Footer = () => {
           textAlign: "center",
           fontFamily: "'DM Sans', sans-serif",
           fontWeight: 300,
-          fontSize: 11,
+          fontSize: 13,
           color: "rgba(255,255,255,0.2)",
           paddingBottom: 24,
         }}
