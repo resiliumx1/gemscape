@@ -85,12 +85,12 @@
     --sidebar-ring: var(--gem-gold);
 
     /* Navbar Glass */
-    --nav-glass-bg: rgba(244, 241, 238, 0.72);
-    --nav-glass-border: rgba(5, 24, 30, 0.08);
-    --nav-text: rgba(5, 24, 30, 0.75);
-    --nav-text-hover: #05181e;
-    --nav-dropdown-bg: rgba(255, 255, 255, 0.95);
-    --nav-dropdown-border: rgba(5, 24, 30, 0.1);
+    --nav-glass-bg: rgba(5, 24, 30, 0.65);
+    --nav-glass-border: rgba(44, 184, 168, 0.1);
+    --nav-text: rgba(255, 255, 255, 0.8);
+    --nav-text-hover: #ffffff;
+    --nav-dropdown-bg: rgba(5, 24, 30, 0.95);
+    --nav-dropdown-border: rgba(44, 184, 168, 0.15);
   }
 
   .dark {
