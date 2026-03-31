@@ -21,7 +21,7 @@ import Concierge from "./pages/Concierge.tsx";
 import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider } from "@/components/PageTransitionWave";
-import WaveTransition, { routePalettes } from "@/components/WaveTransition";
+import WaveTransition from "@/components/WaveTransition";
 
 gsap.registerPlugin(ScrollTrigger);
 
