@@ -281,16 +281,19 @@ export default function WaveTransition({
 }
 
 // ─── Navigation hooks ─────────────────────────────────────────────────────────
+import { useWaveNavigation } from '@/components/WavePageTransition';
+
 export function useWave() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { navigateWithWave } = useWaveNavigation();
 
   const navigateTo = useCallback(
     (path: string, _variant?: string) => {
       if (path === location.pathname) return;
-      navigate(path);
+      navigateWithWave(path);
     },
-    [navigate, location.pathname]
+    [location.pathname, navigateWithWave]
   );
 
   return { navigateTo };
@@ -299,13 +302,14 @@ export function useWave() {
 export function useWaveNav() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { navigateWithWave } = useWaveNavigation();
 
   const navigateTo = useCallback(
     (path: string) => {
       if (path === location.pathname) return;
-      navigate(path);
+      navigateWithWave(path);
     },
-    [navigate, location.pathname]
+    [location.pathname, navigateWithWave]
   );
 
   return { navigateTo };
