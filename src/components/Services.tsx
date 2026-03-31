@@ -3,6 +3,10 @@ import { useWave } from "@/components/WavePageTransition";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import catamaranImg from "@/assets/catamaran-white-beach.webp";
+import windmillImg from "@/assets/bettys-hope-windmill.webp";
+import airportImg from "@/assets/airport-vip-greeting.webp";
+import jeepImg from "@/assets/jeep-beach-palms.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +18,7 @@ const SERVICES = [
     headline: "Every cove. Every hidden bay.",
     description:
       "A full-day private journey around Antigua's entire coastline — past secret beaches, historic forts, and fishing villages that no cruise ship ever reaches. Your guide, your pace, your island.",
-    image:
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=90",
+    image: catamaranImg,
     route: "/book",
     accent: "#2cb8a8",
   },
@@ -26,8 +29,7 @@ const SERVICES = [
     headline: "Roads no tourist map shows.",
     description:
       "English Harbour. Shirley Heights. Local rum distilleries and colonial ruins. We take you through Antigua's living history with a guide who was born and raised in these stories.",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=90",
+    image: windmillImg,
     route: "/book",
     accent: "#b8956a",
   },
@@ -38,8 +40,7 @@ const SERVICES = [
     headline: "From touchdown to your first sunset.",
     description:
       "VIP airport arrivals, private charter coordination, hotel transfers. We eliminate every point of friction between your plane seat and your first Antiguan sunset drink.",
-    image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=90",
+    image: airportImg,
     route: "/concierge",
     accent: "#1a8a9e",
   },
@@ -50,8 +51,7 @@ const SERVICES = [
     headline: "Freedom with no itinerary.",
     description:
       "Premium SUVs, open-top Jeeps, sailing catamarans. Delivered to your hotel, airport, or marina. Full insurance, 24/7 support, and the freedom to find your own Antigua.",
-    image:
-      "https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1600&q=90",
+    image: jeepImg,
     route: "/rentals",
     accent: "#C9A84C",
   },
