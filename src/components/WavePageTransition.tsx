@@ -245,7 +245,7 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
                 phase === "cover"
                   ? `${COVER_DURATION}ms`
                   : `${REVEAL_DURATION}ms`,
-              animationFillMode: "forwards",
+              animationFillMode: "both",
               animationTimingFunction: "cubic-bezier(0.65, 0, 0.35, 1)",
             }}
           >
