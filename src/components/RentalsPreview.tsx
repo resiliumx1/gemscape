@@ -20,7 +20,7 @@ const VEHICLES_DATA = [
     category: "Open-Air",
     rateUsd: 95,
     /* REPLACE WITH REAL VEHICLE PHOTO */
-    image: "https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=85",
     style: { transform: "rotate(1deg)", top: "40px", right: "40px", zIndex: 2 },
   },
   {
