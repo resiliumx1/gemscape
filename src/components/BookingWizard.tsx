@@ -195,7 +195,7 @@ const BookingWizard = ({ initialService }: Props) => {
       {/* Step 1 */}
       {step === 1 && (
         <div>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 8 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", textAlign: "center", marginBottom: 8 }}>
             What would you like to experience?
           </h3>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.4)", textAlign: "center", marginBottom: 32 }}>
