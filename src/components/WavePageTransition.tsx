@@ -49,7 +49,7 @@ const ROUTE_WAVE_CONFIG: Record<string, RouteWaveConfig> = {
   },
   "/rentals": {
     direction: "up",
-    colors: ["#1a1a1a", "#8a6914", "#c9a84c"],
+    colors: ["#061e28", "#147a7a", "#68d4c0"],
   },
   "/book": {
     direction: "right",
