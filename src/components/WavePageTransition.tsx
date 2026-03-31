@@ -109,6 +109,7 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
       if (to === location.pathname || isAnimating) return;
 
       pendingPath.current = to;
+      setActiveColors(getWaveColors(to));
       setIsAnimating(true);
       setPhase("cover");
 
