@@ -372,7 +372,7 @@ const BookingWizard = ({ initialService }: Props) => {
           <label style={{ display: "flex", alignItems: "flex-start", gap: 12, marginTop: 24, cursor: "pointer" }}>
             <input type="checkbox" checked={consent} onChange={e => { setConsent(e.target.checked); setErrors(p => ({ ...p, consent: "" })); }}
               style={{ marginTop: 3, accentColor: "#2cb8a8" }} />
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.5 }}>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>
               I agree to receive my booking confirmation and trip details by email.
             </span>
           </label>
