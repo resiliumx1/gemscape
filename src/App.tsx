@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
@@ -10,7 +10,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CinematicIntro from "@/components/CinematicIntro";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Admin from "./pages/Admin.tsx";
@@ -28,14 +27,6 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const isAdmin = window.location.pathname.startsWith('/admin');
-  const [showIntro, setShowIntro] = useState(
-    !isAdmin && !sessionStorage.getItem("introPlayed")
-  );
-
-  const handleIntroComplete = useCallback(() => {
-    sessionStorage.setItem("introPlayed", "true");
-    setShowIntro(false);
-  }, []);
 
   useEffect(() => {
     let lenis: Lenis | null = null;
@@ -76,9 +67,6 @@ const App = () => {
         <Toaster />
         <Sonner />
 
-        {showIntro && !isAdmin && (
-          <CinematicIntro onComplete={handleIntroComplete} />
-        )}
 
         <BrowserRouter>
           <PageTransitionProvider>
