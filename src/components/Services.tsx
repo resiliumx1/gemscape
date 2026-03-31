@@ -18,8 +18,7 @@ const SERVICES = [
     headline: "Every cove. Every hidden bay.",
     description:
       "A full-day private journey around Antigua's entire coastline — past secret beaches, historic forts, and fishing villages that no cruise ship ever reaches. Your guide, your pace, your island.",
-    image:
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=90",
+    image: catamaranImg,
     route: "/book",
     accent: "#2cb8a8",
   },
