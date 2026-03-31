@@ -433,6 +433,7 @@ const HeroSection = () => {
             right: auto;
             top: auto;
             transform: none;
+            margin-top: 24px;
             margin-bottom: -8px;
             order: -1;
           }
