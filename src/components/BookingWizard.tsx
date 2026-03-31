@@ -408,7 +408,7 @@ const BookingWizard = ({ initialService }: Props) => {
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--text-primary)" }}>{selectedService.title}</span>
               </div>
             )}
-            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
               {tourDate && <span>Date: {dateFormat(tourDate, "PPP")}</span>}
               <span>Guests: {guests}</span>
               {startTime && <span>Start: {startTime}</span>}
