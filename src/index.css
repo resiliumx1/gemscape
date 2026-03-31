@@ -122,7 +122,12 @@
   }
 }
 
-/* Global resets */
+/* When navbar is transparent (over dark hero), force light text regardless of theme */
+.nav-transparent {
+  --nav-text: rgba(255, 255, 255, 0.8) !important;
+  --nav-text-hover: #ffffff !important;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
