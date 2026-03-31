@@ -4602,8 +4602,7 @@ header * {
 .dark .exp-card__title {
   color: #EDE8DC !important;
 }
-.dark .exp-card__desc,
-.dark .exp-card__link {
+.dark .exp-card__desc {
   color: #C4BBA8 !important;
 }
 
