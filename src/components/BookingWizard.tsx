@@ -181,7 +181,7 @@ const BookingWizard = ({ initialService }: Props) => {
               {i < 3 && (
                 <div style={{
                   width: 48, height: 2, margin: "0 8px", marginBottom: 24,
-                  background: isComplete ? "#b8956a" : "rgba(255,255,255,0.1)",
+                  background: isComplete ? "#b8956a" : "var(--border-color)",
                   transition: "background 0.3s ease",
                 }} />
               )}
