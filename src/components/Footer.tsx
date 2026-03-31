@@ -272,7 +272,7 @@ const Footer = () => {
           style={{
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 300,
-            fontSize: 12,
+            fontSize: 13,
             color: "rgba(255,255,255,0.3)",
           }}
         >
