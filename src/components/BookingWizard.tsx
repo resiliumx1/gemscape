@@ -350,7 +350,7 @@ const BookingWizard = ({ initialService }: Props) => {
             <div>
               <label className="gem-form-label">PHONE / WHATSAPP</label>
               <input type="tel" className={cn("gem-form-input", errors.phone && "gem-form-input--error")} value={phone} onChange={e => { setPhone(e.target.value); setErrors(p => ({ ...p, phone: "" })); }} placeholder="+1 (000) 000-0000" maxLength={20} />
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", display: "block", marginTop: 4 }}>We'll send your confirmation here</span>
+              <span style={{ fontSize: 11, color: "var(--text-tertiary)", display: "block", marginTop: 4 }}>We'll send your confirmation here</span>
               {errors.phone && <span className="gem-form-error">{errors.phone}</span>}
             </div>
             <div>
