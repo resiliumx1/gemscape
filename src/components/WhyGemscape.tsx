@@ -121,7 +121,7 @@ export default function WhyGemscape() {
                 margin: "0 0 20px",
               }}
             >
-              Antigua is Our Home.
+              Antigua &amp; Barbuda is Our Home.
               <br />
               <span style={{ fontStyle: "italic", color: "var(--text-tertiary)" }}>
                 Your Experience
