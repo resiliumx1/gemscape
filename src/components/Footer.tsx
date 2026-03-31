@@ -52,7 +52,7 @@ const Footer = () => {
               marginBottom: 24,
             }}
           >
-            Premium travel experiences in Antigua — private rentals, island tours, and flight concierge for discerning travellers.
+            Premium travel experiences in Antigua &amp; Barbuda — private rentals, island tours, and flight concierge for discerning travellers.
           </p>
           <div style={{ display: "flex", gap: 14 }}>
             {[
@@ -223,7 +223,7 @@ const Footer = () => {
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
               <MapPin size={14} style={{ color: "rgba(201,168,76,0.6)", marginTop: 3, flexShrink: 0 }} />
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
-                St. John's, Antigua, W.I.
+                St. John's, Antigua &amp; Barbuda, W.I.
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
@@ -286,7 +286,7 @@ const Footer = () => {
             color: "rgba(255,255,255,0.3)",
           }}
         >
-          Built with pride in Antigua
+          Built with pride in Antigua &amp; Barbuda
         </span>
       </div>
 

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -95,7 +95,7 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
         </motion.div>
       </div>
 
-      <span className="text-[11px] font-body font-bold tracking-[0.3em] text-white/80 group-hover:text-white transition-all duration-300 relative">
+      <span className="text-[11px] font-body font-bold tracking-[0.3em] text-[var(--nav-text)] group-hover:text-[var(--nav-text-hover)] transition-all duration-300 relative">
         {label}
         <motion.div
           className="absolute -bottom-1 left-0 h-[1px] bg-gem-teal/50"
@@ -118,13 +118,13 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
             rotateX: isHovered ? 0 : -20,
             pointerEvents: isHovered ? ("auto" as const) : ("none" as const),
           }}
-          style={{ originY: 0, perspective: 1000 }}
+          style={{ originY: 0, perspective: 1000, background: "var(--nav-dropdown-bg)", borderColor: "var(--nav-dropdown-border)" }}
           transition={{
             duration: isHovered ? 0.6 : 0.5,
             delay: isHovered ? 0.2 : 0,
             ease: isHovered ? [0.23, 1, 0.32, 1] : [0.4, 0, 0.2, 1],
           }}
-          className="absolute top-full left-0 mt-4 w-64 bg-gem-navy/95 backdrop-blur-2xl border border-gem-teal/15 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
+          className="absolute top-full left-0 mt-4 w-64 backdrop-blur-2xl border rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
         >
           <div className="py-3">
             {dropdownItems.map((item, idx) => (
@@ -148,7 +148,7 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
                   ease: "easeOut",
                 }}
                 whileHover={{ backgroundColor: "rgba(44, 184, 168, 0.1)" }}
-                className="px-6 py-3.5 text-[10px] font-body font-bold tracking-[0.2em] text-white/60 hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
+                className="px-6 py-3.5 text-[10px] font-body font-bold tracking-[0.2em] text-[var(--nav-text)] hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
               >
                 <item.icon size={16} className="text-gem-teal/60 group-hover/item:text-gem-teal transition-colors" />
                 <span className="flex-1">{item.label.toUpperCase()}</span>
@@ -257,9 +257,6 @@ export default function Navbar() {
 
   const isHomepage = location.pathname === "/";
 
-  const logoY = useTransform(scrollY, [0, 1000], [0, -15]);
-  const navY = useTransform(scrollY, [0, 1000], [0, -8]);
-  const buttonY = useTransform(scrollY, [0, 1000], [0, -12]);
 
   // Dark mode init
   useEffect(() => {
@@ -327,15 +324,14 @@ export default function Navbar() {
 
   return (
     <header
-      data-theme="dark"
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         navSolid
-          ? "backdrop-blur-xl py-1.5 shadow-2xl"
+          ? "backdrop-blur-2xl py-1.5 shadow-[0_4px_30px_rgba(0,0,0,0.15)]"
           : "bg-transparent py-2 sm:py-3"
       }`}
       style={{
-        backgroundColor: navSolid ? "rgba(5, 24, 30, 0.82)" : "transparent",
-        colorScheme: "dark",
+        backgroundColor: navSolid ? "var(--nav-glass-bg)" : "transparent",
+        borderBottom: navSolid ? "1px solid var(--nav-glass-border)" : "none",
       }}
     >
       <motion.div
@@ -350,7 +346,7 @@ export default function Navbar() {
         {/* Logo */}
         <motion.button
           onClick={() => navigateTo("/")}
-          style={{ y: logoY }}
+          
           variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
@@ -366,7 +362,7 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <motion.nav
-          style={{ y: navY }}
+          
           variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="hidden lg:flex items-center gap-2 ml-auto mr-4"
@@ -386,7 +382,7 @@ export default function Navbar() {
           <div className="hidden sm:block">
             <CurrencyToggle />
           </div>
-          <motion.div style={{ y: buttonY }} className="hidden md:block">
+          <motion.div className="hidden md:block">
             <BookNowButton onClick={() => navigateTo("/book")} />
           </motion.div>
           <SkyToggle checked={isDark} onChange={toggleTheme} />

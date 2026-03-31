@@ -83,9 +83,23 @@
     --sidebar-accent-foreground: var(--gem-navy);
     --sidebar-border: var(--gem-sand);
     --sidebar-ring: var(--gem-gold);
+
+    /* Navbar Glass */
+    --nav-glass-bg: rgba(244, 241, 238, 0.72);
+    --nav-glass-border: rgba(5, 24, 30, 0.08);
+    --nav-text: rgba(5, 24, 30, 0.75);
+    --nav-text-hover: #05181e;
+    --nav-dropdown-bg: rgba(255, 255, 255, 0.95);
+    --nav-dropdown-border: rgba(5, 24, 30, 0.1);
   }
 
   .dark {
+    --nav-glass-bg: rgba(5, 24, 30, 0.65);
+    --nav-glass-border: rgba(44, 184, 168, 0.1);
+    --nav-text: rgba(255, 255, 255, 0.8);
+    --nav-text-hover: #ffffff;
+    --nav-dropdown-bg: rgba(5, 24, 30, 0.95);
+    --nav-dropdown-border: rgba(44, 184, 168, 0.15);
     --bg-primary:   #05181e;
     --bg-secondary: #071f27;
     --bg-tertiary:  #0a2830;
@@ -4966,4 +4980,44 @@ header * {
 /* SkyToggle compact override */
 .gem-nav__desktop-toggles .theme-switch {
   --toggle-size: 12px;
+}
+
+/* ─── Antigua & Barbuda Shimmer Effect ────────────────────── */
+.hero-country-shimmer {
+  background: linear-gradient(
+    90deg,
+    #2cb8a8 0%,
+    #b8956a 25%,
+    #2cb8a8 50%,
+    #C9A84C 75%,
+    #2cb8a8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: countryShimmer 4s linear infinite;
+  font-weight: inherit;
+  display: inline;
+}
+
+@keyframes countryShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+html:not(.dark) .hero-country-shimmer {
+  background: linear-gradient(
+    90deg,
+    #1a8a9e 0%,
+    #9a7a4a 25%,
+    #1a8a9e 50%,
+    #b8956a 75%,
+    #1a8a9e 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: countryShimmer 4s linear infinite;
 }

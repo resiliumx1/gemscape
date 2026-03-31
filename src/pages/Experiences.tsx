@@ -41,7 +41,7 @@ const Experiences = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
-        <title>Curated Experiences in Antigua | Gemscape Travel & Tours</title>
+        <title>Curated Experiences in Antigua &amp; Barbuda | Gemscape Travel &amp; Tours</title>
         <meta name="description" content="Discover Antigua differently with private island tours, heritage explorations, and luxury charters by Gemscape Travel & Tours." />
       </Helmet>
       <Navbar />
@@ -52,10 +52,10 @@ const Experiences = () => {
           CURATED EXPERIENCES
         </span>
         <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
-          Antigua Seen Differently.
+          Antigua &amp; Barbuda Seen Differently.
         </h1>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 560, margin: "16px auto 0" }}>
-          Every journey we design is a private, unhurried encounter with the most beautiful island in the Caribbean.
+          Every journey we design is a private, unhurried encounter with the most beautiful islands in the Caribbean.
         </p>
       </section>
 

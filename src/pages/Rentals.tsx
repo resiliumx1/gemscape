@@ -154,7 +154,7 @@ const Rentals = () => {
   return (
     <>
       <Helmet>
-        <title>Car Rental Antigua | Premium Fleet — Gemscape Travel & Tours</title>
+        <title>Car Rental Antigua & Barbuda | Premium Fleet — Gemscape Travel & Tours</title>
         <meta name="description" content="Browse Gemscape's premium rental fleet in Antigua. SUVs, Jeeps, sedans delivered to your hotel, airport or marina. Full insurance & 24/7 support included." />
       </Helmet>
       <Navbar />
@@ -173,10 +173,10 @@ const Rentals = () => {
 
         <div className="rentals-hero__content">
           <span ref={eyebrowRef} className="eyebrow" style={{ opacity: 0 }}>
-            Private Rentals · Antigua
+            Private Rentals · Antigua &amp; Barbuda
           </span>
           <h1 ref={h1Ref} className="rentals-hero__h1" style={{ opacity: 0 }}>
-            Drive Antigua
+            Drive Antigua &amp; Barbuda
             <br />
             <em>Your Way.</em>
           </h1>

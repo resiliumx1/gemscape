@@ -67,7 +67,7 @@ const Hero = () => {
 
         <div className="hero__content">
           <span ref={eyebrowRef} className="eyebrow" style={{ opacity: 0 }}>
-            Antigua · Caribbean
+            <span className="hero-country-shimmer">Antigua &amp; Barbuda</span> · Caribbean
           </span>
 
           <h1 className="hero__headline">
@@ -113,7 +113,7 @@ const Hero = () => {
         </div>
 
         <div className="hero__side-text">
-          Antigua · Est. 2024 · Travel &amp; Tours
+          Antigua &amp; Barbuda · Est. 2024 · Travel &amp; Tours
         </div>
       </section>
 

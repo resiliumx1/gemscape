@@ -163,7 +163,7 @@ export default function CtaBanner() {
               margin: "0 0 20px",
             }}
           >
-            Antigua Is Waiting
+            <span className="hero-country-shimmer">Antigua &amp; Barbuda</span> Are Waiting
             <br />
             <span
               style={{
