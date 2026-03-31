@@ -214,7 +214,7 @@ const BookingWizard = ({ initialService }: Props) => {
               }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <svc.icon size={24} style={{ color: "#2cb8a8" }} />
-                  <span style={{ fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", background: "rgba(255,255,255,0.06)", padding: "4px 10px", borderRadius: 999 }}>
+                  <span style={{ fontSize: 10, letterSpacing: ".12em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", background: "var(--card-bg)", padding: "4px 10px", borderRadius: 999 }}>
                     {svc.badge}
                   </span>
                 </div>
