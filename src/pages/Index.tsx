@@ -11,6 +11,7 @@ import WhyGemscape from "@/components/WhyGemscape";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import WaveDivider from "@/components/WaveDivider";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 
@@ -50,8 +51,17 @@ const Index = () => {
         <RentalsPreview />
         <Manifesto />
         <Testimonials />
+        <div style={{ position: "relative" }}>
+          <WaveDivider variant="ocean" height={120} />
+        </div>
         <WhyGemscape />
+        <div style={{ position: "relative" }}>
+          <WaveDivider variant="teal" height={120} />
+        </div>
         <CtaBanner />
+        <div style={{ position: "relative" }}>
+          <WaveDivider variant="ocean" height={120} />
+        </div>
         <Footer />
       </div>
       <WhatsAppFab />
