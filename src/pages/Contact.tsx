@@ -167,10 +167,10 @@ const Contact = () => {
               padding: 56, border: "1px solid rgba(44,184,168,0.25)", borderRadius: 12, textAlign: "center",
             }}>
               <Check size={48} style={{ color: "#2cb8a8", margin: "0 auto 16px" }} />
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "#fff", marginBottom: 12 }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "var(--text-primary)", marginBottom: 12 }}>
                 Message Sent
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, marginBottom: 24 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>
                 We'll be in touch within 2 hours. Check your inbox.
               </p>
               <a href="/" style={{
