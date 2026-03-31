@@ -319,7 +319,7 @@ const BookingWizard = ({ initialService }: Props) => {
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32 }}>
-            <button onClick={prev} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
+            <button onClick={prev} style={{ background: "none", border: "none", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
             <button onClick={next} style={{
               background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
               borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
