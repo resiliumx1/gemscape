@@ -158,6 +158,57 @@ html:not(.dark) select option {
   color: #05181e !important;
 }
 
+/* ── Calendar / DatePicker dark mode ── */
+.dark [data-radix-popper-content-wrapper] {
+  --popover: 207 47% 11%;
+  --popover-foreground: 0 0% 100%;
+}
+.dark .rdp {
+  --rdp-background-color: hsl(207 44% 14%);
+  --rdp-accent-color: hsl(180 62% 26%);
+  --rdp-accent-color-dark: hsl(180 56% 55%);
+  color: #ffffff;
+}
+.dark .rdp-day:hover {
+  background-color: hsl(180 62% 26% / 0.3) !important;
+}
+.dark .rdp-day_selected {
+  background-color: hsl(180 62% 26%) !important;
+  color: #ffffff !important;
+}
+.dark .rdp-day_today {
+  background-color: hsl(207 44% 14%) !important;
+  color: #2cb8a8 !important;
+  font-weight: 600;
+}
+.dark .rdp-head_cell {
+  color: rgba(255,255,255,0.5) !important;
+}
+.dark .rdp-caption_label {
+  color: #ffffff !important;
+}
+.dark .rdp-nav_button {
+  color: rgba(255,255,255,0.6) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  background: transparent !important;
+}
+.dark .rdp-nav_button:hover {
+  background: hsl(180 62% 26% / 0.2) !important;
+  color: #ffffff !important;
+}
+.dark .rdp-day_outside {
+  color: rgba(255,255,255,0.2) !important;
+}
+.dark .rdp-day_disabled {
+  color: rgba(255,255,255,0.15) !important;
+}
+
+/* Popover background in dark mode */
+.dark [data-radix-popper-content-wrapper] > div {
+  background-color: #0a2830 !important;
+  border-color: rgba(44,184,168,0.15) !important;
+}
+
 /* ── Booking wizard card theming ── */
 .dark .bw-card { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); }
 html:not(.dark) .bw-card { background: #ffffff; border-color: rgba(5,24,30,0.1); box-shadow: 0 4px 24px rgba(5,24,30,0.08); }

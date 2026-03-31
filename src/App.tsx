@@ -10,7 +10,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CinematicIntro from "@/components/CinematicIntro";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Admin from "./pages/Admin.tsx";
