@@ -78,7 +78,7 @@ const Concierge = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#05181e" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
         <title>Flight Concierge in Antigua | Gemscape Travel & Tours</title>
         <meta name="description" content="VIP airport arrivals, private charter booking, and seamless transfer coordination in Antigua by Gemscape Travel & Tours." />
