@@ -213,7 +213,7 @@ const HeroSection = () => {
                 overflow: 'hidden',
                 background: 'linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)',
                 color: '#fff',
-                fontSize: 11,
+                fontSize: 13,
                 fontWeight: 600,
                 letterSpacing: '.12em',
                 padding: '14px 32px',
