@@ -5028,3 +5028,31 @@ html:not(.dark) .hero-country-shimmer {
   -webkit-text-fill-color: transparent;
   animation: countryShimmer 4s linear infinite;
 }
+
+/* ─── Vehicle Lightbox ─────────────────────────────────────── */
+@keyframes lightboxFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes lightboxZoomIn {
+  0% { transform: scale(0.82); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Vehicle card image hover zoom hint */
+.r-card__img-wrap:hover .r-card__img-overlay {
+  background: rgba(5, 24, 30, 0.25) !important;
+}
+
+.r-card__img-wrap:hover .r-card__zoom-icon {
+  opacity: 1 !important;
+}
+
+.r-card__img-wrap:hover .r-card__img {
+  transform: scale(1.03);
+}
+
+.r-card__img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
