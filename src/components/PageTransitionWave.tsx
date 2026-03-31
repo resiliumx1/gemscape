@@ -83,10 +83,11 @@ function waveY(x: number, t: number, amp: number, speed: number, offset: number,
 }
 
 // ─── Foam ─────────────────────────────────────────────────────────────────────
-const FOAM_COUNT = 30;
+const FOAM_COUNT = 45;
 const foamXs = Array.from({ length: FOAM_COUNT }, () => Math.random());
-const foamRadii = Array.from({ length: FOAM_COUNT }, () => 1 + Math.random() * 2);
+const foamRadii = Array.from({ length: FOAM_COUNT }, () => 0.8 + Math.random() * 2.8);
 const foamPhases = Array.from({ length: FOAM_COUNT }, () => Math.random() * Math.PI * 2);
+const foamLayers = Array.from({ length: FOAM_COUNT }, () => Math.floor(Math.random() * 3));
 
 // ─── Transition state ─────────────────────────────────────────────────────────
 type TransitionState = "idle" | "covering" | "holding" | "revealing";
