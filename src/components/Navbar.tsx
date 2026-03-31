@@ -328,10 +328,10 @@ export default function Navbar() {
   return (
     <header
       data-theme="dark"
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         navSolid
-          ? "backdrop-blur-xl py-3 border-gem-teal/10 shadow-2xl"
-          : "bg-transparent py-4 sm:py-6 border-transparent"
+          ? "backdrop-blur-xl py-3 shadow-2xl"
+          : "bg-transparent py-4 sm:py-6"
       }`}
       style={{
         backgroundColor: navSolid ? "rgba(5, 24, 30, 0.97)" : "transparent",
