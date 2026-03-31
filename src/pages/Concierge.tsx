@@ -159,10 +159,10 @@ const Concierge = () => {
         <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 64, maxWidth: 1000, margin: "0 auto" }} className="concierge-enquiry-grid">
           {/* Left sidebar */}
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 24 }}>
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 400, color: "#fff", lineHeight: 1.15 }}>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 400, color: "var(--text-primary)", lineHeight: 1.15 }}>
               We Respond<br /><em style={{ fontStyle: "italic", color: "#5ec8e0" }}>Personally.</em>
             </h2>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.75 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75 }}>
               Every concierge enquiry is handled by our Antigua team — not an automated system. We'll reach you within 2 hours.
             </p>
 
