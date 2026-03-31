@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, useCallback } from 'react';
 import { clsx } from 'clsx';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // --- PALETTES ---
 export type WavePalette = {
