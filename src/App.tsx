@@ -100,10 +100,12 @@ const App = () => {
         <Sonner />
 
         <BrowserRouter>
-          <PageTransitionProvider>
-            <ScrollToTop />
-            <AnimatedRoutes />
-          </PageTransitionProvider>
+          <WavePageTransition>
+            <PageTransitionProvider>
+              <ScrollToTop />
+              <AnimatedRoutes />
+            </PageTransitionProvider>
+          </WavePageTransition>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
