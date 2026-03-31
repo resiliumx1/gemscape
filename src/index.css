@@ -4834,12 +4834,18 @@ header * {
 }
 
 /* ─── Wave Page Transition ─────────────────────────────────────────────────── */
-.wave-layer-idle {
+
+/* === VERTICAL (UP) === */
+.wave-layer-idle-up {
   transform: translateY(100%);
 }
 
-.wave-layer-cover {
+.wave-layer-cover-up {
   animation-name: waveCoverUp;
+}
+
+.wave-layer-reveal-up {
+  animation-name: waveRevealUp;
 }
 
 @keyframes waveCoverUp {
@@ -4847,21 +4853,79 @@ header * {
   100% { transform: translateY(0%); }
 }
 
-.wave-layer-reveal {
-  animation-name: waveRevealUp;
-}
-
 @keyframes waveRevealUp {
   0% { transform: translateY(0%); }
   100% { transform: translateY(-100%); }
 }
 
-.wave-particles-cover {
+.wave-particles-cover-up {
   animation-name: waveCoverUp;
 }
 
-.wave-particles-reveal {
+.wave-particles-reveal-up {
   animation-name: waveRevealUp;
+}
+
+/* === HORIZONTAL LEFT→RIGHT === */
+.wave-layer-idle-left {
+  transform: translateX(-100%);
+}
+
+.wave-layer-cover-left {
+  animation-name: waveCoverLeft;
+}
+
+.wave-layer-reveal-left {
+  animation-name: waveRevealLeft;
+}
+
+@keyframes waveCoverLeft {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes waveRevealLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+.wave-particles-cover-left {
+  animation-name: waveCoverLeft;
+}
+
+.wave-particles-reveal-left {
+  animation-name: waveRevealLeft;
+}
+
+/* === HORIZONTAL RIGHT→LEFT === */
+.wave-layer-idle-right {
+  transform: translateX(100%);
+}
+
+.wave-layer-cover-right {
+  animation-name: waveCoverRight;
+}
+
+.wave-layer-reveal-right {
+  animation-name: waveRevealRight;
+}
+
+@keyframes waveCoverRight {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes waveRevealRight {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.wave-particles-cover-right {
+  animation-name: waveCoverRight;
+}
+
+.wave-particles-reveal-right {
+  animation-name: waveRevealRight;
 }
 
 /* SkyToggle compact override */
