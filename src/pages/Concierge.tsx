@@ -298,13 +298,13 @@ const Concierge = () => {
 
       <style>{`
         .concierge-service-card:hover { border-color: rgba(201,168,76,0.5) !important; background: rgba(201,168,76,0.04) !important; }
-        .gem-form-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: rgba(255,255,255,0.45); text-transform: uppercase; display: block; margin-bottom: 8px; }
-        .gem-form-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px 16px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; width: 100%; transition: border-color 0.25s ease; }
+        .gem-form-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: var(--text-tertiary); text-transform: uppercase; display: block; margin-bottom: 8px; }
+        .gem-form-input { background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 8px; padding: 14px 16px; color: var(--input-text); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; width: 100%; transition: border-color 0.25s ease; }
         .gem-form-input:focus { border-color: rgba(44,184,168,0.6); box-shadow: 0 0 0 3px rgba(44,184,168,0.08); }
-        .gem-form-input::placeholder { color: rgba(255,255,255,0.25); }
+        .gem-form-input::placeholder { color: var(--text-tertiary); }
         .gem-form-input--error { border-color: #e05a5a !important; }
         .gem-form-error { font-size: 11px; color: #e05a5a; margin-top: 4px; display: block; }
-        .gem-stepper-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.3); background: transparent; color: rgba(255,255,255,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .gem-stepper-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.3); background: transparent; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
         .gem-stepper-btn:hover { border-color: rgba(201,168,76,0.6); color: #fff; }
         @media (max-width: 768px) { .concierge-enquiry-grid { grid-template-columns: 1fr !important; gap: 40px !important; } }
       `}</style>
