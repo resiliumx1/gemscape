@@ -22,6 +22,7 @@ import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider } from "@/components/PageTransitionWave";
 import WaveTransition from "@/components/WaveTransition";
+import { WavePageTransition } from "@/components/WavePageTransition";
 
 gsap.registerPlugin(ScrollTrigger);
 
