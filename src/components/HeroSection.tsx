@@ -144,7 +144,7 @@ const HeroSection = () => {
           {/* Eyebrow */}
           <span
             style={{
-              fontSize: 11,
+              fontSize: 13,
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.75)",
               textTransform: "uppercase",
