@@ -29,8 +29,7 @@ const SERVICES = [
     headline: "Roads no tourist map shows.",
     description:
       "English Harbour. Shirley Heights. Local rum distilleries and colonial ruins. We take you through Antigua's living history with a guide who was born and raised in these stories.",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=90",
+    image: windmillImg,
     route: "/book",
     accent: "#b8956a",
   },
