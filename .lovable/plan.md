@@ -1,40 +1,36 @@
 
 
-## Cinematic Intro — Upgraded Version (3.5s total)
+## Fix Wave Transition Navigation System
 
-The user's pasted code had all JSX tags stripped by the chat interface, leaving only text fragments. I'll reconstruct the complete working component based on the user's detailed spec: Particles, GemShards, LightRays, WaveCanvas sub-components, and a 3.5-second phase timeline.
+### Problem
+`GemscapeWave.tsx` exports `useWave()` with a no-op default context. Its `WaveTransitionProvider` is never mounted in `App.tsx`, so components like HeroSection and Services that import `useWave` from GemscapeWave get a dead `navigateTo` function. Buttons do nothing.
 
-### What changes
+### Solution — 3 file changes
 
-**1. Copy uploaded logo to project**
-- Copy `user-uploads://gemscape-logo_fixed.png` → `public/images/gemscape-logo.png` (replacing existing)
+**File 1: Replace `src/components/GemscapeWave.tsx`**
+Replace the entire 269-line canvas-based file with a 2-line re-export shim:
+```tsx
+export { useWave } from '@/components/WaveTransition';
+```
+This redirects all existing imports to the working system.
 
-**2. Replace `src/components/CinematicIntro.jsx` entirely**
-New component with these sub-components and effects:
-- **Particles** — 140 twinkling particles (white/gold/teal mix)
-- **GemShards** — 8 orbiting diamond shards around the logo
-- **LightRays** — 12 radial light beams pulsing behind the logo
-- **WaveCanvas** — 4-layer canvas wave wipe (700ms duration)
-- **Phase timeline** (3.5s total):
-  - 0.1s → `reveal` (logo fades up)
-  - 0.5s → `glow` (shards orbit out, ambient blooms breathe)
-  - 1.4s → `shimmer` (gold sweep, rule line, slogan, dots, rays)
-  - 2.7s → `wave` (canvas wave wipes up)
-  - 3.5s → `done` (unmounts, calls `onComplete`)
-- Background: deep navy radial gradient with vignette, teal bloom top, gold bloom bottom
-- Logo uses `/images/gemscape-logo.png` at `clamp(280px, 50vw, 620px)` width
-- Slogan: "Where Every Journey Becomes a Gem" with letter-spacing animation
-- CSS keyframes for: twinkle, float, glow-pulse, shimmer-sweep, slogan-in, rule-in, dot-pulse, ray-pulse, ambient-breathe
+**File 2: Update `src/components/WaveTransition.tsx`**
+- Add `useCallback` to the React import (line 2)
+- Add `import { useNavigate, useLocation } from 'react-router-dom';` after clsx import (line 3)
+- Export two navigation hooks at the bottom of the file (after line 285):
+  - `useWave()` — returns `{ navigateTo }` using react-router
+  - `useWaveNav()` — identical alias for newer components
+  
+Both hooks skip navigation if already on the target path.
 
-**3. Update `src/App.tsx`**
-- Add `useState`, `useCallback` imports
-- Add `import CinematicIntro from "@/components/CinematicIntro"`
-- Add `showIntro` state (checks `sessionStorage.introPlayed` and pathname !== '/admin')
-- Add `handleIntroComplete` callback that sets `sessionStorage.introPlayed` and hides intro
-- Render `{showIntro && <CinematicIntro onComplete={handleIntroComplete} />}` before the router
+**File 3: Replace `src/components/PageTransitionWave.tsx`**
+Replace the 32-line file with a version that:
+- Re-exports `useWaveNav` from WaveTransition (so CtaBanner/Navbar/Experiences keep working)
+- Keeps `PageTransitionProvider` with context-based `navigateTo` (used in App.tsx)
 
-### Technical notes
-- All animations are pure CSS + Canvas — no external dependencies
-- The uploaded logo PNG replaces the existing one (which may have had quality issues)
-- sessionStorage ensures intro plays once per browser session
+### What stays untouched
+App.tsx, HeroSection.tsx, Services.tsx, CtaBanner.tsx, Navbar.tsx, Experiences.tsx — zero changes needed.
+
+### Verification
+After changes, clicking Book Now (hero), Explore (services), navbar links, and CTA buttons should all trigger the SVG wave page transition.
 
