@@ -40,8 +40,7 @@ const SERVICES = [
     headline: "From touchdown to your first sunset.",
     description:
       "VIP airport arrivals, private charter coordination, hotel transfers. We eliminate every point of friction between your plane seat and your first Antiguan sunset drink.",
-    image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=90",
+    image: airportImg,
     route: "/concierge",
     accent: "#1a8a9e",
   },
