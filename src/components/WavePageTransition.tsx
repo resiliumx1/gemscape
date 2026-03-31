@@ -219,3 +219,26 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
 };
 
 export default WavePageTransition;
+
+// ── Compatibility hooks (drop-in replacements for old wave files) ───
+export function useWave() {
+  const { navigateWithWave } = useWaveNavigation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const navigateTo = React.useCallback(
+    (path: string) => {
+      if (path === location.pathname) return;
+      navigateWithWave(path);
+    },
+    [location.pathname, navigateWithWave]
+  );
+  return { navigateTo };
+}
+
+export function useWaveNav() {
+  return useWave();
+}
+
+export function usePageNav() {
+  return useWave();
+}

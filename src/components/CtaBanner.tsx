@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { useWaveNav } from "@/components/PageTransitionWave";
+import { useWaveNav } from "@/components/WavePageTransition";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

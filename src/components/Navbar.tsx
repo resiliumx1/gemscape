@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
 import SkyToggle from "@/components/ui/sky-toggle";
-import { useWaveNav } from "@/components/PageTransitionWave";
+import { useWaveNav } from "@/components/WavePageTransition";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
