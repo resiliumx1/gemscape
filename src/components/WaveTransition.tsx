@@ -284,3 +284,34 @@ export default function WaveTransition({
     </motion.div>
   );
 }
+
+// ─── Navigation hooks ─────────────────────────────────────────────────────────
+export function useWave() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navigateTo = useCallback(
+    (path: string) => {
+      if (path === location.pathname) return;
+      navigate(path);
+    },
+    [navigate, location.pathname]
+  );
+
+  return { navigateTo };
+}
+
+export function useWaveNav() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navigateTo = useCallback(
+    (path: string) => {
+      if (path === location.pathname) return;
+      navigate(path);
+    },
+    [navigate, location.pathname]
+  );
+
+  return { navigateTo };
+}
