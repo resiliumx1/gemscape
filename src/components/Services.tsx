@@ -113,6 +113,7 @@ export default function Services() {
           minHeight: "100vh",
           width: "100%",
           position: "relative",
+          background: "var(--bg-primary)",
         }}
       >
         {/* ── Left: Image panel ── */}

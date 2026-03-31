@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useWave } from "@/components/WavePageTransition";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import bettysHopeImg from "@/assets/bettys-hope-windmill.webp";
+import airportVipImg from "@/assets/airport-vip-greeting.webp";
+import catamaranImg from "@/assets/catamaran-white-beach.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,7 +30,7 @@ const CARDS = [
   },
   {
     images: [
-      { src: "/assets/bettys-hope-windmill.webp", alt: "Betty's Hope — restored 17th century sugar mill windmill" },
+      { src: bettysHopeImg, alt: "Betty's Hope — restored 17th century sugar mill windmill" },
       { src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85", alt: "St. John's Cathedral — baroque stone towers against blue sky" },
       { src: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=85", alt: "ATV buggy adventure through island trails" },
     ],
@@ -45,8 +48,8 @@ const CARDS = [
   },
   {
     images: [
-      { src: "/assets/airport-vip-greeting.webp", alt: "VIP airport greeting — professional staff welcoming guest" },
-      { src: "/assets/catamaran-white-beach.webp", alt: "Catamaran anchored at pristine white sand beach" },
+      { src: airportVipImg, alt: "VIP airport greeting — professional staff welcoming guest" },
+      { src: catamaranImg, alt: "Catamaran anchored at pristine white sand beach" },
       { src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=85", alt: "Driving along turquoise Caribbean coastal road" },
     ],
     category: "Arrival & Departure",
