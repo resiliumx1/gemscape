@@ -206,8 +206,8 @@ const BookingWizard = ({ initialService }: Props) => {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="bw-svc-grid">
             {SERVICES.map(svc => (
               <button key={svc.id} onClick={() => { setServiceType(svc.id); setErrors({}); }} style={{
-                background: serviceType === svc.id ? "rgba(44,184,168,0.08)" : "rgba(255,255,255,0.03)",
-                border: serviceType === svc.id ? "2px solid #2cb8a8" : "1px solid rgba(255,255,255,0.08)",
+                background: serviceType === svc.id ? "rgba(44,184,168,0.08)" : "var(--card-bg)",
+                border: serviceType === svc.id ? "2px solid #2cb8a8" : "1px solid var(--border-color)",
                 boxShadow: serviceType === svc.id ? "0 0 0 4px rgba(44,184,168,0.1)" : "none",
                 borderRadius: 12, padding: "28px 24px", cursor: "pointer", textAlign: "left",
                 transition: "all 0.25s ease", display: "flex", flexDirection: "column", gap: 12,
