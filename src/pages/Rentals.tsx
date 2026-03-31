@@ -201,11 +201,17 @@ const Rentals = () => {
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="rentals-how">
+      <section ref={howRef} className="rentals-how">
         <div className="rentals-how__grid">
           {STEPS.map((step, i) => (
             <div key={step.num} className="rentals-how__step">
-              <span className="rentals-how__num">{step.num}</span>
+              <span
+                ref={(el) => { stepNumRefs.current[i] = el; }}
+                className="rentals-how__num"
+                style={{ opacity: 0 }}
+              >
+                {step.num}
+              </span>
               <span className="rentals-how__title">{step.title}</span>
               <span className="rentals-how__desc">{step.desc}</span>
               {i < STEPS.length - 1 && <div className="rentals-how__divider" />}
