@@ -206,49 +206,108 @@ const HeroSection = () => {
           <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap" }}>
             <button
               onClick={() => navigateTo("/book")}
+              className="hero-btn-primary"
               style={{
-                background: "linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)",
-                color: "#fff",
+                position: 'relative',
+                overflow: 'hidden',
+                background: 'linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)',
+                color: '#fff',
                 fontSize: 11,
                 fontWeight: 600,
-                letterSpacing: ".12em",
-                padding: "14px 28px",
-                border: "none",
+                letterSpacing: '.12em',
+                padding: '14px 32px',
+                border: 'none',
                 borderRadius: 3,
-                cursor: "pointer",
+                cursor: 'pointer',
                 fontFamily: "'DM Sans', sans-serif",
-                textTransform: "uppercase",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
+                textTransform: 'uppercase' as const,
+                transition: 'all 0.35s ease',
+              }}
+              onMouseEnter={e => {
+                const btn = e.currentTarget;
+                btn.style.transform = 'translateY(-2px)';
+                btn.style.boxShadow = '0 0 28px rgba(44,184,168,0.55), 0 0 60px rgba(44,184,168,0.2), 0 8px 20px rgba(0,0,0,0.3)';
+                btn.style.background = 'linear-gradient(135deg, #2cb8a8 0%, #3cc8b8 100%)';
+              }}
+              onMouseLeave={e => {
+                const btn = e.currentTarget;
+                btn.style.transform = 'translateY(0)';
+                btn.style.boxShadow = 'none';
+                btn.style.background = 'linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)';
               }}
             >
-              Book Now
+              <span className="hero-btn-shimmer" />
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, position: 'relative', zIndex: 1 }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" fill="rgba(255,255,255,0.15)" />
+                  <path d="M2 9h20M12 2l5 7-5 11-5-11 5-7z" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+                </svg>
+                Book Now
+              </span>
             </button>
             <button
               onClick={() => {
-                const el = document.getElementById("services");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
+                const el = document.getElementById('services');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
+              className="hero-btn-secondary"
               style={{
-                background: "transparent",
-                border: "1px solid rgba(201,168,76,0.5)",
-                color: "#C9A84C",
+                position: 'relative',
+                overflow: 'hidden',
+                background: 'transparent',
+                border: '1px solid rgba(201,168,76,0.45)',
+                color: '#C9A84C',
                 fontSize: 11,
                 fontWeight: 600,
-                letterSpacing: ".12em",
-                padding: "14px 28px",
+                letterSpacing: '.12em',
+                padding: '14px 32px',
                 borderRadius: 3,
-                cursor: "pointer",
+                cursor: 'pointer',
                 fontFamily: "'DM Sans', sans-serif",
-                textTransform: "uppercase",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
+                textTransform: 'uppercase' as const,
+                transition: 'all 0.35s ease',
+              }}
+              onMouseEnter={e => {
+                const btn = e.currentTarget;
+                btn.style.transform = 'translateY(-2px)';
+                btn.style.borderColor = 'rgba(201,168,76,0.9)';
+                btn.style.boxShadow = '0 0 24px rgba(201,168,76,0.35), 0 0 50px rgba(201,168,76,0.12), inset 0 0 20px rgba(201,168,76,0.05)';
+                btn.style.color = '#E8C96A';
+                btn.style.background = 'rgba(201,168,76,0.06)';
+              }}
+              onMouseLeave={e => {
+                const btn = e.currentTarget;
+                btn.style.transform = 'translateY(0)';
+                btn.style.borderColor = 'rgba(201,168,76,0.45)';
+                btn.style.boxShadow = 'none';
+                btn.style.color = '#C9A84C';
+                btn.style.background = 'transparent';
               }}
             >
-              Explore Services
+              <span className="hero-btn-shimmer-gold" />
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, position: 'relative', zIndex: 1 }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(201,168,76,0.8)" strokeWidth="1.5" fill="rgba(201,168,76,0.1)" />
+                </svg>
+                Explore Services
+              </span>
             </button>
+          </div>
+
+          {/* Mobile stats row */}
+          <div className="hero-mobile-stats">
+            <div className="hero-mobile-stat">
+              <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>365</span>
+              <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Beaches</span>
+            </div>
+            <div className="hero-mobile-stat">
+              <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>500+</span>
+              <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Guests</span>
+            </div>
+            <div className="hero-mobile-stat">
+              <span style={{ fontSize: 18, fontWeight: 700, color: '#C9A84C', fontFamily: "'Cormorant Garamond', serif" }}>5★</span>
+              <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Rated</span>
+            </div>
           </div>
         </div>
 
