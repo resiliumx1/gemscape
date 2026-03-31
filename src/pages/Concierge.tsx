@@ -176,7 +176,7 @@ const Concierge = () => {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <Mail size={16} style={{ color: "rgba(201,168,76,0.6)" }} />
-                <a href="mailto:info@gemscapetours.com" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#fff", textDecoration: "none" }}>info@gemscapetours.com</a>
+                <a href="mailto:info@gemscapetours.com" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-primary)", textDecoration: "none" }}>info@gemscapetours.com</a>
               </div>
             </div>
 
