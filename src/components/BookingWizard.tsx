@@ -26,7 +26,7 @@ const NumStepper = ({ value, onChange, min = 1, max = 20, label }: { value: numb
     <label className="gem-form-label">{label}</label>
     <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
       <button type="button" onClick={() => onChange(Math.max(min, value - 1))} className="gem-stepper-btn"><Minus size={14} /></button>
-      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#fff", minWidth: 28, textAlign: "center" }}>{value}</span>
+      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "var(--text-primary)", minWidth: 28, textAlign: "center" }}>{value}</span>
       <button type="button" onClick={() => onChange(Math.min(max, value + 1))} className="gem-stepper-btn"><Plus size={14} /></button>
     </div>
   </div>
