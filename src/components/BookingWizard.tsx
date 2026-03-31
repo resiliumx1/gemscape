@@ -119,30 +119,115 @@ const BookingWizard = ({ initialService }: Props) => {
 
   /* ── SUCCESS ── */
   if (submitted) {
+    const selectedService = SERVICES.find(s => s.id === serviceType);
     return (
-      <div style={{ maxWidth: 600, margin: "0 auto", padding: "80px 24px", textAlign: "center" }}>
-        <svg width="64" height="64" viewBox="0 0 64 64" style={{ margin: "0 auto 24px" }}>
-          <circle cx="32" cy="32" r="30" fill="none" stroke="#2cb8a8" strokeWidth="2" />
-          <path d="M20 32 L28 40 L44 24" fill="none" stroke="#2cb8a8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <animate attributeName="stroke-dasharray" from="0 100" to="50 100" dur="0.6s" fill="freeze" />
-          </path>
-        </svg>
-        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 400, color: "var(--text-primary)", marginBottom: 12 }}>
-          Booking Request Received.
+      <div style={{ maxWidth: 640, margin: "0 auto", padding: "60px 24px 100px", textAlign: "center" }}>
+        {/* Animated check */}
+        <div style={{ marginBottom: 32 }}>
+          <svg width="80" height="80" viewBox="0 0 80 80" style={{ margin: "0 auto" }}>
+            <circle cx="40" cy="40" r="37" fill="none" stroke="hsl(var(--gem-gold))" strokeWidth="1.5" opacity="0.3">
+              <animate attributeName="r" from="20" to="37" dur="0.5s" fill="freeze" />
+              <animate attributeName="opacity" from="0" to="0.3" dur="0.5s" fill="freeze" />
+            </circle>
+            <circle cx="40" cy="40" r="28" fill="none" stroke="#2cb8a8" strokeWidth="2">
+              <animate attributeName="stroke-dasharray" from="0 200" to="200 200" dur="0.8s" fill="freeze" />
+            </circle>
+            <path d="M26 40 L36 50 L54 32" fill="none" stroke="#2cb8a8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <animate attributeName="stroke-dasharray" from="0 100" to="50 100" dur="0.5s" begin="0.4s" fill="freeze" />
+            </path>
+          </svg>
+        </div>
+
+        <h2 style={{
+          fontFamily: "'Cormorant Garamond', serif", fontSize: 36, fontWeight: 400,
+          color: "var(--text-primary)", marginBottom: 8, lineHeight: 1.2,
+        }}>
+          You're All Set.
         </h2>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 32 }}>
-          We'll be in touch within 2 hours to confirm your experience and send your detailed itinerary.
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15,
+          color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 0, maxWidth: 440, margin: "0 auto",
+        }}>
+          Your request is with our team. We'll personally confirm everything and send your detailed itinerary within 2 hours.
         </p>
-        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="https://wa.me/12687805510" target="_blank" rel="noopener noreferrer" style={{
-            background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.3)", borderRadius: 8,
-            padding: "14px 28px", color: "#25D366", fontFamily: "'DM Sans', sans-serif", fontSize: 12,
-            fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
-          }}>WhatsApp Us Now</a>
+
+        {/* Booking details card */}
+        <div style={{
+          marginTop: 36, padding: "28px 32px", borderRadius: 12,
+          background: "var(--card-bg)", border: "1px solid var(--border-color)",
+          textAlign: "left",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+            <span style={{
+              fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 10,
+              textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--text-tertiary)",
+            }}>Booking Reference</span>
+            <span style={{
+              fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 14,
+              color: "#2cb8a8", letterSpacing: "0.06em",
+            }}>{bookingRef}</span>
+          </div>
+          <div style={{ height: 1, background: "var(--border-color)", marginBottom: 16 }} />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px 24px" }}>
+            <div>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Experience</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{selectedService?.title || serviceType}</span>
+            </div>
+            <div>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Date</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{tourDate ? dateFormat(tourDate, "d MMM yyyy") : "—"}</span>
+            </div>
+            <div>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Guest</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{fullName}</span>
+            </div>
+            <div>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Guests</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{guests}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* What happens next */}
+        <div style={{ marginTop: 32, textAlign: "left" }}>
+          <h3 style={{
+            fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 11,
+            textTransform: "uppercase", letterSpacing: "0.14em",
+            color: "hsl(var(--gem-gold))", marginBottom: 16,
+          }}>What Happens Next</h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {[
+              { num: "1", text: "A member of our team will review your request and reach out personally." },
+              { num: "2", text: "We'll confirm availability, finalize pricing, and share your itinerary." },
+              { num: "3", text: "On the day, we'll handle everything — just show up and enjoy." },
+            ].map(item => (
+              <div key={item.num} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                <span style={{
+                  fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400,
+                  color: "hsl(var(--gem-gold))", minWidth: 20,
+                }}>{item.num}</span>
+                <span style={{
+                  fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 300,
+                  color: "var(--text-secondary)", lineHeight: 1.6,
+                }}>{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div style={{ marginTop: 40, display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+          <a href="/experiences" style={{
+            border: "1px solid hsl(var(--gem-gold))", borderRadius: 8, padding: "14px 32px",
+            color: "hsl(var(--gem-gold))", fontFamily: "'DM Sans', sans-serif", fontSize: 11,
+            fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", textDecoration: "none",
+            transition: "all 0.3s ease",
+          }}>Explore More Experiences</a>
           <a href="/" style={{
-            border: "1px solid rgba(255,255,255,0.15)", borderRadius: 8, padding: "14px 28px",
-            color: "rgba(255,255,255,0.6)", fontFamily: "'DM Sans', sans-serif", fontSize: 12,
-            fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
+            border: "1px solid var(--border-color)", borderRadius: 8, padding: "14px 32px",
+            color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontSize: 11,
+            fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", textDecoration: "none",
+            transition: "all 0.3s ease",
           }}>Back to Home</a>
         </div>
       </div>
