@@ -26,7 +26,7 @@ const NumStepper = ({ value, onChange, min = 1, max = 20, label }: { value: numb
     <label className="gem-form-label">{label}</label>
     <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
       <button type="button" onClick={() => onChange(Math.max(min, value - 1))} className="gem-stepper-btn"><Minus size={14} /></button>
-      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#fff", minWidth: 28, textAlign: "center" }}>{value}</span>
+      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "var(--text-primary)", minWidth: 28, textAlign: "center" }}>{value}</span>
       <button type="button" onClick={() => onChange(Math.min(max, value + 1))} className="gem-stepper-btn"><Plus size={14} /></button>
     </div>
   </div>
@@ -127,10 +127,10 @@ const BookingWizard = ({ initialService }: Props) => {
             <animate attributeName="stroke-dasharray" from="0 100" to="50 100" dur="0.6s" fill="freeze" />
           </path>
         </svg>
-        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 400, color: "#fff", marginBottom: 12 }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 400, color: "var(--text-primary)", marginBottom: 12 }}>
           Booking Request Received.
         </h2>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 32 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 32 }}>
           We'll be in touch within 2 hours to confirm your experience and send your detailed itinerary.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
@@ -166,8 +166,8 @@ const BookingWizard = ({ initialService }: Props) => {
                 <div style={{
                   width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 13, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
-                  background: isComplete ? "#b8956a" : isActive ? "#2cb8a8" : "rgba(255,255,255,0.08)",
-                  color: isComplete || isActive ? "#fff" : "rgba(255,255,255,0.3)",
+                  background: isComplete ? "#b8956a" : isActive ? "#2cb8a8" : "var(--card-bg)",
+                  color: isComplete || isActive ? "#fff" : "var(--text-tertiary)",
                   transition: "all 0.3s ease",
                 }}>
                   {isComplete ? <Check size={14} /> : num}
@@ -175,13 +175,13 @@ const BookingWizard = ({ initialService }: Props) => {
                 <span style={{
                   fontSize: 10, letterSpacing: ".15em", textTransform: "uppercase",
                   fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
-                  color: isActive ? "#fff" : "rgba(255,255,255,0.3)",
+                  color: isActive ? "var(--text-primary)" : "var(--text-tertiary)",
                 }}>{label}</span>
               </div>
               {i < 3 && (
                 <div style={{
                   width: 48, height: 2, margin: "0 8px", marginBottom: 24,
-                  background: isComplete ? "#b8956a" : "rgba(255,255,255,0.1)",
+                  background: isComplete ? "#b8956a" : "var(--border-color)",
                   transition: "background 0.3s ease",
                 }} />
               )}
@@ -195,10 +195,10 @@ const BookingWizard = ({ initialService }: Props) => {
       {/* Step 1 */}
       {step === 1 && (
         <div>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 8 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", textAlign: "center", marginBottom: 8 }}>
             What would you like to experience?
           </h3>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.4)", textAlign: "center", marginBottom: 32 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-tertiary)", textAlign: "center", marginBottom: 32 }}>
             Select one to continue.
           </p>
           {errors.serviceType && <p className="gem-form-error" style={{ textAlign: "center", marginBottom: 16 }}>{errors.serviceType}</p>}
@@ -206,20 +206,20 @@ const BookingWizard = ({ initialService }: Props) => {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="bw-svc-grid">
             {SERVICES.map(svc => (
               <button key={svc.id} onClick={() => { setServiceType(svc.id); setErrors({}); }} style={{
-                background: serviceType === svc.id ? "rgba(44,184,168,0.08)" : "rgba(255,255,255,0.03)",
-                border: serviceType === svc.id ? "2px solid #2cb8a8" : "1px solid rgba(255,255,255,0.08)",
+                background: serviceType === svc.id ? "rgba(44,184,168,0.08)" : "var(--card-bg)",
+                border: serviceType === svc.id ? "2px solid #2cb8a8" : "1px solid var(--border-color)",
                 boxShadow: serviceType === svc.id ? "0 0 0 4px rgba(44,184,168,0.1)" : "none",
                 borderRadius: 12, padding: "28px 24px", cursor: "pointer", textAlign: "left",
                 transition: "all 0.25s ease", display: "flex", flexDirection: "column", gap: 12,
               }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <svc.icon size={24} style={{ color: "#2cb8a8" }} />
-                  <span style={{ fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", background: "rgba(255,255,255,0.06)", padding: "4px 10px", borderRadius: 999 }}>
+                  <span style={{ fontSize: 10, letterSpacing: ".12em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", background: "var(--card-bg)", padding: "4px 10px", borderRadius: 999 }}>
                     {svc.badge}
                   </span>
                 </div>
-                <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "#fff" }}>{svc.title}</h4>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>{svc.desc}</p>
+                <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "var(--text-primary)" }}>{svc.title}</h4>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{svc.desc}</p>
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#C9A84C", fontWeight: 500 }}>{svc.price}</span>
               </button>
             ))}
@@ -227,7 +227,7 @@ const BookingWizard = ({ initialService }: Props) => {
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
             <button onClick={next} disabled={!serviceType} style={{
-              background: serviceType ? "linear-gradient(135deg, #1a8a9e, #2cb8a8)" : "rgba(255,255,255,0.08)",
+              background: serviceType ? "linear-gradient(135deg, #1a8a9e, #2cb8a8)" : "var(--card-bg)",
               color: serviceType ? "#fff" : "rgba(255,255,255,0.3)",
               border: "none", borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600,
               letterSpacing: ".12em", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
@@ -240,7 +240,7 @@ const BookingWizard = ({ initialService }: Props) => {
       {/* Step 2 */}
       {step === 2 && (
         <div style={{ maxWidth: 560, margin: "0 auto" }}>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 32 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", textAlign: "center", marginBottom: 32 }}>
             Experience Details
           </h3>
 
@@ -319,7 +319,7 @@ const BookingWizard = ({ initialService }: Props) => {
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32 }}>
-            <button onClick={prev} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
+            <button onClick={prev} style={{ background: "none", border: "none", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
             <button onClick={next} style={{
               background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
               borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
@@ -332,7 +332,7 @@ const BookingWizard = ({ initialService }: Props) => {
       {/* Step 3 */}
       {step === 3 && (
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 32 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", textAlign: "center", marginBottom: 32 }}>
             Your Information
           </h3>
 
@@ -350,7 +350,7 @@ const BookingWizard = ({ initialService }: Props) => {
             <div>
               <label className="gem-form-label">PHONE / WHATSAPP</label>
               <input type="tel" className={cn("gem-form-input", errors.phone && "gem-form-input--error")} value={phone} onChange={e => { setPhone(e.target.value); setErrors(p => ({ ...p, phone: "" })); }} placeholder="+1 (000) 000-0000" maxLength={20} />
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", display: "block", marginTop: 4 }}>We'll send your confirmation here</span>
+              <span style={{ fontSize: 11, color: "var(--text-tertiary)", display: "block", marginTop: 4 }}>We'll send your confirmation here</span>
               {errors.phone && <span className="gem-form-error">{errors.phone}</span>}
             </div>
             <div>
@@ -372,14 +372,14 @@ const BookingWizard = ({ initialService }: Props) => {
           <label style={{ display: "flex", alignItems: "flex-start", gap: 12, marginTop: 24, cursor: "pointer" }}>
             <input type="checkbox" checked={consent} onChange={e => { setConsent(e.target.checked); setErrors(p => ({ ...p, consent: "" })); }}
               style={{ marginTop: 3, accentColor: "#2cb8a8" }} />
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.5 }}>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>
               I agree to receive my booking confirmation and trip details by email.
             </span>
           </label>
           {errors.consent && <span className="gem-form-error">{errors.consent}</span>}
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32 }}>
-            <button onClick={prev} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
+            <button onClick={prev} style={{ background: "none", border: "none", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
             <button onClick={next} style={{
               background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
               borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
@@ -392,12 +392,12 @@ const BookingWizard = ({ initialService }: Props) => {
       {/* Step 4 — Review */}
       {step === 4 && (
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 32 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", textAlign: "center", marginBottom: 32 }}>
             Review Your Booking
           </h3>
 
           {/* Experience summary */}
-          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
+          <div style={{ background: "var(--card-bg)", border: "1px solid var(--border-color)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <span style={{ fontSize: 10, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR EXPERIENCE</span>
               <button onClick={() => setStep(1)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
@@ -405,10 +405,10 @@ const BookingWizard = ({ initialService }: Props) => {
             {selectedService && (
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
                 <selectedService.icon size={20} style={{ color: "#2cb8a8" }} />
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff" }}>{selectedService.title}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--text-primary)" }}>{selectedService.title}</span>
               </div>
             )}
-            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
               {tourDate && <span>Date: {dateFormat(tourDate, "PPP")}</span>}
               <span>Guests: {guests}</span>
               {startTime && <span>Start: {startTime}</span>}
@@ -419,12 +419,12 @@ const BookingWizard = ({ initialService }: Props) => {
           </div>
 
           {/* Contact summary */}
-          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
+          <div style={{ background: "var(--card-bg)", border: "1px solid var(--border-color)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <span style={{ fontSize: 10, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR DETAILS</span>
               <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
               <span>{fullName}</span>
               <span>{email.replace(/(.{2}).*(@.*)/, "$1***$2")}</span>
               {phone && <span>{phone}</span>}
@@ -441,7 +441,7 @@ const BookingWizard = ({ initialService }: Props) => {
             ].map(text => (
               <div key={text} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <Check size={14} style={{ color: "#2cb8a8", flexShrink: 0 }} />
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{text}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)" }}>{text}</span>
               </div>
             ))}
           </div>
@@ -456,7 +456,7 @@ const BookingWizard = ({ initialService }: Props) => {
             {loading && <Loader2 size={16} className="animate-spin" />}
             {loading ? "Submitting..." : "Send Booking Request →"}
           </button>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", marginTop: 12, lineHeight: 1.6 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "var(--text-tertiary)", textAlign: "center", marginTop: 12, lineHeight: 1.6 }}>
             By submitting you agree to our booking terms. No payment is taken at this stage.
           </p>
         </div>
@@ -465,26 +465,26 @@ const BookingWizard = ({ initialService }: Props) => {
       <style>{`
         .gem-form-label {
           font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
-          letter-spacing: 0.12em; color: rgba(255,255,255,0.45);
+          letter-spacing: 0.12em; color: var(--text-tertiary);
           text-transform: uppercase; display: block; margin-bottom: 8px;
         }
         .gem-form-input {
-          background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 8px; padding: 14px 16px; color: #fff;
+          background: var(--input-bg); border: 1px solid var(--input-border);
+          border-radius: 8px; padding: 14px 16px; color: var(--input-text);
           font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
           width: 100%; transition: border-color 0.25s ease;
         }
         .gem-form-input:focus { border-color: rgba(44,184,168,0.6); box-shadow: 0 0 0 3px rgba(44,184,168,0.08); }
-        .gem-form-input::placeholder { color: rgba(255,255,255,0.25); }
+        .gem-form-input::placeholder { color: var(--text-tertiary); }
         .gem-form-input--error { border-color: #e05a5a !important; }
         .gem-form-error { font-size: 11px; color: #e05a5a; margin-top: 4px; display: block; }
         .gem-stepper-btn {
           width: 36px; height: 36px; border-radius: 50%;
           border: 1px solid rgba(201,168,76,0.3); background: transparent;
-          color: rgba(255,255,255,0.6); cursor: pointer; display: flex;
+          color: var(--text-secondary); cursor: pointer; display: flex;
           align-items: center; justify-content: center; transition: all 0.2s;
         }
-        .gem-stepper-btn:hover { border-color: rgba(201,168,76,0.6); color: #fff; }
+        .gem-stepper-btn:hover { border-color: rgba(201,168,76,0.6); color: var(--text-primary); }
         @media (max-width: 640px) {
           .bw-svc-grid { grid-template-columns: 1fr !important; }
           .bw-info-grid { grid-template-columns: 1fr !important; }

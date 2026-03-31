@@ -48,7 +48,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#05181e" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
         <title>Contact Gemscape Travel & Tours | Get In Touch</title>
         <meta name="description" content="Reach out to Gemscape Travel & Tours. We respond personally within 2 hours. Call, WhatsApp, or send us a message." />
@@ -60,10 +60,10 @@ const Contact = () => {
         <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
           GET IN TOUCH
         </span>
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "#fff", marginTop: 12 }}>
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
           Get In Touch
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0" }}>
           We respond to every enquiry personally, usually within 2 hours.
         </p>
       </section>
@@ -72,7 +72,7 @@ const Contact = () => {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 100px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56 }} className="contact-grid">
         {/* Left — Contact Details */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", marginBottom: 8 }}>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", marginBottom: 8 }}>
             Reach Us Directly
           </h2>
 
@@ -82,22 +82,22 @@ const Contact = () => {
             { icon: MapPin, label: "BASED IN", value: "St. John's, Antigua, W.I.", sub: null, href: null },
           ].map(item => (
             <div key={item.label} style={{
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.15)",
+              background: "var(--card-bg)", border: "1px solid var(--border-color)",
               borderRadius: 8, padding: "20px 24px", display: "flex", alignItems: "flex-start", gap: 16,
             }}>
               <item.icon size={20} style={{ color: "#C9A84C", flexShrink: 0, marginTop: 2 }} />
               <div>
-                <span style={{ fontSize: 10, letterSpacing: ".15em", color: "rgba(255,255,255,0.4)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
+                <span style={{ fontSize: 10, letterSpacing: ".15em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
                   {item.label}
                 </span>
                 {item.href ? (
-                  <a href={item.href} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#fff", textDecoration: "none", fontWeight: 400 }}>
+                  <a href={item.href} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-primary)", textDecoration: "none", fontWeight: 400 }}>
                     {item.value}
                   </a>
                 ) : (
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#fff", fontWeight: 400 }}>{item.value}</span>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-primary)", fontWeight: 400 }}>{item.value}</span>
                 )}
-                {item.sub && <span style={{ display: "block", fontSize: 12, color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif", marginTop: 4 }}>{item.sub}</span>}
+                {item.sub && <span style={{ display: "block", fontSize: 12, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", marginTop: 4 }}>{item.sub}</span>}
               </div>
             </div>
           ))}
@@ -167,10 +167,10 @@ const Contact = () => {
               padding: 56, border: "1px solid rgba(44,184,168,0.25)", borderRadius: 12, textAlign: "center",
             }}>
               <Check size={48} style={{ color: "#2cb8a8", margin: "0 auto 16px" }} />
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "#fff", marginBottom: 12 }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "var(--text-primary)", marginBottom: 12 }}>
                 Message Sent
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, marginBottom: 24 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>
                 We'll be in touch within 2 hours. Check your inbox.
               </p>
               <a href="/" style={{
@@ -192,15 +192,15 @@ const Contact = () => {
           font-family: 'DM Sans', sans-serif;
           font-size: 11px; font-weight: 600;
           letter-spacing: 0.12em;
-          color: rgba(255,255,255,0.45);
+          color: var(--text-tertiary);
           text-transform: uppercase;
           display: block; margin-bottom: 8px;
         }
         .gem-form-input {
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.1);
+          background: var(--input-bg);
+          border: 1px solid var(--input-border);
           border-radius: 8px; padding: 14px 16px;
-          color: #fff; font-family: 'DM Sans', sans-serif;
+          color: var(--input-text); font-family: 'DM Sans', sans-serif;
           font-size: 14px; outline: none; width: 100%;
           transition: border-color 0.25s ease;
         }
@@ -208,7 +208,7 @@ const Contact = () => {
           border-color: rgba(44,184,168,0.6);
           box-shadow: 0 0 0 3px rgba(44,184,168,0.08);
         }
-        .gem-form-input::placeholder { color: rgba(255,255,255,0.25); }
+        .gem-form-input::placeholder { color: var(--text-tertiary); }
         .gem-form-error { font-size: 11px; color: #e05a5a; margin-top: 4px; display: block; }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }

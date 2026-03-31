@@ -78,7 +78,7 @@ const Concierge = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#05181e" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
         <title>Flight Concierge in Antigua | Gemscape Travel & Tours</title>
         <meta name="description" content="VIP airport arrivals, private charter booking, and seamless transfer coordination in Antigua by Gemscape Travel & Tours." />
@@ -115,38 +115,38 @@ const Concierge = () => {
       </section>
 
       {/* What's Included */}
-      <section style={{ background: "#061418", padding: "100px clamp(24px, 5vw, 80px)" }}>
+      <section style={{ background: "var(--bg-secondary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>What's Included</span>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "#fff", marginTop: 12 }}>Every Detail, Arranged.</h2>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Every Detail, Arranged.</h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24, maxWidth: 1100, margin: "0 auto" }}>
           {SERVICES_LIST.map(s => (
             <div key={s.title} className="concierge-service-card" style={{
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.2)",
+              background: "var(--card-bg)", border: "1px solid var(--border-color)",
               borderRadius: 10, padding: "32px 24px", transition: "all 0.3s ease",
             }}>
               <s.icon size={28} style={{ color: "#C9A84C", marginBottom: 16 }} />
-              <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "#fff", marginBottom: 8 }}>{s.title}</h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>{s.desc}</p>
+              <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "var(--text-primary)", marginBottom: 8 }}>{s.title}</h3>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7 }}>{s.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* How It Works */}
-      <section style={{ background: "#071e28", padding: "100px clamp(24px, 5vw, 80px)" }}>
+      <section style={{ background: "var(--bg-tertiary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>How It Works</span>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "#fff", marginTop: 12 }}>Three Simple Steps.</h2>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Three Simple Steps.</h2>
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 0, maxWidth: 900, margin: "0 auto", flexWrap: "wrap" }}>
           {STEPS.map((step, i) => (
             <div key={step.num} style={{ display: "flex", alignItems: "flex-start", flex: 1, minWidth: 220 }}>
               <div style={{ textAlign: "center", flex: 1, padding: "0 16px" }}>
                 <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 300, color: "#C9A84C", display: "block", marginBottom: 12 }}>{step.num}</span>
-                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff", marginBottom: 8 }}>{step.title}</h3>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>{step.desc}</p>
+                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--text-primary)", marginBottom: 8 }}>{step.title}</h3>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7 }}>{step.desc}</p>
               </div>
               {i < 2 && <div style={{ width: 60, borderTop: "1px dashed rgba(201,168,76,0.4)", marginTop: 24, flexShrink: 0 }} />}
             </div>
@@ -155,14 +155,14 @@ const Concierge = () => {
       </section>
 
       {/* Enquiry Form */}
-      <section id="concierge-enquiry" style={{ background: "#05181e", padding: "100px clamp(24px, 5vw, 80px)" }}>
+      <section id="concierge-enquiry" style={{ background: "var(--bg-primary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 64, maxWidth: 1000, margin: "0 auto" }} className="concierge-enquiry-grid">
           {/* Left sidebar */}
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 24 }}>
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 400, color: "#fff", lineHeight: 1.15 }}>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 400, color: "var(--text-primary)", lineHeight: 1.15 }}>
               We Respond<br /><em style={{ fontStyle: "italic", color: "#5ec8e0" }}>Personally.</em>
             </h2>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.75 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75 }}>
               Every concierge enquiry is handled by our Antigua team — not an automated system. We'll reach you within 2 hours.
             </p>
 
@@ -170,13 +170,13 @@ const Concierge = () => {
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <Phone size={16} style={{ color: "rgba(201,168,76,0.6)" }} />
                 <div>
-                  <a href="tel:+12687805510" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#fff", textDecoration: "none" }}>+1 (268) 780-5510</a>
-                  <span style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
+                  <a href="tel:+12687805510" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-primary)", textDecoration: "none" }}>+1 (268) 780-5510</a>
+                  <span style={{ display: "block", fontSize: 11, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <Mail size={16} style={{ color: "rgba(201,168,76,0.6)" }} />
-                <a href="mailto:info@gemscapetours.com" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#fff", textDecoration: "none" }}>info@gemscapetours.com</a>
+                <a href="mailto:info@gemscapetours.com" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-primary)", textDecoration: "none" }}>info@gemscapetours.com</a>
               </div>
             </div>
 
@@ -190,7 +190,7 @@ const Concierge = () => {
               <MessageCircle size={14} /> Chat on WhatsApp →
             </a>
 
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontStyle: "italic", fontSize: 12, color: "rgba(255,255,255,0.35)", lineHeight: 1.6 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontStyle: "italic", fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.6 }}>
               All enquiries are confidential and handled with complete discretion.
             </p>
           </div>
@@ -229,7 +229,7 @@ const Concierge = () => {
                   <label className="gem-form-label">PASSENGERS</label>
                   <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                     <button type="button" onClick={() => setForm(p => ({ ...p, guests: Math.max(1, p.guests - 1) }))} className="gem-stepper-btn"><Minus size={14} /></button>
-                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#fff", minWidth: 28, textAlign: "center" }}>{form.guests}</span>
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "var(--text-primary)", minWidth: 28, textAlign: "center" }}>{form.guests}</span>
                     <button type="button" onClick={() => setForm(p => ({ ...p, guests: Math.min(20, p.guests + 1) }))} className="gem-stepper-btn"><Plus size={14} /></button>
                   </div>
                 </div>
@@ -241,10 +241,10 @@ const Concierge = () => {
                       const isSelected = selectedServices.includes(chip);
                       return (
                         <button key={chip} type="button" onClick={() => toggleService(chip)} style={{
-                          background: isSelected ? "rgba(44,184,168,0.12)" : "rgba(255,255,255,0.04)",
-                          border: `1px solid ${isSelected ? "#2cb8a8" : "rgba(255,255,255,0.12)"}`,
+                          background: isSelected ? "rgba(44,184,168,0.12)" : "var(--card-bg)",
+                          border: `1px solid ${isSelected ? "#2cb8a8" : "var(--border-color)"}`,
                           borderRadius: 999, padding: "8px 16px", fontSize: 12,
-                          color: isSelected ? "#2cb8a8" : "rgba(255,255,255,0.6)",
+                          color: isSelected ? "#2cb8a8" : "var(--text-secondary)",
                           fontFamily: "'DM Sans', sans-serif", cursor: "pointer", transition: "all 0.2s",
                         }}>{chip}</button>
                       );
@@ -298,13 +298,13 @@ const Concierge = () => {
 
       <style>{`
         .concierge-service-card:hover { border-color: rgba(201,168,76,0.5) !important; background: rgba(201,168,76,0.04) !important; }
-        .gem-form-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: rgba(255,255,255,0.45); text-transform: uppercase; display: block; margin-bottom: 8px; }
-        .gem-form-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px 16px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; width: 100%; transition: border-color 0.25s ease; }
+        .gem-form-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: var(--text-tertiary); text-transform: uppercase; display: block; margin-bottom: 8px; }
+        .gem-form-input { background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 8px; padding: 14px 16px; color: var(--input-text); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; width: 100%; transition: border-color 0.25s ease; }
         .gem-form-input:focus { border-color: rgba(44,184,168,0.6); box-shadow: 0 0 0 3px rgba(44,184,168,0.08); }
-        .gem-form-input::placeholder { color: rgba(255,255,255,0.25); }
+        .gem-form-input::placeholder { color: var(--text-tertiary); }
         .gem-form-input--error { border-color: #e05a5a !important; }
         .gem-form-error { font-size: 11px; color: #e05a5a; margin-top: 4px; display: block; }
-        .gem-stepper-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.3); background: transparent; color: rgba(255,255,255,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .gem-stepper-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.3); background: transparent; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
         .gem-stepper-btn:hover { border-color: rgba(201,168,76,0.6); color: #fff; }
         @media (max-width: 768px) { .concierge-enquiry-grid { grid-template-columns: 1fr !important; gap: 40px !important; } }
       `}</style>

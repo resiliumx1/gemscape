@@ -87,7 +87,7 @@ export default function Testimonials() {
           position: "relative",
           padding: "100px 24px 80px",
           overflow: "hidden",
-          background: "#05181e",
+          background: "var(--bg-primary)",
         }}
       >
         {/* Ambient background particles */}

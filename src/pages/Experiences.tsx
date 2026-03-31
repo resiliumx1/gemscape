@@ -39,7 +39,7 @@ const Experiences = () => {
   const { navigateTo } = useWaveNav();
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#05181e" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
         <title>Curated Experiences in Antigua | Gemscape Travel & Tours</title>
         <meta name="description" content="Discover Antigua differently with private island tours, heritage explorations, and luxury charters by Gemscape Travel & Tours." />
@@ -51,10 +51,10 @@ const Experiences = () => {
         <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
           CURATED EXPERIENCES
         </span>
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "#fff", marginTop: 12 }}>
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
           Antigua Seen Differently.
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: 560, margin: "16px auto 0" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 560, margin: "16px auto 0" }}>
           Every journey we design is a private, unhurried encounter with the most beautiful island in the Caribbean.
         </p>
       </section>
@@ -64,7 +64,7 @@ const Experiences = () => {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 28 }}>
           {EXPERIENCES.map(exp => (
             <div key={exp.title} className="exp-card" style={{
-              background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.15)",
+              background: "var(--card-bg)", border: "1px solid var(--border-color)",
               borderRadius: 12, padding: 32, display: "flex", flexDirection: "column", gap: 16,
               transition: "all 0.3s ease", cursor: "default",
             }}>
@@ -75,21 +75,21 @@ const Experiences = () => {
                 <exp.icon size={24} style={{ color: "#C9A84C" }} />
               </div>
 
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, fontWeight: 400, color: "#fff" }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, fontWeight: 400, color: "var(--text-primary)" }}>
                 {exp.title}
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, flex: 1 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, flex: 1 }}>
                 {exp.description}
               </p>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 8, borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, borderTop: "1px solid var(--border-color)", paddingTop: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <Clock size={13} style={{ color: "rgba(255,255,255,0.3)" }} />
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.45)" }}>{exp.duration}</span>
+                  <Clock size={13} style={{ color: "var(--text-tertiary)" }} />
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "var(--text-secondary)" }}>{exp.duration}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <Users size={13} style={{ color: "rgba(255,255,255,0.3)" }} />
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.45)" }}>{exp.group}</span>
+                  <Users size={13} style={{ color: "var(--text-tertiary)" }} />
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "var(--text-secondary)" }}>{exp.group}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <DollarSign size={13} style={{ color: "rgba(201,168,76,0.6)" }} />
