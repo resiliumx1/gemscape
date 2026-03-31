@@ -343,7 +343,7 @@ const Experiences = () => {
                 <span style={{
                   fontFamily: "'DM Sans', sans-serif",
                   fontWeight: 600,
-                  fontSize: 10,
+                  fontSize: 12,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase" as const,
                   color: card.accent,
