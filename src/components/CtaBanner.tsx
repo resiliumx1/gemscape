@@ -311,7 +311,7 @@ export default function CtaBanner() {
           justify-content: center;
           flex-wrap: wrap;
           font-family: 'DM Sans', sans-serif;
-          font-size: 11px;
+          font-size: 13px;
           color: rgba(255,255,255,0.38);
           letter-spacing: 0.06em;
         }
