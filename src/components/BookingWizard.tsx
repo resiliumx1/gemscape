@@ -441,7 +441,7 @@ const BookingWizard = ({ initialService }: Props) => {
             ].map(text => (
               <div key={text} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <Check size={14} style={{ color: "#2cb8a8", flexShrink: 0 }} />
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{text}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)" }}>{text}</span>
               </div>
             ))}
           </div>
