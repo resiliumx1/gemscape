@@ -404,7 +404,7 @@ export default function Services() {
                     fontSize: 22,
                     fontWeight: 400,
                     fontStyle: "italic",
-                    color: "rgba(255,255,255,0.6)",
+                    color: "var(--text-tertiary)",
                     marginBottom: 14,
                     lineHeight: 1.4,
                   }}
