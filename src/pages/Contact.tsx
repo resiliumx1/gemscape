@@ -139,7 +139,7 @@ const Contact = () => {
 
               <div className="contact-form-field">
                 <label className="gem-form-label">SERVICE INTEREST</label>
-                <select name="serviceInterest" value={form.serviceInterest} onChange={handleChange} className="gem-form-input">
+                <select name="serviceInterest" value={form.serviceInterest} onChange={handleChange} className="gem-form-input contact-select">
                   <option value="">Select a service (optional)</option>
                   {SERVICE_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>

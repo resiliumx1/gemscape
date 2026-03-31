@@ -76,6 +76,7 @@ const HeroSection = () => {
     <section
       ref={heroRef}
       className="hero-cinematic"
+      data-theme="dark"
       style={{
         width: "100vw",
         height: "100vh",

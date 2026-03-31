@@ -38,13 +38,20 @@
     --gem-coral: 10 62% 53%;
 
     /* Theme variables */
-    --bg-primary: #f4f1ee;
+    --bg-primary:   #f4f1ee;
     --bg-secondary: #ede9e4;
-    --bg-tertiary: #f9f7f5;
-    --text-primary: #0B2A3B;
-    --text-secondary: rgba(11,42,59,0.65);
-    --border-color: rgba(11,42,59,0.12);
-    --card-bg: #f9f7f5;
+    --bg-tertiary:  #f9f7f5;
+    --bg-elevated:  #ffffff;
+    --text-primary:   #05181e;
+    --text-secondary: rgba(5,24,30,0.65);
+    --text-tertiary:  rgba(5,24,30,0.4);
+    --border-color: rgba(5,24,30,0.1);
+    --border-hover: rgba(44,184,168,0.4);
+    --card-bg:      rgba(255,255,255,0.8);
+    --input-bg:     rgba(255,255,255,0.9);
+    --input-border: rgba(5,24,30,0.15);
+    --input-text:   #05181e;
+    --select-bg:    #ffffff;
 
     /* Map to shadcn tokens */
     --background: var(--gem-cream);
@@ -79,21 +86,20 @@
   }
 
   .dark {
-    /* Deep ocean backgrounds */
-    --bg-primary: #0D1F2D;
-    --bg-secondary: #122435;
-    --bg-tertiary: #162B3D;
-    --bg-elevated: #1A3045;
-
-    /* Warm readable text */
-    --text-primary: #EDE8DC;
-    --text-secondary: #C4BBA8;
-    --text-tertiary: #8A8070;
-
-    /* Gold-tinted borders */
-    --border-color: rgba(184,150,90,0.18);
-    --border-hover: rgba(184,150,90,0.35);
-    --card-bg: #162B3D;
+    --bg-primary:   #05181e;
+    --bg-secondary: #071f27;
+    --bg-tertiary:  #0a2830;
+    --bg-elevated:  #0d3040;
+    --text-primary:   #ffffff;
+    --text-secondary: rgba(255,255,255,0.7);
+    --text-tertiary:  rgba(255,255,255,0.4);
+    --border-color: rgba(44,184,168,0.12);
+    --border-hover: rgba(44,184,168,0.4);
+    --card-bg:      rgba(255,255,255,0.04);
+    --input-bg:     rgba(255,255,255,0.06);
+    --input-border: rgba(255,255,255,0.12);
+    --input-text:   #ffffff;
+    --select-bg:    #0d3040;
 
     /* Remap shadcn tokens for dark */
     --gem-cream: 207 47% 11%;
@@ -118,6 +124,76 @@ body {
   color: var(--text-primary);
   overflow-x: hidden;
   margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Global form element theming ── */
+input, select, textarea {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border-color: var(--input-border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-tertiary) !important;
+}
+select option {
+  background-color: var(--select-bg) !important;
+  color: var(--input-text) !important;
+  padding: 8px 12px;
+}
+.dark select {
+  background-color: #0d3040 !important;
+  color: #ffffff !important;
+}
+.dark select option {
+  background-color: #0d3040 !important;
+  color: #ffffff !important;
+}
+html:not(.dark) select {
+  background-color: #ffffff !important;
+  color: #05181e !important;
+}
+html:not(.dark) select option {
+  background-color: #ffffff !important;
+  color: #05181e !important;
+}
+
+/* ── Booking wizard card theming ── */
+.dark .bw-card { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); }
+html:not(.dark) .bw-card { background: #ffffff; border-color: rgba(5,24,30,0.1); box-shadow: 0 4px 24px rgba(5,24,30,0.08); }
+.dark .bw-label { color: rgba(255,255,255,0.45); }
+html:not(.dark) .bw-label { color: rgba(5,24,30,0.55); }
+.dark .bw-input { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.12); }
+html:not(.dark) .bw-input { background: #ffffff; color: #05181e; border-color: rgba(5,24,30,0.18); }
+.dark .bw-input::placeholder { color: rgba(255,255,255,0.2); }
+html:not(.dark) .bw-input::placeholder { color: rgba(5,24,30,0.3); }
+
+/* ── Contact select theming ── */
+.dark .contact-select { background: #0d3040 !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.15) !important; }
+.dark .contact-select option { background: #0d3040 !important; color: #ffffff !important; }
+html:not(.dark) .contact-select { background: #ffffff !important; color: #05181e !important; border: 1px solid rgba(5,24,30,0.18) !important; }
+html:not(.dark) .contact-select option { background: #ffffff !important; color: #05181e !important; }
+
+/* ── Responsive form fixes ── */
+@media (max-width: 768px) {
+  select, input, textarea {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+  select option {
+    padding: 12px 16px;
+    min-height: 44px;
+  }
+  .bw-card {
+    margin: 0 12px;
+    border-radius: 12px;
+  }
+}
+@media (max-width: 480px) {
+  select, input, textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
 }
 
 /* Typography */
