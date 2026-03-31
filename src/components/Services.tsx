@@ -299,7 +299,7 @@ export default function Services() {
                 >
                   <span
                     style={{
-                      fontSize: 11,
+                      fontSize: 13,
                       fontFamily: "'Cormorant Garamond', serif",
                       color: isActive ? s.accent : "var(--text-tertiary)",
                       fontWeight: 400,
