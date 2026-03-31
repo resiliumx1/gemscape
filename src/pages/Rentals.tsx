@@ -165,7 +165,7 @@ const Rentals = () => {
           ref={bgRef}
           className="rentals-hero__bg"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000&q=85')`,
+            backgroundImage: `url('${rentalsHeroBg}')`,
           }}
         />
         <div className="rentals-hero__gradient-bottom" />
