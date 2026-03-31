@@ -359,8 +359,8 @@ export default function Navbar() {
           <img
             src="/images/gemscape-logo.png"
             alt="Gemscape Travel & Tours"
-            className="h-[44px] sm:h-[52px] w-auto object-contain"
-            style={{ background: "transparent", minWidth: 120 }}
+            className="h-[36px] sm:h-[42px] w-auto object-contain"
+            style={{ background: "transparent", minWidth: 100 }}
           />
         </motion.button>
 
