@@ -92,6 +92,7 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
   const location = useLocation();
   const [isAnimating, setIsAnimating] = useState(false);
   const [phase, setPhase] = useState<"idle" | "cover" | "reveal">("idle");
+  const [activeColors, setActiveColors] = useState<string[]>(WAVE_COLOR_PALETTES.default);
   const pendingPath = useRef<string | null>(null);
   const animationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
