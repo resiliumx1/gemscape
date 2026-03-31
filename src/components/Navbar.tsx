@@ -186,7 +186,7 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
       initial="initial"
       whileHover="hover"
       whileTap="tap"
-      className={`relative overflow-hidden px-10 py-3.5 rounded-full group shadow-lg ${fullWidth ? "w-full" : ""}`}
+      className={`relative overflow-hidden px-7 py-2.5 rounded-full group shadow-lg ${fullWidth ? "w-full" : ""}`}
       style={{
         border: "1px solid rgba(184,149,106,0.35)",
         background: "linear-gradient(135deg, rgba(26,138,158,0.25) 0%, rgba(44,184,168,0.15) 100%)",
