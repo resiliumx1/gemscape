@@ -19,6 +19,7 @@ import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
 import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
+import Packages from "./pages/Packages.tsx";
 import WavePageTransition from "@/components/WavePageTransition";
 
 gsap.registerPlugin(ScrollTrigger);
