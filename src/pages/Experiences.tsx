@@ -75,7 +75,7 @@ const Experiences = () => {
                 <exp.icon size={24} style={{ color: "#C9A84C" }} />
               </div>
 
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, fontWeight: 400, color: "#fff" }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, fontWeight: 400, color: "var(--text-primary)" }}>
                 {exp.title}
               </h3>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, flex: 1 }}>
