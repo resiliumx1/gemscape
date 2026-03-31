@@ -175,7 +175,7 @@ const BookingWizard = ({ initialService }: Props) => {
                 <span style={{
                   fontSize: 10, letterSpacing: ".15em", textTransform: "uppercase",
                   fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
-                  color: isActive ? "#fff" : "rgba(255,255,255,0.3)",
+                  color: isActive ? "var(--text-primary)" : "var(--text-tertiary)",
                 }}>{label}</span>
               </div>
               {i < 3 && (
