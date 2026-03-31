@@ -63,20 +63,22 @@ function getPalette(path: string): PaletteEntry[] {
 
 // ─── Wave math ────────────────────────────────────────────────────────────────
 const LAYER_CONFIG = [
-  { amp: 32, speed: 0.55, offset: 0 },
-  { amp: 25, speed: 0.82, offset: 1.4 },
-  { amp: 19, speed: 1.18, offset: 2.9 },
-  { amp: 14, speed: 1.55, offset: 0.7 },
-  { amp: 9, speed: 2.1, offset: 3.3 },
+  { amp: 48, freq: 0.0028, speed: 0.38, offset: 0.0,  phase2: 0.8 },
+  { amp: 36, freq: 0.0042, speed: 0.62, offset: 1.57, phase2: 2.1 },
+  { amp: 26, freq: 0.0058, speed: 0.95, offset: 3.14, phase2: 0.5 },
+  { amp: 18, freq: 0.0075, speed: 1.35, offset: 0.78, phase2: 3.8 },
+  { amp: 11, freq: 0.0095, speed: 1.85, offset: 2.45, phase2: 1.2 },
 ];
 
-const FREQ = 0.004;
+const FREQ = 0.0032;
 
-function waveY(x: number, t: number, amp: number, speed: number, offset: number): number {
+function waveY(x: number, t: number, amp: number, speed: number, offset: number, phase2: number): number {
   return (
-    Math.sin(x * FREQ + t * speed + offset) * amp +
-    Math.sin(x * FREQ * 1.65 - t * speed * 0.68 + offset * 1.3) * amp * 0.38 +
-    Math.sin(x * FREQ * 2.9 + t * speed * 1.25) * amp * 0.15
+    Math.sin(x * FREQ + t * speed + offset) * amp * 0.55 +
+    Math.sin(x * FREQ * 1.42 - t * speed * 0.71 + phase2) * amp * 0.28 +
+    Math.sin(x * FREQ * 2.37 + t * speed * 1.18 + offset * 0.5) * amp * 0.12 +
+    Math.cos(x * FREQ * 0.61 + t * speed * 0.44 + phase2 * 0.7) * amp * 0.08 -
+    amp * 0.03
   );
 }
 
