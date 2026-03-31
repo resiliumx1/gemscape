@@ -218,8 +218,8 @@ const BookingWizard = ({ initialService }: Props) => {
                     {svc.badge}
                   </span>
                 </div>
-                <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "#fff" }}>{svc.title}</h4>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>{svc.desc}</p>
+                <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "var(--text-primary)" }}>{svc.title}</h4>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{svc.desc}</p>
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#C9A84C", fontWeight: 500 }}>{svc.price}</span>
               </button>
             ))}
