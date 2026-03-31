@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { WaveTransition, hasPlayedIntro } from "@/components/WaveTransition";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import Services from "@/components/Services";
@@ -18,8 +17,6 @@ import gsap from "gsap";
 gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
-  const contentDelay = 0; // Intro handled by IntroSplash
-
   useEffect(() => {
     const images = document.querySelectorAll("img");
     let loaded = 0;
@@ -45,18 +42,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-x-hidden flex flex-col bg-[#022c22]">
-      <WaveTransition />
-
-      <motion.div
-        className="relative z-10 flex flex-col min-h-screen"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 1.5,
-          delay: contentDelay,
-          ease: [0.25, 0.1, 0.25, 1],
-        }}
-      >
+      <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         <HeroSection />
         <Services />
@@ -67,7 +53,7 @@ const Index = () => {
         <WhyGemscape />
         <CtaBanner />
         <Footer />
-      </motion.div>
+      </div>
       <WhatsAppFab />
     </div>
   );
