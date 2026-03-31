@@ -52,7 +52,7 @@ const Footer = () => {
               marginBottom: 24,
             }}
           >
-            Premium travel experiences in Antigua — private rentals, island tours, and flight concierge for discerning travellers.
+            Premium travel experiences in Antigua &amp; Barbuda — private rentals, island tours, and flight concierge for discerning travellers.
           </p>
           <div style={{ display: "flex", gap: 14 }}>
             {[
