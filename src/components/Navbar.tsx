@@ -347,7 +347,7 @@ export default function Navbar() {
         {/* Logo */}
         <motion.button
           onClick={() => navigateTo("/")}
-          style={{ y: logoY }}
+          
           variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
