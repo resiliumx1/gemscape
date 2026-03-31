@@ -154,7 +154,7 @@ const Rentals = () => {
   return (
     <>
       <Helmet>
-        <title>Car Rental Antigua | Premium Fleet — Gemscape Travel & Tours</title>
+        <title>Car Rental Antigua & Barbuda | Premium Fleet — Gemscape Travel & Tours</title>
         <meta name="description" content="Browse Gemscape's premium rental fleet in Antigua. SUVs, Jeeps, sedans delivered to your hotel, airport or marina. Full insurance & 24/7 support included." />
       </Helmet>
       <Navbar />
