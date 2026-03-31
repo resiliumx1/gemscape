@@ -285,11 +285,11 @@ export default function Services() {
                     gap: 16,
                     padding: "20px 0",
                     cursor: "pointer",
-                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    borderBottom: "1px solid var(--border-color)",
                     transition: "all 0.3s ease",
                     position: "relative",
                     ...(i === 0
-                      ? { borderTop: "1px solid rgba(255,255,255,0.06)" }
+                      ? { borderTop: "1px solid var(--border-color)" }
                       : {}),
                   }}
                   onClick={() => setActive(i)}
@@ -300,7 +300,7 @@ export default function Services() {
                     style={{
                       fontSize: 11,
                       fontFamily: "'Cormorant Garamond', serif",
-                      color: isActive ? s.accent : "rgba(255,255,255,0.2)",
+                      color: isActive ? s.accent : "var(--text-tertiary)",
                       fontWeight: 400,
                       minWidth: 28,
                       transition: "color 0.3s ease",
@@ -318,8 +318,8 @@ export default function Services() {
                         fontWeight: 500,
                         color:
                           isActive || isHov
-                            ? "#fff"
-                            : "rgba(255,255,255,0.5)",
+                            ? "var(--text-primary)"
+                            : "var(--text-secondary)",
                         transition: "color 0.3s ease",
                         letterSpacing: ".02em",
                       }}
@@ -331,7 +331,7 @@ export default function Services() {
                       style={{
                         fontSize: 9,
                         letterSpacing: ".15em",
-                        color: "rgba(255,255,255,0.25)",
+                        color: "var(--text-tertiary)",
                         fontFamily: "'DM Sans', sans-serif",
                         textTransform: "uppercase",
                         marginTop: 2,
@@ -404,7 +404,7 @@ export default function Services() {
                     fontSize: 22,
                     fontWeight: 400,
                     fontStyle: "italic",
-                    color: "rgba(255,255,255,0.6)",
+                    color: "var(--text-tertiary)",
                     marginBottom: 14,
                     lineHeight: 1.4,
                   }}
@@ -416,7 +416,7 @@ export default function Services() {
                   style={{
                     fontSize: 14,
                     lineHeight: 1.8,
-                    color: "rgba(255,255,255,0.45)",
+                    color: "var(--text-secondary)",
                     fontFamily: "'DM Sans', sans-serif",
                     maxWidth: 440,
                     marginBottom: 28,
@@ -489,14 +489,14 @@ export default function Services() {
         html:not(.dark) .svc-right {
           background: #f4f1ee !important;
         }
-        html:not(.dark) .svc-item-title { color: rgba(5,24,30,0.75) !important; }
+        html:not(.dark) .svc-item { border-color: rgba(5,24,30,0.1) !important; }
+        html:not(.dark) .svc-item:first-child { border-color: rgba(5,24,30,0.1) !important; }
+        html:not(.dark) .svc-item-title { color: rgba(5,24,30,0.85) !important; }
         html:not(.dark) .svc-item--active .svc-item-title,
         html:not(.dark) .svc-item:hover .svc-item-title { color: #05181e !important; }
-        html:not(.dark) .svc-item { border-color: rgba(5,24,30,0.08) !important; }
-        html:not(.dark) .svc-item:first-child { border-color: rgba(5,24,30,0.08) !important; }
-        html:not(.dark) .svc-desc-headline { color: rgba(5,24,30,0.6) !important; }
-        html:not(.dark) .svc-desc-body { color: rgba(5,24,30,0.55) !important; }
-        html:not(.dark) .svc-item-tag { color: rgba(5,24,30,0.35) !important; }
+        html:not(.dark) .svc-item-tag { color: rgba(5,24,30,0.5) !important; }
+        html:not(.dark) .svc-desc-headline { color: rgba(5,24,30,0.75) !important; }
+        html:not(.dark) .svc-desc-body { color: rgba(5,24,30,0.7) !important; }
         html:not(.dark) .eyebrow span { color: #1a8a9e !important; }
       `}</style>
     </>
