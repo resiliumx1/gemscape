@@ -424,7 +424,7 @@ const BookingWizard = ({ initialService }: Props) => {
               <span style={{ fontSize: 10, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR DETAILS</span>
               <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
               <span>{fullName}</span>
               <span>{email.replace(/(.{2}).*(@.*)/, "$1***$2")}</span>
               {phone && <span>{phone}</span>}
