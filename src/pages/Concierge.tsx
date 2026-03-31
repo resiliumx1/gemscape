@@ -115,7 +115,7 @@ const Concierge = () => {
       </section>
 
       {/* What's Included */}
-      <section style={{ background: "#061418", padding: "100px clamp(24px, 5vw, 80px)" }}>
+      <section style={{ background: "var(--bg-secondary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>What's Included</span>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "#fff", marginTop: 12 }}>Every Detail, Arranged.</h2>
