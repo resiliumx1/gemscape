@@ -67,9 +67,6 @@ const App = () => {
         <Toaster />
         <Sonner />
 
-        {showIntro && !isAdmin && (
-          <CinematicIntro onComplete={handleIntroComplete} />
-        )}
 
         <BrowserRouter>
           <PageTransitionProvider>
