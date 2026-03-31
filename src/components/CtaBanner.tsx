@@ -133,7 +133,7 @@ export default function CtaBanner() {
             />
             <span
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: ".25em",
                 color: "#C9A84C",
                 fontFamily: "'DM Sans', sans-serif",
