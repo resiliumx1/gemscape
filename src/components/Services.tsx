@@ -330,7 +330,7 @@ export default function Services() {
                     <span
                       className="svc-item-tag"
                       style={{
-                        fontSize: 9,
+                        fontSize: 12,
                         letterSpacing: ".15em",
                         color: "var(--text-tertiary)",
                         fontFamily: "'DM Sans', sans-serif",
