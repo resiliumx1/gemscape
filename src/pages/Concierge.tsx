@@ -135,10 +135,10 @@ const Concierge = () => {
       </section>
 
       {/* How It Works */}
-      <section style={{ background: "#071e28", padding: "100px clamp(24px, 5vw, 80px)" }}>
+      <section style={{ background: "var(--bg-tertiary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>How It Works</span>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "#fff", marginTop: 12 }}>Three Simple Steps.</h2>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Three Simple Steps.</h2>
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 0, maxWidth: 900, margin: "0 auto", flexWrap: "wrap" }}>
           {STEPS.map((step, i) => (
