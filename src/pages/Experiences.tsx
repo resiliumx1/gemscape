@@ -41,7 +41,7 @@ const Experiences = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
-        <title>Curated Experiences in Antigua | Gemscape Travel & Tours</title>
+        <title>Curated Experiences in Antigua &amp; Barbuda | Gemscape Travel &amp; Tours</title>
         <meta name="description" content="Discover Antigua differently with private island tours, heritage explorations, and luxury charters by Gemscape Travel & Tours." />
       </Helmet>
       <Navbar />
