@@ -381,7 +381,7 @@ export default function Navbar() {
         <motion.div
           variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-4 sm:gap-6"
+          className="flex items-center gap-3 sm:gap-4"
         >
           <div className="hidden sm:block">
             <CurrencyToggle />
