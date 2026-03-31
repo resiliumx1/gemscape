@@ -281,27 +281,19 @@ export default function WaveTransition({
 }
 
 // ─── Navigation hooks ─────────────────────────────────────────────────────────
+import { useWaveNavigation } from '@/components/WavePageTransition';
+
 export function useWave() {
   const navigate = useNavigate();
   const location = useLocation();
-  let waveNav: { navigateWithWave: (p: string) => void } | null = null;
-  try {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { useWaveNavigation } = require('@/components/WavePageTransition');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    waveNav = useWaveNavigation();
-  } catch { /* fallback */ }
+  const { navigateWithWave } = useWaveNavigation();
 
   const navigateTo = useCallback(
     (path: string, _variant?: string) => {
       if (path === location.pathname) return;
-      if (waveNav) {
-        waveNav.navigateWithWave(path);
-      } else {
-        navigate(path);
-      }
+      navigateWithWave(path);
     },
-    [navigate, location.pathname, waveNav]
+    [location.pathname, navigateWithWave]
   );
 
   return { navigateTo };
@@ -310,24 +302,14 @@ export function useWave() {
 export function useWaveNav() {
   const navigate = useNavigate();
   const location = useLocation();
-  let waveNav: { navigateWithWave: (p: string) => void } | null = null;
-  try {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { useWaveNavigation } = require('@/components/WavePageTransition');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    waveNav = useWaveNavigation();
-  } catch { /* fallback */ }
+  const { navigateWithWave } = useWaveNavigation();
 
   const navigateTo = useCallback(
     (path: string) => {
       if (path === location.pathname) return;
-      if (waveNav) {
-        waveNav.navigateWithWave(path);
-      } else {
-        navigate(path);
-      }
+      navigateWithWave(path);
     },
-    [navigate, location.pathname, waveNav]
+    [location.pathname, navigateWithWave]
   );
 
   return { navigateTo };
