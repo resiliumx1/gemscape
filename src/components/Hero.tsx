@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useWave } from "@/components/GemscapeWave";
+import { useWave } from "@/components/WavePageTransition";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import WaveDivider from "./WaveDivider";
@@ -91,7 +91,7 @@ const Hero = () => {
             <a
               href="/book"
               className="hero__btn-primary shimmer-button"
-              onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
             >
               <span className="hero__btn-shimmer" />
               Explore Experiences
@@ -99,7 +99,7 @@ const Hero = () => {
             <a
               href="/book"
               className="hero__btn-secondary book-now-btn"
-              onClick={(e) => { e.preventDefault(); navigateTo("/book", "crash"); }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
               style={{ borderColor: 'hsl(var(--gem-gold))', color: 'hsl(var(--gem-gold))', background: 'rgba(184,150,90,0.1)' }}
             >
               Book Now

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useWave } from "@/components/GemscapeWave";
+import { useWave } from "@/components/WavePageTransition";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -92,7 +92,7 @@ const Experiences = () => {
               <a
                 href={card.route}
                 className="exp-card__link"
-                onClick={(e) => { e.preventDefault(); navigateTo(card.route, "tidal"); }}
+                onClick={(e) => { e.preventDefault(); navigateTo(card.route); }}
               >
                 Discover <span className="exp-card__arrow">→</span>
               </a>

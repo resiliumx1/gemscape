@@ -3,7 +3,7 @@ import { Anchor, Map, Sailboat, Clock, Users, DollarSign } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
-import { useWaveNav } from "@/components/PageTransitionWave";
+import { useWaveNav } from "@/components/WavePageTransition";
 
 const EXPERIENCES = [
   {

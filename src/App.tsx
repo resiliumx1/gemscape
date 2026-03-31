@@ -4,7 +4,6 @@ import { HelmetProvider } from "react-helmet-async";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,8 +19,6 @@ import Book from "./pages/Book.tsx";
 import Concierge from "./pages/Concierge.tsx";
 import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
-import { PageTransitionProvider } from "@/components/PageTransitionWave";
-import WaveTransition from "@/components/WaveTransition";
 import WavePageTransition from "@/components/WavePageTransition";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -39,21 +36,17 @@ function ScrollToTop() {
 }
 
 function AnimatedRoutes() {
-  const location = useLocation();
-
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<WaveTransition color="teal"><Index /></WaveTransition>} />
-        <Route path="/rentals" element={<WaveTransition color="gold"><Rentals /></WaveTransition>} />
-        <Route path="/book" element={<WaveTransition color="teal"><Book /></WaveTransition>} />
-        <Route path="/concierge" element={<WaveTransition color="blue"><Concierge /></WaveTransition>} />
-        <Route path="/contact" element={<WaveTransition color="green"><Contact /></WaveTransition>} />
-        <Route path="/experiences" element={<WaveTransition color="teal"><Experiences /></WaveTransition>} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/rentals" element={<Rentals />} />
+      <Route path="/book" element={<Book />} />
+      <Route path="/concierge" element={<Concierge />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/experiences" element={<Experiences />} />
+      <Route path="/admin" element={<Admin />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
@@ -101,10 +94,8 @@ const App = () => {
 
         <BrowserRouter>
           <WavePageTransition>
-            <PageTransitionProvider>
-              <ScrollToTop />
-              <AnimatedRoutes />
-            </PageTransitionProvider>
+            <ScrollToTop />
+            <AnimatedRoutes />
           </WavePageTransition>
         </BrowserRouter>
       </TooltipProvider>

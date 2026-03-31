@@ -48,10 +48,10 @@ const WAVE_COLORS = [
 
 // ── Timing constants (ms) ───────────────────────────────────
 const COVER_DURATION = 600;
-const STAGGER_DELAY = 100; // delay between each layer
+const STAGGER_DELAY = 180; // delay between each layer
 const HOLD_DURATION = 200;
 const REVEAL_DURATION = 600;
-const ROUTE_CHANGE_DELAY = COVER_DURATION + 100; // change route just after cover
+const ROUTE_CHANGE_DELAY = COVER_DURATION + 300; // change route just after cover
 const TOTAL_DURATION =
   COVER_DURATION + HOLD_DURATION + REVEAL_DURATION + STAGGER_DELAY * 2 + 100;
 
@@ -219,3 +219,26 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
 };
 
 export default WavePageTransition;
+
+// ── Compatibility hooks (drop-in replacements for old wave files) ───
+export function useWave() {
+  const { navigateWithWave } = useWaveNavigation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const navigateTo = React.useCallback(
+    (path: string) => {
+      if (path === location.pathname) return;
+      navigateWithWave(path);
+    },
+    [location.pathname, navigateWithWave]
+  );
+  return { navigateTo };
+}
+
+export function useWaveNav() {
+  return useWave();
+}
+
+export function usePageNav() {
+  return useWave();
+}
