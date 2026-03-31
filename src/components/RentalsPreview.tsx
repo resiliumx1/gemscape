@@ -28,7 +28,7 @@ const VEHICLES_DATA = [
     category: "Sedan / SUV",
     rateUsd: 75,
     /* REPLACE WITH REAL VEHICLE PHOTO */
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=800&q=85",
     style: { transform: "rotate(-0.5deg) translateY(-12px)", top: "80px", right: "80px", zIndex: 3 },
   },
 ];

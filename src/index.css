@@ -2322,6 +2322,14 @@ header * {
   padding: 120px 80px;
 }
 
+.rb-section .gem-form-label,
+.rb-section label {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.rb-section .rb-h2 {
+}
+
 @media (max-width: 767px) {
   .rb-section {
     padding: 72px 24px;
