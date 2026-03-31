@@ -1,284 +1,442 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
-import WaveDivider from "@/components/WaveDivider";
+import { Star, Quote } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const TESTIMONIALS = [
+const REVIEWS = [
   {
-    quote: "The circumnavigation tour was the highlight of our entire Caribbean trip. Our guide knew every hidden cove — places no tourist map would ever show you.",
+    quote:
+      "The circumnavigation tour was the highlight of our entire Caribbean trip. Our guide knew every hidden cove — places no tourist map would ever show you.",
     name: "Sarah M.",
     origin: "New York, USA",
     service: "Island Circumnavigation",
-    rating: 5,
+    initials: "SM",
+    accent: "#2cb8a8",
   },
   {
-    quote: "Our private tour to English Harbour was beyond anything we imagined. The stories, the rum, the sunset — pure magic from start to finish.",
-    name: "James K.",
-    origin: "London, UK",
-    service: "Heritage & Discovery Tour",
-    rating: 5,
-  },
-  {
-    quote: "Gemscape handled every detail of our arrival — car, hotel, first dinner reservation. We felt like VIPs from the moment we landed in Antigua.",
+    quote:
+      "Gemscape handled every detail of our arrival — car, hotel, first dinner. We felt like VIPs from the moment we landed in Antigua. Seamless from start to finish.",
     name: "Priya & Rohan S.",
     origin: "Toronto, Canada",
     service: "Flight Concierge",
-    rating: 5,
+    initials: "PS",
+    accent: "#b8956a",
   },
   {
-    quote: "We rented a Jeep for the week and explored the island on our own terms. Pickup was seamless, the vehicle was immaculate, and the price was unbeatable.",
+    quote:
+      "We rented a Jeep for the week and found our own Antigua. The pickup was seamless, the vehicle was immaculate. No tourist trap, just raw island freedom.",
     name: "Carlos D.",
     origin: "Miami, USA",
     service: "Vehicle Rental",
-    rating: 5,
+    initials: "CD",
+    accent: "#C9A84C",
   },
   {
-    quote: "From Darkwood Beach to Devil's Bridge — they showed us an Antigua that most tourists never see. Absolutely unforgettable.",
+    quote:
+      "From Darkwood Beach to Devil's Bridge — they showed us an Antigua that most tourists never see. Absolute world-class guiding. We're already planning our return.",
     name: "Emma & Liam T.",
     origin: "Sydney, Australia",
     service: "Beach Exploration",
-    rating: 5,
+    initials: "ET",
+    accent: "#1a8a9e",
+  },
+  {
+    quote:
+      "Our private charter to Cades Reef was beyond anything we imagined. Every detail arranged, zero stress. Just us, the crew, and the most beautiful water on earth.",
+    name: "James K.",
+    origin: "London, UK",
+    service: "Private Charter",
+    initials: "JK",
+    accent: "#3cc8b8",
   },
 ];
 
-const Testimonials = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+export default function Testimonials() {
   const [active, setActive] = useState(0);
+  const [prev, setPrev] = useState<number | null>(null);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  const next = useCallback(() => setActive((p) => (p + 1) % TESTIMONIALS.length), []);
-  const prev = useCallback(() => setActive((p) => (p - 1 + TESTIMONIALS.length) % TESTIMONIALS.length), []);
+  const advance = useCallback(() => {
+    setActive((a) => {
+      setPrev(a);
+      return (a + 1) % REVIEWS.length;
+    });
+  }, []);
+
+  const goTo = useCallback(
+    (i: number) => {
+      setPrev(active);
+      setActive(i);
+    },
+    [active]
+  );
 
   useEffect(() => {
     if (paused) return;
-    timerRef.current = setInterval(next, 5000);
+    timerRef.current = setInterval(advance, 5000);
     return () => clearInterval(timerRef.current);
-  }, [paused, next]);
+  }, [paused, advance]);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        sectionRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 1,
-          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-        }
-      );
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
-
-  const t = TESTIMONIALS[active];
+  const r = REVIEWS[active];
 
   return (
-    <section
-      ref={sectionRef}
-      className="testimonials"
-      style={{ padding: "80px 20px 40px", position: "relative" }}
-    >
-      <div className="testimonials__header" style={{ textAlign: "center", marginBottom: 48 }}>
-        <span className="eyebrow">Guest Experiences</span>
-        <h2 className="testimonials__h2">Stories From the Water.</h2>
-        <p style={{
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: 15,
-          color: "rgba(255,255,255,0.5)",
-          maxWidth: 480,
-          margin: "12px auto 0",
-          lineHeight: 1.7,
-        }}>
-          Real reviews from guests who explored Antigua with us.
-        </p>
-      </div>
-
-      {/* Main card */}
-      <div
+    <>
+      <section
+        ref={sectionRef}
         style={{
           position: "relative",
-          maxWidth: 640,
-          margin: "0 auto",
-          padding: "0 52px",
+          padding: "100px 24px 80px",
+          overflow: "hidden",
+          background: "#05181e",
         }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
       >
-        {/* Nav arrows */}
-        <button
-          onClick={prev}
-          aria-label="Previous testimonial"
-          style={{
-            position: "absolute",
-            left: 0,
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: "rgba(184,149,106,0.1)",
-            border: "1px solid rgba(184,149,106,0.25)",
-            borderRadius: "50%",
-            width: 40,
-            height: 40,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#b8956a",
-            cursor: "pointer",
-            transition: "all 0.2s",
-          }}
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <button
-          onClick={next}
-          aria-label="Next testimonial"
-          style={{
-            position: "absolute",
-            right: 0,
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: "rgba(184,149,106,0.1)",
-            border: "1px solid rgba(184,149,106,0.25)",
-            borderRadius: "50%",
-            width: 40,
-            height: 40,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#b8956a",
-            cursor: "pointer",
-            transition: "all 0.2s",
-          }}
-        >
-          <ChevronRight size={18} />
-        </button>
-
-        {/* Card content */}
+        {/* Ambient background particles */}
         <div
-          key={active}
           style={{
-            textAlign: "center",
-            padding: "36px 24px",
-            background: "rgba(5,24,30,0.5)",
-            border: "1px solid rgba(184,149,106,0.12)",
-            borderRadius: 16,
-            backdropFilter: "blur(12px)",
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            zIndex: 0,
           }}
         >
-          {/* Stars */}
-          <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 16 }}>
-            {Array.from({ length: t.rating }).map((_, i) => (
-              <Star key={i} size={16} fill="#C9A84C" stroke="none" />
-            ))}
+          {Array.from({ length: 20 }, (_, i) => (
+            <div
+              key={i}
+              style={{
+                position: "absolute",
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: Math.random() * 3 + 1,
+                height: Math.random() * 3 + 1,
+                borderRadius: "50%",
+                background:
+                  i % 3 === 0
+                    ? "#C9A84C"
+                    : i % 3 === 1
+                    ? "#2cb8a8"
+                    : "#fff",
+                animation: `voaFloat ${3 + Math.random() * 4}s ease-in-out ${
+                  Math.random() * 5
+                }s infinite`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Header */}
+        <div className="voa-header" style={{ position: "relative", zIndex: 1 }}>
+          <div className="voa-header-line" />
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <span
+              style={{
+                fontSize: 10,
+                letterSpacing: ".25em",
+                color: "#2cb8a8",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 600,
+                textTransform: "uppercase",
+              }}
+            >
+              Guest Experiences
+            </span>
+            <h2 className="voa-h2">Voices of Antigua</h2>
+            <p className="voa-sub">
+              Unscripted. Unfiltered. From guests who lived it.
+            </p>
+          </div>
+          <div className="voa-header-line" />
+        </div>
+
+        {/* Main stage */}
+        <div
+          className="voa-stage"
+          style={{ position: "relative", zIndex: 1 }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          {/* Large quote mark */}
+          <div className="voa-quote-mark">
+            <Quote size={64} />
           </div>
 
-          {/* Service badge */}
-          <span style={{
-            fontSize: 10,
-            letterSpacing: ".14em",
-            color: "#2cb8a8",
-            textTransform: "uppercase",
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 600,
-          }}>
-            {t.service}
-          </span>
+          {/* Quote content */}
+          <div className="voa-content">
+            {REVIEWS.map((review, i) => (
+              <div
+                key={i}
+                className={`voa-card ${
+                  i === active
+                    ? "voa-card--active"
+                    : i === prev
+                    ? "voa-card--exit"
+                    : ""
+                }`}
+              >
+                {/* Stars */}
+                <div className="voa-stars">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <Star
+                      key={j}
+                      size={14}
+                      fill="#C9A84C"
+                      strokeWidth={0}
+                      color="#C9A84C"
+                    />
+                  ))}
+                </div>
 
-          {/* Quote */}
-          <p style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(17px, 2.2vw, 22px)",
-            fontStyle: "italic",
-            fontWeight: 300,
-            color: "rgba(255,255,255,0.85)",
-            lineHeight: 1.7,
-            margin: "20px 0 24px",
-          }}>
-            "{t.quote}"
-          </p>
+                {/* The quote */}
+                <p className="voa-quote">"{review.quote}"</p>
 
-          {/* Divider */}
-          <div style={{
-            width: 40,
-            height: 1,
-            background: "linear-gradient(90deg, transparent, #b8956a, transparent)",
-            margin: "0 auto 16px",
-          }} />
-
-          {/* Attribution */}
-          <span style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: 14,
-            fontWeight: 600,
-            color: "#b8956a",
-            display: "block",
-          }}>
-            {t.name}
-          </span>
-          <span style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: 12,
-            color: "rgba(255,255,255,0.4)",
-          }}>
-            {t.origin}
-          </span>
+                {/* Attribution */}
+                <div className="voa-attribution">
+                  <div
+                    className="voa-avatar"
+                    style={{
+                      background: `${review.accent}20`,
+                      border: `1px solid ${review.accent}40`,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: review.accent,
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}
+                    >
+                      {review.initials}
+                    </span>
+                  </div>
+                  <div className="voa-author">
+                    <span className="voa-name">{review.name}</span>
+                    <span className="voa-origin">{review.origin}</span>
+                  </div>
+                  <span
+                    className="voa-service-badge"
+                    style={{
+                      color: review.accent,
+                      borderColor: `${review.accent}40`,
+                    }}
+                  >
+                    {review.service}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Dot indicators */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 28 }}>
-        {TESTIMONIALS.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            aria-label={`Testimonial ${i + 1}`}
+        {/* Navigation */}
+        <div className="voa-nav" style={{ position: "relative", zIndex: 1 }}>
+          {REVIEWS.map((review, i) => (
+            <button
+              key={i}
+              className={`voa-dot ${i === active ? "voa-dot--active" : ""}`}
+              style={
+                i === active
+                  ? { background: review.accent }
+                  : undefined
+              }
+              onClick={() => goTo(i)}
+              aria-label={`Review ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Progress bar */}
+        <div className="voa-progress-wrap" style={{ position: "relative", zIndex: 1 }}>
+          <div
+            key={active}
+            className="voa-progress-bar"
             style={{
-              width: i === active ? 28 : 8,
-              height: 4,
-              borderRadius: 2,
-              background: i === active ? "#b8956a" : "rgba(184,149,106,0.2)",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-              transition: "all 0.4s ease",
+              background: r.accent,
+              animation: paused ? "none" : "voaProgress 5s linear forwards",
             }}
           />
-        ))}
-      </div>
-
-      {/* Progress bar */}
-      <div style={{
-        maxWidth: 200,
-        margin: "20px auto 0",
-        height: 2,
-        background: "rgba(184,149,106,0.1)",
-        borderRadius: 1,
-        overflow: "hidden",
-      }}>
-        <div
-          key={`progress-${active}`}
-          style={{
-            height: "100%",
-            background: "#b8956a",
-            borderRadius: 1,
-            animation: paused ? "none" : "progressFill 5s linear forwards",
-          }}
-        />
-      </div>
+        </div>
+      </section>
 
       <style>{`
-        @keyframes progressFill {
+        @keyframes voaFloat {
+          0%,100% { opacity: 0.2; transform: translateY(0) scale(1); }
+          50%      { opacity: 0.8; transform: translateY(-12px) scale(1.5); }
+        }
+        .voa-header {
+          display: flex;
+          align-items: center;
+          gap: 32px;
+          justify-content: center;
+          text-align: center;
+          margin-bottom: 64px;
+        }
+        .voa-header-line {
+          flex: 1;
+          max-width: 120px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(44,184,168,0.4), transparent);
+        }
+        .voa-h2 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(32px, 5vw, 52px);
+          font-weight: 300;
+          color: #ffffff;
+          margin: 8px 0 4px;
+          letter-spacing: -0.01em;
+        }
+        html:not(.dark) .voa-h2 { color: #05181e; }
+        .voa-sub {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          color: rgba(255,255,255,0.45);
+          letter-spacing: 0.04em;
+        }
+        html:not(.dark) .voa-sub { color: rgba(5,24,30,0.5); }
+        .voa-stage {
+          position: relative;
+          max-width: 860px;
+          margin: 0 auto 40px;
+          min-height: 300px;
+        }
+        .voa-quote-mark {
+          position: absolute;
+          top: -16px; left: -8px;
+          color: rgba(44,184,168,0.12);
+          z-index: 0;
+          pointer-events: none;
+        }
+        .voa-content {
+          position: relative;
+          min-height: 260px;
+          z-index: 1;
+        }
+        .voa-card {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+          pointer-events: none;
+          padding: 48px 56px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 16px;
+          backdrop-filter: blur(8px);
+        }
+        html:not(.dark) .voa-card {
+          background: rgba(5,24,30,0.04);
+          border-color: rgba(5,24,30,0.08);
+        }
+        .voa-card--active {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+        .voa-card--exit {
+          opacity: 0;
+          transform: translateY(-12px);
+        }
+        .voa-stars {
+          display: flex;
+          gap: 4px;
+          margin-bottom: 24px;
+        }
+        .voa-quote {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(20px, 3vw, 28px);
+          font-weight: 300;
+          font-style: italic;
+          color: rgba(255,255,255,0.9);
+          line-height: 1.65;
+          margin: 0 0 32px;
+          letter-spacing: 0.01em;
+        }
+        html:not(.dark) .voa-quote { color: rgba(5,24,30,0.85); }
+        .voa-attribution {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+        .voa-avatar {
+          width: 44px; height: 44px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        .voa-author {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          flex: 1;
+        }
+        .voa-name {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          color: rgba(255,255,255,0.9);
+        }
+        html:not(.dark) .voa-name { color: #05181e; }
+        .voa-origin {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 12px;
+          color: rgba(255,255,255,0.4);
+        }
+        html:not(.dark) .voa-origin { color: rgba(5,24,30,0.45); }
+        .voa-service-badge {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          border: 1px solid;
+          border-radius: 3px;
+          padding: 5px 10px;
+          margin-left: auto;
+        }
+        .voa-nav {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 16px;
+        }
+        .voa-dot {
+          height: 4px; width: 8px;
+          border-radius: 2px;
+          background: rgba(255,255,255,0.2);
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          transition: all 0.4s ease;
+        }
+        html:not(.dark) .voa-dot { background: rgba(5,24,30,0.2); }
+        .voa-dot--active { width: 32px; }
+        .voa-progress-wrap {
+          max-width: 160px;
+          margin: 0 auto;
+          height: 2px;
+          background: rgba(255,255,255,0.08);
+          border-radius: 1px;
+          overflow: hidden;
+        }
+        .voa-progress-bar {
+          height: 100%; width: 0%;
+          border-radius: 1px;
+        }
+        @keyframes voaProgress {
           from { width: 0%; }
-          to { width: 100%; }
+          to   { width: 100%; }
+        }
+        @media (max-width: 768px) {
+          .voa-card { padding: 32px 24px; }
+          .voa-quote { font-size: clamp(17px, 5vw, 22px); }
+          .voa-header { gap: 16px; }
+          .voa-header-line { max-width: 40px; }
+          .voa-service-badge { display: none; }
         }
       `}</style>
-
-      <WaveDivider variant="ocean" height={120} />
-    </section>
+    </>
   );
-};
-
-export default Testimonials;
+}
