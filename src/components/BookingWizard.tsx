@@ -419,7 +419,7 @@ const BookingWizard = ({ initialService }: Props) => {
           </div>
 
           {/* Contact summary */}
-          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
+          <div style={{ background: "var(--card-bg)", border: "1px solid var(--border-color)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <span style={{ fontSize: 10, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR DETAILS</span>
               <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
