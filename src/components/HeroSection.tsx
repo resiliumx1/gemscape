@@ -298,35 +298,35 @@ const HeroSection = () => {
       {/* Responsive styles */}
       <style>{`
         .hero-grid-layout {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
+          display: flex;
           align-items: center;
           max-width: 1280px;
           margin: 0 auto;
           padding: 0 48px;
-          gap: 48px;
+          height: 100%;
         }
         .hero-text-col {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           text-align: left;
+          max-width: 560px;
         }
         .hero-headline {
           font-size: clamp(40px, 5vw, 72px);
         }
-        .hero-gem-col {
+
+        /* Gem floats absolutely — doesn't affect text flow */
+        .hero-gem-float {
+          position: absolute;
+          z-index: 2;
+          right: 18%;
+          top: 50%;
+          transform: translateY(-50%);
           display: flex;
           align-items: center;
           justify-content: center;
-          position: relative;
-        }
-        .hero-gem-canvas {
-          width: clamp(300px, 40vw, 560px);
-          height: clamp(300px, 40vw, 560px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          pointer-events: none;
         }
 
         @keyframes chevronBounce {
@@ -341,34 +341,25 @@ const HeroSection = () => {
         @media (min-width: 769px) and (max-width: 1024px) {
           .hero-grid-layout {
             padding: 0 24px;
-            gap: 24px;
-            grid-template-columns: 1fr 1fr;
           }
-          .hero-gem-canvas {
-            width: clamp(240px, 35vw, 380px);
-            height: clamp(240px, 35vw, 380px);
+          .hero-gem-float {
+            right: 8%;
+          }
+          .hero-gem-float canvas {
+            width: 320px !important;
+            height: 320px !important;
           }
           .hero-headline {
             font-size: clamp(28px, 4.5vw, 48px) !important;
           }
         }
 
-        /* Mobile */
+        /* Mobile — gem above text, centered */
         @media (max-width: 768px) {
           .hero-grid-layout {
-            grid-template-columns: 1fr;
+            flex-direction: column;
+            justify-content: center;
             padding: 0 20px;
-            gap: 0;
-            justify-items: center;
-            align-content: center;
-          }
-          .hero-gem-col {
-            order: -1;
-            margin-bottom: -8px;
-          }
-          .hero-gem-canvas {
-            width: 180px;
-            height: 180px;
           }
           .hero-text-col {
             align-items: center;
@@ -376,6 +367,14 @@ const HeroSection = () => {
           }
           .hero-headline {
             font-size: clamp(24px, 7vw, 36px) !important;
+          }
+          .hero-gem-float {
+            position: relative;
+            right: auto;
+            top: auto;
+            transform: none;
+            margin-bottom: -8px;
+            order: -1;
           }
         }
       `}</style>
