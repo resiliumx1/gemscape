@@ -36,21 +36,17 @@ function ScrollToTop() {
 }
 
 function AnimatedRoutes() {
-  const location = useLocation();
-
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<WaveTransition color="teal"><Index /></WaveTransition>} />
-        <Route path="/rentals" element={<WaveTransition color="gold"><Rentals /></WaveTransition>} />
-        <Route path="/book" element={<WaveTransition color="teal"><Book /></WaveTransition>} />
-        <Route path="/concierge" element={<WaveTransition color="blue"><Concierge /></WaveTransition>} />
-        <Route path="/contact" element={<WaveTransition color="green"><Contact /></WaveTransition>} />
-        <Route path="/experiences" element={<WaveTransition color="teal"><Experiences /></WaveTransition>} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/rentals" element={<Rentals />} />
+      <Route path="/book" element={<Book />} />
+      <Route path="/concierge" element={<Concierge />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/experiences" element={<Experiences />} />
+      <Route path="/admin" element={<Admin />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
