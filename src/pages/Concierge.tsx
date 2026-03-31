@@ -241,10 +241,10 @@ const Concierge = () => {
                       const isSelected = selectedServices.includes(chip);
                       return (
                         <button key={chip} type="button" onClick={() => toggleService(chip)} style={{
-                          background: isSelected ? "rgba(44,184,168,0.12)" : "rgba(255,255,255,0.04)",
-                          border: `1px solid ${isSelected ? "#2cb8a8" : "rgba(255,255,255,0.12)"}`,
+                          background: isSelected ? "rgba(44,184,168,0.12)" : "var(--card-bg)",
+                          border: `1px solid ${isSelected ? "#2cb8a8" : "var(--border-color)"}`,
                           borderRadius: 999, padding: "8px 16px", fontSize: 12,
-                          color: isSelected ? "#2cb8a8" : "rgba(255,255,255,0.6)",
+                          color: isSelected ? "#2cb8a8" : "var(--text-secondary)",
                           fontFamily: "'DM Sans', sans-serif", cursor: "pointer", transition: "all 0.2s",
                         }}>{chip}</button>
                       );
