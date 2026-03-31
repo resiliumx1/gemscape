@@ -30,7 +30,7 @@ const CARDS = [
   },
   {
     images: [
-      { src: "/assets/bettys-hope-windmill.webp", alt: "Betty's Hope — restored 17th century sugar mill windmill" },
+      { src: bettysHopeImg, alt: "Betty's Hope — restored 17th century sugar mill windmill" },
       { src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85", alt: "St. John's Cathedral — baroque stone towers against blue sky" },
       { src: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=85", alt: "ATV buggy adventure through island trails" },
     ],
