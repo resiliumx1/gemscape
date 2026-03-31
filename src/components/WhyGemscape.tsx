@@ -184,7 +184,7 @@ export default function WhyGemscape() {
                   lineHeight: 1,
                 }}
               >
-                500+
+                1,000+
               </span>
               <div
                 style={{
