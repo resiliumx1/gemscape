@@ -347,18 +347,20 @@ export default function Navbar() {
         {/* Logo */}
         <motion.button
           onClick={() => navigateTo("/")}
-          
           variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0 gem-logo-wrap"
           aria-label="Gemscape home"
         >
-          <img
-            src="/images/gemscape-logo.png"
-            alt="Gemscape Travel & Tours"
-            className="h-[36px] sm:h-[42px] w-auto object-contain"
-            style={{ background: "transparent", minWidth: 100 }}
-          />
+          <div className="gem-logo-aura">
+            <img
+              src="/images/gemscape-logo.png"
+              alt="Gemscape Travel & Tours"
+              className="h-[36px] sm:h-[42px] w-auto object-contain gem-logo-img"
+              style={{ background: "transparent", minWidth: 100 }}
+            />
+            <div className="gem-logo-shimmer" />
+          </div>
         </motion.button>
 
         {/* Desktop Nav */}
