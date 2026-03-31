@@ -291,7 +291,7 @@ export function useWave() {
   const location = useLocation();
 
   const navigateTo = useCallback(
-    (path: string) => {
+    (path: string, _variant?: string) => {
       if (path === location.pathname) return;
       navigate(path);
     },
