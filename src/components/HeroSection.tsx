@@ -435,6 +435,49 @@ const HeroSection = () => {
             margin-bottom: -8px;
             order: -1;
           }
+          .hero-right-col {
+            display: none !important;
+          }
+        }
+
+        /* Button shimmer effects */
+        .hero-btn-shimmer,
+        .hero-btn-shimmer-gold {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%);
+          transform: translateX(-100%);
+          transition: none;
+        }
+        .hero-btn-primary:hover .hero-btn-shimmer {
+          animation: btn-shimmer 0.6s ease forwards;
+        }
+        .hero-btn-secondary:hover .hero-btn-shimmer-gold {
+          animation: btn-shimmer 0.6s ease forwards;
+        }
+        @keyframes btn-shimmer {
+          from { transform: translateX(-100%); }
+          to   { transform: translateX(100%); }
+        }
+
+        /* Mobile stats */
+        .hero-mobile-stats {
+          display: none;
+          flex-direction: row;
+          align-items: center;
+          gap: 20px;
+          margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+          .hero-mobile-stats {
+            display: flex;
+          }
+        }
+        .hero-mobile-stat {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 3px;
         }
       `}</style>
     </section>
