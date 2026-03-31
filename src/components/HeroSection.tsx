@@ -338,8 +338,8 @@ const HeroSection = () => {
         />
         <div style={{ position: "relative", zIndex: 1 }}>
           <BrilliantGem
-            width={isMobile ? 180 : 420}
-            height={isMobile ? 180 : 420}
+            width={isMobile ? 220 : 520}
+            height={isMobile ? 220 : 520}
             observerTarget={heroRef as React.RefObject<HTMLElement>}
           />
         </div>
@@ -392,7 +392,7 @@ const HeroSection = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          pointer-events: none;
+          pointer-events: auto;
         }
 
         @keyframes chevronBounce {
