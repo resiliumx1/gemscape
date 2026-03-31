@@ -118,14 +118,13 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
             rotateX: isHovered ? 0 : -20,
             pointerEvents: isHovered ? ("auto" as const) : ("none" as const),
           }}
-          style={{ originY: 0, perspective: 1000 }}
+          style={{ originY: 0, perspective: 1000, background: "var(--nav-dropdown-bg)", borderColor: "var(--nav-dropdown-border)" }}
           transition={{
             duration: isHovered ? 0.6 : 0.5,
             delay: isHovered ? 0.2 : 0,
             ease: isHovered ? [0.23, 1, 0.32, 1] : [0.4, 0, 0.2, 1],
           }}
           className="absolute top-full left-0 mt-4 w-64 backdrop-blur-2xl border rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
-          style={{ background: "var(--nav-dropdown-bg)", borderColor: "var(--nav-dropdown-border)" }}
         >
           <div className="py-3">
             {dropdownItems.map((item, idx) => (
