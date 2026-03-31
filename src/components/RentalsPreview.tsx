@@ -224,11 +224,18 @@ const RentalsPreview = () => {
                   <div style={{ aspectRatio: "16/10", overflow: "hidden" }}>
                     <img
                       src={img}
-                      alt={`${v.name} available for rental in Antigua`}
+                      alt={`${v.name} available for rental in Antigua & Barbuda`}
                       loading="lazy"
                       width={800}
                       height={500}
                       style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.fallbackUsed) {
+                          target.dataset.fallbackUsed = "true";
+                          target.src = "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85";
+                        }
+                      }}
                     />
                   </div>
                   <div style={{ padding: "16px 20px" }}>

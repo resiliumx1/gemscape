@@ -489,14 +489,14 @@ export default function Services() {
         html:not(.dark) .svc-right {
           background: #f4f1ee !important;
         }
-        html:not(.dark) .svc-item-title { color: rgba(5,24,30,0.75) !important; }
+        html:not(.dark) .svc-item { border-color: rgba(5,24,30,0.1) !important; }
+        html:not(.dark) .svc-item:first-child { border-color: rgba(5,24,30,0.1) !important; }
+        html:not(.dark) .svc-item-title { color: rgba(5,24,30,0.85) !important; }
         html:not(.dark) .svc-item--active .svc-item-title,
         html:not(.dark) .svc-item:hover .svc-item-title { color: #05181e !important; }
-        html:not(.dark) .svc-item { border-color: rgba(5,24,30,0.08) !important; }
-        html:not(.dark) .svc-item:first-child { border-color: rgba(5,24,30,0.08) !important; }
-        html:not(.dark) .svc-desc-headline { color: rgba(5,24,30,0.6) !important; }
-        html:not(.dark) .svc-desc-body { color: rgba(5,24,30,0.55) !important; }
-        html:not(.dark) .svc-item-tag { color: rgba(5,24,30,0.35) !important; }
+        html:not(.dark) .svc-item-tag { color: rgba(5,24,30,0.5) !important; }
+        html:not(.dark) .svc-desc-headline { color: rgba(5,24,30,0.75) !important; }
+        html:not(.dark) .svc-desc-body { color: rgba(5,24,30,0.7) !important; }
         html:not(.dark) .eyebrow span { color: #1a8a9e !important; }
       `}</style>
     </>
