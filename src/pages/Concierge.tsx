@@ -145,8 +145,8 @@ const Concierge = () => {
             <div key={step.num} style={{ display: "flex", alignItems: "flex-start", flex: 1, minWidth: 220 }}>
               <div style={{ textAlign: "center", flex: 1, padding: "0 16px" }}>
                 <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 300, color: "#C9A84C", display: "block", marginBottom: 12 }}>{step.num}</span>
-                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff", marginBottom: 8 }}>{step.title}</h3>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>{step.desc}</p>
+                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--text-primary)", marginBottom: 8 }}>{step.title}</h3>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7 }}>{step.desc}</p>
               </div>
               {i < 2 && <div style={{ width: 60, borderTop: "1px dashed rgba(201,168,76,0.4)", marginTop: 24, flexShrink: 0 }} />}
             </div>
