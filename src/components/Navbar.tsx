@@ -257,9 +257,6 @@ export default function Navbar() {
 
   const isHomepage = location.pathname === "/";
 
-  const logoY = useTransform(scrollY, [0, 1000], [0, -15]);
-  const navY = useTransform(scrollY, [0, 1000], [0, -8]);
-  const buttonY = useTransform(scrollY, [0, 1000], [0, -12]);
 
   // Dark mode init
   useEffect(() => {
