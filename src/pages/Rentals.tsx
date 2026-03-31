@@ -356,6 +356,59 @@ const Rentals = () => {
 
       <Footer />
       <WhatsAppFab />
+
+      {/* ─── Vehicle Lightbox ─── */}
+      {lightboxImage && (
+        <div
+          onClick={() => setLightboxImage(null)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 10000,
+            background: "rgba(5, 24, 30, 0.92)", backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexDirection: "column", gap: 20, padding: 24,
+            animation: "lightboxFadeIn 0.3s ease forwards", cursor: "pointer",
+          }}
+        >
+          <button
+            onClick={(e) => { e.stopPropagation(); setLightboxImage(null); }}
+            aria-label="Close lightbox"
+            style={{
+              position: "absolute", top: 24, right: 24,
+              background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)",
+              borderRadius: "50%", width: 48, height: 48,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer", color: "#fff", fontSize: 22, fontWeight: 300,
+              transition: "all 0.3s ease", zIndex: 10001,
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.2)"; e.currentTarget.style.borderColor = "rgba(44,184,168,0.5)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; }}
+          >✕</button>
+          <img
+            src={lightboxImage.src}
+            alt={lightboxImage.name}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "90vw", maxHeight: "72vh", width: "auto", height: "auto",
+              objectFit: "contain", borderRadius: 12, boxShadow: "0 32px 80px rgba(0,0,0,0.5)",
+              animation: "lightboxZoomIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards", cursor: "default",
+            }}
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.fallbackUsed) {
+                target.dataset.fallbackUsed = "true";
+                target.src = "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85";
+              }
+            }}
+          />
+          <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 400, color: "#fff", opacity: 0.85, animation: "lightboxFadeIn 0.4s ease 0.15s both" }}>
+            {lightboxImage.name}
+          </span>
+          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, letterSpacing: "0.12em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
+            Click anywhere or press Esc to close
+          </span>
+        </div>
+      )
     </>
   );
 };
