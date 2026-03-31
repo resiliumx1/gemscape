@@ -448,7 +448,7 @@ export default function Navbar() {
                 <div className="flex flex-col gap-4">
                   <motion.span
                     variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="text-[10px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
+                    className="text-[12px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
                   >
                     Navigation
                   </motion.span>
