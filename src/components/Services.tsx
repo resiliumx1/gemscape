@@ -331,7 +331,7 @@ export default function Services() {
                       style={{
                         fontSize: 9,
                         letterSpacing: ".15em",
-                        color: "rgba(255,255,255,0.25)",
+                        color: "var(--text-tertiary)",
                         fontFamily: "'DM Sans', sans-serif",
                         textTransform: "uppercase",
                         marginTop: 2,
