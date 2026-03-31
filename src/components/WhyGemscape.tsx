@@ -169,7 +169,7 @@ export default function WhyGemscape() {
               <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <span
                   style={{
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 600,
                     color: "var(--text-secondary)",
                     fontFamily: "'DM Sans', sans-serif",
