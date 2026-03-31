@@ -426,7 +426,7 @@ const Experiences = () => {
                     borderRadius: 6,
                     fontFamily: "'DM Sans', sans-serif",
                     fontWeight: 600,
-                    fontSize: 12,
+                    fontSize: 13,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase" as const,
                     cursor: "pointer",

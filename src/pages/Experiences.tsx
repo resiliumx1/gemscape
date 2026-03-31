@@ -89,7 +89,7 @@ const Experiences = () => {
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <Users size={13} style={{ color: "var(--text-tertiary)" }} />
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "var(--text-secondary)" }}>{exp.group}</span>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)" }}>{exp.group}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <DollarSign size={13} style={{ color: "rgba(201,168,76,0.6)" }} />

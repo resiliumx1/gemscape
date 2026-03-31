@@ -387,7 +387,7 @@ export default function Testimonials() {
         html:not(.dark) .voa-origin { color: rgba(5,24,30,0.45); }
         .voa-service-badge {
           font-family: 'DM Sans', sans-serif;
-          font-size: 9px;
+          font-size: 12px;
           font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;
