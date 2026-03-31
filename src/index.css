@@ -4835,58 +4835,33 @@ header * {
 
 /* ─── Wave Page Transition ─────────────────────────────────────────────────── */
 .wave-layer-idle {
-  transform: scaleY(0);
-  transform-origin: center bottom;
+  transform: translateY(100%);
 }
 
 .wave-layer-cover {
-  transform-origin: center bottom;
-  animation-name: waveCoverGrow;
+  animation-name: waveCoverUp;
 }
 
-@keyframes waveCoverGrow {
-  0% {
-    transform: scaleY(0) translateX(0%);
-  }
-  40% {
-    transform: scaleY(0.6) translateX(1.5%);
-  }
-  70% {
-    transform: scaleY(0.85) translateX(-1%);
-  }
-  100% {
-    transform: scaleY(1) translateX(0%);
-  }
+@keyframes waveCoverUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0%); }
 }
 
 .wave-layer-reveal {
-  transform-origin: center bottom;
-  animation-name: waveRevealShrink;
+  animation-name: waveRevealUp;
 }
 
-@keyframes waveRevealShrink {
-  0% {
-    transform: scaleY(1) translateX(0%);
-    opacity: 1;
-  }
-  30% {
-    transform: scaleY(0.7) translateX(-1.5%);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleY(0) translateX(0%);
-    opacity: 0;
-  }
+@keyframes waveRevealUp {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(-100%); }
 }
 
 .wave-particles-cover {
-  animation-name: waveCoverGrow;
-  transform-origin: center bottom;
+  animation-name: waveCoverUp;
 }
 
 .wave-particles-reveal {
-  animation-name: waveRevealShrink;
-  transform-origin: center bottom;
+  animation-name: waveRevealUp;
 }
 
 /* SkyToggle compact override */
