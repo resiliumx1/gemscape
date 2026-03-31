@@ -184,7 +184,7 @@ const WavePageTransition: React.FC<WavePageTransitionProps> = ({
                   display: "block",
                 }}
               >
-                <path d={path} fill={WAVE_COLORS[index]} />
+                <path d={path} fill={activeColors[index]} />
               </svg>
             </div>
           );
