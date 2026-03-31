@@ -229,7 +229,7 @@ const Concierge = () => {
                   <label className="gem-form-label">PASSENGERS</label>
                   <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                     <button type="button" onClick={() => setForm(p => ({ ...p, guests: Math.max(1, p.guests - 1) }))} className="gem-stepper-btn"><Minus size={14} /></button>
-                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#fff", minWidth: 28, textAlign: "center" }}>{form.guests}</span>
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "var(--text-primary)", minWidth: 28, textAlign: "center" }}>{form.guests}</span>
                     <button type="button" onClick={() => setForm(p => ({ ...p, guests: Math.min(20, p.guests + 1) }))} className="gem-stepper-btn"><Plus size={14} /></button>
                   </div>
                 </div>
