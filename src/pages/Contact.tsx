@@ -63,7 +63,7 @@ const Contact = () => {
         <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
           Get In Touch
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0" }}>
           We respond to every enquiry personally, usually within 2 hours.
         </p>
       </section>
