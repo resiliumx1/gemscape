@@ -456,7 +456,7 @@ const BookingWizard = ({ initialService }: Props) => {
             {loading && <Loader2 size={16} className="animate-spin" />}
             {loading ? "Submitting..." : "Send Booking Request →"}
           </button>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", marginTop: 12, lineHeight: 1.6 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "var(--text-tertiary)", textAlign: "center", marginTop: 12, lineHeight: 1.6 }}>
             By submitting you agree to our booking terms. No payment is taken at this stage.
           </p>
         </div>
