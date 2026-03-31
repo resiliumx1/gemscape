@@ -392,7 +392,7 @@ const BookingWizard = ({ initialService }: Props) => {
       {/* Step 4 — Review */}
       {step === 4 && (
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", textAlign: "center", marginBottom: 32 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", textAlign: "center", marginBottom: 32 }}>
             Review Your Booking
           </h3>
 
