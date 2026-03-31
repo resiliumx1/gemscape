@@ -46,6 +46,8 @@ const Rentals = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const fleetRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const howRef = useRef<HTMLDivElement>(null);
+  const stepNumRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   // Fetch vehicles
   useEffect(() => {
