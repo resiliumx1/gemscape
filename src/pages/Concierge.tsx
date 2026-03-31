@@ -190,7 +190,7 @@ const Concierge = () => {
               <MessageCircle size={14} /> Chat on WhatsApp →
             </a>
 
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontStyle: "italic", fontSize: 12, color: "rgba(255,255,255,0.35)", lineHeight: 1.6 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontStyle: "italic", fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.6 }}>
               All enquiries are confidential and handled with complete discretion.
             </p>
           </div>
