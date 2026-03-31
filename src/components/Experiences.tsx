@@ -386,7 +386,7 @@ const Experiences = () => {
                     <span key={h} style={{
                       fontFamily: "'DM Sans', sans-serif",
                       fontWeight: 500,
-                      fontSize: 11,
+                      fontSize: 13,
                       color: "rgba(255,255,255,0.5)",
                       background: "rgba(255,255,255,0.05)",
                       padding: "6px 14px",
