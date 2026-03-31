@@ -55,7 +55,7 @@ const Experiences = () => {
           Antigua &amp; Barbuda Seen Differently.
         </h1>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 560, margin: "16px auto 0" }}>
-          Every journey we design is a private, unhurried encounter with the most beautiful island in the Caribbean.
+          Every journey we design is a private, unhurried encounter with the most beautiful islands in the Caribbean.
         </p>
       </section>
 

@@ -184,7 +184,7 @@ export default function WhyGemscape() {
                     fontFamily: "'DM Sans', sans-serif",
                   }}
                 >
-                  Antigua with us
+                  Antigua &amp; Barbuda with us
                 </span>
               </div>
             </div>

@@ -176,7 +176,7 @@ const Rentals = () => {
             Private Rentals · Antigua &amp; Barbuda
           </span>
           <h1 ref={h1Ref} className="rentals-hero__h1" style={{ opacity: 0 }}>
-            Drive Antigua
+            Drive Antigua &amp; Barbuda
             <br />
             <em>Your Way.</em>
           </h1>

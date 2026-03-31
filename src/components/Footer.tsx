@@ -286,7 +286,7 @@ const Footer = () => {
             color: "rgba(255,255,255,0.3)",
           }}
         >
-          Built with pride in Antigua
+          Built with pride in Antigua &amp; Barbuda
         </span>
       </div>
 

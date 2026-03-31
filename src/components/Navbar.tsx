@@ -383,7 +383,7 @@ export default function Navbar() {
           <div className="hidden sm:block">
             <CurrencyToggle />
           </div>
-          <motion.div style={{ y: buttonY }} className="hidden md:block">
+          <motion.div className="hidden md:block">
             <BookNowButton onClick={() => navigateTo("/book")} />
           </motion.div>
           <SkyToggle checked={isDark} onChange={toggleTheme} />

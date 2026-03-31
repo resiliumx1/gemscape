@@ -113,7 +113,7 @@ const Hero = () => {
         </div>
 
         <div className="hero__side-text">
-          Antigua · Est. 2024 · Travel &amp; Tours
+          Antigua &amp; Barbuda · Est. 2024 · Travel &amp; Tours
         </div>
       </section>
 

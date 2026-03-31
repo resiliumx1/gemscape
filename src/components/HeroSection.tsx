@@ -197,7 +197,7 @@ const HeroSection = () => {
               fontFamily: "'DM Sans', sans-serif",
             }}
           >
-            Antigua, privately. Beautifully. Entirely on your terms.
+            Antigua &amp; Barbuda, privately. Beautifully. Entirely on your terms.
           </p>
 
           {/* Animated star rating */}
