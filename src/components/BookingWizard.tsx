@@ -405,7 +405,7 @@ const BookingWizard = ({ initialService }: Props) => {
             {selectedService && (
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
                 <selectedService.icon size={20} style={{ color: "#2cb8a8" }} />
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff" }}>{selectedService.title}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--text-primary)" }}>{selectedService.title}</span>
               </div>
             )}
             <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif" }}>
