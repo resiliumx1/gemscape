@@ -143,7 +143,7 @@ function paintWave(
     ctx.moveTo(0, H + offsetY + 2);
 
     for (let x = 0; x <= W; x += 2) {
-      const y = baseY + waveY(x, t, cfg.amp, cfg.speed, cfg.offset);
+      const y = baseY + waveY(x, t, cfg.amp, cfg.speed, cfg.offset, cfg.phase2);
       ctx.lineTo(x, y);
     }
 
