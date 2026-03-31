@@ -290,7 +290,7 @@ export default function CtaBanner() {
           padding: 16px 28px;
           border-radius: 4px;
           font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;
