@@ -243,7 +243,7 @@ const Rentals = () => {
             >
               <div className="r-card__img-wrap">
                 <img
-                  src={v.image_url || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85"}
+                  src={v.image_url || "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=800&q=85"}
                   alt={`${v.name} available for rental in Antigua, Gemscape Travel`}
                   loading="lazy"
                   width={800}
