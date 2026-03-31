@@ -1859,10 +1859,11 @@ header * {
 
 .rentals-hero__content {
   position: absolute;
-  bottom: 15%;
+  bottom: 12%;
   left: 80px;
+  right: 80px;
   z-index: 3;
-  max-width: 640px;
+  max-width: 700px;
 }
 
 @media (max-width: 767px) {
