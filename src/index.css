@@ -1822,7 +1822,8 @@ header * {
 /* ─── Rentals Hero ─── */
 .rentals-hero {
   position: relative;
-  height: 70vh;
+  height: 85vh;
+  min-height: 600px;
   overflow: hidden;
   background: hsl(var(--gem-navy));
 }
