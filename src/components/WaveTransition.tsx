@@ -11,30 +11,25 @@ export type WavePalette = {
 };
 
 export const palettes: Record<string, WavePalette> = {
-  blue: { 
-    layer1: '#7dd3fc', 
-    layer2: '#38bdf8', 
-    layer3: '#0284c7' 
-  },
-  green: { 
-    layer1: '#5eead4', 
-    layer2: '#14b8a6', 
-    layer3: '#0f766e' 
+  teal: {
+    layer1: '#2cb8a8',
+    layer2: '#1a8a9e',
+    layer3: '#05181e',
   },
   gold: {
-    layer1: '#fbbf24',
-    layer2: '#d97706',
-    layer3: '#92400e',
+    layer1: '#E8C96A',
+    layer2: '#C9A84C',
+    layer3: '#2a1a04',
   },
-  coral: {
-    layer1: '#fca5a5',
-    layer2: '#ef4444',
-    layer3: '#991b1b',
+  blue: {
+    layer1: '#5ec8e0',
+    layer2: '#1a8a9e',
+    layer3: '#030e18',
   },
-  teal: {
-    layer1: '#81e6d9',
-    layer2: '#2cb8a8',
-    layer3: '#0a4f4f',
+  green: {
+    layer1: '#4ade80',
+    layer2: '#16a34a',
+    layer3: '#052010',
   },
 };
 
@@ -250,8 +245,8 @@ export default function WaveTransition({
 
       {/* Entrance Wave (Reveals the new page) */}
       <motion.div
-        className="fixed left-0 right-0 z-50 pointer-events-none flex flex-col"
-        style={{ height: '150vh', top: 0 }}
+        className="fixed left-0 right-0 pointer-events-none flex flex-col"
+        style={{ zIndex: 9999, height: '150vh', top: 0 }}
         variants={{
           initial: { y: "0%" },
           animate: { 
@@ -267,8 +262,8 @@ export default function WaveTransition({
 
       {/* Exit Wave (Covers the current page) */}
       <motion.div
-        className="fixed left-0 right-0 z-50 pointer-events-none flex flex-col"
-        style={{ height: '150vh', top: 0 }}
+        className="fixed left-0 right-0 pointer-events-none flex flex-col"
+        style={{ zIndex: 9999, height: '150vh', top: 0 }}
         variants={{
           initial: { y: "100%" },
           animate: { y: "100%" },

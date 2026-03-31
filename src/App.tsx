@@ -21,25 +21,34 @@ import Concierge from "./pages/Concierge.tsx";
 import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider } from "@/components/PageTransitionWave";
-import WaveTransition, { routePalettes } from "@/components/WaveTransition";
+import WaveTransition from "@/components/WaveTransition";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const queryClient = new QueryClient();
 
+function ScrollToTop() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const lenisEl = document.querySelector('[data-lenis-scroll]') as HTMLElement;
+    if (lenisEl) lenisEl.scrollTop = 0;
+  }, [location.pathname]);
+  return null;
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
-  const color = routePalettes[location.pathname] || 'teal';
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<WaveTransition color={color}><Index /></WaveTransition>} />
-        <Route path="/rentals" element={<WaveTransition color={color}><Rentals /></WaveTransition>} />
-        <Route path="/book" element={<WaveTransition color={color}><Book /></WaveTransition>} />
-        <Route path="/concierge" element={<WaveTransition color={color}><Concierge /></WaveTransition>} />
-        <Route path="/contact" element={<WaveTransition color={color}><Contact /></WaveTransition>} />
-        <Route path="/experiences" element={<WaveTransition color={color}><Experiences /></WaveTransition>} />
+        <Route path="/" element={<WaveTransition color="teal"><Index /></WaveTransition>} />
+        <Route path="/rentals" element={<WaveTransition color="gold"><Rentals /></WaveTransition>} />
+        <Route path="/book" element={<WaveTransition color="teal"><Book /></WaveTransition>} />
+        <Route path="/concierge" element={<WaveTransition color="blue"><Concierge /></WaveTransition>} />
+        <Route path="/contact" element={<WaveTransition color="green"><Contact /></WaveTransition>} />
+        <Route path="/experiences" element={<WaveTransition color="teal"><Experiences /></WaveTransition>} />
         <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -91,6 +100,7 @@ const App = () => {
 
         <BrowserRouter>
           <PageTransitionProvider>
+            <ScrollToTop />
             <AnimatedRoutes />
           </PageTransitionProvider>
         </BrowserRouter>
