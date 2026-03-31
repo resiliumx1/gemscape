@@ -118,7 +118,7 @@ const Concierge = () => {
       <section style={{ background: "var(--bg-secondary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>What's Included</span>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "#fff", marginTop: 12 }}>Every Detail, Arranged.</h2>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Every Detail, Arranged.</h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24, maxWidth: 1100, margin: "0 auto" }}>
           {SERVICES_LIST.map(s => (
