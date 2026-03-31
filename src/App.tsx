@@ -94,10 +94,8 @@ const App = () => {
 
         <BrowserRouter>
           <WavePageTransition>
-            <PageTransitionProvider>
-              <ScrollToTop />
-              <AnimatedRoutes />
-            </PageTransitionProvider>
+            <ScrollToTop />
+            <AnimatedRoutes />
           </WavePageTransition>
         </BrowserRouter>
       </TooltipProvider>
