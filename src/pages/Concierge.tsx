@@ -170,8 +170,8 @@ const Concierge = () => {
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <Phone size={16} style={{ color: "rgba(201,168,76,0.6)" }} />
                 <div>
-                  <a href="tel:+12687805510" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#fff", textDecoration: "none" }}>+1 (268) 780-5510</a>
-                  <span style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
+                  <a href="tel:+12687805510" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-primary)", textDecoration: "none" }}>+1 (268) 780-5510</a>
+                  <span style={{ display: "block", fontSize: 11, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
