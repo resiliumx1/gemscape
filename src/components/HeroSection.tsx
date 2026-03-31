@@ -302,7 +302,7 @@ const HeroSection = () => {
               <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Beaches</span>
             </div>
             <div className="hero-mobile-stat">
-              <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>500+</span>
+              <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>1,000+</span>
               <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Guests</span>
             </div>
             <div className="hero-mobile-stat">
