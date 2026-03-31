@@ -95,7 +95,7 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
         </motion.div>
       </div>
 
-      <span className="text-[11px] font-body font-bold tracking-[0.3em] text-white/80 group-hover:text-white transition-all duration-300 relative">
+      <span className="text-[11px] font-body font-bold tracking-[0.3em] text-[var(--nav-text)] group-hover:text-[var(--nav-text-hover)] transition-all duration-300 relative">
         {label}
         <motion.div
           className="absolute -bottom-1 left-0 h-[1px] bg-gem-teal/50"
