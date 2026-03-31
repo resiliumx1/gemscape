@@ -473,7 +473,7 @@ export default function Navbar() {
                             className="flex items-center gap-3 text-white/40 hover:text-gem-teal transition-colors text-left"
                           >
                             <sub.icon size={14} />
-                            <span className="text-[10px] font-body font-bold tracking-widest">{sub.label.toUpperCase()}</span>
+                            <span className="text-[12px] font-body font-bold tracking-widest">{sub.label.toUpperCase()}</span>
                           </motion.button>
                         ))}
                       </div>
