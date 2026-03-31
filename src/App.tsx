@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
@@ -10,6 +10,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CinematicIntro from "@/components/CinematicIntro";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Admin from "./pages/Admin.tsx";
@@ -21,17 +22,22 @@ import Contact from "./pages/Contact.tsx";
 import Experiences from "./pages/Experiences.tsx";
 import { PageTransitionProvider, PageWrapper } from "@/components/PageTransitionWave";
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 const queryClient = new QueryClient();
 
 const App = () => {
+  const isAdmin = window.location.pathname.startsWith('/admin');
+  const [showIntro, setShowIntro] = useState(
+    !isAdmin && !sessionStorage.getItem("introPlayed")
+  );
+
+  const handleIntroComplete = useCallback(() => {
+    sessionStorage.setItem("introPlayed", "true");
+    setShowIntro(false);
+  }, []);
 
   useEffect(() => {
-    // Don't initialize Lenis on admin pages — it hijacks scroll events
-    const isAdmin = window.location.pathname.startsWith('/admin');
-
     let lenis: Lenis | null = null;
 
     if (!isAdmin) {
@@ -46,11 +52,9 @@ const App = () => {
       gsap.ticker.add((time) => lenis!.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
     } else {
-      // Ensure Lenis classes are removed on admin
       document.documentElement.classList.remove('lenis', 'lenis-smooth');
     }
 
-    // Page load overlay
     gsap.to("#page-transition", {
       opacity: 0,
       duration: 1.2,
@@ -71,6 +75,11 @@ const App = () => {
         
         <Toaster />
         <Sonner />
+
+        {showIntro && !isAdmin && (
+          <CinematicIntro onComplete={handleIntroComplete} />
+        )}
+
         <BrowserRouter>
           <PageTransitionProvider>
             <Routes>
