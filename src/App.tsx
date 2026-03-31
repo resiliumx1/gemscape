@@ -27,14 +27,6 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const isAdmin = window.location.pathname.startsWith('/admin');
-  const [showIntro, setShowIntro] = useState(
-    !isAdmin && !sessionStorage.getItem("introPlayed")
-  );
-
-  const handleIntroComplete = useCallback(() => {
-    sessionStorage.setItem("introPlayed", "true");
-    setShowIntro(false);
-  }, []);
 
   useEffect(() => {
     let lenis: Lenis | null = null;
