@@ -227,7 +227,7 @@ const BookingWizard = ({ initialService }: Props) => {
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
             <button onClick={next} disabled={!serviceType} style={{
-              background: serviceType ? "linear-gradient(135deg, #1a8a9e, #2cb8a8)" : "rgba(255,255,255,0.08)",
+              background: serviceType ? "linear-gradient(135deg, #1a8a9e, #2cb8a8)" : "var(--card-bg)",
               color: serviceType ? "#fff" : "rgba(255,255,255,0.3)",
               border: "none", borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600,
               letterSpacing: ".12em", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
