@@ -134,7 +134,7 @@ function paintWave(
   for (let li = 0; li < 5; li++) {
     const cfg = LAYER_CONFIG[li];
     const color = palette[li];
-    const baseY = H * (0.5 + li * 0.095) + offsetY;
+    const baseY = H * (0.42 + li * 0.14) + offsetY;
 
     ctx.save();
     ctx.globalAlpha = color.a;
