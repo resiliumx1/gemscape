@@ -123,12 +123,12 @@ const Concierge = () => {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24, maxWidth: 1100, margin: "0 auto" }}>
           {SERVICES_LIST.map(s => (
             <div key={s.title} className="concierge-service-card" style={{
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.2)",
+              background: "var(--card-bg)", border: "1px solid var(--border-color)",
               borderRadius: 10, padding: "32px 24px", transition: "all 0.3s ease",
             }}>
               <s.icon size={28} style={{ color: "#C9A84C", marginBottom: 16 }} />
-              <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "#fff", marginBottom: 8 }}>{s.title}</h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>{s.desc}</p>
+              <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "var(--text-primary)", marginBottom: 8 }}>{s.title}</h3>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7 }}>{s.desc}</p>
             </div>
           ))}
         </div>
