@@ -1,104 +1,221 @@
-import { createContext, useContext, useCallback, useState, useRef, ReactNode } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+// ============================================================
+// FILE: src/components/WavePageTransition.tsx
+// ============================================================
+// 3-layer SVG wave page transition overlay.
+// Waves sweep UP from bottom → cover screen → exit through top.
+// Uses pure CSS keyframes — no framer-motion dependency.
+// ============================================================
 
-// ─── Context ──────────────────────────────────────────────────────────────────
-interface WaveNavCtx {
-  navigateWithWave: (path: string) => void;
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
+// ── Context ──────────────────────────────────────────────────
+interface WaveNavigationContextType {
+  navigateWithWave: (to: string) => void;
   isAnimating: boolean;
 }
 
-const WaveNavContext = createContext<WaveNavCtx>({
+const WaveNavigationContext = createContext<WaveNavigationContextType>({
   navigateWithWave: () => {},
   isAnimating: false,
 });
 
-export const useWaveNavigation = () => useContext(WaveNavContext);
+export const useWaveNavigation = () => useContext(WaveNavigationContext);
 
-// ─── SVG paths (unique wave crests per layer) ─────────────────────────────────
-const PATHS = [
-  'M0,40 C150,100 350,0 500,40 C650,80 800,0 1000,40 L1000,1000 L0,1000 Z',
-  'M0,60 C200,0 300,80 500,60 C700,40 850,100 1000,60 L1000,1000 L0,1000 Z',
-  'M0,30 C100,80 400,0 500,50 C600,100 900,20 1000,30 L1000,1000 L0,1000 Z',
+// ── SVG wave paths (each layer has a unique crest shape) ────
+const WAVE_PATHS = [
+  // Layer 1 (back — deepest color, widest wave)
+  "M0,80 C160,140 340,0 500,80 C660,160 840,0 1000,80 L1000,1000 L0,1000 Z",
+  // Layer 2 (mid)
+  "M0,100 C200,20 300,140 500,100 C700,60 850,160 1000,100 L1000,1000 L0,1000 Z",
+  // Layer 3 (front — lightest color, tightest wave)
+  "M0,60 C120,130 380,10 500,70 C620,130 880,10 1000,60 L1000,1000 L0,1000 Z",
 ];
 
-const COLORS = ['#0a2e2e', '#1a8a7d', '#2cb8a8'];
-const STAGGER = 80; // ms between each layer
+// ── Gemscape brand colors for the 3 layers ──────────────────
+const WAVE_COLORS = [
+  "#05181e", // navy (back)
+  "#0d4a44", // dark teal (mid)
+  "#2cb8a8", // brand teal (front)
+];
 
-// ─── Overlay ──────────────────────────────────────────────────────────────────
-function WaveOverlay({ phase }: { phase: 'idle' | 'enter' | 'exit' }) {
-  return (
-    <div
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 9999 }}
-      aria-hidden="true"
-    >
-      {PATHS.map((d, i) => {
-        const delay = `${i * STAGGER}ms`;
-        let className = 'wave-layer';
-        if (phase === 'enter') className += ' wave-layer--enter';
-        else if (phase === 'exit') className += ' wave-layer--exit';
+// ── Timing constants (ms) ───────────────────────────────────
+const COVER_DURATION = 600;
+const STAGGER_DELAY = 100; // delay between each layer
+const HOLD_DURATION = 200;
+const REVEAL_DURATION = 600;
+const ROUTE_CHANGE_DELAY = COVER_DURATION + 100; // change route just after cover
+const TOTAL_DURATION =
+  COVER_DURATION + HOLD_DURATION + REVEAL_DURATION + STAGGER_DELAY * 2 + 100;
 
-        return (
-          <svg
-            key={i}
-            className={className}
-            style={{
-              animationDelay: delay,
-              position: 'absolute',
-              inset: 0,
-              width: '100vw',
-              height: '100vh',
-            }}
-            viewBox="0 0 1000 1000"
-            preserveAspectRatio="none"
-          >
-            <path d={d} fill={COLORS[i]} />
-          </svg>
-        );
-      })}
-    </div>
-  );
+// ── Particle positions (small floating dots) ────────────────
+const PARTICLES = [
+  { cx: "10%", cy: "25%", r: 3, delay: 0 },
+  { cx: "25%", cy: "45%", r: 2, delay: 50 },
+  { cx: "40%", cy: "15%", r: 4, delay: 100 },
+  { cx: "55%", cy: "55%", r: 2.5, delay: 30 },
+  { cx: "70%", cy: "30%", r: 3, delay: 80 },
+  { cx: "85%", cy: "50%", r: 2, delay: 120 },
+  { cx: "15%", cy: "65%", r: 3.5, delay: 60 },
+  { cx: "60%", cy: "75%", r: 2, delay: 90 },
+  { cx: "90%", cy: "20%", r: 3, delay: 40 },
+  { cx: "35%", cy: "80%", r: 2.5, delay: 110 },
+];
+
+// ── Component ───────────────────────────────────────────────
+interface WavePageTransitionProps {
+  children: React.ReactNode;
 }
 
-// ─── Provider ─────────────────────────────────────────────────────────────────
-export function WavePageTransition({ children }: { children: ReactNode }) {
+const WavePageTransition: React.FC<WavePageTransitionProps> = ({
+  children,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [phase, setPhase] = useState<'idle' | 'enter' | 'exit'>('idle');
   const [isAnimating, setIsAnimating] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const [phase, setPhase] = useState<"idle" | "cover" | "reveal">("idle");
+  const pendingPath = useRef<string | null>(null);
+  const animationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clean up timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (animationTimeout.current) clearTimeout(animationTimeout.current);
+    };
+  }, []);
 
   const navigateWithWave = useCallback(
-    (path: string) => {
-      if (path === location.pathname || isAnimating) return;
+    (to: string) => {
+      // Don't animate if already on the same page or mid-animation
+      if (to === location.pathname || isAnimating) return;
 
+      pendingPath.current = to;
       setIsAnimating(true);
-      setPhase('enter');
+      setPhase("cover");
 
-      // At 700ms — route changes while fully covered
-      timerRef.current = setTimeout(() => {
-        navigate(path);
-        window.scrollTo(0, 0);
+      // After cover animation completes, change route
+      animationTimeout.current = setTimeout(() => {
+        if (pendingPath.current) {
+          navigate(pendingPath.current);
+          pendingPath.current = null;
+        }
 
-        // At 800ms — start reveal
-        setTimeout(() => {
-          setPhase('exit');
+        // Start reveal phase
+        setPhase("reveal");
 
-          // At 1400ms — reset
-          setTimeout(() => {
-            setPhase('idle');
-            setIsAnimating(false);
-          }, 600);
-        }, 100);
-      }, 700);
+        // After reveal completes, reset
+        animationTimeout.current = setTimeout(() => {
+          setPhase("idle");
+          setIsAnimating(false);
+          // Scroll to top of new page
+          window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+        }, REVEAL_DURATION + STAGGER_DELAY * 2 + 100);
+      }, ROUTE_CHANGE_DELAY);
     },
-    [navigate, location.pathname, isAnimating],
+    [navigate, location.pathname, isAnimating]
   );
 
   return (
-    <WaveNavContext.Provider value={{ navigateWithWave, isAnimating }}>
-      <WaveOverlay phase={phase} />
+    <WaveNavigationContext.Provider value={{ navigateWithWave, isAnimating }}>
       {children}
-    </WaveNavContext.Provider>
+
+      {/* Wave overlay — always mounted, animated via CSS classes */}
+      <div
+        className="wave-transition-container"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          pointerEvents: isAnimating ? "all" : "none",
+          overflow: "hidden",
+        }}
+        aria-hidden="true"
+      >
+        {WAVE_PATHS.map((path, index) => {
+          // Compute animation class based on phase
+          let animClass = "wave-layer-idle";
+          if (phase === "cover") animClass = "wave-layer-cover";
+          if (phase === "reveal") animClass = "wave-layer-reveal";
+
+          return (
+            <div
+              key={index}
+              className={animClass}
+              style={{
+                position: "absolute",
+                inset: 0,
+                // Stagger delay: back layer first, front layer last
+                animationDelay: `${index * STAGGER_DELAY}ms`,
+                animationDuration:
+                  phase === "cover"
+                    ? `${COVER_DURATION}ms`
+                    : `${REVEAL_DURATION}ms`,
+                animationFillMode: "forwards",
+                animationTimingFunction: "cubic-bezier(0.65, 0, 0.35, 1)",
+                willChange: "transform",
+              }}
+            >
+              <svg
+                viewBox="0 0 1000 1000"
+                preserveAspectRatio="none"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
+                }}
+              >
+                <path d={path} fill={WAVE_COLORS[index]} />
+              </svg>
+            </div>
+          );
+        })}
+
+        {/* Floating particles */}
+        {phase !== "idle" && (
+          <div
+            className={
+              phase === "cover"
+                ? "wave-particles-cover"
+                : "wave-particles-reveal"
+            }
+            style={{
+              position: "absolute",
+              inset: 0,
+              animationDuration:
+                phase === "cover"
+                  ? `${COVER_DURATION}ms`
+                  : `${REVEAL_DURATION}ms`,
+              animationFillMode: "forwards",
+              animationTimingFunction: "cubic-bezier(0.65, 0, 0.35, 1)",
+            }}
+          >
+            {PARTICLES.map((p, i) => (
+              <div
+                key={i}
+                style={{
+                  position: "absolute",
+                  left: p.cx,
+                  top: p.cy,
+                  width: p.r * 2,
+                  height: p.r * 2,
+                  borderRadius: "50%",
+                  backgroundColor: "rgba(60, 200, 184, 0.5)",
+                  animationDelay: `${p.delay}ms`,
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </WaveNavigationContext.Provider>
   );
-}
+};
+
+export default WavePageTransition;
