@@ -300,7 +300,7 @@ export default function Services() {
                     style={{
                       fontSize: 11,
                       fontFamily: "'Cormorant Garamond', serif",
-                      color: isActive ? s.accent : "rgba(255,255,255,0.2)",
+                      color: isActive ? s.accent : "var(--text-tertiary)",
                       fontWeight: 400,
                       minWidth: 28,
                       transition: "color 0.3s ease",
