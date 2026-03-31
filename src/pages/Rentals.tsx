@@ -259,14 +259,38 @@ const Rentals = () => {
               ref={(el) => { cardRefs.current[i] = el; }}
               className="r-card"
             >
-              <div className="r-card__img-wrap">
+              <div
+                className="r-card__img-wrap"
+                onClick={() => setLightboxImage({
+                  src: v.image_url || "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
+                  name: v.name,
+                })}
+                style={{ cursor: "pointer", position: "relative" }}
+              >
+                <div className="r-card__img-overlay" style={{
+                  position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                  background: "rgba(5,24,30,0.0)", transition: "background 0.3s ease", zIndex: 2, borderRadius: "inherit",
+                }}>
+                  <span className="r-card__zoom-icon" style={{
+                    opacity: 0, transition: "opacity 0.3s ease", background: "rgba(5,24,30,0.6)", backdropFilter: "blur(4px)",
+                    borderRadius: "50%", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center",
+                    color: "#fff", fontSize: 18,
+                  }}>⤢</span>
+                </div>
                 <img
-                  src={v.image_url || "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=800&q=85"}
-                  alt={`${v.name} available for rental in Antigua, Gemscape Travel`}
+                  src={v.image_url || "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85"}
+                  alt={`${v.name} available for rental in Antigua & Barbuda, Gemscape Travel`}
                   loading="lazy"
                   width={800}
                   height={500}
                   className="r-card__img"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.fallbackUsed) {
+                      target.dataset.fallbackUsed = "true";
+                      target.src = "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85";
+                    }
+                  }}
                 />
               </div>
               <div className="r-card__body">
