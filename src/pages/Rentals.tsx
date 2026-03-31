@@ -143,6 +143,23 @@ const Rentals = () => {
     return () => ctx.revert();
   }, [vehicles, activeFilter]);
 
+  // Lightbox: close on Escape, lock body scroll
+  useEffect(() => {
+    if (lightboxImage) {
+      document.body.style.overflow = "hidden";
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setLightboxImage(null);
+      };
+      window.addEventListener("keydown", handleEsc);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleEsc);
+      };
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [lightboxImage]);
+
   const filteredVehicles = activeFilter === "All"
     ? vehicles
     : vehicles.filter((v) => v.category.toLowerCase() === activeFilter.toLowerCase());
