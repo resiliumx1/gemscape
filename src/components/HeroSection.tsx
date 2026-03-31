@@ -153,7 +153,7 @@ const HeroSection = () => {
               marginBottom: 14,
             }}
           >
-            ANTIGUA · CARIBBEAN
+            <span className="hero-country-shimmer">ANTIGUA &amp; BARBUDA</span> · CARIBBEAN
           </span>
 
           {/* Headline */}
