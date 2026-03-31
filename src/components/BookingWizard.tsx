@@ -166,8 +166,8 @@ const BookingWizard = ({ initialService }: Props) => {
                 <div style={{
                   width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 13, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
-                  background: isComplete ? "#b8956a" : isActive ? "#2cb8a8" : "rgba(255,255,255,0.08)",
-                  color: isComplete || isActive ? "#fff" : "rgba(255,255,255,0.3)",
+                  background: isComplete ? "#b8956a" : isActive ? "#2cb8a8" : "var(--card-bg)",
+                  color: isComplete || isActive ? "#fff" : "var(--text-tertiary)",
                   transition: "all 0.3s ease",
                 }}>
                   {isComplete ? <Check size={14} /> : num}
