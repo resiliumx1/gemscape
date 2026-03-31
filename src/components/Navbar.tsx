@@ -186,7 +186,7 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
       initial="initial"
       whileHover="hover"
       whileTap="tap"
-      className={`relative overflow-hidden px-10 py-3.5 rounded-full group shadow-lg ${fullWidth ? "w-full" : ""}`}
+      className={`relative overflow-hidden px-7 py-2.5 rounded-full group shadow-lg ${fullWidth ? "w-full" : ""}`}
       style={{
         border: "1px solid rgba(184,149,106,0.35)",
         background: "linear-gradient(135deg, rgba(26,138,158,0.25) 0%, rgba(44,184,168,0.15) 100%)",
@@ -229,7 +229,7 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
       ))}
 
       <div className="relative z-10 flex items-center gap-3">
-        <span className="text-[13px] font-body font-bold tracking-[0.35em] transition-colors" style={{ color: "#d4ad7c" }}>
+        <span className="text-[11px] font-body font-bold tracking-[0.3em] transition-colors" style={{ color: "#d4ad7c" }}>
           BOOK NOW
         </span>
         <motion.div
@@ -330,11 +330,11 @@ export default function Navbar() {
       data-theme="dark"
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         navSolid
-          ? "backdrop-blur-xl py-3 shadow-2xl"
-          : "bg-transparent py-4 sm:py-6"
+          ? "backdrop-blur-xl py-1.5 shadow-2xl"
+          : "bg-transparent py-2 sm:py-3"
       }`}
       style={{
-        backgroundColor: navSolid ? "rgba(5, 24, 30, 0.97)" : "transparent",
+        backgroundColor: navSolid ? "rgba(5, 24, 30, 0.82)" : "transparent",
         colorScheme: "dark",
       }}
     >
@@ -345,7 +345,7 @@ export default function Navbar() {
           hidden: { opacity: 0 },
           visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
         }}
-        className={`max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between pb-3 ${navSolid ? "border-b border-gem-teal/10" : ""}`}
+        className={`max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between pb-1.5 ${navSolid ? "border-b border-gem-teal/10" : ""}`}
       >
         {/* Logo */}
         <motion.button
@@ -359,8 +359,8 @@ export default function Navbar() {
           <img
             src="/images/gemscape-logo.png"
             alt="Gemscape Travel & Tours"
-            className="h-[44px] sm:h-[52px] w-auto object-contain"
-            style={{ background: "transparent", minWidth: 120 }}
+            className="h-[36px] sm:h-[42px] w-auto object-contain"
+            style={{ background: "transparent", minWidth: 100 }}
           />
         </motion.button>
 
@@ -369,7 +369,7 @@ export default function Navbar() {
           style={{ y: navY }}
           variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="hidden lg:flex items-center gap-4 ml-auto mr-6"
+          className="hidden lg:flex items-center gap-2 ml-auto mr-4"
         >
           <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
@@ -381,7 +381,7 @@ export default function Navbar() {
         <motion.div
           variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-4 sm:gap-6"
+          className="flex items-center gap-3 sm:gap-4"
         >
           <div className="hidden sm:block">
             <CurrencyToggle />
