@@ -416,7 +416,7 @@ export default function Services() {
                   style={{
                     fontSize: 14,
                     lineHeight: 1.8,
-                    color: "rgba(255,255,255,0.45)",
+                    color: "var(--text-secondary)",
                     fontFamily: "'DM Sans', sans-serif",
                     maxWidth: 440,
                     marginBottom: 28,
