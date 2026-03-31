@@ -48,7 +48,7 @@ const Book = () => {
         </h1>
         <p ref={subRef} style={{
           opacity: 0, fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16,
-          color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0",
+          color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0",
         }}>
           Select a service and tell us about your journey.
         </p>

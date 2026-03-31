@@ -72,7 +72,7 @@ const Contact = () => {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 100px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56 }} className="contact-grid">
         {/* Left — Contact Details */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", marginBottom: 8 }}>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", marginBottom: 8 }}>
             Reach Us Directly
           </h2>
 
