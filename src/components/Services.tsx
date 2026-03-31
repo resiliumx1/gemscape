@@ -285,11 +285,11 @@ export default function Services() {
                     gap: 16,
                     padding: "20px 0",
                     cursor: "pointer",
-                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    borderBottom: "1px solid var(--border-color)",
                     transition: "all 0.3s ease",
                     position: "relative",
                     ...(i === 0
-                      ? { borderTop: "1px solid rgba(255,255,255,0.06)" }
+                      ? { borderTop: "1px solid var(--border-color)" }
                       : {}),
                   }}
                   onClick={() => setActive(i)}
