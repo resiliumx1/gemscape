@@ -198,7 +198,7 @@ const BookingWizard = ({ initialService }: Props) => {
           <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "var(--text-primary)", textAlign: "center", marginBottom: 8 }}>
             What would you like to experience?
           </h3>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.4)", textAlign: "center", marginBottom: 32 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-tertiary)", textAlign: "center", marginBottom: 32 }}>
             Select one to continue.
           </p>
           {errors.serviceType && <p className="gem-form-error" style={{ textAlign: "center", marginBottom: 16 }}>{errors.serviceType}</p>}
