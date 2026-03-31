@@ -148,7 +148,7 @@ const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true,
                   ease: "easeOut",
                 }}
                 whileHover={{ backgroundColor: "rgba(44, 184, 168, 0.1)" }}
-                className="px-6 py-3.5 text-[10px] font-body font-bold tracking-[0.2em] text-[var(--nav-text)] hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
+                className="px-6 py-3.5 text-[12px] font-body font-bold tracking-[0.2em] text-[var(--nav-text)] hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
               >
                 <item.icon size={16} className="text-gem-teal/60 group-hover/item:text-gem-teal transition-colors" />
                 <span className="flex-1">{item.label.toUpperCase()}</span>
