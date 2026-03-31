@@ -100,6 +100,7 @@ const App = () => {
 
         <BrowserRouter>
           <PageTransitionProvider>
+            <ScrollToTop />
             <AnimatedRoutes />
           </PageTransitionProvider>
         </BrowserRouter>

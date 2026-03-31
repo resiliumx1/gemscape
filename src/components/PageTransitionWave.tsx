@@ -1,39 +1,19 @@
-// PageTransitionWave.tsx
-// Navigation context provider — sourced from the central WaveTransition system.
-// PageTransitionProvider is used in App.tsx to provide navigateTo() to the tree.
+// PageTransitionWave.tsx — navigation context only, no visuals
+export { useWaveNav } from '@/components/WaveTransition';
 
 import { createContext, useContext, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export { useWaveNav } from '@/components/WaveTransition';
+interface NavCtx { navigateTo: (path: string) => void; }
+const Ctx = createContext<NavCtx>({ navigateTo: () => {} });
+export const usePageNav = () => useContext(Ctx);
 
-interface WaveNavContextValue {
-  navigateTo: (path: string) => void;
-}
-
-const WaveNavContext = createContext<WaveNavContextValue>({
-  navigateTo: () => {},
-});
-
-export function PageTransitionProvider({ 
-  children 
-}: { 
-  children: React.ReactNode 
-}) {
+export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
-
   const navigateTo = useCallback(
-    (path: string) => {
-      if (path === location.pathname) return;
-      navigate(path);
-    },
+    (path: string) => { if (path !== location.pathname) navigate(path); },
     [navigate, location.pathname]
   );
-
-  return (
-    <WaveNavContext.Provider value={{ navigateTo }}>
-      {children}
-    </WaveNavContext.Provider>
-  );
+  return <Ctx.Provider value={{ navigateTo }}>{children}</Ctx.Provider>;
 }

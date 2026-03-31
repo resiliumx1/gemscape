@@ -262,8 +262,8 @@ export default function WaveTransition({
 
       {/* Exit Wave (Covers the current page) */}
       <motion.div
-        className="fixed left-0 right-0 z-50 pointer-events-none flex flex-col"
-        style={{ height: '150vh', top: 0 }}
+        className="fixed left-0 right-0 pointer-events-none flex flex-col"
+        style={{ zIndex: 9999, height: '150vh', top: 0 }}
         variants={{
           initial: { y: "100%" },
           animate: { y: "100%" },
