@@ -153,18 +153,18 @@ function paintWave(
     ctx.restore();
   }
 
-  // Foam on layer 3 crest
-  const foamCfg = LAYER_CONFIG[2];
-  const foamBaseY = H * (0.5 + 2 * 0.095) + offsetY;
   for (let fi = 0; fi < FOAM_COUNT; fi++) {
+    const foamLayerIdx = foamLayers[fi];
+    const fCfg = LAYER_CONFIG[foamLayerIdx + 1];
+    const fBaseY = H * (0.42 + (foamLayerIdx + 1) * 0.14) + offsetY;
     const fx = foamXs[fi] * W;
-    const fy = foamBaseY + waveY(fx, t, foamCfg.amp, foamCfg.speed, foamCfg.offset);
-    const pulse = 0.12 + 0.16 * (0.5 + 0.5 * Math.sin(t * 3.5 + foamPhases[fi]));
+    const fy = fBaseY + waveY(fx, t, fCfg.amp, fCfg.speed, fCfg.offset, fCfg.phase2);
+    const pulse = 0.08 + 0.2 * (0.5 + 0.5 * Math.sin(t * 4 + foamPhases[fi]));
     ctx.save();
     ctx.globalAlpha = pulse;
     ctx.fillStyle = "#ffffff";
     ctx.beginPath();
-    ctx.arc(fx, fy - 2, foamRadii[fi], 0, Math.PI * 2);
+    ctx.arc(fx, fy - 1.5, foamRadii[fi], 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
