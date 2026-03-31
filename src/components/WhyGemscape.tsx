@@ -45,29 +45,16 @@ export default function WhyGemscape() {
         ".wg-left",
         { opacity: 0, y: 40 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 65%",
-          },
+          opacity: 1, y: 0, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 65%" },
         }
       );
       gsap.fromTo(
         ".wg-pillar",
         { opacity: 0, y: 30 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-          },
+          opacity: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.12,
+          scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
         }
       );
     }, sectionRef);
@@ -90,8 +77,7 @@ export default function WhyGemscape() {
           style={{
             position: "absolute",
             inset: 0,
-            background:
-              "radial-gradient(ellipse at 20% 50%, rgba(26,138,158,0.06) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse at 20% 50%, rgba(26,138,158,0.06) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -130,14 +116,14 @@ export default function WhyGemscape() {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(32px, 4vw, 48px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--text-primary)",
                 lineHeight: 1.2,
                 margin: "0 0 20px",
               }}
             >
               Antigua is Our Home.
               <br />
-              <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.6)" }}>
+              <span style={{ fontStyle: "italic", color: "var(--text-tertiary)" }}>
                 Your Experience
               </span>
               <br />
@@ -155,7 +141,7 @@ export default function WhyGemscape() {
               style={{
                 fontSize: 15,
                 lineHeight: 1.8,
-                color: "rgba(255,255,255,0.5)",
+                color: "var(--text-secondary)",
                 fontFamily: "'DM Sans', sans-serif",
                 maxWidth: 460,
                 marginBottom: 32,
@@ -168,13 +154,7 @@ export default function WhyGemscape() {
             </p>
 
             {/* Signature metric */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 16,
-              }}
-            >
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
@@ -186,18 +166,12 @@ export default function WhyGemscape() {
               >
                 1,000+
               </span>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
-                }}
-              >
+              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <span
                   style={{
                     fontSize: 12,
                     fontWeight: 600,
-                    color: "rgba(255,255,255,0.7)",
+                    color: "var(--text-secondary)",
                     fontFamily: "'DM Sans', sans-serif",
                   }}
                 >
@@ -206,7 +180,7 @@ export default function WhyGemscape() {
                 <span
                   style={{
                     fontSize: 12,
-                    color: "rgba(255,255,255,0.4)",
+                    color: "var(--text-tertiary)",
                     fontFamily: "'DM Sans', sans-serif",
                   }}
                 >
@@ -232,8 +206,8 @@ export default function WhyGemscape() {
                   key={i}
                   className="wg-pillar"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "var(--card-bg)",
+                    border: "1px solid var(--border-color)",
                     borderRadius: 12,
                     padding: "28px 24px",
                     transition: "all 0.3s ease",
@@ -245,8 +219,8 @@ export default function WhyGemscape() {
                     e.currentTarget.style.transform = "translateY(-4px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-                    e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                    e.currentTarget.style.borderColor = "var(--border-color)";
+                    e.currentTarget.style.background = "var(--card-bg)";
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
@@ -294,7 +268,7 @@ export default function WhyGemscape() {
                         style={{
                           fontSize: 8,
                           letterSpacing: ".12em",
-                          color: "rgba(255,255,255,0.35)",
+                          color: "var(--text-tertiary)",
                           fontFamily: "'DM Sans', sans-serif",
                           textTransform: "uppercase",
                         }}
@@ -307,7 +281,7 @@ export default function WhyGemscape() {
                     style={{
                       fontSize: 15,
                       fontWeight: 600,
-                      color: "#fff",
+                      color: "var(--text-primary)",
                       fontFamily: "'DM Sans', sans-serif",
                       marginBottom: 8,
                     }}
@@ -318,7 +292,7 @@ export default function WhyGemscape() {
                     style={{
                       fontSize: 13,
                       lineHeight: 1.7,
-                      color: "rgba(255,255,255,0.4)",
+                      color: "var(--text-secondary)",
                       fontFamily: "'DM Sans', sans-serif",
                       margin: 0,
                     }}

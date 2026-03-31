@@ -2188,6 +2188,49 @@ header * {
   transform: translateX(4px);
 }
 
+/* ─── Rentals Dark Mode Overrides ─── */
+.dark .rentals-fleet {
+  background: hsl(207 47% 11%);
+}
+.dark .r-card {
+  background: hsl(207 44% 14%);
+}
+.dark .r-card__name {
+  color: #fff;
+}
+.dark .r-card__price {
+  color: #fff;
+}
+.dark .r-card__from,
+.dark .r-card__per {
+  color: rgba(255,255,255,0.45);
+}
+.dark .r-card__spec {
+  color: rgba(255,255,255,0.5);
+}
+.dark .r-card__divider {
+  background: rgba(255,255,255,0.1);
+}
+.dark .r-card__book-link {
+  color: #2cb8a8;
+}
+.dark .r-card__book-link:hover {
+  color: #fff;
+}
+.dark .rentals-inclusions {
+  background: hsl(207 44% 14%);
+}
+.dark .rentals-inclusions__title {
+  color: #fff;
+}
+.dark .rentals-inclusions__desc {
+  color: rgba(255,255,255,0.5);
+}
+.dark .rentals-fleet__pill--active {
+  background: #2cb8a8;
+  color: #fff;
+}
+
 /* ─── Inclusions Banner ─── */
 .rentals-inclusions {
   background: hsl(var(--gem-sand));
