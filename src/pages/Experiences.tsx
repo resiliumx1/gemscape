@@ -64,7 +64,7 @@ const Experiences = () => {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 28 }}>
           {EXPERIENCES.map(exp => (
             <div key={exp.title} className="exp-card" style={{
-              background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.15)",
+              background: "var(--card-bg)", border: "1px solid var(--border-color)",
               borderRadius: 12, padding: 32, display: "flex", flexDirection: "column", gap: 16,
               transition: "all 0.3s ease", cursor: "default",
             }}>
