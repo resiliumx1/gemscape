@@ -48,8 +48,8 @@ const CARDS = [
   },
   {
     images: [
-      { src: "/assets/airport-vip-greeting.webp", alt: "VIP airport greeting — professional staff welcoming guest" },
-      { src: "/assets/catamaran-white-beach.webp", alt: "Catamaran anchored at pristine white sand beach" },
+      { src: airportVipImg, alt: "VIP airport greeting — professional staff welcoming guest" },
+      { src: catamaranImg, alt: "Catamaran anchored at pristine white sand beach" },
       { src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=85", alt: "Driving along turquoise Caribbean coastal road" },
     ],
     category: "Arrival & Departure",
