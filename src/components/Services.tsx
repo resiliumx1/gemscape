@@ -167,7 +167,7 @@ export default function Services() {
             >
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 12,
                   letterSpacing: ".2em",
                   color: "rgba(255,255,255,0.7)",
                   fontFamily: "'DM Sans', sans-serif",
