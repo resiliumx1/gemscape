@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, useCallback } from 'react';
 import { clsx } from 'clsx';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // --- PALETTES ---
 export type WavePalette = {
@@ -282,4 +283,35 @@ export default function WaveTransition({
       </motion.div>
     </motion.div>
   );
+}
+
+// ─── Navigation hooks ─────────────────────────────────────────────────────────
+export function useWave() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navigateTo = useCallback(
+    (path: string, _variant?: string) => {
+      if (path === location.pathname) return;
+      navigate(path);
+    },
+    [navigate, location.pathname]
+  );
+
+  return { navigateTo };
+}
+
+export function useWaveNav() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navigateTo = useCallback(
+    (path: string) => {
+      if (path === location.pathname) return;
+      navigate(path);
+    },
+    [navigate, location.pathname]
+  );
+
+  return { navigateTo };
 }
