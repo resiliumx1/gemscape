@@ -45,6 +45,7 @@ function AnimatedRoutes() {
       <Route path="/concierge" element={<Concierge />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/experiences" element={<Experiences />} />
+      <Route path="/packages" element={<Packages />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

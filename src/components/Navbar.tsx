@@ -320,6 +320,7 @@ export default function Navbar() {
     { label: "Island Adventures", icon: Palmtree, href: "/book" },
     { label: "Cultural Tours", icon: Map, href: "/book" },
     { label: "Circumnavigations", icon: Compass, href: "/book" },
+    { label: "Signature Packages", icon: Sparkles, href: "/packages" },
   ];
 
   return (

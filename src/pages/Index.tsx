@@ -52,6 +52,7 @@ const Index = () => {
         <RentalsPreview />
         <Manifesto />
         <Testimonials />
+        <PackagesPreview />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="ocean" height={120} />
         </div>

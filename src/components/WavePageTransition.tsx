@@ -63,6 +63,10 @@ const ROUTE_WAVE_CONFIG: Record<string, RouteWaveConfig> = {
     direction: "left",
     colors: ["#3d1008", "#c0533a", "#f4a68e"],
   },
+  "/packages": {
+    direction: "up",
+    colors: ["#0a0a1a", "#3d2a6b", "#C9A84C"],
+  },
 };
 
 const DEFAULT_CONFIG: RouteWaveConfig = {
