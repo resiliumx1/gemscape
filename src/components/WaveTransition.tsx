@@ -1,95 +1,284 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { Diamond } from 'lucide-react';
+import { ReactNode, useMemo } from 'react';
+import { clsx } from 'clsx';
 
-// Resets to false ONLY on hard-refresh or first visit.
-// Internal navigation won't reset it.
-export let hasPlayedIntro = false; // Play on first visit
+// --- PALETTES ---
+export type WavePalette = {
+  layer1: string;
+  layer2: string;
+  layer3: string;
+};
 
-const WaveSVG = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 1440 320" preserveAspectRatio="none">
-    <path fill="currentColor" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,122.7C672,96,768,96,864,117.3C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
-  </svg>
-);
+export const palettes: Record<string, WavePalette> = {
+  blue: { 
+    layer1: '#7dd3fc', 
+    layer2: '#38bdf8', 
+    layer3: '#0284c7' 
+  },
+  green: { 
+    layer1: '#5eead4', 
+    layer2: '#14b8a6', 
+    layer3: '#0f766e' 
+  },
+  gold: {
+    layer1: '#fbbf24',
+    layer2: '#d97706',
+    layer3: '#92400e',
+  },
+  coral: {
+    layer1: '#fca5a5',
+    layer2: '#ef4444',
+    layer3: '#991b1b',
+  },
+  teal: {
+    layer1: '#81e6d9',
+    layer2: '#2cb8a8',
+    layer3: '#0a4f4f',
+  },
+};
 
-export function WaveTransition() {
-  const [isVisible, setIsVisible] = useState(!hasPlayedIntro);
+// Route-to-palette mapping
+export const routePalettes: Record<string, string> = {
+  '/': 'teal',
+  '/rentals': 'gold',
+  '/concierge': 'blue',
+  '/book': 'green',
+  '/contact': 'coral',
+  '/experiences': 'green',
+};
 
-  useEffect(() => {
-    if (hasPlayedIntro) return;
-    
-    hasPlayedIntro = true;
+// --- ANIMATION CONFIG ---
+const waveEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
-    const timer = setTimeout(() => setIsVisible(false), 4800);
-    return () => clearTimeout(timer);
+// --- PARTICLES COMPONENT ---
+const Particles = () => {
+  const particles = useMemo(() => {
+    return Array.from({ length: 30 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      size: Math.random() * 3 + 1.5,
+      tx: (Math.random() - 0.5) * 40,
+      ty: -Math.random() * 60 - 20,
+      duration: Math.random() * 2 + 2.5,
+      delay: Math.random() * 2,
+    }));
   }, []);
 
-  if (!isVisible) return null;
+  return (
+    <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden mix-blend-overlay">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full bg-white"
+          style={{
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            boxShadow: "0 0 4px 1px rgba(255,255,255,0.4)"
+          }}
+          animate={{
+            x: [0, p.tx],
+            y: [0, p.ty],
+            opacity: [0, 0.8, 0],
+            scale: [0.5, 1.5, 0.5],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
-  const waveVariants = {
-    initial: { y: "0%" },
-    animate: { y: "-100%" }
-  };
+// --- WAVES COMPONENT ---
+const LoopingWaves = ({ palette, isTop }: { palette: WavePalette, isTop?: boolean }) => {
+  return (
+    <div className={clsx("relative w-full h-[15vh] md:h-[25vh] shrink-0 overflow-hidden", isTop && "rotate-180")}>
+      {/* Layer 0 (Deep Back) */}
+      <motion.div
+        className="absolute top-0 left-0 h-full w-full"
+        animate={{ y: ["0%", "-3%", "0%"] }}
+        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+        style={{ willChange: "transform" }}
+      >
+        <motion.div
+          className="absolute top-0 left-0 h-full w-[200%]"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+          style={{ willChange: "transform" }}
+        >
+          <motion.svg 
+            className="w-full h-full origin-bottom" 
+            viewBox="0 0 1200 140" 
+            preserveAspectRatio="none"
+            overflow="visible"
+            animate={{ scaleY: [1, 1.1, 1] }}
+            transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }}
+          >
+            <path fill={palette.layer1} fillOpacity="0.4" d="M 0 90 C 75 90, 75 10, 150 10 C 350 10, 350 90, 600 90 C 675 90, 675 10, 750 10 C 950 10, 950 90, 1200 90 L 1200 250 L 0 250 Z" />
+          </motion.svg>
+        </motion.div>
+      </motion.div>
 
-  const transitionEase = [0.45, 0, 0.55, 1] as [number, number, number, number];
+      {/* Layer 1 (Back) */}
+      <motion.div
+        className="absolute top-0 left-0 h-full w-full"
+        animate={{ y: ["0%", "-5%", "0%"] }}
+        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        style={{ willChange: "transform" }}
+      >
+        <motion.div
+          className="absolute top-0 left-0 h-full w-[200%]"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
+          style={{ willChange: "transform" }}
+        >
+          <motion.svg 
+            className="w-full h-full origin-bottom" 
+            viewBox="0 0 1800 140" 
+            preserveAspectRatio="none"
+            overflow="visible"
+            animate={{ scaleY: [1, 1.15, 1] }}
+            transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+          >
+            <path fill={palette.layer1} fillOpacity="0.6" d="M 0 100 C 100 100, 100 20, 200 20 C 500 20, 500 100, 900 100 C 1000 100, 1000 20, 1100 20 C 1400 20, 1400 100, 1800 100 L 1800 250 L 0 250 Z" />
+          </motion.svg>
+        </motion.div>
+      </motion.div>
+
+      {/* Layer 2 (Middle) */}
+      <motion.div
+        className="absolute top-0 left-0 h-full w-full"
+        animate={{ y: ["0%", "-8%", "0%"] }}
+        transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
+        style={{ willChange: "transform" }}
+      >
+        <motion.div
+          className="absolute top-0 left-0 h-full w-[200%]"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          style={{ willChange: "transform" }}
+        >
+          <motion.svg 
+            className="w-full h-full origin-bottom" 
+            viewBox="0 0 2400 140" 
+            preserveAspectRatio="none"
+            overflow="visible"
+            animate={{ scaleY: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 9, ease: "easeInOut" }}
+          >
+            <path fill={palette.layer2} fillOpacity="0.8" d="M 0 110 C 150 110, 150 40, 300 40 C 700 40, 700 110, 1200 110 C 1350 110, 1350 40, 1500 40 C 1900 40, 1900 110, 2400 110 L 2400 250 L 0 250 Z" />
+          </motion.svg>
+        </motion.div>
+      </motion.div>
+
+      {/* Layer 3 (Front) */}
+      <motion.div
+        className="absolute top-0 left-0 h-full w-full"
+        animate={{ y: ["0%", "-3%", "0%"] }}
+        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+        style={{ willChange: "transform" }}
+      >
+        <motion.div
+          className="absolute top-0 left-0 h-full w-[200%]"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
+          style={{ willChange: "transform" }}
+        >
+          <motion.svg 
+            className="w-full h-full origin-bottom" 
+            viewBox="0 0 3200 140" 
+            preserveAspectRatio="none"
+            overflow="visible"
+            animate={{ scaleY: [1, 1.1, 1] }}
+            transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
+          >
+            <path fill={palette.layer3} fillOpacity="1" d="M 0 120 C 200 120, 200 60, 400 60 C 900 60, 900 120, 1600 120 C 1800 120, 1800 60, 2000 60 C 2500 60, 2500 120, 3200 120 L 3200 250 L 0 250 Z" />
+          </motion.svg>
+        </motion.div>
+      </motion.div>
+
+      {/* Floating Particles */}
+      <Particles />
+    </div>
+  );
+};
+
+// --- MAIN TRANSITION WRAPPER ---
+export default function WaveTransition({ 
+  children, 
+  color = 'teal' 
+}: { 
+  children: ReactNode;
+  color?: string;
+}) {
+  const palette = palettes[color] || palettes.teal;
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] pointer-events-none overflow-hidden"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ duration: 0.4, delay: 4.3, ease: "easeOut" }}
+      initial="initial"
+      animate="animate"
+      exit="exit"
     >
-      {/* Layer 1: Teal */}
+      {/* Page Content */}
       <motion.div
-        className="absolute inset-0 w-full h-full bg-[#0d9488]"
-        variants={waveVariants}
-        initial="initial"
-        animate="animate"
-        transition={{ duration: 2.2, ease: transitionEase, delay: 2.0 }}
+        variants={{
+          initial: { opacity: 0, y: 30, scale: 0.98 },
+          animate: { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            transition: { duration: 0.8, delay: 0.3, ease: [0.25, 1, 0.5, 1] } 
+          },
+          exit: { 
+            opacity: 0, 
+            y: -20, 
+            scale: 0.95,
+            transition: { duration: 0.5, ease: waveEase } 
+          }
+        }}
       >
-        <WaveSVG className="absolute top-full left-0 w-full h-[15vh] text-[#0d9488]" />
+        {children}
       </motion.div>
 
-      {/* Layer 2: Emerald */}
+      {/* Entrance Wave (Reveals the new page) */}
       <motion.div
-        className="absolute inset-0 w-full h-full bg-[#059669]"
-        variants={waveVariants}
-        initial="initial"
-        animate="animate"
-        transition={{ duration: 2.2, ease: transitionEase, delay: 2.2 }}
+        className="fixed left-0 right-0 z-50 pointer-events-none flex flex-col"
+        style={{ height: '150vh', top: 0 }}
+        variants={{
+          initial: { y: "0%" },
+          animate: { 
+            y: "-100%", 
+            transition: { duration: 0.9, ease: waveEase } 
+          },
+          exit: { y: "-100%" }
+        }}
       >
-        <WaveSVG className="absolute top-full left-0 w-full h-[20vh] text-[#059669] scale-x-[-1]" />
+        <div className="w-full flex-grow -mb-[1px] z-10" style={{ backgroundColor: palette.layer3 }} />
+        <LoopingWaves palette={palette} isTop={true} />
       </motion.div>
 
-      {/* Layer 3: Deep Gem/Black */}
+      {/* Exit Wave (Covers the current page) */}
       <motion.div
-        className="absolute inset-0 w-full h-full bg-[#022c22] flex items-center justify-center"
-        variants={waveVariants}
-        initial="initial"
-        animate="animate"
-        transition={{ duration: 2.2, ease: transitionEase, delay: 2.4 }}
+        className="fixed left-0 right-0 z-50 pointer-events-none flex flex-col"
+        style={{ height: '150vh', top: 0 }}
+        variants={{
+          initial: { y: "100%" },
+          animate: { y: "100%" },
+          exit: { 
+            y: "0%", 
+            transition: { duration: 0.9, ease: waveEase } 
+          }
+        }}
       >
-        {/* Logo Sequence */}
-        <motion.div 
-          className="flex flex-col items-center justify-center relative z-10"
-          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-        >
-          <div className="flex flex-col items-center">
-            <Diamond size={72} className="text-[#81e6d9] mb-4 drop-shadow-[0_0_15px_rgba(45,212,191,0.5)]" />
-            <h1 className="text-5xl md:text-7xl font-serif text-white tracking-wide mb-2" style={{ fontStyle: 'italic' }}>
-              Gemscape
-            </h1>
-            <div className="h-[1px] w-3/4 bg-gradient-to-r from-transparent via-[#81e6d9] to-transparent my-2 opacity-50"></div>
-            <p className="text-[#e2e8f0] tracking-[0.3em] text-sm md:text-base font-medium uppercase mt-2" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
-              Travel and Tours
-            </p>
-          </div>
-        </motion.div>
-
-        <WaveSVG className="absolute top-full left-0 w-full h-[25vh] text-[#022c22]" />
+        <LoopingWaves palette={palette} />
+        <div className="w-full flex-grow -mt-[1px] z-10" style={{ backgroundColor: palette.layer3 }} />
       </motion.div>
     </motion.div>
   );
