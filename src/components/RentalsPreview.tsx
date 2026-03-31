@@ -12,7 +12,7 @@ const VEHICLES_DATA = [
     category: "SUV",
     rateUsd: 120,
     /* REPLACE WITH REAL VEHICLE PHOTO */
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=800&q=85",
     style: { transform: "rotate(-2deg) scale(0.92)", top: "0px", right: "0px", zIndex: 1 },
   },
   {
@@ -20,7 +20,7 @@ const VEHICLES_DATA = [
     category: "Open-Air",
     rateUsd: 95,
     /* REPLACE WITH REAL VEHICLE PHOTO */
-    image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1533929736562-f4fdc46e29e8?w=800&q=85",
     style: { transform: "rotate(1deg)", top: "40px", right: "40px", zIndex: 2 },
   },
   {
@@ -28,7 +28,7 @@ const VEHICLES_DATA = [
     category: "Sedan / SUV",
     rateUsd: 75,
     /* REPLACE WITH REAL VEHICLE PHOTO */
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=85",
+    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=800&q=85",
     style: { transform: "rotate(-0.5deg) translateY(-12px)", top: "80px", right: "80px", zIndex: 3 },
   },
 ];

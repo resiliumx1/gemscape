@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import rentalsHeroBg from "@/assets/rentals-hero.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
@@ -45,6 +46,8 @@ const Rentals = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const fleetRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const howRef = useRef<HTMLDivElement>(null);
+  const stepNumRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   // Fetch vehicles
   useEffect(() => {
@@ -97,6 +100,25 @@ const Rentals = () => {
     return () => ctx.revert();
   }, []);
 
+  // Step number animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      stepNumRefs.current.forEach((el, i) => {
+        if (!el) return;
+        gsap.fromTo(
+          el,
+          { opacity: 0, scale: 0.3, y: 30 },
+          {
+            opacity: 1, scale: 1, y: 0,
+            duration: 0.8, ease: "back.out(1.7)", delay: i * 0.15,
+            scrollTrigger: { trigger: howRef.current, start: "top 78%" },
+          }
+        );
+      });
+    }, howRef);
+    return () => ctx.revert();
+  }, []);
+
   // Card reveal animations
   useEffect(() => {
     if (vehicles.length === 0) return;
@@ -143,7 +165,7 @@ const Rentals = () => {
           ref={bgRef}
           className="rentals-hero__bg"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000&q=85')`,
+            backgroundImage: `url('${rentalsHeroBg}')`,
           }}
         />
         <div className="rentals-hero__gradient-bottom" />
@@ -179,11 +201,17 @@ const Rentals = () => {
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="rentals-how">
+      <section ref={howRef} className="rentals-how">
         <div className="rentals-how__grid">
           {STEPS.map((step, i) => (
             <div key={step.num} className="rentals-how__step">
-              <span className="rentals-how__num">{step.num}</span>
+              <span
+                ref={(el) => { stepNumRefs.current[i] = el; }}
+                className="rentals-how__num"
+                style={{ opacity: 0 }}
+              >
+                {step.num}
+              </span>
               <span className="rentals-how__title">{step.title}</span>
               <span className="rentals-how__desc">{step.desc}</span>
               {i < STEPS.length - 1 && <div className="rentals-how__divider" />}
@@ -215,7 +243,7 @@ const Rentals = () => {
             >
               <div className="r-card__img-wrap">
                 <img
-                  src={v.image_url || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85"}
+                  src={v.image_url || "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=800&q=85"}
                   alt={`${v.name} available for rental in Antigua, Gemscape Travel`}
                   loading="lazy"
                   width={800}
