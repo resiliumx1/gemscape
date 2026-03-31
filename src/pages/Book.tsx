@@ -42,7 +42,7 @@ const Book = () => {
         </span>
         <h1 ref={h1Ref} style={{
           opacity: 0, fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)",
-          fontWeight: 400, color: "#fff", marginTop: 12,
+          fontWeight: 400, color: "var(--text-primary)", marginTop: 12,
         }}>
           Plan Your Antigua Experience.
         </h1>
