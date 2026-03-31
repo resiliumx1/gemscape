@@ -102,7 +102,7 @@ const RentalsPreview = () => {
           </div>
 
           <div className="rentals-preview__ctas">
-            <button className="rentals-preview__btn rentals-preview__btn--primary" onClick={() => navigateTo("/rentals")}>
+            <button className="rentals-preview__btn rentals-preview__btn--primary" onClick={() => navigateTo("/rentals#fleet")}>
               Browse the Fleet
             </button>
             <button className="rentals-preview__btn rentals-preview__btn--ghost" onClick={() => navigateTo("/rentals")}>

@@ -220,7 +220,7 @@ const BookingWizard = ({ initialService }: Props) => {
                 </div>
                 <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "var(--text-primary)" }}>{svc.title}</h4>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{svc.desc}</p>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#C9A84C", fontWeight: 500 }}>{svc.price}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#C9A84C", fontWeight: 500 }}>From {formatPrice(svc.basePrice)} {svc.id === "concierge" ? "per person" : svc.id === "charter" ? "per charter" : "per group"}</span>
               </button>
             ))}
           </div>
