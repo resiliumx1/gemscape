@@ -229,7 +229,7 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
       ))}
 
       <div className="relative z-10 flex items-center gap-3">
-        <span className="text-[13px] font-body font-bold tracking-[0.35em] transition-colors" style={{ color: "#d4ad7c" }}>
+        <span className="text-[11px] font-body font-bold tracking-[0.3em] transition-colors" style={{ color: "#d4ad7c" }}>
           BOOK NOW
         </span>
         <motion.div
