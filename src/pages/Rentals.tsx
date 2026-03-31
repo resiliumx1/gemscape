@@ -173,7 +173,7 @@ const Rentals = () => {
 
         <div className="rentals-hero__content">
           <span ref={eyebrowRef} className="eyebrow" style={{ opacity: 0 }}>
-            Private Rentals · Antigua
+            Private Rentals · Antigua &amp; Barbuda
           </span>
           <h1 ref={h1Ref} className="rentals-hero__h1" style={{ opacity: 0 }}>
             Drive Antigua
