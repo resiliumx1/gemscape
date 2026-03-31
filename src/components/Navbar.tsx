@@ -369,7 +369,7 @@ export default function Navbar() {
           style={{ y: navY }}
           variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="hidden lg:flex items-center gap-4 ml-auto mr-6"
+          className="hidden lg:flex items-center gap-2 ml-auto mr-4"
         >
           <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
