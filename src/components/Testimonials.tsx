@@ -381,7 +381,7 @@ export default function Testimonials() {
         html:not(.dark) .voa-name { color: #05181e; }
         .voa-origin {
           font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
+          font-size: 13px;
           color: rgba(255,255,255,0.4);
         }
         html:not(.dark) .voa-origin { color: rgba(5,24,30,0.45); }
