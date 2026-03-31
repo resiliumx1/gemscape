@@ -36,6 +36,7 @@ const Rentals = () => {
   const [vehicles, setVehicles] = useState<Tables<"vehicles">[]>([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; name: string } | null>(null);
 
   // Refs
   const heroRef = useRef<HTMLDivElement>(null);
