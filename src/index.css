@@ -4791,24 +4791,34 @@ header * {
 }
 
 /* ─── Wave Page Transition ─────────────────────────────────────────────────── */
-@keyframes waveEnter {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0%); }
-}
-@keyframes waveExit {
-  from { transform: translateY(0%); }
-  to   { transform: translateY(-100%); }
+.wave-layer-idle {
+  transform: translateY(100%);
 }
 
-.wave-layer {
-  transform: translateY(100%);
-  will-change: transform;
+.wave-layer-cover {
+  animation-name: waveCoverUp;
 }
-.wave-layer--enter {
-  animation: waveEnter 600ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+
+@keyframes waveCoverUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0%); }
 }
-.wave-layer--exit {
-  animation: waveExit 600ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+
+.wave-layer-reveal {
+  animation-name: waveRevealUp;
+}
+
+@keyframes waveRevealUp {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(-100%); }
+}
+
+.wave-particles-cover {
+  animation-name: waveCoverUp;
+}
+
+.wave-particles-reveal {
+  animation-name: waveRevealUp;
 }
 
 /* SkyToggle compact override */
