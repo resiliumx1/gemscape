@@ -7,6 +7,7 @@ import Experiences from "@/components/Experiences";
 import RentalsPreview from "@/components/RentalsPreview";
 import Manifesto from "@/components/Manifesto";
 import Testimonials from "@/components/Testimonials";
+import PackagesPreview from "@/components/PackagesPreview";
 import WhyGemscape from "@/components/WhyGemscape";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
