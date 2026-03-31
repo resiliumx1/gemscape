@@ -1888,19 +1888,46 @@ header * {
   border: 1px solid hsl(var(--gem-gold));
   color: hsl(var(--gem-gold));
   background: transparent;
-  padding: 14px 32px;
+  padding: 18px 44px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  font-size: 11px;
+  font-weight: 600;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  animation: cta-glow-pulse 3s ease-in-out infinite;
+  box-shadow: 0 0 20px hsl(var(--gem-gold) / 0.25), inset 0 0 20px hsl(var(--gem-gold) / 0.05);
+}
+
+@keyframes cta-glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--gem-gold) / 0.25), inset 0 0 20px hsl(var(--gem-gold) / 0.05); }
+  50% { box-shadow: 0 0 36px hsl(var(--gem-gold) / 0.45), inset 0 0 28px hsl(var(--gem-gold) / 0.10); }
+}
+
+.rentals-hero__cta::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
+  animation: cta-shimmer-sweep 4s ease-in-out infinite;
+}
+
+@keyframes cta-shimmer-sweep {
+  0%, 100% { left: -75%; }
+  50% { left: 125%; }
 }
 
 .rentals-hero__cta:hover {
   background: hsl(var(--gem-gold));
   color: hsl(var(--gem-navy));
+  box-shadow: 0 0 40px hsl(var(--gem-gold) / 0.5);
+  transform: translateY(-2px);
 }
 
 /* ─── How It Works ─── */
