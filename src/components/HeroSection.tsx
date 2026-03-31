@@ -267,6 +267,9 @@ const HeroSection = () => {
                 fontFamily: "'DM Sans', sans-serif",
                 textTransform: 'uppercase' as const,
                 transition: 'all 0.35s ease',
+                minWidth: 180,
+                textAlign: 'center' as const,
+                justifyContent: 'center',
               }}
               onMouseEnter={e => {
                 const btn = e.currentTarget;
