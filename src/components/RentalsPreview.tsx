@@ -256,7 +256,7 @@ const RentalsPreview = () => {
                       <span style={{
                         fontFamily: "'DM Sans', sans-serif",
                         fontWeight: 500,
-                        fontSize: "9px",
+                        fontSize: "12px",
                         textTransform: "uppercase",
                         letterSpacing: "0.14em",
                         color: "hsl(var(--gem-gold))",
