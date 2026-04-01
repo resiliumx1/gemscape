@@ -114,6 +114,7 @@ const Admin = () => {
       case "reviews": return <AdminReviewRequests isMobile={isMobile} />;
       case "fleet": return <AdminFleetManager isMobile={isMobile} />;
       case "calendar": return <AdminCalendar isMobile={isMobile} />;
+      case "package-bookings": return <AdminPackageBookings isMobile={isMobile} />;
       case "comms": return <AdminCustomerDirectory isMobile={isMobile} />;
       case "email-history": return <AdminEmailHistory isMobile={isMobile} />;
       case "settings": return <AdminSettings isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} isMobile={isMobile} profilePic={profilePic} onProfileUpload={triggerUpload} onProfileRemove={removeProfilePic} />;
