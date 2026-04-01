@@ -608,6 +608,19 @@
 .aura-content {
   flex: 1;
   padding: 20px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.aura-content > * {
+  flex: 1;
+  min-height: 0;
+}
+
+.aura-content > div[style*="flex-direction: column"] {
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
 }
 
 /* ── Cards (Glass) ── */

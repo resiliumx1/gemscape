@@ -32,8 +32,8 @@ export default function ReportDateFilter({ onChange }: ReportDateFilterProps) {
   const pillStyle = (v: string): React.CSSProperties => ({
     padding: '5px 12px', borderRadius: 20, border: 'none', cursor: 'pointer',
     fontSize: 11, fontWeight: 500, transition: 'all 0.15s',
-    background: range === v ? 'linear-gradient(135deg,#1a8a9e,#0f6070)' : 'rgba(11,42,59,0.12)',
-    color: range === v ? '#fff' : '#0B2A3B',
+    background: range === v ? 'linear-gradient(135deg,#1a8a9e,#0f6070)' : 'var(--aura-highlight, rgba(11,42,59,0.12))',
+    color: range === v ? '#fff' : 'var(--aura-text-dim, #0B2A3B)',
     boxShadow: range === v ? '0 2px 8px rgba(26,138,158,0.4)' : 'none',
   });
 
