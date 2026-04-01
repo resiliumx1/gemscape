@@ -232,7 +232,7 @@ const RentalsPreview = () => {
                 >
                   <div style={{ aspectRatio: "16/10", overflow: "hidden" }}>
                     <img
-                      src={img}
+                      src={optimizeImageUrl(img)}
                       alt={`${v.name} available for rental in Antigua & Barbuda`}
                       loading="lazy"
                       width={800}
