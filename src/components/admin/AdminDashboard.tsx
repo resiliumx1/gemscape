@@ -49,8 +49,8 @@ const DragHandle = ({ hidden }: { hidden?: boolean }) => {
   if (hidden) return null;
   return (
     <div style={{
-      position: "absolute", top: 14, left: 14, opacity: 0.3,
-      cursor: "grab", color: "var(--aura-text-muted)",
+      position: "absolute", top: 14, left: 14, opacity: 0.5,
+      cursor: "grab", color: "var(--aura-gold)",
     }}>
       <GripVertical size={16} />
     </div>
