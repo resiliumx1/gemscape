@@ -335,7 +335,7 @@ const AdminHeader = ({
             overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
           }}>{pageTitle}</h1>
           <p style={{
-            fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 400,
+            fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 400,
             color: "var(--aura-text-muted)", marginTop: 2,
           }}>{today}</p>
         </div>
