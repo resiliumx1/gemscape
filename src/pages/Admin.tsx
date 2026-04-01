@@ -20,6 +20,7 @@ const AdminCalendar = lazy(() => import("@/components/admin/AdminCalendar"));
 const AdminEmailHistory = lazy(() => import("@/components/admin/AdminEmailHistory"));
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminReports = lazy(() => import("@/components/admin/AdminReports"));
+const AdminPackageBookings = lazy(() => import("@/components/admin/AdminPackageBookings"));
 
 /* ── Nav config ── */
 interface NavItem { key: string; label: string; icon: React.ReactNode }
