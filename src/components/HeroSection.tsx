@@ -82,17 +82,10 @@ const HeroSection = () => {
         marginBottom: -1,
       }}
     >
-      {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
-      <video
-        ref={heroVideoRef}
-        src="/videos/antigua-aerial.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="none"
-        poster="/images/antigua-hero-poster.jpg"
-        className="hero-video"
+      {/* ═══ LAYER 1 — HERO POSTER IMAGE ═══ */}
+      <img
+        src="/images/hero-antigua-sunset.webp"
+        alt="Antigua aerial view"
         style={{
           position: "absolute",
           inset: 0,
@@ -101,9 +94,6 @@ const HeroSection = () => {
           objectFit: "cover",
           zIndex: 0,
           opacity: 0.65,
-        }}
-        onError={(e) => {
-          (e.currentTarget as HTMLVideoElement).style.display = 'none';
         }}
       />
 
