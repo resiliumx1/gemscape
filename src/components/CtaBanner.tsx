@@ -67,7 +67,7 @@ export default function CtaBanner() {
             position: "absolute",
             inset: "-20% 0",
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800&q=90')",
+              "url('/images/experiences/catamaran-white-beach.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
             willChange: "transform",

@@ -1,9 +1,11 @@
 import { useRef, useEffect, useState } from "react";
 import { useWave } from "@/components/WavePageTransition";
-import BrilliantGem from "@/components/BrilliantGem";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ChevronDown, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import React, { Suspense } from "react";
+
+const BrilliantGem = React.lazy(() => import("@/components/BrilliantGem"));
 
 const AnimatedStars = () => {
   return (
@@ -44,6 +46,7 @@ const HeroSection = () => {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
   const [isTablet, setIsTablet] = useState(false);
+  const [showGem, setShowGem] = useState(false);
 
   useEffect(() => {
     const checkTablet = () => {
@@ -54,6 +57,13 @@ const HeroSection = () => {
     window.addEventListener("resize", checkTablet);
     return () => window.removeEventListener("resize", checkTablet);
   }, []);
+
+  // Delay gem render by 2s to let page become interactive first
+  useEffect(() => {
+    if (isMobile) return;
+    const timer = setTimeout(() => setShowGem(true), 2000);
+    return () => clearTimeout(timer);
+  }, [isMobile]);
 
   useEffect(() => {
     const video = heroVideoRef.current;
@@ -108,7 +118,7 @@ const HeroSection = () => {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="none"
         poster="/images/antigua-hero-poster.jpg"
         className="hero-video"
         style={{
@@ -152,15 +162,17 @@ const HeroSection = () => {
       {/* ═══ LAYER 3 — TWO-COLUMN GRID LAYOUT ═══ */}
       <div className="hero-grid-layout" style={{ position: "relative", zIndex: 3, width: "100%", height: "100%" }}>
 
-        {/* GEM — hidden on mobile for performance */}
-        {!isMobile && (
+        {/* GEM — hidden on mobile for performance, delayed load on desktop */}
+        {!isMobile && showGem && (
           <div className="hero-gem-float">
             <div style={{ position: "relative", zIndex: 1 }}>
-              <BrilliantGem
-                width={isTablet ? 180 : 520}
-                height={isTablet ? 180 : 520}
-                observerTarget={heroRef as React.RefObject<HTMLElement>}
-              />
+              <Suspense fallback={null}>
+                <BrilliantGem
+                  width={isTablet ? 180 : 520}
+                  height={isTablet ? 180 : 520}
+                  observerTarget={heroRef as React.RefObject<HTMLElement>}
+                />
+              </Suspense>
             </div>
           </div>
         )}

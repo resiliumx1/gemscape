@@ -11,10 +11,10 @@ gsap.registerPlugin(ScrollTrigger);
 const CARDS = [
   {
     images: [
-      { src: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=85", alt: "English Harbour aerial — yachts anchored in turquoise bay" },
-      { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85", alt: "Dickenson Bay — pristine white sand beach" },
-      { src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85", alt: "Devil's Bridge — turquoise surf crashing through limestone" },
-      { src: "https://images.unsplash.com/photo-1559827291-bac2e36b8cf2?w=800&q=85", alt: "Pink sand beach with crystalline turquoise waters" },
+      { src: "/images/experiences/catamaran-white-beach.webp", alt: "English Harbour aerial — yachts anchored in turquoise bay" },
+      { src: "/images/experiences/jeep-beach-palms.webp", alt: "Dickenson Bay — pristine white sand beach" },
+      { src: "/images/experiences/bettys-hope-windmill.webp", alt: "Devil's Bridge — turquoise surf crashing through limestone" },
+      { src: "/images/experiences/airport-vip-greeting.webp", alt: "Pink sand beach with crystalline turquoise waters" },
     ],
     category: "Water & Sea",
     title: "Island Circumnavigation",
@@ -31,8 +31,8 @@ const CARDS = [
   {
     images: [
       { src: bettysHopeImg, alt: "Betty's Hope — restored 17th century sugar mill windmill" },
-      { src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85", alt: "St. John's Cathedral — baroque stone towers against blue sky" },
-      { src: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=85", alt: "ATV buggy adventure through island trails" },
+      { src: "/images/experiences/airport-vip-greeting.webp", alt: "St. John's Cathedral — baroque stone towers against blue sky" },
+      { src: "/images/experiences/jeep-beach-palms.webp", alt: "ATV buggy adventure through island trails" },
     ],
     category: "Land & Culture",
     title: "Heritage & Discovery",
@@ -50,7 +50,7 @@ const CARDS = [
     images: [
       { src: airportVipImg, alt: "VIP airport greeting — professional staff welcoming guest" },
       { src: catamaranImg, alt: "Catamaran anchored at pristine white sand beach" },
-      { src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=85", alt: "Driving along turquoise Caribbean coastal road" },
+      { src: "/images/experiences/jeep-beach-palms.webp", alt: "Driving along turquoise Caribbean coastal road" },
     ],
     category: "Arrival & Departure",
     title: "Flight Concierge",

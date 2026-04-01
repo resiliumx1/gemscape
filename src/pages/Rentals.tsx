@@ -262,7 +262,7 @@ const Rentals = () => {
               <div
                 className="r-card__img-wrap"
                 onClick={() => setLightboxImage({
-                  src: v.image_url || "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
+                  src: v.image_url || "/images/experiences/jeep-beach-palms.webp",
                   name: v.name,
                 })}
                 style={{ cursor: "pointer", position: "relative" }}
@@ -278,7 +278,7 @@ const Rentals = () => {
                   }}>⤢</span>
                 </div>
                 <img
-                  src={v.image_url || "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85"}
+                  src={v.image_url || "/images/experiences/jeep-beach-palms.webp"}
                   alt={`${v.name} available for rental in Antigua & Barbuda, Gemscape Travel`}
                   loading="lazy"
                   width={800}
@@ -288,7 +288,7 @@ const Rentals = () => {
                     const target = e.currentTarget;
                     if (!target.dataset.fallbackUsed) {
                       target.dataset.fallbackUsed = "true";
-                      target.src = "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85";
+                      target.src = "/images/experiences/jeep-beach-palms.webp";
                     }
                   }}
                 />
@@ -397,7 +397,7 @@ const Rentals = () => {
               const target = e.currentTarget;
               if (!target.dataset.fallbackUsed) {
                 target.dataset.fallbackUsed = "true";
-                target.src = "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85";
+                target.src = "/images/experiences/jeep-beach-palms.webp";
               }
             }}
           />

@@ -13,7 +13,7 @@ const FALLBACK_VEHICLES = [
     name: "Toyota Land Cruiser",
     category: "SUV",
     daily_rate: 120,
-    image_url: "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
+    image_url: "/images/experiences/jeep-beach-palms.webp",
     seats: 7,
     transmission: "Automatic",
   },
@@ -21,7 +21,7 @@ const FALLBACK_VEHICLES = [
     name: "Jeep Wrangler",
     category: "Open-Air",
     daily_rate: 95,
-    image_url: "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&q=85",
+    image_url: "/images/experiences/catamaran-white-beach.webp",
     seats: 4,
     transmission: "Manual",
   },
@@ -29,16 +29,16 @@ const FALLBACK_VEHICLES = [
     name: "Hyundai Tucson",
     category: "Sedan / SUV",
     daily_rate: 75,
-    image_url: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=85",
+    image_url: "/images/experiences/airport-vip-greeting.webp",
     seats: 5,
     transmission: "Automatic",
   },
 ];
 
 const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
-  "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&q=85",
-  "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=85",
+  "/images/experiences/jeep-beach-palms.webp",
+  "/images/experiences/catamaran-white-beach.webp",
+  "/images/experiences/airport-vip-greeting.webp",
 ];
 
 const STATS = [
@@ -233,7 +233,7 @@ const RentalsPreview = () => {
                         const target = e.currentTarget;
                         if (!target.dataset.fallbackUsed) {
                           target.dataset.fallbackUsed = "true";
-                          target.src = "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85";
+                          target.src = "/images/experiences/jeep-beach-palms.webp";
                         }
                       }}
                     />

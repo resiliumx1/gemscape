@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 
-const LOGO_SRC = "/images/gemscape-logo.png";
+const LOGO_SRC = "/images/gemscape-logo.webp";
 
 const C = {
   navy:     "#05181e",
