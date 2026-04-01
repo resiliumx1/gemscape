@@ -443,7 +443,7 @@ export default function Navbar() {
             >
               {/* Drawer header */}
               <div className="flex items-center justify-between mb-12">
-                <img src="/images/gemscape-logo.png" alt="Gemscape" className="h-8 w-auto" style={{ background: "transparent" }} />
+                <img src="/images/gemscape-logo.webp" alt="Gemscape" className="h-8 w-auto" style={{ background: "transparent" }} />
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsMenuOpen(false)}

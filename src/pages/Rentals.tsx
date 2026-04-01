@@ -397,7 +397,7 @@ const Rentals = () => {
               const target = e.currentTarget;
               if (!target.dataset.fallbackUsed) {
                 target.dataset.fallbackUsed = "true";
-                target.src = "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85";
+                target.src = "/images/experiences/jeep-beach-palms.webp";
               }
             }}
           />

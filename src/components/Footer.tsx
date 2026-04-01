@@ -30,7 +30,7 @@ const Footer = () => {
         {/* Brand column */}
         <div>
           <img
-            src="/images/gemscape-logo.png"
+            src="/images/gemscape-logo.webp"
             alt="Gemscape Travel and Tours"
             style={{
               height: 56,
