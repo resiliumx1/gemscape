@@ -371,7 +371,7 @@ export default function Navbar() {
         >
           <div className="gem-logo-aura">
             <img
-              src="/images/gemscape-logo.png"
+              src="/images/gemscape-logo.webp"
               alt="Gemscape Travel & Tours"
               className="h-[36px] sm:h-[42px] w-auto object-contain gem-logo-img"
               style={{ background: "transparent", minWidth: 100 }}
