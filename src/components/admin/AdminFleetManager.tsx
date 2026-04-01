@@ -13,7 +13,7 @@ const FUEL_TYPES = ["Gasoline", "Diesel", "Hybrid", "Electric"];
 
 const AdminFleetManager = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [editing, setEditing] = useState<Partial<Vehicle> & { licensePlate?: string; year?: string; fuelLevel?: string }>  | null>(null);
+  const [editing, setEditing] = useState<(Partial<Vehicle> & { licensePlate?: string; year?: string; fuelLevel?: string }) | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [saving, setSaving] = useState(false);
   const [featuresStr, setFeaturesStr] = useState("");
