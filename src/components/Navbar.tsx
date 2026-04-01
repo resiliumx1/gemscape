@@ -278,10 +278,27 @@ export default function Navbar() {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Lock body scroll
+  // Lock body scroll but allow drawer to scroll
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+    };
   }, [isMenuOpen]);
 
   const toggleTheme = (checked: boolean) => {
