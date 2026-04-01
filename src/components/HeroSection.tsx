@@ -43,7 +43,6 @@ const AnimatedStars = () => {
 const HeroSection = () => {
   const { navigateTo } = useWave();
   const heroRef = useRef<HTMLElement>(null);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
   const [isTablet, setIsTablet] = useState(false);
   const [showGem, setShowGem] = useState(false);
@@ -65,33 +64,6 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, [isMobile]);
 
-  useEffect(() => {
-    const video = heroVideoRef.current;
-    if (!video) return;
-    video.muted = true;
-    const attemptPlay = () => {
-      video.play().catch((err) => {
-        console.warn('Hero video autoplay blocked:', err.message);
-        const playOnInteraction = () => {
-          video.play().catch(() => {});
-          document.removeEventListener('click', playOnInteraction);
-          document.removeEventListener('touchstart', playOnInteraction);
-          document.removeEventListener('keydown', playOnInteraction);
-        };
-        document.addEventListener('click', playOnInteraction, { once: true });
-        document.addEventListener('touchstart', playOnInteraction, { once: true });
-        document.addEventListener('keydown', playOnInteraction, { once: true });
-      });
-    };
-    if (video.readyState >= 2) {
-      attemptPlay();
-    } else {
-      video.addEventListener('canplay', attemptPlay, { once: true });
-    }
-    return () => {
-      video.removeEventListener('canplay', attemptPlay);
-    };
-  }, []);
 
   return (
     <section
@@ -110,17 +82,10 @@ const HeroSection = () => {
         marginBottom: -1,
       }}
     >
-      {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
-      <video
-        ref={heroVideoRef}
-        src="/videos/antigua-aerial.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="none"
-        poster="/images/antigua-hero-poster.jpg"
-        className="hero-video"
+      {/* ═══ LAYER 1 — HERO POSTER IMAGE ═══ */}
+      <img
+        src="/images/hero-antigua-sunset.webp"
+        alt="Antigua aerial view"
         style={{
           position: "absolute",
           inset: 0,
@@ -129,9 +94,6 @@ const HeroSection = () => {
           objectFit: "cover",
           zIndex: 0,
           opacity: 0.65,
-        }}
-        onError={(e) => {
-          (e.currentTarget as HTMLVideoElement).style.display = 'none';
         }}
       />
 
