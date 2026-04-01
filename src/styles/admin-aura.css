@@ -616,6 +616,7 @@
 .aura-content > * {
   flex: 1;
   min-height: 0;
+  animation: aura-page-enter 0.3s ease-out both;
 }
 
 .aura-content > div[style*="flex-direction: column"] {
