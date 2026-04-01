@@ -335,12 +335,12 @@ const AdminHeader = ({
             overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
           }}>{pageTitle}</h1>
           <p style={{
-            fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 400,
+            fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 400,
             color: "var(--aura-text-muted)", marginTop: 2,
           }}>{today}</p>
         </div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: isTablet ? 6 : 10, flexShrink: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: isTablet ? 4 : 10, flexShrink: 0, flexWrap: "wrap" as const, justifyContent: "flex-end" }}>
         <button onClick={onNewBooking} style={{
           display: "inline-flex", alignItems: "center", gap: 8,
           background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))",
