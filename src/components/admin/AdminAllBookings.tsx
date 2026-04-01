@@ -162,8 +162,8 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
         </div>
       ) : (
         /* Desktop: Table */
-        <div className="aura-glass" style={{ padding: 0, overflow: "hidden" }}>
-          <div style={{ overflowX: "auto" }}>
+        <div className="aura-glass" style={{ padding: 0, overflow: "hidden", flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
+          <div style={{ overflowX: "auto", overflowY: "auto", flex: 1 }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "var(--aura-font-body)", fontSize: 13 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--aura-glass-border)" }}>
