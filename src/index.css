@@ -179,7 +179,7 @@ html {
 
 body {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
@@ -314,7 +314,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h2 {
   line-height: 0.95;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 p, nav, button, a, span, li, input, textarea, select, label {
@@ -322,7 +322,7 @@ p, nav, button, a, span, li, input, textarea, select, label {
 }
 
 p {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   line-height: 1.8;
 }
@@ -609,7 +609,7 @@ button, input, textarea, select, a {
   background: none;
   border: none;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 28px;
   color: rgba(255, 255, 255, 0.5);
   line-height: 1;
@@ -630,7 +630,7 @@ button, input, textarea, select, a {
 
 .mobile-nav-link {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   font-size: 46px;
   color: rgba(255, 255, 255, 1);
@@ -733,7 +733,7 @@ header * {
 
 .hero__headline {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 100px;
   line-height: 0.93;
   color: rgba(255, 255, 255, 1);
@@ -753,7 +753,7 @@ header * {
 
 .hero__sub {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   color: rgba(255, 255, 255, 0.72);
   max-width: 460px;
@@ -878,7 +878,7 @@ header * {
 
 .hero__scroll span {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.22em;
@@ -913,7 +913,7 @@ header * {
     transform: rotate(180deg) translateY(-50%);
     writing-mode: vertical-rl;
     font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.22em;
@@ -954,7 +954,7 @@ header * {
   bottom: 32px;
   left: 36px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.45);
   letter-spacing: 0.1em;
@@ -1002,7 +1002,7 @@ header * {
 
 .services__row-num {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 3.5rem;
   line-height: 1;
   color: #b8956a;
@@ -1014,7 +1014,7 @@ header * {
 
 .services__row.active .services__row-num {
   color: #b8956a;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .services__row-title {
@@ -1054,7 +1054,7 @@ header * {
 
 .services__desc-item p {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   line-height: 1.8;
   color: var(--text-secondary);
@@ -1125,7 +1125,7 @@ header * {
 
 .experiences__h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 72px;
   color: var(--text-primary);
   line-height: 0.93;
@@ -1138,7 +1138,7 @@ header * {
 
 .experiences__intro {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   line-height: 1.8;
   color: var(--text-secondary);
@@ -1203,7 +1203,7 @@ header * {
 
 .exp-card__title {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 30px;
   color: var(--text-primary);
   line-height: 1.05;
@@ -1212,7 +1212,7 @@ header * {
 
 .exp-card__desc {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: var(--text-secondary);
   line-height: 1.7;
@@ -1356,7 +1356,7 @@ header * {
   left: 10%;
   transform: translateY(-50%);
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 300px;
   color: rgba(255, 255, 255, 0.022);
   white-space: nowrap;
@@ -1376,7 +1376,7 @@ header * {
 .manifesto__mark {
   display: block;
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 140px;
   color: hsl(var(--gem-gold));
   line-height: 0.4;
@@ -1385,7 +1385,7 @@ header * {
 
 .manifesto__quote {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   font-size: 36px;
   line-height: 1.55;
@@ -1405,7 +1405,7 @@ header * {
 .manifesto__attr {
   margin-top: 32px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -1431,7 +1431,7 @@ header * {
 
 .testimonials__h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 72px;
   color: var(--text-primary);
   line-height: 0.92;
@@ -1490,7 +1490,7 @@ header * {
 .testimonial__mark {
   display: block;
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 80px;
   color: hsl(var(--gem-gold));
   line-height: 0.5;
@@ -1499,7 +1499,7 @@ header * {
 
 .testimonial__quote {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   font-size: 26px;
   color: var(--text-primary);
@@ -1534,7 +1534,7 @@ header * {
   display: block;
   margin-top: 4px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: var(--text-secondary);
 }
@@ -1561,7 +1561,7 @@ header * {
 
 .why-gemscape__h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 62px;
   color: var(--text-primary);
   line-height: 0.95;
@@ -1578,7 +1578,7 @@ header * {
   margin: 24px auto 0;
   max-width: 640px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   color: var(--text-secondary);
   line-height: 1.8;
@@ -1613,7 +1613,7 @@ header * {
 
 .pillar__mark {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 32px;
   color: hsl(var(--gem-gold));
 }
@@ -1629,7 +1629,7 @@ header * {
 
 .pillar__desc {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.7;
@@ -1679,7 +1679,7 @@ header * {
 
 .cta-banner__h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 80px;
   color: rgba(255,255,255,1);
   line-height: 0.92;
@@ -1694,7 +1694,7 @@ header * {
 
 .cta-banner__sub {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 19px;
   color: rgba(255,255,255,0.70);
   margin-top: 20px;
@@ -1802,7 +1802,7 @@ header * {
 
 .gem-footer__tagline {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   font-size: 17px;
   color: rgba(255,255,255,0.78);
@@ -1848,7 +1848,7 @@ header * {
 
 .gem-footer__links a {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: rgba(255,255,255,0.78);
   text-decoration: none;
@@ -1868,7 +1868,7 @@ header * {
 .gem-footer__contact span,
 .gem-footer__contact a {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: rgba(255,255,255,0.78);
   text-decoration: none;
@@ -1892,7 +1892,7 @@ header * {
 
 .gem-footer__bottom span {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: rgba(255,255,255,0.78);
 }
@@ -2015,7 +2015,7 @@ header * {
 
 .rentals-hero__h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(48px, 7vw, 80px);
   line-height: 0.95;
   color: #fff;
@@ -2035,7 +2035,7 @@ header * {
 
 .rentals-hero__sub {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.72);
@@ -2148,7 +2148,7 @@ header * {
 
 .rentals-how__num {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 40px;
   color: hsl(var(--gem-gold));
   display: block;
@@ -2167,7 +2167,7 @@ header * {
 
 .rentals-how__desc {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.55);
   margin-top: 4px;
@@ -2285,7 +2285,7 @@ header * {
 
 .r-card__name {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 28px;
   color: hsl(var(--gem-navy));
   margin-top: 6px;
@@ -2304,7 +2304,7 @@ header * {
   align-items: center;
   gap: 5px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: hsl(var(--gem-navy) / 0.55);
 }
@@ -2329,7 +2329,7 @@ header * {
 
 .r-card__from {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: hsl(var(--gem-navy) / 0.45);
   margin-right: 6px;
@@ -2344,7 +2344,7 @@ header * {
 
 .r-card__per {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: hsl(var(--gem-navy) / 0.45);
   margin-left: 2px;
@@ -2469,7 +2469,7 @@ header * {
 
 .rentals-inclusions__desc {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: rgba(11, 42, 59, 0.62);
   margin-top: 4px;
@@ -2503,7 +2503,7 @@ header * {
 
 .rb-h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 64px;
   color: #fff;
   line-height: 0.92;
@@ -2518,7 +2518,7 @@ header * {
 
 .rb-sub {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.8;
@@ -2599,7 +2599,7 @@ header * {
   border-bottom: 1px solid hsl(var(--gem-sand));
   padding: 14px 0;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   color: hsl(var(--gem-navy));
   outline: none;
@@ -2761,7 +2761,7 @@ header * {
   display: flex;
   justify-content: space-between;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: hsl(var(--gem-navy));
   margin-bottom: 12px;
@@ -2786,7 +2786,7 @@ header * {
 
 .rb-summary__total-row > span:first-child {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: hsl(var(--gem-navy) / 0.6);
 }
@@ -2813,7 +2813,7 @@ header * {
 
 .rb-success-title {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 48px;
   color: hsl(var(--gem-navy));
   line-height: 1;
@@ -2829,7 +2829,7 @@ header * {
 
 .rb-success-desc {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   color: hsl(var(--gem-navy) / 0.6);
   margin-top: 8px;
@@ -2897,7 +2897,7 @@ header * {
 
 .rentals-preview__h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 72px;
   line-height: 0.92;
   color: #fff;
@@ -2912,7 +2912,7 @@ header * {
 
 .rentals-preview__body {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.68);
@@ -2940,7 +2940,7 @@ header * {
 
 .rentals-preview__stat-label {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -3052,7 +3052,7 @@ header * {
 
 .book-hero__h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 72px;
   color: #fff;
   line-height: 0.92;
@@ -3065,7 +3065,7 @@ header * {
 
 .book-hero__sub {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   color: rgba(255,255,255,0.65);
   margin-top: 16px;
@@ -3160,7 +3160,7 @@ header * {
 
 .bw-instruction {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   font-size: 28px;
   color: hsl(var(--gem-navy));
@@ -3222,7 +3222,7 @@ header * {
 
 .bw-svc-card__name {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 28px;
   color: hsl(var(--gem-navy));
   line-height: 1.1;
@@ -3230,7 +3230,7 @@ header * {
 
 .bw-svc-card__desc {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: rgba(11,42,59,0.60);
   line-height: 1.7;
@@ -3334,7 +3334,7 @@ header * {
 
 .bw-guests-total {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: hsl(var(--gem-navy) / 0.55);
   margin-top: 8px;
@@ -3345,7 +3345,7 @@ header * {
   align-items: center;
   gap: 10px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: hsl(var(--gem-navy));
   cursor: pointer;
@@ -3383,7 +3383,7 @@ header * {
 
 .bw-review-badge {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 24px;
   color: hsl(var(--gem-navy));
 }
@@ -3410,7 +3410,7 @@ header * {
 
 .bw-review-row span:last-child {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   color: hsl(var(--gem-navy));
   text-align: right;
@@ -3425,7 +3425,7 @@ header * {
 .bw-review-estimate__label {
   display: block;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: rgba(11,42,59,0.55);
   margin-bottom: 4px;
@@ -3440,7 +3440,7 @@ header * {
 
 .bw-review-note {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: rgba(11,42,59,0.55);
   text-align: center;
@@ -3449,7 +3449,7 @@ header * {
 
 .bw-review-cancel {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: hsl(var(--gem-navy) / 0.5);
   text-align: center;
@@ -3504,7 +3504,7 @@ header * {
 
 .bw-success__h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 72px;
   color: hsl(var(--gem-navy));
   line-height: 0.92;
@@ -3524,7 +3524,7 @@ header * {
 
 .bw-success__desc {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   color: hsl(var(--gem-navy) / 0.65);
   max-width: 500px;
@@ -3754,7 +3754,7 @@ header * {
 
 .admin-page-sub {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: rgba(223,243,248,0.28);
   margin-top: 4px;
@@ -4881,7 +4881,7 @@ header * {
   border-radius: 0 !important;
   padding: 14px 0;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.85) !important;
   height: auto;
@@ -4957,7 +4957,7 @@ header * {
   border: 1px solid rgba(184,150,90,0.2);
   padding: 12px 14px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
   color: #fff;
   outline: none;
@@ -5250,7 +5250,7 @@ html:not(.dark) .hero-country-shimmer {
 
 .packages-hero__h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(40px, 6vw, 64px);
   color: #fff;
   line-height: 1.05;
@@ -5264,7 +5264,7 @@ html:not(.dark) .hero-country-shimmer {
 
 .packages-hero__sub {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   line-height: 1.75;
   color: rgba(255,255,255,0.55);
