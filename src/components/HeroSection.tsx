@@ -409,10 +409,11 @@ const HeroSection = () => {
         }
 
         /* ═══ TABLET — gem above text, centered, ONE gem only ═══ */
-        @media (min-width: 769px) and (max-width: 1024px) {
+        @media (min-width: 768px) and (max-width: 1024px) {
           .hero-grid-layout {
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             padding: 0 32px;
             gap: 0;
           }
@@ -422,24 +423,24 @@ const HeroSection = () => {
             max-width: 640px;
           }
           .hero-headline {
-            font-size: clamp(32px, 5vw, 52px) !important;
+            font-size: clamp(30px, 4.5vw, 46px) !important;
           }
           .hero-gem-float {
             position: relative;
             right: auto;
             top: auto;
             transform: none;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             flex-shrink: 0;
           }
           .hero-gem-float canvas {
-            width: 200px !important;
-            height: 200px !important;
+            width: 180px !important;
+            height: 180px !important;
           }
         }
 
         /* ═══ MOBILE — gem above text, larger, centered ═══ */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .hero-grid-layout {
             flex-direction: column;
             justify-content: center;
