@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import rentalsHeroBg from "@/assets/rentals-hero.png";
+const rentalsHeroBg = "/images/rentals-hero.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
