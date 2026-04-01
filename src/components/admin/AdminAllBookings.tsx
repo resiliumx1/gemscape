@@ -34,6 +34,8 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [channel, setChannel] = useState<"email" | "sms" | "push">("email");
   const [msgText, setMsgText] = useState("");
   const [sent, setSent] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState<any>(null);
+  const [selectedType, setSelectedType] = useState<"tour" | "rental">("tour");
 
   useEffect(() => {
     Promise.all([
