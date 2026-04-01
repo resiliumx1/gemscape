@@ -86,6 +86,7 @@ const HeroSection = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: -1,
       }}
     >
       {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
