@@ -62,23 +62,35 @@ const App = () => {
 
   useEffect(() => {
     let lenis: Lenis | null = null;
+    let idleId: number | null = null;
+    let rafId: number | null = null;
 
-    if (!isAdmin && window.innerWidth >= 768) {
-      lenis = new Lenis({
-        duration: 1.4,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: "vertical" as const,
-        smoothWheel: true,
-      });
+    const initLenis = () => {
+      if (!isAdmin && window.innerWidth >= 768) {
+        lenis = new Lenis({
+          duration: 1.4,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: "vertical" as const,
+          smoothWheel: true,
+        });
 
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add((time) => lenis!.raf(time * 1000));
-      gsap.ticker.lagSmoothing(0);
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis!.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+      } else {
+        document.documentElement.classList.remove('lenis', 'lenis-smooth');
+      }
+    };
+
+    if ('requestIdleCallback' in window) {
+      idleId = requestIdleCallback(initLenis) as unknown as number;
     } else {
-      document.documentElement.classList.remove('lenis', 'lenis-smooth');
+      rafId = requestAnimationFrame(initLenis);
     }
 
     return () => {
+      if (idleId !== null) cancelIdleCallback(idleId);
+      if (rafId !== null) cancelAnimationFrame(rafId);
       if (lenis) lenis.destroy();
     };
   }, []);
