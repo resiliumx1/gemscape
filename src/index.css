@@ -4,6 +4,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Skip to Content (Accessibility) ─────────────────────── */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: #2cb8a8;
+  color: #05181e;
+  padding: 12px 24px;
+  border-radius: 0 0 8px 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 99999;
+  transition: top 0.3s ease;
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ─── Focus Visible (Keyboard Navigation) ─────────────────── */
+*:focus-visible {
+  outline: 2px solid #2cb8a8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #2cb8a8;
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
