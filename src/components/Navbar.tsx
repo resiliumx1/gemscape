@@ -1,5 +1,5 @@
 import { motion, useScroll, AnimatePresence } from "framer-motion";
-import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail } from "lucide-react";
+import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail, Shield } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
@@ -391,6 +391,9 @@ export default function Navbar() {
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Sparkles} label="CONCIERGE" href="/concierge" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Mail} label="CONTACT" href="/contact" pulse={false} onNavigate={handleNav} />
+          {!location.pathname.startsWith("/admin") && (
+            <NavItem icon={Shield} label="ADMIN" href="/admin" pulse={false} onNavigate={handleNav} />
+          )}
         </motion.nav>
 
         {/* Right controls */}
@@ -546,6 +549,18 @@ export default function Navbar() {
                     <SkyToggle checked={isDark} onChange={toggleTheme} />
                   </motion.div>
                 </div>
+
+                {/* Admin */}
+                {!location.pathname.startsWith("/admin") && (
+                  <motion.div
+                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => handleNav("/admin")}
+                  >
+                    <span className="text-sm font-body font-bold tracking-[0.2em] text-white/80">ADMIN</span>
+                    <Shield size={18} style={{ color: "#b8956a" }} />
+                  </motion.div>
+                )}
 
                 {/* Book Now */}
                 <motion.div
