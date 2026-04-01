@@ -409,11 +409,11 @@ const HeroSection = () => {
             padding: 0 24px;
           }
           .hero-gem-float {
-            right: 8%;
+            right: 4%;
           }
           .hero-gem-float canvas {
-            width: 320px !important;
-            height: 320px !important;
+            width: 260px !important;
+            height: 260px !important;
           }
           .hero-headline {
             font-size: clamp(28px, 4.5vw, 48px) !important;
@@ -439,12 +439,30 @@ const HeroSection = () => {
             right: auto;
             top: auto;
             transform: none;
-            margin-top: 24px;
-            margin-bottom: -8px;
+            margin-bottom: 8px;
             order: -1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .hero-gem-float canvas {
+            width: 180px !important;
+            height: 180px !important;
           }
           .hero-right-col {
             display: none !important;
+          }
+          .hero-cta-row {
+            flex-direction: column !important;
+            width: 100%;
+          }
+          .hero-cta-row .hero-btn-primary,
+          .hero-cta-row .hero-btn-secondary {
+            width: 100% !important;
+            min-width: unset !important;
+            text-align: center !important;
+            justify-content: center !important;
+            display: flex !important;
           }
         }
 

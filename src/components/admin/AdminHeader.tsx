@@ -340,7 +340,7 @@ const AdminHeader = ({
           }}>{today}</p>
         </div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: isTablet ? 6 : 10, flexShrink: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: isTablet ? 4 : 10, flexShrink: 0, flexWrap: "wrap" as const, justifyContent: "flex-end" }}>
         <button onClick={onNewBooking} style={{
           display: "inline-flex", alignItems: "center", gap: 8,
           background: "linear-gradient(135deg, var(--aura-gold), var(--aura-gold-hover))",
