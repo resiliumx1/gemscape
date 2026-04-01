@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, DollarSign, TrendingUp, FileText, Briefcase,
   Star, Truck, CalendarDays, MessageSquare, Mail, Settings,
-  Sun, Moon, PanelLeftClose, PanelLeft, Menu, Home,
+  Sun, Moon, PanelLeftClose, PanelLeft, Menu, Home, Sparkles,
 } from "lucide-react";
 import { AdminHeader, NewBookingModal } from "@/components/admin/AdminHeader";
 import "@/styles/admin-aura.css";
