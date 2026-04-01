@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useWave } from "@/components/WavePageTransition";
 import BrilliantGem from "@/components/BrilliantGem";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -43,6 +43,17 @@ const HeroSection = () => {
   const heroRef = useRef<HTMLElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkTablet = () => {
+      const w = window.innerWidth;
+      setIsTablet(w >= 768 && w <= 1024);
+    };
+    checkTablet();
+    window.addEventListener("resize", checkTablet);
+    return () => window.removeEventListener("resize", checkTablet);
+  }, []);
 
   useEffect(() => {
     const video = heroVideoRef.current;
@@ -145,8 +156,8 @@ const HeroSection = () => {
         <div className="hero-gem-float">
           <div style={{ position: "relative", zIndex: 1 }}>
             <BrilliantGem
-              width={isMobile ? 200 : 520}
-              height={isMobile ? 200 : 520}
+              width={isMobile ? 200 : isTablet ? 180 : 520}
+              height={isMobile ? 200 : isTablet ? 180 : 520}
               observerTarget={heroRef as React.RefObject<HTMLElement>}
             />
           </div>
@@ -398,10 +409,11 @@ const HeroSection = () => {
         }
 
         /* ═══ TABLET — gem above text, centered, ONE gem only ═══ */
-        @media (min-width: 769px) and (max-width: 1024px) {
+        @media (min-width: 768px) and (max-width: 1024px) {
           .hero-grid-layout {
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             padding: 0 32px;
             gap: 0;
           }
@@ -411,24 +423,24 @@ const HeroSection = () => {
             max-width: 640px;
           }
           .hero-headline {
-            font-size: clamp(32px, 5vw, 52px) !important;
+            font-size: clamp(30px, 4.5vw, 46px) !important;
           }
           .hero-gem-float {
             position: relative;
             right: auto;
             top: auto;
             transform: none;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             flex-shrink: 0;
           }
           .hero-gem-float canvas {
-            width: 200px !important;
-            height: 200px !important;
+            width: 180px !important;
+            height: 180px !important;
           }
         }
 
         /* ═══ MOBILE — gem above text, larger, centered ═══ */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .hero-grid-layout {
             flex-direction: column;
             justify-content: center;
@@ -460,7 +472,7 @@ const HeroSection = () => {
         }
 
         /* ═══ MOBILE CTAs — full width, equal sizing ═══ */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .hero-cta-row {
             flex-direction: column !important;
             width: 100%;
@@ -504,7 +516,7 @@ const HeroSection = () => {
           gap: 20px;
           margin-top: 20px;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .hero-mobile-stats {
             display: flex;
           }
