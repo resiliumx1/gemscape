@@ -549,7 +549,7 @@ const BookingWizard = ({ initialService }: Props) => {
 
       <style>{`
         .gem-form-label {
-          font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+          font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
           letter-spacing: 0.12em; color: var(--text-tertiary);
           text-transform: uppercase; display: block; margin-bottom: 8px;
         }
@@ -562,7 +562,7 @@ const BookingWizard = ({ initialService }: Props) => {
         .gem-form-input:focus { border-color: rgba(44,184,168,0.6); box-shadow: 0 0 0 3px rgba(44,184,168,0.08); }
         .gem-form-input::placeholder { color: var(--text-tertiary); }
         .gem-form-input--error { border-color: #e05a5a !important; }
-        .gem-form-error { font-size: 11px; color: #e05a5a; margin-top: 4px; display: block; }
+        .gem-form-error { font-size: 13px; color: #e05a5a; margin-top: 4px; display: block; }
         .gem-stepper-btn {
           width: 36px; height: 36px; border-radius: 50%;
           border: 1px solid rgba(201,168,76,0.3); background: transparent;
