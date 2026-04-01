@@ -61,7 +61,7 @@ const AdminReports = ({ isMobile = false }: { isMobile?: boolean }) => {
             </span>
             <div style={{ flex: 1 }}>
               <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 500, color: 'var(--aura-text)' }}>{h.name}</p>
-              <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 10, color: 'var(--aura-text-muted)', marginTop: 1 }}>{h.time} · {h.size}</p>
+              <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, color: 'var(--aura-text)', opacity: 0.55, marginTop: 1 }}>{h.time} · {h.size}</p>
             </div>
             <span style={{
               padding: '3px 9px', borderRadius: 6, fontSize: 9.5, fontWeight: 700,
