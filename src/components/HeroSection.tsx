@@ -120,7 +120,7 @@ const HeroSection = () => {
           inset: 0,
           zIndex: 1,
           background:
-            "linear-gradient(180deg, rgba(5,24,30,0.30) 0%, rgba(5,24,30,0.15) 40%, rgba(5,24,30,0.55) 85%, rgba(5,24,30,0.80) 100%)",
+            "linear-gradient(180deg, rgba(5,24,30,0.30) 0%, rgba(5,24,30,0.15) 40%, rgba(5,24,30,0.55) 85%, rgba(5,24,30,1.0) 100%)",
           pointerEvents: "none",
         }}
       />
