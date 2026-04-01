@@ -572,7 +572,7 @@ const BrilliantGem = ({ width = 500, height = 500, observerTarget }: BrilliantGe
       style={{
         width: `${width}px`,
         height: `${height}px`,
-        overflow: "visible",
+        overflow: "hidden",
         background: "transparent",
         margin: "0 auto",
       }}

@@ -152,16 +152,18 @@ const HeroSection = () => {
       {/* ═══ LAYER 3 — TWO-COLUMN GRID LAYOUT ═══ */}
       <div className="hero-grid-layout" style={{ position: "relative", zIndex: 3, width: "100%", height: "100%" }}>
 
-        {/* GEM — positioned based on viewport */}
-        <div className="hero-gem-float">
-          <div style={{ position: "relative", zIndex: 1 }}>
-            <BrilliantGem
-              width={isMobile ? 200 : isTablet ? 180 : 520}
-              height={isMobile ? 200 : isTablet ? 180 : 520}
-              observerTarget={heroRef as React.RefObject<HTMLElement>}
-            />
+        {/* GEM — hidden on mobile for performance */}
+        {!isMobile && (
+          <div className="hero-gem-float">
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <BrilliantGem
+                width={isTablet ? 180 : 520}
+                height={isTablet ? 180 : 520}
+                observerTarget={heroRef as React.RefObject<HTMLElement>}
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* LEFT COLUMN — TEXT */}
         <div className="hero-text-col">
