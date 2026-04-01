@@ -354,6 +354,7 @@ const AdminHeader = ({
           <Search size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
           <input className="aura-topbar__search" placeholder="Search..." style={{ width: isTablet ? 140 : 180 }} />
         </div>
+        <CurrencyBtn />
         <NotificationBell isMobile={false} />
         <ProfileAvatar
           profilePic={profilePic}
