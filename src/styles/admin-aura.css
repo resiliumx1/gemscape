@@ -1073,7 +1073,9 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* animation merged into .aura-content > * above */
+.aura-content > * {
+  animation: aura-page-enter 0.3s ease-out both;
+}
 
 /* ── Button Micro-interactions ── */
 .aura-admin button:not(.aura-nav-item):not(.aura-theme-toggle):hover {
