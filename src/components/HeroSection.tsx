@@ -43,7 +43,6 @@ const AnimatedStars = () => {
 const HeroSection = () => {
   const { navigateTo } = useWave();
   const heroRef = useRef<HTMLElement>(null);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
   const [isTablet, setIsTablet] = useState(false);
   const [showGem, setShowGem] = useState(false);
