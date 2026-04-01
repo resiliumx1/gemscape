@@ -550,6 +550,18 @@ export default function Navbar() {
                   </motion.div>
                 </div>
 
+                {/* Admin */}
+                {!location.pathname.startsWith("/admin") && (
+                  <motion.div
+                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => handleNav("/admin")}
+                  >
+                    <span className="text-sm font-body font-bold tracking-[0.2em] text-white/80">ADMIN</span>
+                    <Shield size={18} style={{ color: "#b8956a" }} />
+                  </motion.div>
+                )}
+
                 {/* Book Now */}
                 <motion.div
                   variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }}
