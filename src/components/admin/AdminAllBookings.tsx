@@ -86,7 +86,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, flex: 1, minHeight: 0 }}>
       {/* Filter Buttons */}
       <div style={{ display: "flex", gap: 8, overflowX: isMobile ? "auto" : "visible", flexWrap: isMobile ? "nowrap" : "wrap", WebkitOverflowScrolling: "touch" as any }}>
         {filters.map(f => (
