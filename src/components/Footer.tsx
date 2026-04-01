@@ -32,6 +32,8 @@ const Footer = () => {
           <img
             src="/images/gemscape-logo.webp"
             alt="Gemscape Travel and Tours"
+            width={77}
+            height={56}
             style={{
               height: 56,
               width: "auto",

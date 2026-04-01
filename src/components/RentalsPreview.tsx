@@ -47,6 +47,15 @@ const STATS = [
   { value: "24/7", label: "Support" },
 ];
 
+/** Optimize Unsplash URLs: request WebP at smaller size */
+const optimizeImageUrl = (url: string): string => {
+  if (url.includes("unsplash.com")) {
+    const base = url.split("?")[0];
+    return `${base}?w=400&q=70&fm=webp&fit=crop`;
+  }
+  return url;
+};
+
 type Vehicle = {
   name: string;
   category: string;
@@ -223,7 +232,7 @@ const RentalsPreview = () => {
                 >
                   <div style={{ aspectRatio: "16/10", overflow: "hidden" }}>
                     <img
-                      src={img}
+                      src={optimizeImageUrl(img)}
                       alt={`${v.name} available for rental in Antigua & Barbuda`}
                       loading="lazy"
                       width={800}
