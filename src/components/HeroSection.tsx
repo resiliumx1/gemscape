@@ -46,6 +46,7 @@ const HeroSection = () => {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
   const [isTablet, setIsTablet] = useState(false);
+  const [showGem, setShowGem] = useState(false);
 
   useEffect(() => {
     const checkTablet = () => {
