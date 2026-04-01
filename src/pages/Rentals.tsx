@@ -278,7 +278,7 @@ const Rentals = () => {
                   }}>⤢</span>
                 </div>
                 <img
-                  src={v.image_url || "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85"}
+                  src={v.image_url || "/images/experiences/jeep-beach-palms.webp"}
                   alt={`${v.name} available for rental in Antigua & Barbuda, Gemscape Travel`}
                   loading="lazy"
                   width={800}
