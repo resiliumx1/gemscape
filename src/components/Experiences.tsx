@@ -343,7 +343,7 @@ const Experiences = () => {
                 <span style={{
                   fontFamily: "'DM Sans', sans-serif",
                   fontWeight: 600,
-                  fontSize: 12,
+                  fontSize: 14,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase" as const,
                   color: card.accent,
@@ -353,7 +353,7 @@ const Experiences = () => {
 
                 <h2 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   fontSize: "clamp(28px, 4vw, 42px)",
                   color: "#fff",
                   lineHeight: 1.1,
@@ -364,7 +364,7 @@ const Experiences = () => {
 
                 <p style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   fontSize: 15,
                   lineHeight: 1.85,
                   color: "rgba(255,255,255,0.6)",
@@ -386,7 +386,7 @@ const Experiences = () => {
                     <span key={h} style={{
                       fontFamily: "'DM Sans', sans-serif",
                       fontWeight: 500,
-                      fontSize: 13,
+                      fontSize: 15,
                       color: "rgba(255,255,255,0.5)",
                       background: "rgba(255,255,255,0.05)",
                       padding: "6px 14px",
@@ -426,7 +426,7 @@ const Experiences = () => {
                     borderRadius: 6,
                     fontFamily: "'DM Sans', sans-serif",
                     fontWeight: 600,
-                    fontSize: 13,
+                    fontSize: 15,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase" as const,
                     cursor: "pointer",

@@ -48,13 +48,13 @@ const Experiences = () => {
 
       {/* Header */}
       <section style={{ padding: "160px 24px 60px", textAlign: "center" }}>
-        <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
+        <span style={{ fontSize: 15, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
           CURATED EXPERIENCES
         </span>
         <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
           Antigua &amp; Barbuda Seen Differently.
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 560, margin: "16px auto 0" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 560, margin: "16px auto 0" }}>
           Every journey we design is a private, unhurried encounter with the most beautiful islands in the Caribbean.
         </p>
       </section>
@@ -69,7 +69,7 @@ const Experiences = () => {
               transition: "all 0.3s ease", cursor: "default",
             }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span style={{ fontSize: 12, letterSpacing: ".15em", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>
+                <span style={{ fontSize: 14, letterSpacing: ".15em", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>
                   {exp.category}
                 </span>
                 <exp.icon size={24} style={{ color: "#C9A84C" }} />
@@ -78,22 +78,22 @@ const Experiences = () => {
               <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, fontWeight: 400, color: "var(--text-primary)" }}>
                 {exp.title}
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, flex: 1 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, flex: 1 }}>
                 {exp.description}
               </p>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 8, borderTop: "1px solid var(--border-color)", paddingTop: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <Clock size={13} style={{ color: "var(--text-tertiary)" }} />
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)" }}>{exp.duration}</span>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-secondary)" }}>{exp.duration}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <Users size={13} style={{ color: "var(--text-tertiary)" }} />
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)" }}>{exp.group}</span>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-secondary)" }}>{exp.group}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <DollarSign size={13} style={{ color: "rgba(201,168,76,0.6)" }} />
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#C9A84C", fontWeight: 500 }}>{exp.price}</span>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#C9A84C", fontWeight: 500 }}>{exp.price}</span>
                 </div>
               </div>
 
@@ -101,7 +101,7 @@ const Experiences = () => {
                 onClick={() => navigateTo("/book")}
                 style={{
                   background: "linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)",
-                  color: "#fff", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
+                  color: "#fff", fontSize: 15, fontWeight: 600, letterSpacing: ".12em",
                   padding: "14px 24px", border: "none", borderRadius: 8, cursor: "pointer",
                   fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
                   transition: "opacity 0.3s", marginTop: 4,

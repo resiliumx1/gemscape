@@ -129,7 +129,7 @@ export default function Testimonials() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <span
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 letterSpacing: ".25em",
                 color: "#2cb8a8",
                 fontFamily: "'DM Sans', sans-serif",
@@ -199,7 +199,7 @@ export default function Testimonials() {
                   >
                     <span
                       style={{
-                        fontSize: 13,
+                        fontSize: 15,
                         fontWeight: 700,
                         color: review.accent,
                         fontFamily: "'DM Sans', sans-serif",

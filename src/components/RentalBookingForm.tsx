@@ -121,13 +121,13 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: Props) => {
             <Check size={28} style={{ color: "#2cb8a8" }} />
           </div>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: "#fff", marginBottom: 12 }}>Rental Request Sent!</h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 28 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 28 }}>
             We'll confirm your vehicle and dates within 2 hours. Check your email for next steps.
           </p>
           <a href="https://wa.me/12687805510" target="_blank" rel="noopener noreferrer" style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.3)", borderRadius: 8,
-            padding: "14px 28px", color: "#25D366", fontFamily: "'DM Sans', sans-serif", fontSize: 12,
+            padding: "14px 28px", color: "#25D366", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
             fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
           }}>Message Us on WhatsApp →</a>
         </div>
@@ -220,7 +220,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: Props) => {
                   <button key={addon.id} onClick={() => toggleAddOn(addon.id)} style={{
                     background: isSelected ? "rgba(44,184,168,0.12)" : "rgba(255,255,255,0.04)",
                     border: `1px solid ${isSelected ? "#2cb8a8" : "rgba(255,255,255,0.12)"}`,
-                    borderRadius: 999, padding: "8px 16px", fontSize: 12,
+                    borderRadius: 999, padding: "8px 16px", fontSize: 14,
                     color: isSelected ? "#2cb8a8" : "rgba(255,255,255,0.6)",
                     fontFamily: "'DM Sans', sans-serif", cursor: "pointer", transition: "all 0.2s",
                   }}>
@@ -237,7 +237,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: Props) => {
               background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)",
               borderRadius: 8, padding: 16, marginBottom: 24,
             }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6, fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "rgba(255,255,255,0.5)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span>Vehicle: {formatPrice(dailyRate)}/day × {totalDays} days</span>
                   <span>{formatPrice(baseTotal)}</span>
@@ -251,7 +251,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: Props) => {
                   <span>Estimated Total</span><span>{formatPrice(estimatedTotal)}</span>
                 </div>
               </div>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.3)", marginTop: 8 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "rgba(255,255,255,0.3)", marginTop: 8 }}>
                 Final price confirmed on booking — no card required now.
               </p>
             </div>
@@ -290,7 +290,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: Props) => {
               </div>
               <button onClick={handleSubmit} disabled={loading} style={{
                 background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff",
-                border: "none", borderRadius: 8, padding: "18px", fontSize: 13, fontWeight: 600,
+                border: "none", borderRadius: 8, padding: "18px", fontSize: 15, fontWeight: 600,
                 letterSpacing: ".15em", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
                 cursor: loading ? "wait" : "pointer", width: "100%", height: 56,
                 opacity: loading ? 0.6 : 1, transition: "opacity 0.3s",
@@ -299,7 +299,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: Props) => {
                 {loading && <Loader2 size={16} className="animate-spin" />}
                 {loading ? "Submitting..." : "Request This Rental →"}
               </button>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", marginTop: 10 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.3)", textAlign: "center", marginTop: 10 }}>
                 No payment now. We confirm within 2 hours and send your rental agreement by email.
               </p>
             </div>

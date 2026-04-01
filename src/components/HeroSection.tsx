@@ -26,7 +26,7 @@ const AnimatedStars = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 2.4, duration: 0.6 }}
         style={{
-          fontSize: 13,
+          fontSize: 15,
           color: "rgba(255,255,255,0.5)",
           fontFamily: "'DM Sans', sans-serif",
           fontWeight: 400,
@@ -144,7 +144,7 @@ const HeroSection = () => {
           {/* Eyebrow */}
           <span
             style={{
-              fontSize: 13,
+              fontSize: 15,
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.75)",
               textTransform: "uppercase",
@@ -174,7 +174,7 @@ const HeroSection = () => {
             <span
               style={{
                 fontStyle: "italic",
-                fontWeight: 300,
+                fontWeight: 400,
                 background:
                   "linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%)",
                 WebkitBackgroundClip: "text",
@@ -213,7 +213,7 @@ const HeroSection = () => {
                 overflow: 'hidden',
                 background: 'linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)',
                 color: '#fff',
-                fontSize: 13,
+                fontSize: 15,
                 fontWeight: 600,
                 letterSpacing: '.12em',
                 padding: '14px 32px',
@@ -261,7 +261,7 @@ const HeroSection = () => {
                 background: 'transparent',
                 border: '1px solid rgba(201,168,76,0.45)',
                 color: '#C9A84C',
-                fontSize: 13,
+                fontSize: 15,
                 fontWeight: 600,
                 letterSpacing: '.12em',
                 padding: '14px 32px',
@@ -305,15 +305,15 @@ const HeroSection = () => {
           <div className="hero-mobile-stats">
             <div className="hero-mobile-stat">
               <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>365</span>
-              <span style={{ fontSize: 12, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Beaches</span>
+              <span style={{ fontSize: 14, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Beaches</span>
             </div>
             <div className="hero-mobile-stat">
               <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>1,000+</span>
-              <span style={{ fontSize: 12, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Guests</span>
+              <span style={{ fontSize: 14, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Guests</span>
             </div>
             <div className="hero-mobile-stat">
               <span style={{ fontSize: 18, fontWeight: 700, color: '#C9A84C', fontFamily: "'Cormorant Garamond', serif" }}>5★</span>
-              <span style={{ fontSize: 12, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Rated</span>
+              <span style={{ fontSize: 14, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Rated</span>
             </div>
           </div>
         </div>

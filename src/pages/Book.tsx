@@ -35,7 +35,7 @@ const Book = () => {
       {/* Hero */}
       <section ref={heroRef} style={{ background: "var(--bg-primary)", padding: "160px 24px 60px", textAlign: "center" }}>
         <span ref={eyebrowRef} style={{
-          opacity: 0, fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)",
+          opacity: 0, fontSize: 15, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)",
           textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500, display: "block",
         }}>
           BOOK WITH GEMSCAPE
@@ -47,7 +47,7 @@ const Book = () => {
           Plan Your Antigua Experience.
         </h1>
         <p ref={subRef} style={{
-          opacity: 0, fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16,
+          opacity: 0, fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 16,
           color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0",
         }}>
           Select a service and tell us about your journey.

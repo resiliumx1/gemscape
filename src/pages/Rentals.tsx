@@ -378,7 +378,7 @@ const Rentals = () => {
               background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)",
               borderRadius: "50%", width: 48, height: 48,
               display: "flex", alignItems: "center", justifyContent: "center",
-              cursor: "pointer", color: "#fff", fontSize: 22, fontWeight: 300,
+              cursor: "pointer", color: "#fff", fontSize: 22, fontWeight: 400,
               transition: "all 0.3s ease", zIndex: 10001,
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.2)"; e.currentTarget.style.borderColor = "rgba(44,184,168,0.5)"; }}
@@ -404,7 +404,7 @@ const Rentals = () => {
           <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 400, color: "#fff", opacity: 0.85, animation: "lightboxFadeIn 0.4s ease 0.15s both" }}>
             {lightboxImage.name}
           </span>
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, letterSpacing: "0.12em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
+          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, letterSpacing: "0.12em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
             Click anywhere or press Esc to close
           </span>
         </div>

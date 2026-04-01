@@ -91,7 +91,7 @@ const Concierge = () => {
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to right, rgba(4,20,28,0.92) 0%, rgba(4,20,28,0.7) 50%, transparent 100%)" }} />
         <div style={{ position: "relative", zIndex: 2, paddingLeft: "clamp(40px, 6vw, 96px)", maxWidth: 600 }}>
-          <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>FLIGHT CONCIERGE</span>
+          <span style={{ fontSize: 15, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>FLIGHT CONCIERGE</span>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 400, lineHeight: 1.1, color: "#fff", margin: "16px 0 0" }}>
             Your Arrival,<br />Handled <em style={{ fontStyle: "italic", color: "#5ec8e0" }}>Perfectly.</em>
           </h1>
@@ -100,13 +100,13 @@ const Concierge = () => {
           </p>
           <div style={{ display: "flex", gap: 14, marginTop: 32, flexWrap: "wrap" }}>
             <button onClick={scrollToEnquiry} style={{
-              background: "#C9A84C", color: "#05181e", fontSize: 13, fontWeight: 600,
+              background: "#C9A84C", color: "#05181e", fontSize: 15, fontWeight: 600,
               letterSpacing: ".12em", padding: "14px 28px", border: "none", borderRadius: 3,
               cursor: "pointer", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
             }}>Enquire Now</button>
             <a href="https://wa.me/12687805510" target="_blank" rel="noopener noreferrer" style={{
               background: "transparent", border: "1px solid rgba(201,168,76,0.6)", color: "#C9A84C",
-              fontSize: 13, fontWeight: 600, letterSpacing: ".12em", padding: "14px 28px",
+              fontSize: 15, fontWeight: 600, letterSpacing: ".12em", padding: "14px 28px",
               borderRadius: 3, cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
               textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8,
             }}><MessageCircle size={14} /> WhatsApp Us</a>
@@ -117,7 +117,7 @@ const Concierge = () => {
       {/* What's Included */}
       <section style={{ background: "var(--bg-secondary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>What's Included</span>
+          <span style={{ fontSize: 15, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>What's Included</span>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Every Detail, Arranged.</h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24, maxWidth: 1100, margin: "0 auto" }}>
@@ -128,7 +128,7 @@ const Concierge = () => {
             }}>
               <s.icon size={28} style={{ color: "#C9A84C", marginBottom: 16 }} />
               <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "var(--text-primary)", marginBottom: 8 }}>{s.title}</h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7 }}>{s.desc}</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7 }}>{s.desc}</p>
             </div>
           ))}
         </div>
@@ -137,16 +137,16 @@ const Concierge = () => {
       {/* How It Works */}
       <section style={{ background: "var(--bg-tertiary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>How It Works</span>
+          <span style={{ fontSize: 15, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>How It Works</span>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Three Simple Steps.</h2>
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 0, maxWidth: 900, margin: "0 auto", flexWrap: "wrap" }}>
           {STEPS.map((step, i) => (
             <div key={step.num} style={{ display: "flex", alignItems: "flex-start", flex: 1, minWidth: 220 }}>
               <div style={{ textAlign: "center", flex: 1, padding: "0 16px" }}>
-                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 300, color: "#C9A84C", display: "block", marginBottom: 12 }}>{step.num}</span>
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 400, color: "#C9A84C", display: "block", marginBottom: 12 }}>{step.num}</span>
                 <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--text-primary)", marginBottom: 8 }}>{step.title}</h3>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7 }}>{step.desc}</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7 }}>{step.desc}</p>
               </div>
               {i < 2 && <div style={{ width: 60, borderTop: "1px dashed rgba(201,168,76,0.4)", marginTop: 24, flexShrink: 0 }} />}
             </div>
@@ -162,7 +162,7 @@ const Concierge = () => {
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 400, color: "var(--text-primary)", lineHeight: 1.15 }}>
               We Respond<br /><em style={{ fontStyle: "italic", color: "#5ec8e0" }}>Personally.</em>
             </h2>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75 }}>
               Every concierge enquiry is handled by our Antigua team — not an automated system. We'll reach you within 2 hours.
             </p>
 
@@ -171,7 +171,7 @@ const Concierge = () => {
                 <Phone size={16} style={{ color: "rgba(201,168,76,0.6)" }} />
                 <div>
                   <a href="tel:+12687805510" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-primary)", textDecoration: "none" }}>+1 (268) 780-5510</a>
-                  <span style={{ display: "block", fontSize: 13, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
+                  <span style={{ display: "block", fontSize: 15, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -183,14 +183,14 @@ const Concierge = () => {
             <a href="https://wa.me/12687805510" target="_blank" rel="noopener noreferrer" style={{
               display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
               border: "1px solid rgba(201,168,76,0.4)", borderRadius: 8, padding: 14,
-              color: "#d4ad7c", fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600,
+              color: "#d4ad7c", fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600,
               letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
               transition: "all 0.3s ease",
             }}>
               <MessageCircle size={14} /> Chat on WhatsApp →
             </a>
 
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontStyle: "italic", fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.6 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontStyle: "italic", fontSize: 14, color: "var(--text-tertiary)", lineHeight: 1.6 }}>
               All enquiries are confidential and handled with complete discretion.
             </p>
           </div>
@@ -243,7 +243,7 @@ const Concierge = () => {
                         <button key={chip} type="button" onClick={() => toggleService(chip)} style={{
                           background: isSelected ? "rgba(44,184,168,0.12)" : "var(--card-bg)",
                           border: `1px solid ${isSelected ? "#2cb8a8" : "var(--border-color)"}`,
-                          borderRadius: 999, padding: "8px 16px", fontSize: 12,
+                          borderRadius: 999, padding: "8px 16px", fontSize: 14,
                           color: isSelected ? "#2cb8a8" : "var(--text-secondary)",
                           fontFamily: "'DM Sans', sans-serif", cursor: "pointer", transition: "all 0.2s",
                         }}>{chip}</button>
@@ -260,7 +260,7 @@ const Concierge = () => {
                 </div>
 
                 <button type="submit" disabled={loading} style={{
-                  background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", fontSize: 12,
+                  background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", fontSize: 14,
                   fontWeight: 600, letterSpacing: ".15em", padding: "16px 28px", border: "none",
                   borderRadius: 8, cursor: loading ? "wait" : "pointer", fontFamily: "'DM Sans', sans-serif",
                   textTransform: "uppercase", display: "flex", alignItems: "center", justifyContent: "center",
@@ -268,7 +268,7 @@ const Concierge = () => {
                 }}>
                   <Send size={14} /> {loading ? "Sending..." : "Send Concierge Enquiry →"}
                 </button>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", lineHeight: 1.6 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.3)", textAlign: "center", lineHeight: 1.6 }}>
                   We respond to every enquiry within 2 hours, personally. No automated responses.
                 </p>
               </form>
@@ -278,13 +278,13 @@ const Concierge = () => {
                 <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "#fff", marginBottom: 12 }}>
                   Enquiry Received.
                 </h3>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, marginBottom: 24 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, marginBottom: 24 }}>
                   Our concierge team will contact you personally within 2 hours. Check your email and WhatsApp.
                 </p>
                 <a href="https://wa.me/12687805510" target="_blank" rel="noopener noreferrer" style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.3)", borderRadius: 8,
-                  padding: "14px 28px", color: "#25D366", fontFamily: "'DM Sans', sans-serif", fontSize: 12,
+                  padding: "14px 28px", color: "#25D366", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
                   fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
                 }}>WhatsApp Us Now →</a>
               </div>

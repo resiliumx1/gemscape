@@ -49,7 +49,7 @@ const PackagesPreview = () => {
       <h2 style={{
         fontFamily: "'Cormorant Garamond', serif",
         fontSize: "clamp(28px, 4.5vw, 44px)",
-        fontWeight: 300,
+        fontWeight: 400,
         color: "#fff",
         lineHeight: 1.15,
         marginBottom: 12,
@@ -120,7 +120,7 @@ const PackagesPreview = () => {
               <span style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: 32,
-                fontWeight: 300,
+                fontWeight: 400,
                 color: pkg.accent,
               }}>
                 {pkg.price}
@@ -132,7 +132,7 @@ const PackagesPreview = () => {
                 justifyContent: "center",
                 gap: 6,
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: 500,
                 color: "rgba(255,255,255,0.4)",
                 letterSpacing: "0.1em",
@@ -154,7 +154,7 @@ const PackagesPreview = () => {
           borderRadius: 4,
           fontFamily: "'DM Sans', sans-serif",
           fontWeight: 600,
-          fontSize: 13,
+          fontSize: 15,
           letterSpacing: "0.12em",
           textTransform: "uppercase",
           cursor: "pointer",

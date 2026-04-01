@@ -57,13 +57,13 @@ const Contact = () => {
 
       {/* Hero header */}
       <section style={{ padding: "160px 24px 60px", textAlign: "center" }}>
-        <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
+        <span style={{ fontSize: 15, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
           GET IN TOUCH
         </span>
         <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
           Get In Touch
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0" }}>
           We respond to every enquiry personally, usually within 2 hours.
         </p>
       </section>
@@ -87,7 +87,7 @@ const Contact = () => {
             }}>
               <item.icon size={20} style={{ color: "#C9A84C", flexShrink: 0, marginTop: 2 }} />
               <div>
-                <span style={{ fontSize: 12, letterSpacing: ".15em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
+                <span style={{ fontSize: 14, letterSpacing: ".15em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
                   {item.label}
                 </span>
                 {item.href ? (
@@ -97,7 +97,7 @@ const Contact = () => {
                 ) : (
                   <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-primary)", fontWeight: 400 }}>{item.value}</span>
                 )}
-                {item.sub && <span style={{ display: "block", fontSize: 12, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", marginTop: 4 }}>{item.sub}</span>}
+                {item.sub && <span style={{ display: "block", fontSize: 14, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", marginTop: 4 }}>{item.sub}</span>}
               </div>
             </div>
           ))}
@@ -106,7 +106,7 @@ const Contact = () => {
             display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
             background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.3)",
             borderRadius: 8, padding: "14px 24px", color: "#25D366",
-            fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
+            fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 600,
             letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none",
             transition: "all 0.3s ease",
           }}>
@@ -118,7 +118,7 @@ const Contact = () => {
         <div>
           {!submitted ? (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              {errors.submit && <p style={{ color: "#e05a5a", fontSize: 13, textAlign: "center" }}>{errors.submit}</p>}
+              {errors.submit && <p style={{ color: "#e05a5a", fontSize: 15, textAlign: "center" }}>{errors.submit}</p>}
 
               <div className="contact-form-field">
                 <label className="gem-form-label">YOUR NAME</label>
@@ -153,7 +153,7 @@ const Contact = () => {
 
               <button type="submit" disabled={loading} style={{
                 background: "linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%)",
-                color: "#fff", fontSize: 12, fontWeight: 600, letterSpacing: ".15em",
+                color: "#fff", fontSize: 14, fontWeight: 600, letterSpacing: ".15em",
                 padding: "16px 28px", border: "none", borderRadius: 8, cursor: "pointer",
                 fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
@@ -170,11 +170,11 @@ const Contact = () => {
               <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "var(--text-primary)", marginBottom: 12 }}>
                 Message Sent
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>
                 We'll be in touch within 2 hours. Check your inbox.
               </p>
               <a href="/" style={{
-                fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#2cb8a8",
+                fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#2cb8a8",
                 textDecoration: "none", fontWeight: 500,
               }}>
                 ← Back to Home
