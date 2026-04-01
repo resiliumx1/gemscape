@@ -516,7 +516,7 @@ const HeroSection = () => {
           gap: 20px;
           margin-top: 20px;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .hero-mobile-stats {
             display: flex;
           }
