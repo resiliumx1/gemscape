@@ -183,9 +183,10 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
                 ) : filtered.map(b => {
                   const sc = STATUS_COLORS[b.status || "pending"] || STATUS_COLORS.pending;
                   return (
-                    <tr key={b.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", transition: "background 0.2s", cursor: "default" }}
+                    <tr key={b.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", transition: "background 0.2s", cursor: "pointer" }}
                       onMouseEnter={e => (e.currentTarget.style.background = "var(--aura-teal-dim)")}
-                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                      onClick={() => { setSelectedBooking(b); setSelectedType(b.service_type === "Car Rental" ? "rental" : "tour"); }}>
                       <td style={{ padding: "12px 16px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                           <div style={{
