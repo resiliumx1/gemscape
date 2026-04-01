@@ -11,10 +11,10 @@ gsap.registerPlugin(ScrollTrigger);
 const CARDS = [
   {
     images: [
-      { src: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=85", alt: "English Harbour aerial — yachts anchored in turquoise bay" },
-      { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85", alt: "Dickenson Bay — pristine white sand beach" },
-      { src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85", alt: "Devil's Bridge — turquoise surf crashing through limestone" },
-      { src: "https://images.unsplash.com/photo-1559827291-bac2e36b8cf2?w=800&q=85", alt: "Pink sand beach with crystalline turquoise waters" },
+      { src: "/images/experiences/catamaran-white-beach.webp", alt: "English Harbour aerial — yachts anchored in turquoise bay" },
+      { src: "/images/experiences/jeep-beach-palms.webp", alt: "Dickenson Bay — pristine white sand beach" },
+      { src: "/images/experiences/bettys-hope-windmill.webp", alt: "Devil's Bridge — turquoise surf crashing through limestone" },
+      { src: "/images/experiences/airport-vip-greeting.webp", alt: "Pink sand beach with crystalline turquoise waters" },
     ],
     category: "Water & Sea",
     title: "Island Circumnavigation",
