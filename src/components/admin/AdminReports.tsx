@@ -28,7 +28,7 @@ const AdminReports = ({ isMobile = false }: { isMobile?: boolean }) => {
     <div>
       {/* Date filter */}
       <div className="aura-glass" style={{ padding: '18px 20px', marginBottom: 16 }}>
-        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: 'var(--aura-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 12 }}>
+        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, color: 'var(--aura-text)', opacity: 0.65, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 12 }}>
           Report Period
         </p>
         <ReportDateFilter onChange={setDateFilter} />
@@ -36,7 +36,7 @@ const AdminReports = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       {/* Report grid */}
       <div className="aura-glass" style={{ padding: '18px 20px', marginBottom: 16 }}>
-        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: 'var(--aura-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
+        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, color: 'var(--aura-text)', opacity: 0.65, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
           Available Reports
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 12 }}>
@@ -48,7 +48,7 @@ const AdminReports = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       {/* Recent downloads */}
       <div className="aura-glass" style={{ padding: '18px 20px' }}>
-        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: 'var(--aura-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
+        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, color: 'var(--aura-text)', opacity: 0.65, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
           Recent Downloads
         </p>
         {RECENT_DOWNLOADS.map((h, i) => (
@@ -61,10 +61,10 @@ const AdminReports = ({ isMobile = false }: { isMobile?: boolean }) => {
             </span>
             <div style={{ flex: 1 }}>
               <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 12, fontWeight: 500, color: 'var(--aura-text)' }}>{h.name}</p>
-              <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 10, color: 'var(--aura-text-muted)', marginTop: 1 }}>{h.time} · {h.size}</p>
+              <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, color: 'var(--aura-text)', opacity: 0.55, marginTop: 1 }}>{h.time} · {h.size}</p>
             </div>
             <span style={{
-              padding: '3px 9px', borderRadius: 6, fontSize: 9.5, fontWeight: 700,
+              padding: '3px 9px', borderRadius: 6, fontSize: 12, fontWeight: 700,
               background: 'rgba(60,200,184,0.12)', color: 'var(--aura-teal)',
               border: '1px solid rgba(60,200,184,0.2)', cursor: 'pointer',
               fontFamily: "var(--aura-font-body)",

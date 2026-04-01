@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { MessageSquare, Check, X as XIcon, Send } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import BookingDrawer from "./BookingDrawer";
 
 type Booking = {
   id: string;
@@ -33,6 +34,8 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
   const [channel, setChannel] = useState<"email" | "sms" | "push">("email");
   const [msgText, setMsgText] = useState("");
   const [sent, setSent] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState<any>(null);
+  const [selectedType, setSelectedType] = useState<"tour" | "rental">("tour");
 
   useEffect(() => {
     Promise.all([
@@ -110,7 +113,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
           ) : filtered.map(b => {
             const sc = STATUS_COLORS[b.status || "pending"] || STATUS_COLORS.pending;
             return (
-              <div key={b.id} className="aura-glass" style={{ padding: 16 }}>
+              <div key={b.id} className="aura-glass" style={{ padding: 16, cursor: "pointer" }} onClick={() => { setSelectedBooking(b); setSelectedType(b.service_type === "Car Rental" ? "rental" : "tour"); }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                   <div style={{
                     width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
@@ -180,9 +183,10 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
                 ) : filtered.map(b => {
                   const sc = STATUS_COLORS[b.status || "pending"] || STATUS_COLORS.pending;
                   return (
-                    <tr key={b.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", transition: "background 0.2s", cursor: "default" }}
+                    <tr key={b.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", transition: "background 0.2s", cursor: "pointer" }}
                       onMouseEnter={e => (e.currentTarget.style.background = "var(--aura-teal-dim)")}
-                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                      onClick={() => { setSelectedBooking(b); setSelectedType(b.service_type === "Car Rental" ? "rental" : "tour"); }}>
                       <td style={{ padding: "12px 16px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                           <div style={{
@@ -327,6 +331,21 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
               )}
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Booking Detail Drawer */}
+      <AnimatePresence>
+        {selectedBooking && (
+          <BookingDrawer
+            booking={selectedBooking}
+            type={selectedType}
+            onClose={() => setSelectedBooking(null)}
+            onStatusChange={(id, status) => {
+              setBookings(prev => prev.map(b => b.id === id ? { ...b, status } : b));
+              setSelectedBooking(null);
+            }}
+          />
         )}
       </AnimatePresence>
     </div>

@@ -72,7 +72,7 @@ export default function ReportCard({ type, title, description, lastRun, formats 
       </div>
 
       <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--aura-text)', marginBottom: 4 }}>{title}</p>
-      <p style={{ fontSize: 10.5, color: 'var(--aura-text-muted)', lineHeight: 1.45, marginBottom: 12 }}>{description}</p>
+      <p style={{ fontSize: 13, color: 'var(--aura-text)', opacity: 0.65, lineHeight: 1.45, marginBottom: 12 }}>{description}</p>
 
       <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginBottom: 10 }}>
         {formats.map(fmt => (
@@ -94,7 +94,7 @@ export default function ReportCard({ type, title, description, lastRun, formats 
         ))}
       </div>
 
-      <p style={{ fontSize: 9.5, color: 'var(--aura-text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}>
+      <p style={{ fontSize: 12, color: 'var(--aura-text)', opacity: 0.55, display: 'flex', alignItems: 'center', gap: 4 }}>
         <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--aura-success)', boxShadow: '0 0 5px var(--aura-success)', display: 'inline-block' }} />
         Last generated: {lastRun}
       </p>

@@ -6,11 +6,12 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, Search, Plus, Bell, X, Clock, Menu, Globe, User, Camera, Settings,
-  CalendarDays as CalIcon, Users, Phone,
+  CalendarDays as CalIcon, Users, Phone, DollarSign,
 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 /* ── Expandable Home Button ── */
 const HomeButton = () => {
@@ -247,6 +248,20 @@ const AdminHeader = ({
 }: AdminHeaderProps) => {
   const navigate = useNavigate();
   const today = format(new Date(), "EEEE, MMMM d, yyyy");
+  const { currency, setCurrency } = useCurrency();
+
+  const CurrencyBtn = () => (
+    <button onClick={() => setCurrency(currency === "USD" ? "XCD" : "USD")} style={{
+      display: "inline-flex", alignItems: "center", gap: 5,
+      width: 36, height: 36, borderRadius: "var(--aura-radius-btn)",
+      background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+      cursor: "pointer", color: "var(--aura-text-dim)", justifyContent: "center",
+      fontFamily: "var(--aura-font-mono)", fontSize: 11, fontWeight: 600, transition: "all 0.2s",
+      minWidth: 36, minHeight: 36,
+    }} title={`Switch to ${currency === "USD" ? "XCD" : "USD"}`}>
+      {currency}
+    </button>
+  );
 
   if (isMobile) {
     return (
@@ -278,6 +293,7 @@ const AdminHeader = ({
             }}>{pageTitle}</h1>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <CurrencyBtn />
             <NotificationBell isMobile={isMobile} />
             <ProfileAvatar
               profilePic={profilePic}
@@ -338,6 +354,7 @@ const AdminHeader = ({
           <Search size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--aura-text-muted)" }} />
           <input className="aura-topbar__search" placeholder="Search..." style={{ width: isTablet ? 140 : 180 }} />
         </div>
+        <CurrencyBtn />
         <NotificationBell isMobile={false} />
         <ProfileAvatar
           profilePic={profilePic}
