@@ -234,7 +234,7 @@ const Packages = () => {
                   {pkg.name}
                 </h3>
                 <div style={{ marginBottom: 20 }}>
-                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 56, fontWeight: 300, color: "var(--pkg-card-price)", lineHeight: 1 }}>
+                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 56, fontWeight: 400, color: "var(--pkg-card-price)", lineHeight: 1 }}>
                     {format(pkg.price)}
                   </span>
                   {pkg.key === "elite" && <span style={{ fontSize: 20, color: "var(--pkg-card-text-muted)", fontFamily: "'Cormorant Garamond', serif" }}>+</span>}
@@ -326,13 +326,13 @@ const Packages = () => {
 
       {/* How It Works */}
       <section style={{ background: "var(--pkg-page-bg)", padding: "80px 24px 100px" }}>
-        <h2 style={{ textAlign: "center", fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, color: "var(--pkg-card-text)", marginBottom: 60 }}>
+        <h2 style={{ textAlign: "center", fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 400, color: "var(--pkg-card-text)", marginBottom: 60 }}>
           How It Works
         </h2>
         <div ref={stepsRef} style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", maxWidth: 900, margin: "0 auto" }}>
           {STEPS.map((step) => (
             <div key={step.num} style={{ textAlign: "center", maxWidth: 240, flex: "1 1 200px" }}>
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 300, color: "#C9A84C", display: "block", marginBottom: 12 }}>{step.num}</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 400, color: "#C9A84C", display: "block", marginBottom: 12 }}>{step.num}</span>
               <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600, color: "var(--pkg-card-text)", marginBottom: 8 }}>{step.title}</h3>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--pkg-card-text-muted)", lineHeight: 1.6 }}>{step.desc}</p>
             </div>
@@ -342,7 +342,7 @@ const Packages = () => {
 
       {/* Final CTA */}
       <section style={{ background: "var(--pkg-page-bg)", padding: "60px 24px 120px", textAlign: "center" }}>
-        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(24px, 3.5vw, 36px)", fontWeight: 300, color: "var(--pkg-card-text)", marginBottom: 12 }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(24px, 3.5vw, 36px)", fontWeight: 400, color: "var(--pkg-card-text)", marginBottom: 12 }}>
           Not sure which package is right?
         </h2>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--pkg-card-text-muted)", marginBottom: 32 }}>

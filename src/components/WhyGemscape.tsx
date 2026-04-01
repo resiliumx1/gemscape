@@ -99,7 +99,7 @@ export default function WhyGemscape() {
           <div className="wg-left">
             <span
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 letterSpacing: ".25em",
                 color: "#2cb8a8",
                 fontFamily: "'DM Sans', sans-serif",
@@ -115,7 +115,7 @@ export default function WhyGemscape() {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(32px, 4vw, 48px)",
-                fontWeight: 300,
+                fontWeight: 400,
                 color: "var(--text-primary)",
                 lineHeight: 1.2,
                 margin: "0 0 20px",
@@ -159,7 +159,7 @@ export default function WhyGemscape() {
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: 48,
-                  fontWeight: 300,
+                  fontWeight: 400,
                   color: "#C9A84C",
                   lineHeight: 1,
                 }}
@@ -169,7 +169,7 @@ export default function WhyGemscape() {
               <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <span
                   style={{
-                    fontSize: 13,
+                    fontSize: 15,
                     fontWeight: 600,
                     color: "var(--text-secondary)",
                     fontFamily: "'DM Sans', sans-serif",
@@ -179,7 +179,7 @@ export default function WhyGemscape() {
                 </span>
                 <span
                   style={{
-                    fontSize: 13,
+                    fontSize: 15,
                     color: "var(--text-tertiary)",
                     fontFamily: "'DM Sans', sans-serif",
                   }}
@@ -290,7 +290,7 @@ export default function WhyGemscape() {
                   </h3>
                   <p
                     style={{
-                      fontSize: 13,
+                      fontSize: 15,
                       lineHeight: 1.7,
                       color: "var(--text-secondary)",
                       fontFamily: "'DM Sans', sans-serif",

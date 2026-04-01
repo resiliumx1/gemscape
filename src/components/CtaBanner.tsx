@@ -133,7 +133,7 @@ export default function CtaBanner() {
             />
             <span
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 letterSpacing: ".25em",
                 color: "#C9A84C",
                 fontFamily: "'DM Sans', sans-serif",
@@ -157,7 +157,7 @@ export default function CtaBanner() {
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 300,
+              fontWeight: 400,
               color: "#fff",
               lineHeight: 1.15,
               margin: "0 0 20px",
@@ -215,7 +215,7 @@ export default function CtaBanner() {
                 border: "none",
                 borderRadius: 4,
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
+                fontSize: 15,
                 fontWeight: 700,
                 letterSpacing: ".14em",
                 textTransform: "uppercase",

@@ -44,7 +44,7 @@ const Footer = () => {
           <p
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
+              fontWeight: 400,
               fontSize: 14,
               lineHeight: 1.7,
               color: "rgba(255,255,255,0.5)",
@@ -129,7 +129,7 @@ const Footer = () => {
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 600,
-              fontSize: 12,
+              fontSize: 14,
               textTransform: "uppercase",
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.8)",
@@ -146,7 +146,7 @@ const Footer = () => {
                 href="#services"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   fontSize: 14,
                   color: "rgba(255,255,255,0.55)",
                   textDecoration: "none",
@@ -167,7 +167,7 @@ const Footer = () => {
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 600,
-              fontSize: 12,
+              fontSize: 14,
               textTransform: "uppercase",
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.8)",
@@ -188,7 +188,7 @@ const Footer = () => {
                 href={href}
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   fontSize: 14,
                   color: "rgba(255,255,255,0.55)",
                   textDecoration: "none",
@@ -209,7 +209,7 @@ const Footer = () => {
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 600,
-              fontSize: 12,
+              fontSize: 14,
               textTransform: "uppercase",
               letterSpacing: ".18em",
               color: "rgba(201,168,76,0.8)",
@@ -222,13 +222,13 @@ const Footer = () => {
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
               <MapPin size={14} style={{ color: "rgba(201,168,76,0.6)", marginTop: 3, flexShrink: 0 }} />
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
                 St. John's, Antigua &amp; Barbuda, W.I.
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
               <Phone size={14} style={{ color: "rgba(201,168,76,0.6)", marginTop: 3, flexShrink: 0 }} />
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
                 <a href="tel:+12687805510" style={{ color: "inherit", textDecoration: "none" }}>+1 (268) 780-5510</a>
               </span>
             </div>
@@ -238,7 +238,7 @@ const Footer = () => {
                 href="mailto:info@gemscapetours.com"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   fontSize: 14,
                   color: "rgba(255,255,255,0.55)",
                   textDecoration: "none",
@@ -271,8 +271,8 @@ const Footer = () => {
         <span
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: 13,
+            fontWeight: 400,
+            fontSize: 15,
             color: "rgba(255,255,255,0.3)",
           }}
         >
@@ -281,8 +281,8 @@ const Footer = () => {
         <span
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: 13,
+            fontWeight: 400,
+            fontSize: 15,
             color: "rgba(255,255,255,0.3)",
           }}
         >
@@ -295,8 +295,8 @@ const Footer = () => {
         style={{
           textAlign: "center",
           fontFamily: "'DM Sans', sans-serif",
-          fontWeight: 300,
-          fontSize: 13,
+          fontWeight: 400,
+          fontSize: 15,
           color: "rgba(255,255,255,0.2)",
           paddingBottom: 24,
         }}

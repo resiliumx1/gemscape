@@ -145,7 +145,7 @@ const BookingWizard = ({ initialService }: Props) => {
           You're All Set.
         </h2>
         <p style={{
-          fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 15,
+          fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15,
           color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 0, maxWidth: 440, margin: "0 auto",
         }}>
           Your request is with our team. We'll personally confirm everything and send your detailed itinerary within 2 hours.
@@ -159,7 +159,7 @@ const BookingWizard = ({ initialService }: Props) => {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
             <span style={{
-              fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 12,
+              fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 14,
               textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--text-tertiary)",
             }}>Booking Reference</span>
             <span style={{
@@ -170,19 +170,19 @@ const BookingWizard = ({ initialService }: Props) => {
           <div style={{ height: 1, background: "var(--border-color)", marginBottom: 16 }} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px 24px" }}>
             <div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Experience</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Experience</span>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{selectedService?.title || serviceType}</span>
             </div>
             <div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Date</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Date</span>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{tourDate ? dateFormat(tourDate, "d MMM yyyy") : "—"}</span>
             </div>
             <div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Guest</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Guest</span>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{fullName}</span>
             </div>
             <div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Guests</span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--text-tertiary)", display: "block", marginBottom: 4 }}>Guests</span>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: "var(--text-primary)" }}>{guests}</span>
             </div>
           </div>
@@ -191,7 +191,7 @@ const BookingWizard = ({ initialService }: Props) => {
         {/* What happens next */}
         <div style={{ marginTop: 32, textAlign: "left" }}>
           <h3 style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 13,
+            fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: 15,
             textTransform: "uppercase", letterSpacing: "0.14em",
             color: "hsl(var(--gem-gold))", marginBottom: 16,
           }}>What Happens Next</h3>
@@ -207,7 +207,7 @@ const BookingWizard = ({ initialService }: Props) => {
                   color: "hsl(var(--gem-gold))", minWidth: 20,
                 }}>{item.num}</span>
                 <span style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 300,
+                  fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400,
                   color: "var(--text-secondary)", lineHeight: 1.6,
                 }}>{item.text}</span>
               </div>
@@ -219,13 +219,13 @@ const BookingWizard = ({ initialService }: Props) => {
         <div style={{ marginTop: 40, display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
           <a href="/experiences" style={{
             border: "1px solid hsl(var(--gem-gold))", borderRadius: 8, padding: "14px 32px",
-            color: "hsl(var(--gem-gold))", fontFamily: "'DM Sans', sans-serif", fontSize: 13,
+            color: "hsl(var(--gem-gold))", fontFamily: "'DM Sans', sans-serif", fontSize: 15,
             fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", textDecoration: "none",
             transition: "all 0.3s ease",
           }}>Explore More Experiences</a>
           <a href="/" style={{
             border: "1px solid var(--border-color)", borderRadius: 8, padding: "14px 32px",
-            color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13,
+            color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontSize: 15,
             fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", textDecoration: "none",
             transition: "all 0.3s ease",
           }}>Back to Home</a>
@@ -250,7 +250,7 @@ const BookingWizard = ({ initialService }: Props) => {
                 onClick={() => { if (isComplete) setStep(num); }}>
                 <div style={{
                   width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 13, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
+                  fontSize: 15, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
                   background: isComplete ? "#b8956a" : isActive ? "#2cb8a8" : "var(--card-bg)",
                   color: isComplete || isActive ? "#fff" : "var(--text-tertiary)",
                   transition: "all 0.3s ease",
@@ -258,7 +258,7 @@ const BookingWizard = ({ initialService }: Props) => {
                   {isComplete ? <Check size={14} /> : num}
                 </div>
                 <span style={{
-                  fontSize: 12, letterSpacing: ".15em", textTransform: "uppercase",
+                  fontSize: 14, letterSpacing: ".15em", textTransform: "uppercase",
                   fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
                   color: isActive ? "var(--text-primary)" : "var(--text-tertiary)",
                 }}>{label}</span>
@@ -299,13 +299,13 @@ const BookingWizard = ({ initialService }: Props) => {
               }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <svc.icon size={24} style={{ color: "#2cb8a8" }} />
-                  <span style={{ fontSize: 12, letterSpacing: ".12em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", background: "var(--card-bg)", padding: "4px 10px", borderRadius: 999 }}>
+                  <span style={{ fontSize: 14, letterSpacing: ".12em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", background: "var(--card-bg)", padding: "4px 10px", borderRadius: 999 }}>
                     {svc.badge}
                   </span>
                 </div>
                 <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, color: "var(--text-primary)" }}>{svc.title}</h4>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{svc.desc}</p>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#C9A84C", fontWeight: 500 }}>From {formatPrice(svc.basePrice)} {svc.id === "concierge" ? "per person" : svc.id === "charter" ? "per charter" : "per group"}</span>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.6 }}>{svc.desc}</p>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#C9A84C", fontWeight: 500 }}>From {formatPrice(svc.basePrice)} {svc.id === "concierge" ? "per person" : svc.id === "charter" ? "per charter" : "per group"}</span>
               </button>
             ))}
           </div>
@@ -314,7 +314,7 @@ const BookingWizard = ({ initialService }: Props) => {
             <button onClick={next} disabled={!serviceType} style={{
               background: serviceType ? "linear-gradient(135deg, #1a8a9e, #2cb8a8)" : "var(--card-bg)",
               color: serviceType ? "#fff" : "rgba(255,255,255,0.3)",
-              border: "none", borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600,
+              border: "none", borderRadius: 8, padding: "16px 40px", fontSize: 15, fontWeight: 600,
               letterSpacing: ".12em", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
               cursor: serviceType ? "pointer" : "not-allowed", transition: "all 0.3s",
             }}>Continue →</button>
@@ -404,10 +404,10 @@ const BookingWizard = ({ initialService }: Props) => {
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32 }}>
-            <button onClick={prev} style={{ background: "none", border: "none", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
+            <button onClick={prev} style={{ background: "none", border: "none", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 15, cursor: "pointer" }}>← Back</button>
             <button onClick={next} style={{
               background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
-              borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
+              borderRadius: 8, padding: "16px 40px", fontSize: 15, fontWeight: 600, letterSpacing: ".12em",
               fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", cursor: "pointer",
             }}>Continue →</button>
           </div>
@@ -435,7 +435,7 @@ const BookingWizard = ({ initialService }: Props) => {
             <div>
               <label className="gem-form-label">PHONE / WHATSAPP</label>
               <input type="tel" className={cn("gem-form-input", errors.phone && "gem-form-input--error")} value={phone} onChange={e => { setPhone(e.target.value); setErrors(p => ({ ...p, phone: "" })); }} placeholder="+1 (000) 000-0000" maxLength={20} />
-              <span style={{ fontSize: 13, color: "var(--text-tertiary)", display: "block", marginTop: 4 }}>We'll send your confirmation here</span>
+              <span style={{ fontSize: 15, color: "var(--text-tertiary)", display: "block", marginTop: 4 }}>We'll send your confirmation here</span>
               {errors.phone && <span className="gem-form-error">{errors.phone}</span>}
             </div>
             <div>
@@ -457,17 +457,17 @@ const BookingWizard = ({ initialService }: Props) => {
           <label style={{ display: "flex", alignItems: "flex-start", gap: 12, marginTop: 24, cursor: "pointer" }}>
             <input type="checkbox" checked={consent} onChange={e => { setConsent(e.target.checked); setErrors(p => ({ ...p, consent: "" })); }}
               style={{ marginTop: 3, accentColor: "#2cb8a8" }} />
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.5 }}>
               I agree to receive my booking confirmation and trip details by email.
             </span>
           </label>
           {errors.consent && <span className="gem-form-error">{errors.consent}</span>}
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32 }}>
-            <button onClick={prev} style={{ background: "none", border: "none", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, cursor: "pointer" }}>← Back</button>
+            <button onClick={prev} style={{ background: "none", border: "none", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 15, cursor: "pointer" }}>← Back</button>
             <button onClick={next} style={{
               background: "linear-gradient(135deg, #1a8a9e, #2cb8a8)", color: "#fff", border: "none",
-              borderRadius: 8, padding: "16px 40px", fontSize: 13, fontWeight: 600, letterSpacing: ".12em",
+              borderRadius: 8, padding: "16px 40px", fontSize: 15, fontWeight: 600, letterSpacing: ".12em",
               fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", cursor: "pointer",
             }}>Review Booking →</button>
           </div>
@@ -484,8 +484,8 @@ const BookingWizard = ({ initialService }: Props) => {
           {/* Experience summary */}
           <div style={{ background: "var(--card-bg)", border: "1px solid var(--border-color)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <span style={{ fontSize: 12, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR EXPERIENCE</span>
-              <button onClick={() => setStep(1)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
+              <span style={{ fontSize: 14, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR EXPERIENCE</span>
+              <button onClick={() => setStep(1)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 14, cursor: "pointer" }}>Edit</button>
             </div>
             {selectedService && (
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
@@ -493,7 +493,7 @@ const BookingWizard = ({ initialService }: Props) => {
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--text-primary)" }}>{selectedService.title}</span>
               </div>
             )}
-            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 15, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
               {tourDate && <span>Date: {dateFormat(tourDate, "PPP")}</span>}
               <span>Guests: {guests}</span>
               {startTime && <span>Start: {startTime}</span>}
@@ -506,10 +506,10 @@ const BookingWizard = ({ initialService }: Props) => {
           {/* Contact summary */}
           <div style={{ background: "var(--card-bg)", border: "1px solid var(--border-color)", borderRadius: 12, padding: 28, marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <span style={{ fontSize: 12, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR DETAILS</span>
-              <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 12, cursor: "pointer" }}>Edit</button>
+              <span style={{ fontSize: 14, letterSpacing: ".15em", color: "#C9A84C", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase" }}>YOUR DETAILS</span>
+              <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontSize: 14, cursor: "pointer" }}>Edit</button>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 15, color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif" }}>
               <span>{fullName}</span>
               <span>{email.replace(/(.{2}).*(@.*)/, "$1***$2")}</span>
               {phone && <span>{phone}</span>}
@@ -518,7 +518,7 @@ const BookingWizard = ({ initialService }: Props) => {
 
           {/* What happens next */}
           <div style={{ background: "rgba(44,184,168,0.04)", border: "1px solid rgba(44,184,168,0.15)", borderRadius: 12, padding: 28, marginBottom: 32 }}>
-            <span style={{ fontSize: 12, letterSpacing: ".15em", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 16 }}>WHAT HAPPENS NEXT</span>
+            <span style={{ fontSize: 14, letterSpacing: ".15em", color: "#2cb8a8", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 16 }}>WHAT HAPPENS NEXT</span>
             {[
               "We'll confirm availability within 2 hours",
               "You'll receive a detailed itinerary by email",
@@ -526,7 +526,7 @@ const BookingWizard = ({ initialService }: Props) => {
             ].map(text => (
               <div key={text} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <Check size={14} style={{ color: "#2cb8a8", flexShrink: 0 }} />
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-secondary)" }}>{text}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "var(--text-secondary)" }}>{text}</span>
               </div>
             ))}
           </div>
@@ -541,7 +541,7 @@ const BookingWizard = ({ initialService }: Props) => {
             {loading && <Loader2 size={16} className="animate-spin" />}
             {loading ? "Submitting..." : "Send Booking Request →"}
           </button>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "var(--text-tertiary)", textAlign: "center", marginTop: 12, lineHeight: 1.6 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-tertiary)", textAlign: "center", marginTop: 12, lineHeight: 1.6 }}>
             By submitting you agree to our booking terms. No payment is taken at this stage.
           </p>
         </div>
