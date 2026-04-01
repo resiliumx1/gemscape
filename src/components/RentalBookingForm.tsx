@@ -251,7 +251,7 @@ const RentalBookingForm = ({ vehicles, preselectedVehicleId }: Props) => {
                   <span>Estimated Total</span><span>{formatPrice(estimatedTotal)}</span>
                 </div>
               </div>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 8 }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.3)", marginTop: 8 }}>
                 Final price confirmed on booking — no card required now.
               </p>
             </div>

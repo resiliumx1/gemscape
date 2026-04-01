@@ -91,7 +91,7 @@ const Concierge = () => {
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to right, rgba(4,20,28,0.92) 0%, rgba(4,20,28,0.7) 50%, transparent 100%)" }} />
         <div style={{ position: "relative", zIndex: 2, paddingLeft: "clamp(40px, 6vw, 96px)", maxWidth: 600 }}>
-          <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>FLIGHT CONCIERGE</span>
+          <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>FLIGHT CONCIERGE</span>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 400, lineHeight: 1.1, color: "#fff", margin: "16px 0 0" }}>
             Your Arrival,<br />Handled <em style={{ fontStyle: "italic", color: "#5ec8e0" }}>Perfectly.</em>
           </h1>
@@ -100,13 +100,13 @@ const Concierge = () => {
           </p>
           <div style={{ display: "flex", gap: 14, marginTop: 32, flexWrap: "wrap" }}>
             <button onClick={scrollToEnquiry} style={{
-              background: "#C9A84C", color: "#05181e", fontSize: 11, fontWeight: 600,
+              background: "#C9A84C", color: "#05181e", fontSize: 13, fontWeight: 600,
               letterSpacing: ".12em", padding: "14px 28px", border: "none", borderRadius: 3,
               cursor: "pointer", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase",
             }}>Enquire Now</button>
             <a href="https://wa.me/12687805510" target="_blank" rel="noopener noreferrer" style={{
               background: "transparent", border: "1px solid rgba(201,168,76,0.6)", color: "#C9A84C",
-              fontSize: 11, fontWeight: 600, letterSpacing: ".12em", padding: "14px 28px",
+              fontSize: 13, fontWeight: 600, letterSpacing: ".12em", padding: "14px 28px",
               borderRadius: 3, cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
               textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8,
             }}><MessageCircle size={14} /> WhatsApp Us</a>
@@ -117,7 +117,7 @@ const Concierge = () => {
       {/* What's Included */}
       <section style={{ background: "var(--bg-secondary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>What's Included</span>
+          <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>What's Included</span>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Every Detail, Arranged.</h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24, maxWidth: 1100, margin: "0 auto" }}>
@@ -137,7 +137,7 @@ const Concierge = () => {
       {/* How It Works */}
       <section style={{ background: "var(--bg-tertiary)", padding: "100px clamp(24px, 5vw, 80px)" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>How It Works</span>
+          <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>How It Works</span>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>Three Simple Steps.</h2>
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 0, maxWidth: 900, margin: "0 auto", flexWrap: "wrap" }}>
@@ -171,7 +171,7 @@ const Concierge = () => {
                 <Phone size={16} style={{ color: "rgba(201,168,76,0.6)" }} />
                 <div>
                   <a href="tel:+12687805510" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "var(--text-primary)", textDecoration: "none" }}>+1 (268) 780-5510</a>
-                  <span style={{ display: "block", fontSize: 11, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
+                  <span style={{ display: "block", fontSize: 13, color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif" }}>Call or WhatsApp, 7am–9pm AST</span>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>

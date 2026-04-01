@@ -35,7 +35,7 @@ const Book = () => {
       {/* Hero */}
       <section ref={heroRef} style={{ background: "var(--bg-primary)", padding: "160px 24px 60px", textAlign: "center" }}>
         <span ref={eyebrowRef} style={{
-          opacity: 0, fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)",
+          opacity: 0, fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)",
           textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500, display: "block",
         }}>
           BOOK WITH GEMSCAPE

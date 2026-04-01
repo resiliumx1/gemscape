@@ -57,7 +57,7 @@ const Contact = () => {
 
       {/* Hero header */}
       <section style={{ padding: "160px 24px 60px", textAlign: "center" }}>
-        <span style={{ fontSize: 11, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
+        <span style={{ fontSize: 13, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
           GET IN TOUCH
         </span>
         <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
@@ -87,7 +87,7 @@ const Contact = () => {
             }}>
               <item.icon size={20} style={{ color: "#C9A84C", flexShrink: 0, marginTop: 2 }} />
               <div>
-                <span style={{ fontSize: 10, letterSpacing: ".15em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
+                <span style={{ fontSize: 12, letterSpacing: ".15em", color: "var(--text-tertiary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, textTransform: "uppercase", display: "block", marginBottom: 6 }}>
                   {item.label}
                 </span>
                 {item.href ? (
