@@ -6,11 +6,12 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, Search, Plus, Bell, X, Clock, Menu, Globe, User, Camera, Settings,
-  CalendarDays as CalIcon, Users, Phone,
+  CalendarDays as CalIcon, Users, Phone, DollarSign,
 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 /* ── Expandable Home Button ── */
 const HomeButton = () => {

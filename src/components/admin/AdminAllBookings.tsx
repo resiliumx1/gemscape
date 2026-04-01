@@ -333,6 +333,21 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Booking Detail Drawer */}
+      <AnimatePresence>
+        {selectedBooking && (
+          <BookingDrawer
+            booking={selectedBooking}
+            type={selectedType}
+            onClose={() => setSelectedBooking(null)}
+            onStatusChange={(id, status) => {
+              setBookings(prev => prev.map(b => b.id === id ? { ...b, status } : b));
+              setSelectedBooking(null);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
