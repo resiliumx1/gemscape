@@ -293,6 +293,7 @@ const AdminHeader = ({
             }}>{pageTitle}</h1>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <CurrencyBtn />
             <NotificationBell isMobile={isMobile} />
             <ProfileAvatar
               profilePic={profilePic}
