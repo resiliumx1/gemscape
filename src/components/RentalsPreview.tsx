@@ -29,7 +29,7 @@ const FALLBACK_VEHICLES = [
     name: "Hyundai Tucson",
     category: "Sedan / SUV",
     daily_rate: 75,
-    image_url: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=85",
+    image_url: "/images/experiences/airport-vip-greeting.webp",
     seats: 5,
     transmission: "Automatic",
   },
