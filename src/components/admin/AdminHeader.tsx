@@ -248,6 +248,20 @@ const AdminHeader = ({
 }: AdminHeaderProps) => {
   const navigate = useNavigate();
   const today = format(new Date(), "EEEE, MMMM d, yyyy");
+  const { currency, setCurrency } = useCurrency();
+
+  const CurrencyBtn = () => (
+    <button onClick={() => setCurrency(currency === "USD" ? "XCD" : "USD")} style={{
+      display: "inline-flex", alignItems: "center", gap: 5,
+      width: 36, height: 36, borderRadius: "var(--aura-radius-btn)",
+      background: "var(--aura-glass)", border: "1px solid var(--aura-glass-border)",
+      cursor: "pointer", color: "var(--aura-text-dim)", justifyContent: "center",
+      fontFamily: "var(--aura-font-mono)", fontSize: 11, fontWeight: 600, transition: "all 0.2s",
+      minWidth: 36, minHeight: 36,
+    }} title={`Switch to ${currency === "USD" ? "XCD" : "USD"}`}>
+      {currency}
+    </button>
+  );
 
   if (isMobile) {
     return (
