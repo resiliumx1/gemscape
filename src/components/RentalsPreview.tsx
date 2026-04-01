@@ -36,9 +36,9 @@ const FALLBACK_VEHICLES = [
 ];
 
 const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
-  "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&q=85",
-  "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=85",
+  "/images/experiences/jeep-beach-palms.webp",
+  "/images/experiences/catamaran-white-beach.webp",
+  "/images/experiences/airport-vip-greeting.webp",
 ];
 
 const STATS = [

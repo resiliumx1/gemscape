@@ -58,6 +58,13 @@ const HeroSection = () => {
     return () => window.removeEventListener("resize", checkTablet);
   }, []);
 
+  // Delay gem render by 2s to let page become interactive first
+  useEffect(() => {
+    if (isMobile) return;
+    const timer = setTimeout(() => setShowGem(true), 2000);
+    return () => clearTimeout(timer);
+  }, [isMobile]);
+
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;

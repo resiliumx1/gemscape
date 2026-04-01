@@ -50,7 +50,7 @@ const CARDS = [
     images: [
       { src: airportVipImg, alt: "VIP airport greeting — professional staff welcoming guest" },
       { src: catamaranImg, alt: "Catamaran anchored at pristine white sand beach" },
-      { src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=85", alt: "Driving along turquoise Caribbean coastal road" },
+      { src: "/images/experiences/jeep-beach-palms.webp", alt: "Driving along turquoise Caribbean coastal road" },
     ],
     category: "Arrival & Departure",
     title: "Flight Concierge",

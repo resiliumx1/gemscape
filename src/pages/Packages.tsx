@@ -14,12 +14,12 @@ import { toast } from "sonner";
 gsap.registerPlugin(ScrollTrigger);
 
 const GALLERY_IMAGES = [
-  { src: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=85", label: "Turquoise Coves", span: "tall" },
-  { src: "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=85", label: "Luxury Resorts", span: "wide" },
-  { src: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=85", label: "Island Nightlife", span: "normal" },
-  { src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85", label: "Sailing Adventures", span: "normal" },
-  { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85", label: "Hidden Beaches", span: "wide" },
-  { src: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=85", label: "Cultural Heritage", span: "tall" },
+  { src: "/images/experiences/catamaran-white-beach.webp", label: "Turquoise Coves", span: "tall" },
+  { src: "/images/experiences/airport-vip-greeting.webp", label: "Luxury Resorts", span: "wide" },
+  { src: "/images/experiences/jeep-beach-palms.webp", label: "Island Nightlife", span: "normal" },
+  { src: "/images/experiences/bettys-hope-windmill.webp", label: "Sailing Adventures", span: "normal" },
+  { src: "/images/experiences/catamaran-white-beach.webp", label: "Hidden Beaches", span: "wide" },
+  { src: "/images/experiences/jeep-beach-palms.webp", label: "Cultural Heritage", span: "tall" },
 ];
 
 const PACKAGES = [

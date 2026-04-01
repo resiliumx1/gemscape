@@ -63,7 +63,7 @@ const App = () => {
   useEffect(() => {
     let lenis: Lenis | null = null;
 
-    if (!isAdmin) {
+    if (!isAdmin && window.innerWidth >= 768) {
       lenis = new Lenis({
         duration: 1.4,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
