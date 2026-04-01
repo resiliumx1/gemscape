@@ -373,6 +373,8 @@ export default function Navbar() {
             <img
               src="/images/gemscape-logo.webp"
               alt="Gemscape Travel & Tours"
+              width={100}
+              height={42}
               className="h-[36px] sm:h-[42px] w-auto object-contain gem-logo-img"
               style={{ background: "transparent", minWidth: 100 }}
             />
