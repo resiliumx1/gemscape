@@ -21,7 +21,7 @@ const FALLBACK_VEHICLES = [
     name: "Jeep Wrangler",
     category: "Open-Air",
     daily_rate: 95,
-    image_url: "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&q=85",
+    image_url: "/images/experiences/catamaran-white-beach.webp",
     seats: 4,
     transmission: "Manual",
   },
