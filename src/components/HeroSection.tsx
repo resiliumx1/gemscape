@@ -86,6 +86,7 @@ const HeroSection = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: -1,
       }}
     >
       {/* ═══ LAYER 1 — DRONE VIDEO / KEN BURNS POSTER ═══ */}
@@ -120,7 +121,7 @@ const HeroSection = () => {
           inset: 0,
           zIndex: 1,
           background:
-            "linear-gradient(180deg, rgba(5,24,30,0.30) 0%, rgba(5,24,30,0.15) 40%, rgba(5,24,30,0.55) 85%, rgba(5,24,30,0.80) 100%)",
+            "linear-gradient(180deg, rgba(5,24,30,0.30) 0%, rgba(5,24,30,0.15) 40%, rgba(5,24,30,0.55) 85%, rgba(5,24,30,1.0) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -139,6 +140,18 @@ const HeroSection = () => {
 
       {/* ═══ LAYER 3 — TWO-COLUMN GRID LAYOUT ═══ */}
       <div className="hero-grid-layout" style={{ position: "relative", zIndex: 3, width: "100%", height: "100%" }}>
+
+        {/* GEM — positioned based on viewport */}
+        <div className="hero-gem-float">
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <BrilliantGem
+              width={isMobile ? 200 : 520}
+              height={isMobile ? 200 : 520}
+              observerTarget={heroRef as React.RefObject<HTMLElement>}
+            />
+          </div>
+        </div>
+
         {/* LEFT COLUMN — TEXT */}
         <div className="hero-text-col">
           {/* Eyebrow */}
@@ -320,30 +333,6 @@ const HeroSection = () => {
 
       </div>
 
-      {/* ═══ GEM — absolutely positioned center-right ═══ */}
-      <div className="hero-gem-float">
-        <div
-          style={{
-            position: "absolute",
-            width: "120%",
-            height: "120%",
-            background:
-              "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
-            pointerEvents: "none",
-            zIndex: 0,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <BrilliantGem
-            width={isMobile ? 160 : 520}
-            height={isMobile ? 160 : 520}
-            observerTarget={heroRef as React.RefObject<HTMLElement>}
-          />
-        </div>
-      </div>
 
       {/* ═══ SCROLL CHEVRON ═══ */}
       <div
@@ -363,6 +352,7 @@ const HeroSection = () => {
 
       {/* Responsive styles */}
       <style>{`
+        /* ═══ HERO LAYOUT ═══ */
         .hero-grid-layout {
           display: flex;
           align-items: center;
@@ -370,6 +360,7 @@ const HeroSection = () => {
           margin: 0 auto;
           padding: 0 48px;
           height: 100%;
+          position: relative;
         }
         .hero-text-col {
           display: flex;
@@ -377,16 +368,18 @@ const HeroSection = () => {
           align-items: flex-start;
           text-align: left;
           max-width: 560px;
+          position: relative;
+          z-index: 3;
         }
         .hero-headline {
           font-size: clamp(40px, 5vw, 72px);
         }
 
-        /* Gem floats absolutely — doesn't affect text flow */
+        /* ═══ GEM — Desktop: absolute right side ═══ */
         .hero-gem-float {
           position: absolute;
           z-index: 2;
-          right: 18%;
+          right: 10%;
           top: 50%;
           transform: translateY(-50%);
           display: flex;
@@ -395,6 +388,7 @@ const HeroSection = () => {
           pointer-events: auto;
         }
 
+        /* ═══ CHEVRON ═══ */
         @keyframes chevronBounce {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(8px); }
@@ -403,36 +397,50 @@ const HeroSection = () => {
           animation: chevronBounce 2s ease-in-out infinite;
         }
 
-        /* Tablet */
+        /* ═══ TABLET — gem above text, centered, ONE gem only ═══ */
         @media (min-width: 769px) and (max-width: 1024px) {
           .hero-grid-layout {
-            padding: 0 24px;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 32px;
+            gap: 0;
           }
-          .hero-gem-float {
-            right: 4%;
-          }
-          .hero-gem-float canvas {
-            width: 260px !important;
-            height: 260px !important;
+          .hero-text-col {
+            align-items: center;
+            text-align: center;
+            max-width: 640px;
           }
           .hero-headline {
-            font-size: clamp(28px, 4.5vw, 48px) !important;
+            font-size: clamp(32px, 5vw, 52px) !important;
+          }
+          .hero-gem-float {
+            position: relative;
+            right: auto;
+            top: auto;
+            transform: none;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+          }
+          .hero-gem-float canvas {
+            width: 200px !important;
+            height: 200px !important;
           }
         }
 
-        /* Mobile — gem above text, centered */
+        /* ═══ MOBILE — gem above text, larger, centered ═══ */
         @media (max-width: 768px) {
           .hero-grid-layout {
             flex-direction: column;
             justify-content: center;
             padding: 0 20px;
+            gap: 0;
           }
           .hero-text-col {
             align-items: center;
             text-align: center;
           }
           .hero-headline {
-            font-size: clamp(24px, 7vw, 36px) !important;
+            font-size: clamp(26px, 8vw, 38px) !important;
           }
           .hero-gem-float {
             position: relative;
@@ -440,18 +448,19 @@ const HeroSection = () => {
             top: auto;
             transform: none;
             margin-bottom: 8px;
-            order: -1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-shrink: 0;
           }
           .hero-gem-float canvas {
-            width: 180px !important;
-            height: 180px !important;
+            width: 200px !important;
+            height: 200px !important;
           }
           .hero-right-col {
             display: none !important;
           }
+        }
+
+        /* ═══ MOBILE CTAs — full width, equal sizing ═══ */
+        @media (max-width: 768px) {
           .hero-cta-row {
             flex-direction: column !important;
             width: 100%;
@@ -463,10 +472,11 @@ const HeroSection = () => {
             text-align: center !important;
             justify-content: center !important;
             display: flex !important;
+            padding: 16px 24px !important;
           }
         }
 
-        /* Button shimmer effects */
+        /* ═══ BUTTON SHIMMER ═══ */
         .hero-btn-shimmer,
         .hero-btn-shimmer-gold {
           position: absolute;
@@ -486,7 +496,7 @@ const HeroSection = () => {
           to   { transform: translateX(100%); }
         }
 
-        /* Mobile stats */
+        /* ═══ MOBILE STATS ═══ */
         .hero-mobile-stats {
           display: none;
           flex-direction: row;

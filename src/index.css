@@ -654,6 +654,17 @@ button, input, textarea, select, a {
   color: hsl(var(--gem-gold)) !important;
 }
 
+/* ─── Fix hero-to-section gap ─────────────────────────────── */
+.hero-cinematic {
+  margin-bottom: -1px;
+}
+.hero-cinematic + *,
+.hero + * {
+  margin-top: -1px;
+  position: relative;
+  z-index: 1;
+}
+
 /* ========== ALWAYS-DARK SECTIONS (immune to day/night toggle) ========== */
 .hero-cinematic,
 .hero,
