@@ -204,7 +204,7 @@ const HeroSection = () => {
           <AnimatedStars />
 
           {/* CTA buttons — 2 options */}
-          <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap" }}>
+          <div className="hero-cta-row" style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap" }}>
             <button
               onClick={() => navigateTo("/book")}
               className="hero-btn-primary"
