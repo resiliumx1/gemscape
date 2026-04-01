@@ -51,7 +51,7 @@ const NAV_SECTIONS: NavSection[] = [
 
 const PAGE_TITLES: Record<string, string> = {
   dashboard: "Dashboard", revenue: "Revenue Analytics", forecasting: "Forecasting",
-  reports: "Reports", "all-bookings": "Operations", reviews: "Review Requests",
+  reports: "Reports", "all-bookings": "Operations", reviews: "Review Requests", "package-bookings": "Package Bookings",
   fleet: "Fleet Manager", calendar: "Calendar", comms: "Communications",
   "email-history": "Email / SMS History", settings: "Settings",
 };
