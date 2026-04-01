@@ -445,7 +445,7 @@ button, input, textarea, select, a {
 .gem-nav__link {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: rgba(255, 255, 255, 0.80);
@@ -513,7 +513,7 @@ button, input, textarea, select, a {
   padding: 10px 22px;
   font-family: 'DM Sans', sans-serif;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -546,7 +546,7 @@ button, input, textarea, select, a {
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   text-decoration: none;
@@ -850,7 +850,7 @@ header * {
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.10em;
   text-decoration: none;
@@ -955,7 +955,7 @@ header * {
   left: 36px;
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.45);
   letter-spacing: 0.1em;
   z-index: 2;
@@ -1406,7 +1406,7 @@ header * {
   margin-top: 32px;
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: rgba(184, 150, 90, 0.65);
@@ -1524,7 +1524,7 @@ header * {
   margin-top: 16px;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--text-primary);
@@ -1719,7 +1719,7 @@ header * {
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -1748,7 +1748,7 @@ header * {
   border-radius: 0 !important;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -2204,7 +2204,7 @@ header * {
   background: transparent;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -2561,7 +2561,7 @@ header * {
 .rb-legend {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: hsl(var(--gem-navy));
@@ -2688,7 +2688,7 @@ header * {
   border: none;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: hsl(var(--gem-navy));
@@ -2750,7 +2750,7 @@ header * {
 .rb-summary__title {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: hsl(var(--gem-navy));
@@ -2844,7 +2844,7 @@ header * {
   padding: 14px 32px;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -2941,7 +2941,7 @@ header * {
 .rentals-preview__stat-label {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.50);
@@ -2960,7 +2960,7 @@ header * {
   border-radius: 0;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -3097,7 +3097,7 @@ header * {
 .bw-stepper__step {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(11,42,59,0.35);
@@ -3402,7 +3402,7 @@ header * {
 .bw-review-row span:first-child {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: hsl(var(--gem-gold));
@@ -3731,7 +3731,7 @@ header * {
   background: #fb7185;
   color: #fff;
   font-family: 'DM Sans', sans-serif;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 700;
   min-width: 18px;
   height: 18px;
@@ -3804,7 +3804,7 @@ header * {
 .admin-trend-badge {
   display: inline-block;
   padding: 2px 8px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   border-radius: 4px !important;
 }
@@ -3867,7 +3867,7 @@ header * {
 .admin-period-btn {
   padding: 5px 12px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   border: none;
   cursor: pointer;
@@ -3950,7 +3950,7 @@ header * {
   color: rgba(223,243,248,0.55);
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   padding: 8px 20px;
   cursor: pointer;
   transition: all 0.2s;
@@ -4084,7 +4084,7 @@ header * {
   border: 1px solid rgba(251,191,36,0.28);
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   border-radius: 10px !important;
   text-transform: capitalize;
 }
@@ -4097,7 +4097,7 @@ header * {
   border: 1px solid rgba(45,212,160,0.28);
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   border-radius: 10px !important;
   text-transform: capitalize;
 }
@@ -4110,7 +4110,7 @@ header * {
   border: 1px solid rgba(94,200,224,0.28);
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   border-radius: 10px !important;
   text-transform: capitalize;
 }
@@ -4123,7 +4123,7 @@ header * {
   border: 1px solid rgba(251,113,133,0.28);
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   border-radius: 10px !important;
   text-transform: capitalize;
 }
@@ -4199,7 +4199,7 @@ header * {
 
 .admin-activity-time {
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(223,243,248,0.28);
   margin-top: 2px;
 }
@@ -4227,7 +4227,7 @@ header * {
 
 .admin-quick-action span {
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   color: rgba(223,243,248,0.55);
   transition: color 0.2s;
@@ -4245,7 +4245,7 @@ header * {
   background: linear-gradient(135deg, #1a8a9e, #C9A84C);
   color: white;
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -4777,7 +4777,7 @@ header * {
 /* ========== HERO EYEBROW MOBILE FIX ========== */
 @media (max-width: 767px) {
   .hero__content .eyebrow {
-    font-size: 11px;
+    font-size: 13px;
     color: rgba(255,255,255,0.85) !important;
     text-shadow: 0 1px 4px rgba(0,0,0,0.4);
   }
@@ -4993,7 +4993,7 @@ header * {
   color: hsl(var(--gem-gold));
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   cursor: pointer;
