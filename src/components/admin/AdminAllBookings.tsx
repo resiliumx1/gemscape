@@ -113,7 +113,7 @@ const AdminAllBookings = ({ isMobile = false }: { isMobile?: boolean }) => {
           ) : filtered.map(b => {
             const sc = STATUS_COLORS[b.status || "pending"] || STATUS_COLORS.pending;
             return (
-              <div key={b.id} className="aura-glass" style={{ padding: 16 }}>
+              <div key={b.id} className="aura-glass" style={{ padding: 16, cursor: "pointer" }} onClick={() => { setSelectedBooking(b); setSelectedType(b.service_type === "Car Rental" ? "rental" : "tour"); }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                   <div style={{
                     width: 34, height: 34, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
