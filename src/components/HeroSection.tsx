@@ -156,8 +156,8 @@ const HeroSection = () => {
         <div className="hero-gem-float">
           <div style={{ position: "relative", zIndex: 1 }}>
             <BrilliantGem
-              width={isMobile ? 200 : 520}
-              height={isMobile ? 200 : 520}
+              width={isMobile ? 200 : isTablet ? 180 : 520}
+              height={isMobile ? 200 : isTablet ? 180 : 520}
               observerTarget={heroRef as React.RefObject<HTMLElement>}
             />
           </div>
