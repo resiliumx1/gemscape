@@ -110,7 +110,7 @@ const HeroSection = () => {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="none"
         poster="/images/antigua-hero-poster.jpg"
         className="hero-video"
         style={{
