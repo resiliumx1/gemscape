@@ -332,30 +332,6 @@ const HeroSection = () => {
 
       </div>
 
-      {/* ═══ GEM — absolutely positioned center-right ═══ */}
-      <div className="hero-gem-float">
-        <div
-          style={{
-            position: "absolute",
-            width: "120%",
-            height: "120%",
-            background:
-              "radial-gradient(ellipse, rgba(44,184,168,0.15) 0%, rgba(26,138,158,0.08) 40%, transparent 70%)",
-            pointerEvents: "none",
-            zIndex: 0,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <BrilliantGem
-            width={isMobile ? 160 : 520}
-            height={isMobile ? 160 : 520}
-            observerTarget={heroRef as React.RefObject<HTMLElement>}
-          />
-        </div>
-      </div>
 
       {/* ═══ SCROLL CHEVRON ═══ */}
       <div
