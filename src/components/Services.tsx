@@ -139,14 +139,17 @@ export default function Services() {
             }}
           >
             {SERVICES.map((s, i) => (
-              <div
+              <img
                 key={s.id}
+                src={s.image}
+                alt={s.title}
+                loading="lazy"
                 style={{
                   position: "absolute",
                   inset: 0,
-                  backgroundImage: `url(${s.image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
                   opacity: i === active ? 1 : 0,
                   transform: i === active ? "scale(1)" : "scale(1.08)",
                   transition: "opacity 0.8s ease, transform 1.2s ease",

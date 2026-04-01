@@ -61,7 +61,7 @@ const HeroSection = () => {
   // Delay gem render by 2s to let page become interactive first
   useEffect(() => {
     if (isMobile) return;
-    const timer = setTimeout(() => setShowGem(true), 2000);
+    const timer = setTimeout(() => setShowGem(true), 3000);
     return () => clearTimeout(timer);
   }, [isMobile]);
 

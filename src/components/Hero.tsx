@@ -3,7 +3,7 @@ import { useWave } from "@/components/WavePageTransition";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import WaveDivider from "./WaveDivider";
-const heroImage = "/images/hero-antigua-sunset.png";
+const heroImage = "/images/hero-antigua-sunset.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
