@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { MessageSquare, Check, X as XIcon, Send } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import BookingDrawer from "./BookingDrawer";
 
 type Booking = {
   id: string;
