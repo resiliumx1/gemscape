@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
@@ -11,16 +11,18 @@ import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
-import Admin from "./pages/Admin.tsx";
-
-import Rentals from "./pages/Rentals.tsx";
-import Book from "./pages/Book.tsx";
-import Concierge from "./pages/Concierge.tsx";
-import Contact from "./pages/Contact.tsx";
-import Experiences from "./pages/Experiences.tsx";
-import Packages from "./pages/Packages.tsx";
 import WavePageTransition from "@/components/WavePageTransition";
+
+// Lazy load non-critical routes
+const Rentals = lazy(() => import("./pages/Rentals.tsx"));
+const Book = lazy(() => import("./pages/Book.tsx"));
+const Concierge = lazy(() => import("./pages/Concierge.tsx"));
+const Contact = lazy(() => import("./pages/Contact.tsx"));
+const Experiences = lazy(() => import("./pages/Experiences.tsx"));
+const Packages = lazy(() => import("./pages/Packages.tsx"));
+const Admin = lazy(() => import("./pages/Admin.tsx"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin.tsx"));
+const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,17 +40,20 @@ function ScrollToTop() {
 
 function AnimatedRoutes() {
   return (
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/rentals" element={<Rentals />} />
-      <Route path="/book" element={<Book />} />
-      <Route path="/concierge" element={<Concierge />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/experiences" element={<Experiences />} />
-      <Route path="/packages" element={<Packages />} />
-      <Route path="/admin" element={<Admin />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Suspense fallback={<div style={{ minHeight: "100vh", background: "#05181e" }} />}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/rentals" element={<Rentals />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/concierge" element={<Concierge />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/experiences" element={<Experiences />} />
+        <Route path="/packages" element={<Packages />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 }
 
