@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -43,7 +44,12 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden flex flex-col bg-[#022c22]">
+    <div id="main-content" className="min-h-screen relative overflow-x-hidden flex flex-col bg-[#022c22]">
+      <Helmet>
+        <title>Gemscape Travel & Tours | Private Tours, Rentals & Concierge — Antigua & Barbuda</title>
+        <meta name="description" content="Antigua & Barbuda's premier private travel experience. Island circumnavigation tours, luxury car rentals, VIP flight concierge, and signature planning packages. Crafted for those who demand the extraordinary." />
+        <link rel="canonical" href="https://gemscapetours.com/" />
+      </Helmet>
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         <HeroSection />

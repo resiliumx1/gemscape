@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useWave } from "@/components/WavePageTransition";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import bettysHopeImg from "@/assets/bettys-hope-windmill.webp";
-import airportVipImg from "@/assets/airport-vip-greeting.webp";
-import catamaranImg from "@/assets/catamaran-white-beach.webp";
+const bettysHopeImg = "/images/experiences/bettys-hope-windmill.webp";
+const airportVipImg = "/images/experiences/airport-vip-greeting.webp";
+const catamaranImg = "/images/experiences/catamaran-white-beach.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 

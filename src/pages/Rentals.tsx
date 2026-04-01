@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import rentalsHeroBg from "@/assets/rentals-hero.png";
+const rentalsHeroBg = "/images/rentals-hero.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
@@ -404,7 +404,7 @@ const Rentals = () => {
           <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 400, color: "#fff", opacity: 0.85, animation: "lightboxFadeIn 0.4s ease 0.15s both" }}>
             {lightboxImage.name}
           </span>
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, letterSpacing: "0.12em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
+          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, letterSpacing: "0.12em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
             Click anywhere or press Esc to close
           </span>
         </div>

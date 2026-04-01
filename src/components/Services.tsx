@@ -3,10 +3,10 @@ import { useWave } from "@/components/WavePageTransition";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import catamaranImg from "@/assets/catamaran-white-beach.webp";
-import windmillImg from "@/assets/bettys-hope-windmill.webp";
-import airportImg from "@/assets/airport-vip-greeting.webp";
-import jeepImg from "@/assets/jeep-beach-palms.webp";
+const catamaranImg = "/images/experiences/catamaran-white-beach.webp";
+const windmillImg = "/images/experiences/bettys-hope-windmill.webp";
+const airportImg = "/images/experiences/airport-vip-greeting.webp";
+const jeepImg = "/images/experiences/jeep-beach-palms.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 

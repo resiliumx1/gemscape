@@ -305,15 +305,15 @@ const HeroSection = () => {
           <div className="hero-mobile-stats">
             <div className="hero-mobile-stat">
               <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>365</span>
-              <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Beaches</span>
+              <span style={{ fontSize: 12, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Beaches</span>
             </div>
             <div className="hero-mobile-stat">
               <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Cormorant Garamond', serif" }}>1,000+</span>
-              <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Guests</span>
+              <span style={{ fontSize: 12, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Guests</span>
             </div>
             <div className="hero-mobile-stat">
               <span style={{ fontSize: 18, fontWeight: 700, color: '#C9A84C', fontFamily: "'Cormorant Garamond', serif" }}>5★</span>
-              <span style={{ fontSize: 9, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Rated</span>
+              <span style={{ fontSize: 12, letterSpacing: '.15em', color: 'rgba(255,255,255,0.45)', fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const }}>Rated</span>
             </div>
           </div>
         </div>
