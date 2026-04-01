@@ -48,7 +48,7 @@ const AdminReports = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       {/* Recent downloads */}
       <div className="aura-glass" style={{ padding: '18px 20px' }}>
-        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 11, fontWeight: 600, color: 'var(--aura-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
+        <p style={{ fontFamily: "var(--aura-font-body)", fontSize: 13, fontWeight: 600, color: 'var(--aura-text)', opacity: 0.65, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 14 }}>
           Recent Downloads
         </p>
         {RECENT_DOWNLOADS.map((h, i) => (
