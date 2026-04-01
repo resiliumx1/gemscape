@@ -472,7 +472,7 @@ const HeroSection = () => {
         }
 
         /* ═══ MOBILE CTAs — full width, equal sizing ═══ */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .hero-cta-row {
             flex-direction: column !important;
             width: 100%;
