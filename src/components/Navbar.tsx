@@ -391,6 +391,9 @@ export default function Navbar() {
           <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Sparkles} label="CONCIERGE" href="/concierge" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Mail} label="CONTACT" href="/contact" pulse={false} onNavigate={handleNav} />
+          {!location.pathname.startsWith("/admin") && (
+            <NavItem icon={Shield} label="ADMIN" href="/admin" pulse={false} onNavigate={handleNav} />
+          )}
         </motion.nav>
 
         {/* Right controls */}
