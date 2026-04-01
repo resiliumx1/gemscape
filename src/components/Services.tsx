@@ -65,38 +65,47 @@ export default function Services() {
   const { navigateTo } = useWave();
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".svc-left",
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 65%",
-          },
-        }
-      );
-      gsap.fromTo(
-        ".svc-right",
-        { opacity: 0, x: 50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          delay: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 65%",
-          },
-        }
-      );
-    }, sectionRef);
-    return () => ctx.revert();
+    let ctx: gsap.Context | null = null;
+    const initGsap = () => {
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          ".svc-left",
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 65%",
+            },
+          }
+        );
+        gsap.fromTo(
+          ".svc-right",
+          { opacity: 0, x: 50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 65%",
+            },
+          }
+        );
+      }, sectionRef);
+    };
+    if ('requestIdleCallback' in window) {
+      const id = requestIdleCallback(initGsap);
+      return () => { cancelIdleCallback(id); ctx?.revert(); };
+    } else {
+      const id = requestAnimationFrame(initGsap);
+      return () => { cancelAnimationFrame(id); ctx?.revert(); };
+    }
   }, []);
 
   const current = SERVICES[active];

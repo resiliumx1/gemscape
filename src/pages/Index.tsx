@@ -27,7 +27,7 @@ const Index = () => {
     const onLoad = () => {
       loaded++;
       if (loaded >= total) {
-        ScrollTrigger.refresh();
+        requestAnimationFrame(() => ScrollTrigger.refresh());
       }
     };
     images.forEach((img) => {
