@@ -1,33 +1,61 @@
 
 
-# Fix Double Gem + Mobile Performance
+# Critical Performance Fix: Reduce ~21MB Homepage to ~2.5MB
 
-## Problem
-1. The `BrilliantGem` Three.js component has `overflow: "visible"`, causing sparkle/glow effects to bleed outside the container — creating a "double gem" appearance on mobile/tablet.
-2. The Three.js gem is heavy on mobile GPUs, contributing to poor performance scores. The site loads Three.js, post-processing shaders, and runs a continuous render loop even on low-powered devices.
+## What's Wrong
+The homepage downloads ~21MB of assets (Google recommends <1.5MB for mobile). This is why speed tests fail — the page never finishes loading in time.
 
-## Plan
+## Plan (7 Fixes, ordered by impact)
 
-### Change 1: Clip overflow in `BrilliantGem.tsx`
-- Line 575: Change `overflow: "visible"` to `overflow: "hidden"` to contain all sparkle/glow effects within the gem container bounds.
+### Fix 1: Video preload — saves ~10.6MB
+In `HeroSection.tsx` line 111, change `preload="auto"` to `preload="none"`. The video will stream on play instead of downloading entirely before the page becomes interactive. The poster image is already set.
 
-### Change 2: Hide gem on mobile in `HeroSection.tsx`
-- Wrap the gem block (lines 155-164) in `{!isMobile && (...)}` so the Three.js canvas is completely removed from the DOM on mobile devices.
-- This eliminates the render loop, dynamic imports of Three.js, and all GPU usage on mobile — the single biggest performance win.
-- Tablet keeps the gem at 180px, desktop at 520px.
+### Fix 2: Already done
+The `src/assets/` imports have already been moved to `/images/` public paths. No action needed.
 
-### Performance context
-The slow performance score is primarily caused by the Three.js gem: it dynamically imports ~200KB of Three.js + post-processing modules, creates a WebGL context, and runs a continuous animation loop. Removing it on mobile will significantly improve LCP, TBT, and overall Lighthouse scores. On desktop, the gem already pauses when off-screen via IntersectionObserver, so the impact is lower there — desktop performance test failures are likely related to the initial Three.js bundle load time, which is mitigated by the existing lazy loading.
+### Fix 3: Optimize the logo PNG — saves ~1.5MB
+`public/images/gemscape-logo.png` is 1.5MB for a logo displayed at 42px height. Compress it to WebP at 200px height, targeting <30KB. Update all references from `.png` to `.webp`.
+
+### Fix 4: Replace Unsplash URLs with local placeholders — saves ~3MB + eliminates external requests
+91 Unsplash references across 6 component files. Replace with local `/images/experiences/` paths using existing optimized assets. For fallback images (Rentals), use `/images/experiences/jeep-beach-palms.webp`. Files affected:
+- `Experiences.tsx` — 7 URLs across card image arrays
+- `RentalsPreview.tsx` — 7 URLs (3 defaults + 3 fallbacks + 1 error handler)
+- `Packages.tsx` — 6 gallery URLs
+- `Rentals.tsx` — 4 fallback URLs
+- `CtaBanner.tsx` — 1 background URL
+- `Concierge.tsx` — 1 hero URL
+
+### Fix 5: Lazy-load Three.js gem with 2s delay — saves ~600KB JS + 500ms main thread
+In `HeroSection.tsx`, replace the direct `import BrilliantGem` with `React.lazy()` + `Suspense`, and add a 2-second delay via `useState`/`useEffect` before showing the gem. This lets the page become interactive before Three.js loads.
+
+### Fix 6: Disable Lenis smooth scroll on mobile — saves scroll jank
+In `App.tsx`, add `window.innerWidth < 768` check to the Lenis initialization. Mobile uses native scroll (better performance), desktop keeps Lenis.
+
+### Fix 7: Use optimized image assets from uploaded zip
+Extract the uploaded `gemscape-optimized-assets.zip` to replace oversized images in `public/images/` and `public/images/experiences/` with compressed WebP versions. Also use smaller optimized versions from `public/assets/` where duplicates exist.
 
 ## Files Modified
 
 | File | Change |
 |------|--------|
-| `src/components/BrilliantGem.tsx` | `overflow: "visible"` → `overflow: "hidden"` |
-| `src/components/HeroSection.tsx` | Wrap gem in `{!isMobile && (...)}` |
+| `src/components/HeroSection.tsx` | `preload="none"`, lazy-load gem with 2s delay |
+| `src/App.tsx` | Disable Lenis on mobile |
+| `src/components/Experiences.tsx` | Replace 7 Unsplash URLs |
+| `src/components/RentalsPreview.tsx` | Replace 7 Unsplash URLs |
+| `src/pages/Packages.tsx` | Replace 6 Unsplash URLs |
+| `src/pages/Rentals.tsx` | Replace 4 Unsplash URLs |
+| `src/components/CtaBanner.tsx` | Replace 1 Unsplash URL |
+| `src/pages/Concierge.tsx` | Replace 1 Unsplash URL |
+| `public/images/` | Optimized assets from zip |
 
-## Technical Details
-- No database changes needed
-- No new dependencies
-- Two single-line edits across two files
+## What Won't Change
+- Visual design and layout
+- BrilliantGem internals
+- Wave transitions, admin panel, Supabase integration
+- GSAP/Framer Motion usage
+
+## Expected Results
+- Total download: ~21MB → ~2.5MB
+- Time to Interactive: >15s → <4s on mobile
+- Lighthouse performance score should pass
 
