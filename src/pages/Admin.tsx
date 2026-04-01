@@ -40,6 +40,7 @@ const NAV_SECTIONS: NavSection[] = [
     { key: "reviews", label: "Review Requests", icon: <Star {...IC} /> },
     { key: "fleet", label: "Fleet Manager", icon: <Truck {...IC} /> },
     { key: "calendar", label: "Calendar", icon: <CalendarDays {...IC} /> },
+    { key: "package-bookings", label: "Package Bookings", icon: <Sparkles {...IC} /> },
   ]},
   { label: "Communications", items: [
     { key: "comms", label: "Communications", icon: <MessageSquare {...IC} /> },
