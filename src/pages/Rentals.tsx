@@ -262,7 +262,7 @@ const Rentals = () => {
               <div
                 className="r-card__img-wrap"
                 onClick={() => setLightboxImage({
-                  src: v.image_url || "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
+                  src: v.image_url || "/images/experiences/jeep-beach-palms.webp",
                   name: v.name,
                 })}
                 style={{ cursor: "pointer", position: "relative" }}
