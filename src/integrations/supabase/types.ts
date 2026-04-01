@@ -239,6 +239,57 @@ export type Database = {
         }
         Relationships: []
       }
+      package_bookings: {
+        Row: {
+          booking_ref: string | null
+          created_at: string | null
+          email: string
+          experience_interests: string[] | null
+          full_name: string
+          id: string
+          package_type: string
+          party_size: number | null
+          phone: string | null
+          special_requests: string | null
+          status: string | null
+          total_price: number | null
+          travel_dates: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          booking_ref?: string | null
+          created_at?: string | null
+          email: string
+          experience_interests?: string[] | null
+          full_name: string
+          id?: string
+          package_type: string
+          party_size?: number | null
+          phone?: string | null
+          special_requests?: string | null
+          status?: string | null
+          total_price?: number | null
+          travel_dates?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          booking_ref?: string | null
+          created_at?: string | null
+          email?: string
+          experience_interests?: string[] | null
+          full_name?: string
+          id?: string
+          package_type?: string
+          party_size?: number | null
+          phone?: string | null
+          special_requests?: string | null
+          status?: string | null
+          total_price?: number | null
+          travel_dates?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       rental_bookings: {
         Row: {
           add_ons: string[] | null

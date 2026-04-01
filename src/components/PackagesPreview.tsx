@@ -3,6 +3,7 @@ import { Star, Sparkles, Crown, ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useWaveNav } from "@/components/WavePageTransition";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
