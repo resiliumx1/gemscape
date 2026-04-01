@@ -13,7 +13,7 @@ const FALLBACK_VEHICLES = [
     name: "Toyota Land Cruiser",
     category: "SUV",
     daily_rate: 120,
-    image_url: "https://images.unsplash.com/photo-1519245659620-e859806a8d3b?w=800&q=85",
+    image_url: "/images/experiences/jeep-beach-palms.webp",
     seats: 7,
     transmission: "Automatic",
   },
