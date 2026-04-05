@@ -12,6 +12,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Index from "./pages/Index.tsx";
 import WavePageTransition from "@/components/WavePageTransition";
+import ComingSoon from "@/components/ComingSoon";
 
 // Lazy load non-critical routes
 const Rentals = lazy(() => import("./pages/Rentals.tsx"));
@@ -103,6 +104,7 @@ const App = () => {
         
         <Toaster />
         <Sonner />
+        <ComingSoon />
 
         <BrowserRouter>
           <WavePageTransition>
