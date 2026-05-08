@@ -100,13 +100,15 @@ const HeroSection = () => {
       data-theme="dark"
       style={{
         width: "100vw",
-        height: "100vh",
+        minHeight: "100svh",
         position: "relative",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        paddingTop: "calc(var(--header-height) + 2rem)",
+        paddingBottom: "2rem",
         marginBottom: -1,
       }}
     >
