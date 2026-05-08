@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 
 interface SkyToggleProps {
@@ -7,56 +7,61 @@ interface SkyToggleProps {
 }
 
 /**
- * Refined Sun ↔ Moon theme toggle.
- * Minimal, elegant, brand-aligned. The icon crossfades + rotates;
- * the orb container holds a subtle glow tinted to the active mode.
+ * Premium Sun ↔ Moon theme toggle.
+ * - Compact circular orb (36px), brand-aligned
+ * - Smooth crossfade + rotation + scale (~320ms)
+ * - Soft hover and tap states
+ * - Respects prefers-reduced-motion
+ * - Accessible: role="switch" + aria-checked + aria-label
  */
 const SkyToggle = ({ checked: isDark, onChange }: SkyToggleProps) => {
+  const reduce = useReducedMotion();
   const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+
+  const iconAnim = reduce
+    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
+    : {
+        initial: { opacity: 0, rotate: isDark ? -55 : 55, scale: 0.7 },
+        animate: { opacity: 1, rotate: 0, scale: 1 },
+        exit: { opacity: 0, rotate: isDark ? 55 : -55, scale: 0.7 },
+      };
 
   return (
     <motion.button
       type="button"
       onClick={() => onChange(!isDark)}
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.94 }}
-      transition={{ type: "spring", stiffness: 320, damping: 18 }}
+      whileHover={reduce ? undefined : { scale: 1.06 }}
+      whileTap={reduce ? undefined : { scale: 0.92 }}
+      transition={{ type: "spring", stiffness: 360, damping: 22 }}
       role="switch"
       aria-checked={isDark}
       aria-label={label}
       title={label}
-      className="theme-orb"
+      className="theme-orb group relative inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-gem-gold/50 focus-visible:ring-offset-0"
       style={{
-        position: "relative",
-        width: 40,
-        height: 40,
-        borderRadius: "999px",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "1px solid var(--border-color, rgba(255,255,255,0.18))",
+        width: 36,
+        height: 36,
+        borderRadius: 999,
+        border: `1px solid ${isDark ? "rgba(212,173,124,0.28)" : "rgba(184,149,106,0.32)"}`,
         background: isDark
-          ? "linear-gradient(135deg, rgba(8,28,38,0.85) 0%, rgba(12,47,58,0.85) 100%)"
-          : "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(246,241,234,0.95) 100%)",
+          ? "radial-gradient(circle at 30% 30%, rgba(20,52,68,0.95), rgba(6,22,30,0.95))"
+          : "radial-gradient(circle at 30% 30%, rgba(255,250,240,0.96), rgba(244,235,220,0.96))",
         boxShadow: isDark
-          ? "0 4px 18px rgba(184,150,90,0.18), inset 0 0 0 1px rgba(184,150,90,0.18)"
-          : "0 4px 18px rgba(184,150,90,0.22), inset 0 0 0 1px rgba(184,150,90,0.20)",
+          ? "0 4px 16px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(212,173,124,0.06)"
+          : "0 4px 16px rgba(184,149,106,0.18), inset 0 0 0 1px rgba(255,255,255,0.6)",
         cursor: "pointer",
         overflow: "hidden",
-        transition: "background 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease",
+        transition: "background 350ms ease, border-color 350ms ease, box-shadow 350ms ease",
       }}
     >
-      {/* Subtle ambient glow behind icon */}
+      {/* Ambient glow */}
       <span
         aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-full transition-opacity duration-500 opacity-70 group-hover:opacity-100"
         style={{
-          position: "absolute",
-          inset: 0,
-          borderRadius: "999px",
           background: isDark
-            ? "radial-gradient(circle at 50% 50%, rgba(212,173,124,0.18) 0%, transparent 65%)"
-            : "radial-gradient(circle at 50% 50%, rgba(250,204,21,0.22) 0%, transparent 65%)",
-          pointerEvents: "none",
+            ? "radial-gradient(circle at 50% 50%, rgba(212,173,124,0.18) 0%, transparent 70%)"
+            : "radial-gradient(circle at 50% 50%, rgba(250,204,21,0.20) 0%, transparent 70%)",
         }}
       />
 
@@ -64,24 +69,22 @@ const SkyToggle = ({ checked: isDark, onChange }: SkyToggleProps) => {
         {isDark ? (
           <motion.span
             key="moon"
-            initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            style={{ display: "inline-flex", color: "hsl(var(--gem-gold-light, 40 44% 72%))" }}
+            {...iconAnim}
+            transition={{ duration: reduce ? 0.15 : 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="relative inline-flex"
+            style={{ color: "#e6cfa8" }}
           >
-            <Moon size={18} strokeWidth={1.6} fill="currentColor" fillOpacity={0.12} />
+            <Moon size={16} strokeWidth={1.6} fill="currentColor" fillOpacity={0.15} />
           </motion.span>
         ) : (
           <motion.span
             key="sun"
-            initial={{ opacity: 0, rotate: 90, scale: 0.6 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: -90, scale: 0.6 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            style={{ display: "inline-flex", color: "hsl(var(--gem-gold, 37 42% 56%))" }}
+            {...iconAnim}
+            transition={{ duration: reduce ? 0.15 : 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="relative inline-flex"
+            style={{ color: "#b8956a" }}
           >
-            <Sun size={18} strokeWidth={1.8} />
+            <Sun size={16} strokeWidth={1.8} />
           </motion.span>
         )}
       </AnimatePresence>
