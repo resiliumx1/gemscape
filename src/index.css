@@ -2039,6 +2039,85 @@ header * {
   border-radius: 2px;
 }
 
+/* ========== MOTION POLISH (site-wide) ========== */
+:root {
+  --ease-gem: cubic-bezier(0.22, 1, 0.36, 1);     /* calm, premium */
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 220ms;
+  --dur-base: 320ms;
+  --dur-slow: 520ms;
+}
+
+/* Smoother native scroll */
+html { scroll-behavior: smooth; }
+
+/* Smooth theme transition: only color-related props, never transform/layout */
+html, body,
+header, footer, section, main, article, aside, nav,
+.card, [class*="bg-"], [class*="border-"] {
+  transition:
+    background-color var(--dur-base) var(--ease-soft),
+    border-color var(--dur-base) var(--ease-soft),
+    color var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft);
+}
+
+/* GPU-friendly hover utilities — use sparingly via classNames already in code */
+.hover-lift {
+  transition: transform var(--dur-base) var(--ease-gem),
+              box-shadow var(--dur-base) var(--ease-gem);
+  will-change: transform;
+}
+.hover-lift:hover { transform: translate3d(0, -3px, 0); }
+
+.hover-image { overflow: hidden; }
+.hover-image > img,
+.hover-image > .bg-img {
+  transition: transform var(--dur-slow) var(--ease-gem);
+  will-change: transform;
+}
+.hover-image:hover > img,
+.hover-image:hover > .bg-img { transform: scale(1.03); }
+
+/* Button soft glow on hover */
+button, .btn {
+  transition:
+    transform var(--dur-fast) var(--ease-gem),
+    box-shadow var(--dur-base) var(--ease-gem),
+    background-color var(--dur-base) var(--ease-soft),
+    border-color var(--dur-base) var(--ease-soft),
+    color var(--dur-base) var(--ease-soft),
+    opacity var(--dur-base) var(--ease-soft);
+}
+button:active:not(:disabled), .btn:active:not(:disabled) {
+  transform: translateZ(0) scale(0.985);
+}
+
+/* Form focus polish */
+input, textarea, select {
+  transition:
+    border-color var(--dur-fast) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft),
+    background-color var(--dur-base) var(--ease-soft);
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: none;
+  border-color: hsl(var(--gem-teal, 188 60% 40%) / 0.6);
+  box-shadow: 0 0 0 3px hsl(var(--gem-teal, 188 60% 40%) / 0.18);
+}
+
+/* Anchor link gentle color transition */
+a {
+  transition: color var(--dur-fast) var(--ease-soft),
+              opacity var(--dur-fast) var(--ease-soft);
+}
+
+/* Mobile: slightly snappier durations + drop heavy parallax */
+@media (max-width: 768px) {
+  :root { --dur-base: 260ms; --dur-slow: 380ms; }
+  .hero__bg, .rentals-hero__bg { transform: none !important; }
+}
+
 /* Respect reduced motion preferences globally */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -2049,8 +2128,13 @@ header * {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .hero__bg { transform: none !important; }
+  html { scroll-behavior: auto !important; }
+  .hero__bg, .rentals-hero__bg { transform: none !important; }
+  .hover-lift:hover { transform: none !important; }
+  .hover-image:hover > img,
+  .hover-image:hover > .bg-img { transform: none !important; }
 }
+
 
 
 /* ─── Rentals Hero ─── */
