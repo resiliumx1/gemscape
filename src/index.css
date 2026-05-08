@@ -97,8 +97,8 @@ textarea:focus-visible {
     --bg-tertiary:   #faf6f0;   /* soft cream */
     --bg-elevated:   #ffffff;
     --text-primary:    #0e2630;          /* deep navy ink */
-    --text-secondary:  rgba(14,38,48,0.66);
-    --text-tertiary:   rgba(14,38,48,0.42);
+    --text-secondary:  rgba(14,38,48,0.82);
+    --text-tertiary:   rgba(14,38,48,0.64);
     --border-color:    rgba(14,38,48,0.10);
     --border-hover:    rgba(58,138,154,0.40);
     --card-bg:         rgba(255,255,255,0.86);
