@@ -237,7 +237,7 @@ const BookingWizard = ({ initialService }: Props) => {
   const isTour = serviceType === "circumnavigation" || serviceType === "heritage";
 
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 100px" }}>
+    <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 16px 100px" }}>
       {/* Step indicator */}
       <div className="gem-wizard-stepper" style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", marginBottom: 48, width: "100%" }}>
         {STEP_LABELS.map((label, i) => {
