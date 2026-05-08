@@ -100,13 +100,15 @@ const HeroSection = () => {
       data-theme="dark"
       style={{
         width: "100vw",
-        height: "100vh",
+        minHeight: "100svh",
         position: "relative",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        paddingTop: "calc(var(--header-height) + 2rem)",
+        paddingBottom: "2rem",
         marginBottom: -1,
       }}
     >
@@ -404,8 +406,11 @@ const HeroSection = () => {
           max-width: 1280px;
           margin: 0 auto;
           padding: 0 48px;
-          height: 100%;
+          width: 100%;
           position: relative;
+        }
+        @media (max-width: 767px) {
+          :root { --header-height: var(--header-height-mobile); }
         }
         .hero-text-col {
           display: flex;
