@@ -88,6 +88,7 @@ const Concierge = () => {
       {/* HERO */}
       <section style={{ position: "relative", width: "100vw", minHeight: "85vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
         <img src="/images/experiences/airport-vip-greeting.webp" alt="Luxury private jet on Caribbean tarmac"
+          loading="eager" fetchPriority="high" decoding="async"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to right, rgba(4,20,28,0.92) 0%, rgba(4,20,28,0.7) 50%, transparent 100%)" }} />
         <div style={{ position: "relative", zIndex: 2, paddingLeft: "clamp(40px, 6vw, 96px)", maxWidth: 600 }}>
