@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, DollarSign, TrendingUp, FileText, Briefcase,
   Star, Truck, CalendarDays, MessageSquare, Mail, Settings,
-  Sun, Moon, PanelLeftClose, PanelLeft, Menu, Home, Sparkles,
+  Sun, Moon, PanelLeftClose, PanelLeft, Menu, Home, Sparkles, Inbox,
 } from "lucide-react";
 import { AdminHeader, NewBookingModal } from "@/components/admin/AdminHeader";
 import "@/styles/admin-aura.css";
@@ -21,6 +21,7 @@ const AdminEmailHistory = lazy(() => import("@/components/admin/AdminEmailHistor
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminReports = lazy(() => import("@/components/admin/AdminReports"));
 const AdminPackageBookings = lazy(() => import("@/components/admin/AdminPackageBookings"));
+const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
 
 /* ── Nav config ── */
 interface NavItem { key: string; label: string; icon: React.ReactNode }
@@ -43,6 +44,7 @@ const NAV_SECTIONS: NavSection[] = [
     { key: "package-bookings", label: "Package Bookings", icon: <Sparkles {...IC} /> },
   ]},
   { label: "Communications", items: [
+    { key: "inquiries", label: "Inquiries Inbox", icon: <Inbox {...IC} /> },
     { key: "comms", label: "Communications", icon: <MessageSquare {...IC} /> },
     { key: "email-history", label: "Email / SMS History", icon: <Mail {...IC} /> },
   ]},
@@ -53,6 +55,7 @@ const PAGE_TITLES: Record<string, string> = {
   dashboard: "Dashboard", revenue: "Revenue Analytics", forecasting: "Forecasting",
   reports: "Reports", "all-bookings": "Operations", reviews: "Review Requests", "package-bookings": "Package Bookings",
   fleet: "Fleet Manager", calendar: "Calendar", comms: "Communications",
+  inquiries: "Inquiries Inbox",
   "email-history": "Email / SMS History", settings: "Settings",
 };
 
@@ -115,6 +118,7 @@ const Admin = () => {
       case "fleet": return <AdminFleetManager isMobile={isMobile} />;
       case "calendar": return <AdminCalendar isMobile={isMobile} />;
       case "package-bookings": return <AdminPackageBookings isMobile={isMobile} />;
+      case "inquiries": return <AdminInquiries isMobile={isMobile} />;
       case "comms": return <AdminCustomerDirectory isMobile={isMobile} />;
       case "email-history": return <AdminEmailHistory isMobile={isMobile} />;
       case "settings": return <AdminSettings isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} isMobile={isMobile} profilePic={profilePic} onProfileUpload={triggerUpload} onProfileRemove={removeProfilePic} />;
