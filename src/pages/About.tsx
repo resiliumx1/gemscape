@@ -82,10 +82,14 @@ export default function About() {
     >
       <Helmet>
         <title>About Gemscape | Curated Caribbean Travel With Intention</title>
-        <meta
-          name="description"
-          content="Gemscape curates Caribbean travel with peace, beauty, culture, and effortless coordination at the heart of every journey."
-        />
+        <meta name="description" content="Gemscape curates Caribbean travel with peace, beauty, culture, and effortless coordination at the heart of every journey." />
+        <link rel="canonical" href="https://gemscapetours.com/about" />
+        <meta property="og:title" content="About Gemscape | Curated Caribbean Travel With Intention" />
+        <meta property="og:description" content="Our travel philosophy: thoughtful planning, local Caribbean knowledge, and a calm, human approach to every journey." />
+        <meta property="og:url" content="https://gemscapetours.com/about" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://gemscapetours.com/images/hero-antigua-sunset.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <Navbar />
 
