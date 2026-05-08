@@ -1,517 +1,429 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useWave } from "@/components/WavePageTransition";
-import { ArrowRight } from "lucide-react";
+import {
+  Compass,
+  Plane,
+  Car,
+  Map,
+  Ship,
+  Users,
+  Leaf,
+  Briefcase,
+  ArrowUpRight,
+} from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-const catamaranImg = "/images/experiences/catamaran-white-beach.webp";
-const windmillImg = "/images/experiences/bettys-hope-windmill.webp";
-const airportImg = "/images/experiences/airport-vip-greeting.webp";
-const jeepImg = "/images/experiences/jeep-beach-palms.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SERVICES = [
   {
     id: "01",
-    category: "ITINERARY PLANNING",
-    title: "Curated Day-by-Day Planning",
-    headline: "An itinerary shaped entirely around you.",
+    icon: Compass,
+    title: "Personalized Itinerary Planning",
     description:
-      "Tell us how you want to feel — peaceful, adventurous, romantic, restored — and we design the days around it. Hidden coves, slow lunches, the right beach at the right hour, and nothing you didn't ask for. No two Gemscape itineraries are the same.",
-    image: windmillImg,
-    route: "/book",
+      "Custom Caribbean itineraries shaped around your travel style, pace, purpose, and desired feeling.",
+    route: "/book?service=itinerary",
     accent: "#2cb8a8",
+    featured: true,
+    tag: "Signature Service",
   },
   {
     id: "02",
-    category: "WATER & SEA",
-    title: "Private Island Days",
-    headline: "Every cove. Every quiet bay.",
+    icon: Plane,
+    title: "Airport Transfers",
     description:
-      "Unhurried days along Antigua's coastline — secret beaches, snorkelling stops, lunch on the water — at the pace of the breeze, not a schedule. Captain, vessel, and route, all coordinated for you.",
-    image: catamaranImg,
-    route: "/book",
+      "Reliable arrival and departure coordination so your trip begins and ends smoothly.",
+    route: "/book?service=airport",
     accent: "#1a8a9e",
   },
   {
     id: "03",
-    category: "ARRIVAL & COORDINATION",
-    title: "Arrival & Concierge",
-    headline: "From wheels-down to fully looked after.",
+    icon: Car,
+    title: "Transportation Coordination",
     description:
-      "Airport meet-and-greet, transfers, dinner reservations, last-minute charters, the small things you forgot to think about. One number to call. We handle the rest, gently and quickly.",
-    image: airportImg,
-    route: "/concierge",
-    accent: "#b8956a",
+      "Island movement made easier through trusted vehicle, driver, and travel support options.",
+    route: "/rentals",
+    accent: "#1a8a9e",
   },
   {
     id: "04",
-    category: "ISLAND MOBILITY",
-    title: "Cars, Coordinated",
-    headline: "A car waiting where you need it.",
+    icon: Map,
+    title: "Island Excursions",
     description:
-      "From compact runabouts to open-air Jeeps — the right vehicle, delivered to your hotel, villa or the airport. Insurance, paperwork and roadside support all handled by us, so you only ever turn the key.",
-    image: jeepImg,
-    route: "/rentals",
-    accent: "#C9A84C",
+      "Curated experiences that help you discover beaches, culture, food, nature, and hidden gems.",
+    route: "/experiences",
+    accent: "#b8956a",
+  },
+  {
+    id: "05",
+    icon: Ship,
+    title: "Cruise Passenger Experiences",
+    description:
+      "Thoughtfully planned island experiences designed around limited cruise stop timelines.",
+    route: "/book?service=cruise",
+    accent: "#2cb8a8",
+  },
+  {
+    id: "06",
+    icon: Users,
+    title: "Group Experiences",
+    description:
+      "Coordinated travel support for families, friends, celebrations, retreats, and small groups.",
+    route: "/book?service=group",
+    accent: "#b8956a",
+  },
+  {
+    id: "07",
+    icon: Leaf,
+    title: "Wellness & Nature Escapes",
+    description:
+      "Peaceful experiences centered around nature, calm, beauty, restoration, and connection.",
+    route: "/book?service=wellness",
+    accent: "#2cb8a8",
+  },
+  {
+    id: "08",
+    icon: Briefcase,
+    title: "Business & Leisure Travel",
+    description:
+      "Support for travelers balancing work, meetings, transportation, and island exploration.",
+    route: "/book?service=business",
+    accent: "#1a8a9e",
   },
 ];
 
 export default function Services() {
-  const [active, setActive] = useState(0);
-  const [hovered, setHovered] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
   const { navigateTo } = useWave();
 
   useEffect(() => {
     let ctx: gsap.Context | null = null;
-    const initGsap = () => {
+    const init = () => {
       ctx = gsap.context(() => {
         gsap.fromTo(
-          ".svc-left",
-          { opacity: 0, x: -50 },
+          ".svc-head > *",
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
-            x: 0,
+            y: 0,
             duration: 1,
+            stagger: 0.12,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 65%",
-            },
+            scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
           }
         );
         gsap.fromTo(
-          ".svc-right",
-          { opacity: 0, x: 50 },
+          ".svc-card",
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
-            x: 0,
-            duration: 1,
-            delay: 0.15,
+            y: 0,
+            duration: 0.9,
+            stagger: 0.08,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 65%",
-            },
+            scrollTrigger: { trigger: ".svc-grid", start: "top 80%" },
           }
         );
       }, sectionRef);
     };
-    if ('requestIdleCallback' in window) {
-      const id = requestIdleCallback(initGsap);
-      return () => { cancelIdleCallback(id); ctx?.revert(); };
-    } else {
-      const id = requestAnimationFrame(initGsap);
-      return () => { cancelAnimationFrame(id); ctx?.revert(); };
-    }
+    const id =
+      "requestIdleCallback" in window
+        ? requestIdleCallback(init)
+        : requestAnimationFrame(init);
+    return () => {
+      if ("requestIdleCallback" in window) cancelIdleCallback(id as number);
+      else cancelAnimationFrame(id as number);
+      ctx?.revert();
+    };
   }, []);
 
-  const current = SERVICES[active];
-
   return (
-    <>
-      <section
-        id="services"
-        ref={sectionRef}
-        className="svc-section"
+    <section
+      id="services"
+      ref={sectionRef}
+      className="svc-section"
+      style={{
+        background: "var(--bg-primary)",
+        padding: "clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px)",
+        position: "relative",
+      }}
+    >
+      {/* Header */}
+      <div
+        className="svc-head"
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          minHeight: "100vh",
-          width: "100%",
-          position: "relative",
-          background: "var(--bg-primary)",
+          maxWidth: 880,
+          margin: "0 auto clamp(60px, 7vw, 96px)",
+          textAlign: "center",
         }}
       >
-        {/* ── Left: Image panel ── */}
-        <div className="svc-left" style={{ position: "relative", overflow: "hidden" }}>
-          <div
-            ref={imageRef}
-            className="svc-image-wrap"
-            style={{
-              position: "sticky",
-              top: 0,
-              width: "100%",
-              height: "100vh",
-              overflow: "hidden",
-            }}
-          >
-            {SERVICES.map((s, i) => (
-              <img
-                key={s.id}
-                src={s.image}
-                alt={s.title}
-                loading="lazy"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  opacity: i === active ? 1 : 0,
-                  transform: i === active ? "scale(1)" : "scale(1.08)",
-                  transition: "opacity 0.8s ease, transform 1.2s ease",
-                }}
-              />
-            ))}
-
-            {/* Overlay gradient */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(180deg, rgba(5,24,30,0.1) 0%, rgba(5,24,30,0.3) 60%, rgba(5,24,30,0.7) 100%)",
-                zIndex: 1,
-              }}
-            />
-
-            {/* Active category badge */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: 40,
-                left: 40,
-                zIndex: 2,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 14,
-                  letterSpacing: ".2em",
-                  color: "rgba(255,255,255,0.7)",
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  background: "rgba(5,24,30,0.5)",
-                  backdropFilter: "blur(12px)",
-                  padding: "8px 16px",
-                  borderRadius: 2,
-                  border: `1px solid ${current.accent}33`,
-                }}
-              >
-                {current.category}
-              </span>
-            </div>
-
-            {/* Counter */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: 40,
-                right: 40,
-                zIndex: 2,
-                display: "flex",
-                alignItems: "baseline",
-                gap: 4,
-                fontFamily: "'Cormorant Garamond', serif",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 36,
-                  fontWeight: 400,
-                  color: "#fff",
-                  lineHeight: 1,
-                }}
-              >
-                {String(active + 1).padStart(2, "0")}
-              </span>
-              <span
-                style={{
-                  width: 24,
-                  height: 1,
-                  background: "rgba(255,255,255,0.3)",
-                  display: "inline-block",
-                  margin: "0 6px",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: 14,
-                  color: "rgba(255,255,255,0.4)",
-                  fontWeight: 400,
-                }}
-              >
-                {String(SERVICES.length).padStart(2, "0")}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Right: Content panel ── */}
         <div
-          className="svc-right"
           style={{
-            background: "var(--bg-primary)",
-            padding: "80px 64px 80px 56px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 12,
+            marginBottom: 28,
           }}
         >
-          {/* Section eyebrow */}
-          <div
-            className="eyebrow"
+          <span
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              marginBottom: 40,
+              width: 32,
+              height: 1,
+              background: "#2cb8a8",
+              display: "inline-block",
+            }}
+          />
+          <span
+            className="svc-eyebrow"
+            style={{
+              fontSize: 13,
+              letterSpacing: ".28em",
+              color: "#2cb8a8",
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 600,
+              textTransform: "uppercase",
             }}
           >
-            <div
+            Signature Services
+          </span>
+          <span
+            style={{
+              width: 32,
+              height: 1,
+              background: "#2cb8a8",
+              display: "inline-block",
+            }}
+          />
+        </div>
+
+        <h2
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: "clamp(34px, 5vw, 56px)",
+            fontWeight: 400,
+            lineHeight: 1.15,
+            color: "var(--text-primary)",
+            marginBottom: 24,
+            letterSpacing: "-.01em",
+          }}
+        >
+          Signature Services Designed for{" "}
+          <span
+            style={{
+              fontStyle: "italic",
+              background:
+                "linear-gradient(135deg, #b8956a 0%, #d4ad7c 50%, #b8956a 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Effortless Caribbean Travel
+          </span>
+        </h2>
+
+        <p
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "clamp(15px, 1.4vw, 17px)",
+            lineHeight: 1.75,
+            color: "var(--text-secondary)",
+            maxWidth: 680,
+            margin: "0 auto",
+          }}
+        >
+          Gemscape brings together thoughtful planning, reliable coordination,
+          and local Caribbean insight to help you move, explore, celebrate, and
+          reconnect with ease.
+        </p>
+      </div>
+
+      {/* Card grid */}
+      <div
+        className="svc-grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 20,
+          maxWidth: 1440,
+          margin: "0 auto",
+        }}
+      >
+        {SERVICES.map((s) => {
+          const Icon = s.icon;
+          return (
+            <article
+              key={s.id}
+              className={`svc-card ${s.featured ? "svc-card--featured" : ""}`}
+              onClick={() => navigateTo(s.route)}
               style={{
-                width: 32,
-                height: 1,
-                background: "#2cb8a8",
+                gridColumn: s.featured ? "span 2" : "span 1",
+                position: "relative",
+                background: "var(--bg-secondary)",
+                border: "1px solid var(--border-color)",
+                borderRadius: 6,
+                padding: "36px 32px",
+                cursor: "pointer",
+                transition:
+                  "transform 0.5s cubic-bezier(.22,1,.36,1), box-shadow 0.5s ease, border-color 0.4s ease, background 0.4s ease",
+                display: "flex",
+                flexDirection: "column",
+                minHeight: s.featured ? 280 : 240,
+                overflow: "hidden",
               }}
-            />
-            <span
-              style={{
-                fontSize: 14,
-                letterSpacing: ".25em",
-                color: "#2cb8a8",
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 600,
-                textTransform: "uppercase",
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-6px)";
+                e.currentTarget.style.boxShadow = `0 24px 60px -24px ${s.accent}55`;
+                e.currentTarget.style.borderColor = `${s.accent}66`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.borderColor = "";
               }}
             >
-              How Gemscape Works
-            </span>
-          </div>
-
-          {/* Service selector list */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {SERVICES.map((s, i) => {
-              const isActive = i === active;
-              const isHov = i === hovered;
-              return (
-                <div
-                  key={s.id}
-                  className={`svc-item ${isActive ? "svc-item--active" : ""}`}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 16,
-                    padding: "20px 0",
-                    cursor: "pointer",
-                    borderBottom: "1px solid var(--border-color)",
-                    transition: "all 0.3s ease",
-                    position: "relative",
-                    ...(i === 0
-                      ? { borderTop: "1px solid var(--border-color)" }
-                      : {}),
-                  }}
-                  onClick={() => setActive(i)}
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
-                >
-                  <span
-                    style={{
-                      fontSize: 15,
-                      fontFamily: "'Cormorant Garamond', serif",
-                      color: isActive ? s.accent : "var(--text-tertiary)",
-                      fontWeight: 400,
-                      minWidth: 28,
-                      transition: "color 0.3s ease",
-                    }}
-                  >
-                    {s.id}
-                  </span>
-
-                  <div style={{ flex: 1 }}>
-                    <div
-                      className="svc-item-title"
-                      style={{
-                        fontSize: 16,
-                        fontFamily: "'Cormorant Garamond', serif",
-                        fontWeight: 500,
-                        color:
-                          isActive || isHov
-                            ? "var(--text-primary)"
-                            : "var(--text-secondary)",
-                        transition: "color 0.3s ease",
-                        letterSpacing: ".02em",
-                      }}
-                    >
-                      {s.title}
-                    </div>
-                    <span
-                      className="svc-item-tag"
-                      style={{
-                        fontSize: 14,
-                        letterSpacing: ".15em",
-                        color: "var(--text-tertiary)",
-                        fontFamily: "'DM Sans', sans-serif",
-                        textTransform: "uppercase",
-                        marginTop: 2,
-                        display: "block",
-                      }}
-                    >
-                      {s.category}
-                    </span>
-                  </div>
-
-                  <div
-                    style={{
-                      opacity: isActive || isHov ? 1 : 0,
-                      transform:
-                        isActive || isHov
-                          ? "translateX(0)"
-                          : "translateX(-6px)",
-                      transition: "all 0.3s ease",
-                      color: s.accent,
-                    }}
-                  >
-                    <ArrowRight size={16} />
-                  </div>
-
-                  {/* Active indicator line */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      bottom: 0,
-                      height: 2,
-                      background: s.accent,
-                      width: isActive ? "100%" : "0%",
-                      transition: "width 0.4s ease",
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Active service description */}
-          <div
-            className="svc-desc-panel"
-            style={{
-              marginTop: 36,
-              minHeight: 220,
-              position: "relative",
-            }}
-          >
-            {SERVICES.map((s, i) => (
-              <div
-                key={s.id}
+              {/* Top accent line */}
+              <span
                 style={{
-                  position: i === active ? "relative" : "absolute",
+                  position: "absolute",
                   top: 0,
                   left: 0,
                   right: 0,
-                  opacity: i === active ? 1 : 0,
-                  transform:
-                    i === active ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.5s ease, transform 0.5s ease",
-                  pointerEvents: i === active ? "auto" : "none",
+                  height: 2,
+                  background: `linear-gradient(90deg, transparent, ${s.accent}, transparent)`,
+                  opacity: s.featured ? 0.9 : 0.45,
+                }}
+              />
+
+              {/* Featured tag */}
+              {s.featured && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 20,
+                    right: 20,
+                    fontSize: 10,
+                    letterSpacing: ".25em",
+                    color: s.accent,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    border: `1px solid ${s.accent}55`,
+                    padding: "5px 10px",
+                    borderRadius: 999,
+                  }}
+                >
+                  {s.tag}
+                </span>
+              )}
+
+              {/* Header row: id + icon */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 28,
                 }}
               >
-                <h3
-                  className="svc-desc-headline"
+                <span
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: 22,
-                    fontWeight: 400,
-                    fontStyle: "italic",
+                    fontSize: 16,
                     color: "var(--text-tertiary)",
-                    marginBottom: 14,
-                    lineHeight: 1.4,
+                    letterSpacing: ".1em",
                   }}
                 >
-                  {s.headline}
-                </h3>
-                <p
-                  className="svc-desc-body"
+                  — {s.id}
+                </span>
+                <div
+                  className="svc-icon-wrap"
                   style={{
-                    fontSize: 14,
-                    lineHeight: 1.8,
-                    color: "var(--text-secondary)",
-                    fontFamily: "'DM Sans', sans-serif",
-                    maxWidth: 440,
-                    marginBottom: 28,
-                  }}
-                >
-                  {s.description}
-                </p>
-                <button
-                  onClick={() => navigateTo(s.route)}
-                  style={{
-                    display: "inline-flex",
+                    width: 48,
+                    height: 48,
+                    borderRadius: "50%",
+                    display: "flex",
                     alignItems: "center",
-                    gap: 10,
-                    fontSize: 15,
-                    letterSpacing: ".12em",
-                    fontWeight: 600,
-                    fontFamily: "'DM Sans', sans-serif",
-                    textTransform: "uppercase",
+                    justifyContent: "center",
+                    background: `${s.accent}14`,
+                    border: `1px solid ${s.accent}33`,
                     color: s.accent,
-                    background: "transparent",
-                    border: `1px solid ${s.accent}55`,
-                    padding: "12px 28px",
-                    borderRadius: 3,
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = `${s.accent}12`;
-                    e.currentTarget.style.borderColor = s.accent;
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow = `0 0 20px ${s.accent}33`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.borderColor = `${s.accent}55`;
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  Begin With This
-                  <ArrowRight size={14} />
-                </button>
+                  <Icon size={20} strokeWidth={1.4} />
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+              <h3
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: s.featured ? 30 : 22,
+                  fontWeight: 500,
+                  color: "var(--text-primary)",
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                  letterSpacing: "-.005em",
+                }}
+              >
+                {s.title}
+              </h3>
+
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: 14,
+                  lineHeight: 1.7,
+                  color: "var(--text-secondary)",
+                  marginBottom: 24,
+                  flex: 1,
+                }}
+              >
+                {s.description}
+              </p>
+
+              {/* Footer link */}
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  fontSize: 12,
+                  letterSpacing: ".2em",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  color: s.accent,
+                  marginTop: "auto",
+                }}
+              >
+                Explore
+                <ArrowUpRight size={14} strokeWidth={1.6} />
+              </div>
+            </article>
+          );
+        })}
+      </div>
 
       <style>{`
-        @media (max-width: 1024px) {
-          .svc-right { padding: 60px 40px 60px 44px !important; }
+        @media (max-width: 1100px) {
+          .svc-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .svc-card { grid-column: span 1 !important; }
+          .svc-card--featured { grid-column: span 2 !important; }
         }
-        @media (max-width: 768px) {
-          .svc-section {
-            grid-template-columns: 1fr !important;
-            min-height: auto !important;
-          }
-          .svc-image-wrap {
-            position: relative !important;
-            height: 55vw !important;
-            min-height: 260px !important;
-          }
-          .svc-right {
-            padding: 48px 24px !important;
-          }
-          .svc-desc-panel { min-height: 200px !important; }
+        @media (max-width: 640px) {
+          .svc-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .svc-card,
+          .svc-card--featured { grid-column: span 1 !important; min-height: auto !important; padding: 28px 24px !important; }
         }
 
-        /* ── LIGHT MODE ── */
-        html:not(.dark) .svc-right {
-          background: #f4f1ee !important;
+        /* Light mode */
+        html:not(.dark) .svc-card {
+          background: #ffffff !important;
+          border-color: rgba(5,24,30,0.08) !important;
+          box-shadow: 0 1px 2px rgba(5,24,30,0.04);
         }
-        html:not(.dark) .svc-item { border-color: rgba(5,24,30,0.1) !important; }
-        html:not(.dark) .svc-item:first-child { border-color: rgba(5,24,30,0.1) !important; }
-        html:not(.dark) .svc-item-title { color: rgba(5,24,30,0.85) !important; }
-        html:not(.dark) .svc-item--active .svc-item-title,
-        html:not(.dark) .svc-item:hover .svc-item-title { color: #05181e !important; }
-        html:not(.dark) .svc-item-tag { color: rgba(5,24,30,0.5) !important; }
-        html:not(.dark) .svc-desc-headline { color: rgba(5,24,30,0.75) !important; }
-        html:not(.dark) .svc-desc-body { color: rgba(5,24,30,0.7) !important; }
-        html:not(.dark) .eyebrow span { color: #1a8a9e !important; }
       `}</style>
-    </>
+    </section>
   );
 }
