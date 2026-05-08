@@ -181,6 +181,7 @@ textarea:focus-visible {
     --gem-ivory: 38 40% 90%;
     --primary-foreground: var(--gem-ivory);
     --destructive-foreground: var(--gem-ivory);
+    --muted-foreground: 38 30% 82%;
 
     --nav-glass-bg:        rgba(4, 22, 29, 0.72);
     --nav-glass-border:    rgba(184, 150, 90, 0.12);
