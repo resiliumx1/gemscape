@@ -5884,51 +5884,104 @@ html:not(.dark) .hero-country-shimmer {
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* ─── Gemscape Logo Aura + Shimmer ────────────────────────── */
+/* ─── Gemscape Logo — Refined Glass Plaque ──────────────── */
+.gem-logo-wrap {
+  border-radius: 14px;
+  transition: transform 600ms cubic-bezier(.22,.8,.36,1);
+}
+.gem-logo-wrap:hover { transform: translateY(-1px) scale(1.02); }
+
 .gem-logo-aura {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(44,184,168,0.05) 50%, rgba(201,168,76,0.04) 100%);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(201,168,76,0.06),
+    0 6px 24px -10px rgba(5,24,30,0.45);
+  transition: background 600ms ease, border-color 600ms ease, box-shadow 600ms ease;
 }
 
 .gem-logo-aura::before {
   content: '';
   position: absolute;
-  inset: -8px -12px;
-  background: radial-gradient(ellipse at center, rgba(44,184,168,0.15) 0%, rgba(201,168,76,0.08) 40%, transparent 70%);
-  border-radius: 50%;
-  animation: gemLogoAura 4s ease-in-out infinite;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(44,184,168,0.35) 0%, rgba(255,255,255,0.06) 40%, rgba(201,168,76,0.30) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0.55;
   pointer-events: none;
-  z-index: 0;
+  transition: opacity 600ms ease;
+}
+
+.gem-logo-aura::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at center, rgba(44,184,168,0.18) 0%, rgba(201,168,76,0.06) 45%, transparent 75%);
+  filter: blur(8px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 600ms ease;
 }
 
 .gem-logo-img {
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 8px rgba(44,184,168,0.15));
-  transition: filter 0.5s ease;
+  filter: drop-shadow(0 1px 2px rgba(5,24,30,0.35));
+  transition: filter 500ms ease;
 }
 
+.gem-logo-wrap:hover .gem-logo-aura {
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(44,184,168,0.09) 50%, rgba(201,168,76,0.07) 100%);
+  border-color: rgba(201,168,76,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    inset 0 -1px 0 rgba(201,168,76,0.12),
+    0 10px 32px -10px rgba(44,184,168,0.30);
+}
+.gem-logo-wrap:hover .gem-logo-aura::before { opacity: 0.85; }
+.gem-logo-wrap:hover .gem-logo-aura::after  { opacity: 0.85; }
 .gem-logo-wrap:hover .gem-logo-img {
-  filter: drop-shadow(0 0 16px rgba(44,184,168,0.3)) drop-shadow(0 0 40px rgba(201,168,76,0.15));
+  filter: drop-shadow(0 1px 2px rgba(5,24,30,0.35)) drop-shadow(0 0 10px rgba(44,184,168,0.25));
 }
 
-.gem-logo-shimmer {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-  transform: skewX(-20deg);
-  z-index: 2;
-  pointer-events: none;
-  animation: gemLogoShimmer 6s ease-in-out infinite;
+/* Light mode — softer, airier, less glow */
+:root[data-theme="light"] .gem-logo-aura,
+.light .gem-logo-aura {
+  background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.35) 100%);
+  border-color: rgba(184,150,90,0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    0 4px 14px -8px rgba(5,24,30,0.18);
+}
+:root[data-theme="light"] .gem-logo-aura::after,
+.light .gem-logo-aura::after { opacity: 0.25; }
+:root[data-theme="light"] .gem-logo-img,
+.light .gem-logo-img {
+  filter: drop-shadow(0 1px 1px rgba(5,24,30,0.18));
 }
 
-@keyframes gemLogoAura {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
+.gem-logo-shimmer { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gem-logo-wrap,
+  .gem-logo-aura,
+  .gem-logo-aura::before,
+  .gem-logo-aura::after,
+  .gem-logo-img { transition: none !important; }
 }
 
 @keyframes gemLogoShimmer {
