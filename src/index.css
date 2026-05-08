@@ -159,8 +159,8 @@ textarea:focus-visible {
     --bg-tertiary:   #08272f;
     --bg-elevated:   #0c2f3a;
     --text-primary:    #f3ecdc;          /* warm ivory typography */
-    --text-secondary:  rgba(243,236,220,0.72);
-    --text-tertiary:   rgba(243,236,220,0.45);
+    --text-secondary:  rgba(243,236,220,0.88);
+    --text-tertiary:   rgba(243,236,220,0.70);
     --border-color:    rgba(184,150,90,0.16);   /* champagne tint */
     --border-hover:    rgba(184,150,90,0.45);
     --card-bg:         rgba(243,236,220,0.04);
