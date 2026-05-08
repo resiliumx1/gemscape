@@ -210,7 +210,7 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2"
+          className="hidden lg:flex flex-1 items-center justify-center gap-1 min-w-0"
           aria-label="Primary"
         >
           {navItems.map((item) => (
