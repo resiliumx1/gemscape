@@ -242,7 +242,16 @@ export default function ItineraryBuilder() {
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
-    const parsed = schema.safeParse(form);
+    if (submitting) return; // prevent duplicate submissions
+    // compose travel_dates from pickers if set
+    const composedDates =
+      arrivalDate && departureDate
+        ? `${dateFormat(arrivalDate, "PPP")} – ${dateFormat(departureDate, "PPP")}`
+        : arrivalDate
+          ? `Arriving ${dateFormat(arrivalDate, "PPP")}`
+          : form.travel_dates;
+    const formForValidation = { ...form, travel_dates: composedDates };
+    const parsed = schema.safeParse(formForValidation);
     if (!parsed.success) {
       toast.error(parsed.error.errors[0]?.message ?? "Please review the form");
       return;
@@ -272,6 +281,10 @@ export default function ItineraryBuilder() {
       return;
     }
     setSubmitted(true);
+    // smooth scroll to the form panel so user sees the thank-you state
+    requestAnimationFrame(() => {
+      document.getElementById("build-itinerary")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   };
 
   /* ─────────────────────────  RENDER  ──────────────────────────── */
