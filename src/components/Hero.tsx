@@ -77,13 +77,13 @@ const Hero = () => {
           </h1>
 
           <p ref={subRef} className="hero__sub" style={{ opacity: 0 }}>
-            Private rentals, island circumnavigation, and flight concierge — crafted for those who demand the extraordinary.
+            Curated Caribbean experiences designed around peace, beauty, and connection — shaped with care from inquiry to arrival.
           </p>
 
-          <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
-            <span style={{ color: '#B8965A', fontSize: '13px', letterSpacing: '2px' }}>★★★★★</span>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '13px', color: 'rgba(255,255,255,0.62)' }}>
-              Rated 5 stars by over 500 travellers
+          <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B8965A', display: 'inline-block' }} />
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.65)', letterSpacing: '0.04em' }}>
+              Personalized Caribbean coordination · Local insight · Trusted support
             </span>
           </div>
 
