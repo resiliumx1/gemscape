@@ -239,6 +239,54 @@ export type Database = {
         }
         Relationships: []
       }
+      itinerary_requests: {
+        Row: {
+          budget_range: string | null
+          created_at: string
+          destination: string | null
+          email: string
+          experience_type: string | null
+          full_name: string
+          id: string
+          message: string | null
+          phone: string | null
+          services_needed: string[] | null
+          status: string
+          travel_dates: string | null
+          travelers: number | null
+        }
+        Insert: {
+          budget_range?: string | null
+          created_at?: string
+          destination?: string | null
+          email: string
+          experience_type?: string | null
+          full_name: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          services_needed?: string[] | null
+          status?: string
+          travel_dates?: string | null
+          travelers?: number | null
+        }
+        Update: {
+          budget_range?: string | null
+          created_at?: string
+          destination?: string | null
+          email?: string
+          experience_type?: string | null
+          full_name?: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          services_needed?: string[] | null
+          status?: string
+          travel_dates?: string | null
+          travelers?: number | null
+        }
+        Relationships: []
+      }
       package_bookings: {
         Row: {
           booking_ref: string | null
