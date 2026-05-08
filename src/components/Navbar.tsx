@@ -230,7 +230,7 @@ export default function Navbar() {
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="flex items-center gap-3 sm:gap-4 ml-auto"
+          className="flex items-center gap-3 sm:gap-4 shrink-0"
         >
           <SkyToggle checked={isDark} onChange={toggleTheme} />
 
