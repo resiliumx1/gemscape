@@ -473,7 +473,6 @@ export default function Navbar() {
                   >
                     Navigation
                   </motion.span>
-                  <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-2">
                     {[
                       { icon: Home, label: "HOME", href: "/" },
@@ -545,7 +544,7 @@ export default function Navbar() {
                   variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }}
                   className="mt-auto pt-8"
                 >
-                  <BookNowButton fullWidth onClick={() => handleNav("/book")} />
+                  <BookNowButton fullWidth onClick={() => handleNav("/build-itinerary")} />
                 </motion.div>
               </motion.div>
             </motion.div>
