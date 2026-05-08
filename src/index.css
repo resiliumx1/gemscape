@@ -6051,3 +6051,12 @@ input::placeholder, textarea::placeholder { color: var(--text-tertiary) !importa
   background: linear-gradient(135deg, rgba(26,138,158,0.14) 0%, rgba(212,173,124,0.16) 100%) !important;
   color: #1a1208 !important;
 }
+
+/* ─── Booking wizard stepper responsive ─── */
+.gem-wizard-step-label { font-size: 12px; }
+@media (max-width: 480px) {
+  .gem-wizard-step-label { font-size: 10px; letter-spacing: 0.08em !important; }
+}
+@media (max-width: 380px) {
+  .gem-wizard-step-label { font-size: 9px; }
+}
