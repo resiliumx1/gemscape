@@ -231,7 +231,7 @@ const HeroSection = () => {
           <p
             style={{
               fontSize: 16,
-              color: "rgba(255,255,255,0.65)",
+              color: "rgba(255,255,255,0.86)",
               lineHeight: 1.8,
               maxWidth: 540,
               marginTop: 20,
