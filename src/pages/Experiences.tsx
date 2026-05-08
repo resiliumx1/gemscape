@@ -41,8 +41,15 @@ const Experiences = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
-        <title>Curated Experiences in Antigua &amp; Barbuda | Gemscape Travel &amp; Tours</title>
-        <meta name="description" content="Discover Antigua differently with private island tours, heritage explorations, and luxury charters by Gemscape Travel & Tours." />
+        <title>Curated Experiences in Antigua &amp; Barbuda | Gemscape</title>
+        <meta name="description" content="Private island tours, heritage explorations, and curated Caribbean experiences designed around peace, beauty, and connection." />
+        <link rel="canonical" href="https://gemscapetours.com/experiences" />
+        <meta property="og:title" content="Curated Experiences in Antigua & Barbuda | Gemscape" />
+        <meta property="og:description" content="Private island tours, heritage explorations, and curated Caribbean experiences." />
+        <meta property="og:url" content="https://gemscapetours.com/experiences" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://gemscapetours.com/images/hero-antigua-sunset.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <Navbar />
 

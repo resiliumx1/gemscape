@@ -56,6 +56,19 @@ const Contact = () => {
       <Helmet>
         <title>Begin Your Gemscape Experience | Contact</title>
         <meta name="description" content="Begin your Gemscape Caribbean experience. Share a few details and we'll help shape a peaceful, beautiful, and seamless journey." />
+        <link rel="canonical" href="https://gemscapetours.com/contact" />
+        <meta property="og:title" content="Begin Your Gemscape Experience | Contact" />
+        <meta property="og:description" content="Personalized support from inquiry to arrival. Tell us what you're hoping for and we'll shape it." />
+        <meta property="og:url" content="https://gemscapetours.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://gemscapetours.com/images/hero-antigua-sunset.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "url": "https://gemscapetours.com/contact",
+          "about": { "@type": "TravelAgency", "name": "Gemscape Travel & Tours", "url": "https://gemscapetours.com" }
+        })}</script>
       </Helmet>
       <Navbar />
 
