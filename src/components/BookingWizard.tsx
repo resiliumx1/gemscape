@@ -239,33 +239,34 @@ const BookingWizard = ({ initialService }: Props) => {
   return (
     <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 100px" }}>
       {/* Step indicator */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 0, marginBottom: 48 }}>
+      <div className="gem-wizard-stepper" style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", marginBottom: 48, width: "100%" }}>
         {STEP_LABELS.map((label, i) => {
           const num = i + 1;
           const isActive = num === step;
           const isComplete = num < step;
           return (
-            <div key={label} style={{ display: "flex", alignItems: "center" }}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, cursor: isComplete ? "pointer" : "default" }}
+            <div key={label} style={{ display: "flex", alignItems: "flex-start", flex: i < 3 ? "1 1 0" : "0 0 auto", minWidth: 0 }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, cursor: isComplete ? "pointer" : "default", minWidth: 0, flexShrink: 0 }}
                 onClick={() => { if (isComplete) setStep(num); }}>
                 <div style={{
                   width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 15, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
                   background: isComplete ? "#b8956a" : isActive ? "#2cb8a8" : "var(--card-bg)",
                   color: isComplete || isActive ? "#fff" : "var(--text-tertiary)",
-                  transition: "all 0.3s ease",
+                  transition: "all 0.3s ease", flexShrink: 0,
                 }}>
                   {isComplete ? <Check size={14} /> : num}
                 </div>
-                <span style={{
-                  fontSize: 14, letterSpacing: ".15em", textTransform: "uppercase",
+                <span className="gem-wizard-step-label" style={{
+                  letterSpacing: ".12em", textTransform: "uppercase",
                   fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
                   color: isActive ? "var(--text-primary)" : "var(--text-tertiary)",
+                  textAlign: "center", whiteSpace: "nowrap",
                 }}>{label}</span>
               </div>
               {i < 3 && (
                 <div style={{
-                  width: 48, height: 2, margin: "0 8px", marginBottom: 24,
+                  flex: "1 1 auto", minWidth: 12, height: 2, margin: "18px 8px 0",
                   background: isComplete ? "#b8956a" : "var(--border-color)",
                   transition: "background 0.3s ease",
                 }} />
