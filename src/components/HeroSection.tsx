@@ -34,7 +34,7 @@ const AnimatedStars = () => {
           fontWeight: 400,
         }}
       >
-        Rated 5 stars by over <strong style={{ color: "#C9A84C", fontWeight: 600 }}>1,000+</strong> travellers
+        Trusted by <strong style={{ color: "#C9A84C", fontWeight: 600 }}>1,000+</strong> travellers — every itinerary, personally crafted
       </motion.span>
     </div>
   );
@@ -191,7 +191,7 @@ const HeroSection = () => {
               marginBottom: 14,
             }}
           >
-            <span className="hero-country-shimmer">ANTIGUA &amp; BARBUDA</span> · CARIBBEAN
+            YOUR CARIBBEAN INSIDER · <span className="hero-country-shimmer">ANTIGUA &amp; BARBUDA</span>
           </span>
 
           {/* Headline */}
@@ -206,9 +206,9 @@ const HeroSection = () => {
               maxWidth: 700,
             }}
           >
-            Where Every Journey
+            Curated Caribbean
             <br />
-            Becomes a{" "}
+            Days, Designed{" "}
             <span
               style={{
                 fontStyle: "italic",
@@ -220,7 +220,7 @@ const HeroSection = () => {
                 backgroundClip: "text",
               }}
             >
-              Gem.
+              Around You.
             </span>
           </h1>
 
@@ -235,7 +235,7 @@ const HeroSection = () => {
               fontFamily: "'DM Sans', sans-serif",
             }}
           >
-            Antigua &amp; Barbuda, privately. Beautifully. Entirely on your terms.
+            We plan the itinerary, coordinate every detail, and stay close from arrival to last sunset — so you simply arrive, exhale, and live the days we've shaped for you.
           </p>
 
           {/* Animated star rating */}
@@ -284,7 +284,7 @@ const HeroSection = () => {
                   <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" fill="rgba(255,255,255,0.15)" />
                   <path d="M2 9h20M12 2l5 7-5 11-5-11 5-7z" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
                 </svg>
-                Book Now
+                Plan My Escape
               </span>
             </button>
             <button
@@ -334,7 +334,7 @@ const HeroSection = () => {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(201,168,76,0.8)" strokeWidth="1.5" fill="rgba(201,168,76,0.1)" />
                 </svg>
-                Explore Services
+                How We Plan
               </span>
             </button>
           </div>
