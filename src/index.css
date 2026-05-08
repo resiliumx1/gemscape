@@ -97,8 +97,8 @@ textarea:focus-visible {
     --bg-tertiary:   #faf6f0;   /* soft cream */
     --bg-elevated:   #ffffff;
     --text-primary:    #0e2630;          /* deep navy ink */
-    --text-secondary:  rgba(14,38,48,0.66);
-    --text-tertiary:   rgba(14,38,48,0.42);
+    --text-secondary:  rgba(14,38,48,0.82);
+    --text-tertiary:   rgba(14,38,48,0.64);
     --border-color:    rgba(14,38,48,0.10);
     --border-hover:    rgba(58,138,154,0.40);
     --card-bg:         rgba(255,255,255,0.86);
@@ -124,7 +124,7 @@ textarea:focus-visible {
     --secondary: var(--gem-sand);
     --secondary-foreground: var(--gem-navy);
     --muted: var(--gem-sand);
-    --muted-foreground: var(--gem-teal);
+    --muted-foreground: 200 22% 26%;
     --accent: var(--gem-gold);
     --accent-foreground: var(--gem-navy);
     --destructive: var(--gem-coral);
@@ -159,8 +159,8 @@ textarea:focus-visible {
     --bg-tertiary:   #08272f;
     --bg-elevated:   #0c2f3a;
     --text-primary:    #f3ecdc;          /* warm ivory typography */
-    --text-secondary:  rgba(243,236,220,0.72);
-    --text-tertiary:   rgba(243,236,220,0.45);
+    --text-secondary:  rgba(243,236,220,0.88);
+    --text-tertiary:   rgba(243,236,220,0.70);
     --border-color:    rgba(184,150,90,0.16);   /* champagne tint */
     --border-hover:    rgba(184,150,90,0.45);
     --card-bg:         rgba(243,236,220,0.04);
@@ -181,6 +181,7 @@ textarea:focus-visible {
     --gem-ivory: 38 40% 90%;
     --primary-foreground: var(--gem-ivory);
     --destructive-foreground: var(--gem-ivory);
+    --muted-foreground: 38 30% 82%;
 
     --nav-glass-bg:        rgba(4, 22, 29, 0.72);
     --nav-glass-border:    rgba(184, 150, 90, 0.12);
@@ -5988,3 +5989,9 @@ html:not(.dark) .hero-country-shimmer {
   0%, 70%, 100% { left: -100%; }
   85% { left: 150%; }
 }
+
+/* ─── Readability pass: stronger placeholders, inputs, helper text ─── */
+::placeholder { color: var(--text-tertiary) !important; opacity: 1 !important; }
+input, textarea, select { color: var(--input-text); }
+input::placeholder, textarea::placeholder { color: var(--text-tertiary) !important; opacity: 1 !important; }
+.text-muted-foreground { color: hsl(var(--muted-foreground)) !important; }
