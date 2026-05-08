@@ -21,6 +21,7 @@ const Contact = lazy(() => import("./pages/Contact.tsx"));
 const Experiences = lazy(() => import("./pages/Experiences.tsx"));
 const Packages = lazy(() => import("./pages/Packages.tsx"));
 const BuildItinerary = lazy(() => import("./pages/BuildItinerary.tsx"));
+const About = lazy(() => import("./pages/About.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
@@ -51,6 +52,7 @@ function AnimatedRoutes() {
         <Route path="/experiences" element={<Experiences />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/build-itinerary" element={<BuildItinerary />} />
+        <Route path="/about" element={<About />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="*" element={<NotFound />} />
