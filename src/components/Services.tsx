@@ -416,7 +416,7 @@ export default function Services() {
                   marginTop: "auto",
                 }}
               >
-                Explore
+                Add to My Itinerary
                 <ArrowUpRight size={14} strokeWidth={1.6} />
               </div>
             </article>
