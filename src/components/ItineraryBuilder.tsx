@@ -741,33 +741,95 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function SuccessPanel() {
+  const steps = [
+    { title: "We review your request", desc: "A real concierge reads through every detail you've shared." },
+    { title: "We personalize your recommendations", desc: "Curated experiences shaped around your pace and purpose." },
+    { title: "We follow up with next steps", desc: "Expect a thoughtful reply within a couple of hours." },
+  ];
   return (
-    <div style={{ textAlign: "center", padding: "32px 0" }}>
-      <div style={{
-        width: 72, height: 72, borderRadius: "50%",
-        background: "rgba(44,184,168,0.14)",
-        border: "1px solid rgba(44,184,168,0.45)",
-        display: "inline-flex", alignItems: "center", justifyContent: "center",
-        marginBottom: 26,
-      }}>
-        <Check size={30} color="#2cb8a8" />
-      </div>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      style={{ textAlign: "center", padding: "16px 0" }}
+    >
+      <motion.div
+        initial={{ scale: 0.6, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+        style={{
+          width: 78, height: 78, borderRadius: "50%",
+          background: "radial-gradient(circle at 30% 30%, rgba(44,184,168,0.35), rgba(44,184,168,0.08) 70%)",
+          border: "1px solid rgba(44,184,168,0.45)",
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          marginBottom: 28,
+          boxShadow: "0 0 36px -6px rgba(44,184,168,0.45)",
+        }}
+      >
+        <Check size={32} color="#fff" strokeWidth={2.4} />
+      </motion.div>
       <h3 style={{
         fontFamily: "'Cormorant Garamond', serif",
-        fontSize: "clamp(28px, 3.6vw, 40px)",
-        fontWeight: 400, color: "#fff", margin: "0 0 18px", lineHeight: 1.25,
+        fontSize: "clamp(28px, 3.8vw, 44px)",
+        fontWeight: 400, color: "#fff", margin: "0 0 18px",
+        lineHeight: 1.22, paddingBottom: "0.08em",
       }}>
-        Thank you.
+        Thank You — Your Gemscape{" "}
+        <span style={{ fontStyle: "italic", color: "#C9A84C" }}>Request Has Been Received</span>
       </h3>
       <p style={{
         fontFamily: "'DM Sans', sans-serif",
         fontSize: 16, lineHeight: 1.85,
-        color: "rgba(255,255,255,0.7)",
-        maxWidth: 540, margin: "0 auto",
+        color: "rgba(255,255,255,0.72)",
+        maxWidth: 580, margin: "0 auto 40px",
       }}>
-        Your Gemscape request has been received. We'll review your details and follow up with personalized support.
+        We'll review your details and follow up with personalized support to help shape your Caribbean experience.
       </p>
-    </div>
+
+      <div className="itin-success-steps">
+        {steps.map((s, i) => (
+          <motion.div
+            key={s.title}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.2 + i * 0.1 }}
+            className="itin-success-card"
+          >
+            <span className="itin-success-num">{i + 1}</span>
+            <div>
+              <h4 style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 14, fontWeight: 600,
+                letterSpacing: ".06em",
+                color: "#fff", margin: "0 0 6px",
+              }}>{s.title}</h4>
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 13.5, lineHeight: 1.65,
+                color: "rgba(255,255,255,0.6)", margin: 0,
+              }}>{s.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="itin-success-cta-row">
+        <Link to="/" className="itin-success-cta itin-success-cta--primary">
+          <Home size={15} /> Return Home
+        </Link>
+        <Link to="/experiences" className="itin-success-cta">
+          <Compass size={15} /> Explore Experiences
+        </Link>
+        <a
+          href="https://wa.me/12687805510?text=Hi%20Gemscape%2C%20I%20just%20submitted%20an%20itinerary%20request."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="itin-success-cta"
+        >
+          <MessageCircle size={15} /> Contact on WhatsApp
+        </a>
+      </div>
+    </motion.div>
   );
 }
 
