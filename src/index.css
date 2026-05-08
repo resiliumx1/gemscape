@@ -2048,8 +2048,13 @@ header * {
   --dur-slow: 520ms;
 }
 
-/* Smoother native scroll */
-html { scroll-behavior: smooth; }
+/* Native scroll-behavior must be AUTO — Lenis handles smoothing.
+   Using `smooth` here fights Lenis and causes choppy/laggy scrolling. */
+html { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 /* Smooth theme transition: only color-related props, never transform/layout */
 html, body,

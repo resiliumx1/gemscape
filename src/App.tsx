@@ -30,12 +30,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const queryClient = new QueryClient();
 
+declare global {
+  interface Window { __lenis?: Lenis | null }
+}
+
 function ScrollToTop() {
   const location = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const lenisEl = document.querySelector('[data-lenis-scroll]') as HTMLElement;
-    if (lenisEl) lenisEl.scrollTop = 0;
+    const lenis = window.__lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, [location.pathname]);
   return null;
 }
@@ -62,42 +69,45 @@ function AnimatedRoutes() {
 }
 
 const App = () => {
-  const isAdmin = window.location.pathname.startsWith('/admin');
+  const isAdmin = typeof window !== 'undefined' && window.location.pathname.startsWith('/admin');
 
   useEffect(() => {
-    let lenis: Lenis | null = null;
-    let idleId: number | null = null;
-    let rafId: number | null = null;
+    if (isAdmin) return;
 
-    const initLenis = () => {
-      if (!isAdmin && window.innerWidth >= 768) {
-        lenis = new Lenis({
-          duration: 1.4,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          orientation: "vertical" as const,
-          smoothWheel: true,
-        });
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
 
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis!.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
-      } else {
-        document.documentElement.classList.remove('lenis', 'lenis-smooth');
-      }
-    };
-
-    if ('requestIdleCallback' in window) {
-      idleId = requestIdleCallback(initLenis) as unknown as number;
-    } else {
-      rafId = requestAnimationFrame(initLenis);
+    // Touch-primary devices: keep native momentum scroll (feels best on phones)
+    const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (isTouch) {
+      document.documentElement.classList.remove('lenis', 'lenis-smooth');
+      return;
     }
 
+    const lenis = new Lenis({
+      duration: 1.05,
+      easing: (t: number) => 1 - Math.pow(1 - t, 3),
+      orientation: "vertical" as const,
+      gestureOrientation: "vertical" as const,
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.2,
+      lerp: 0.1,
+    });
+
+    window.__lenis = lenis;
+    lenis.on("scroll", ScrollTrigger.update);
+
+    const raf = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
     return () => {
-      if (idleId !== null) cancelIdleCallback(idleId);
-      if (rafId !== null) cancelAnimationFrame(rafId);
-      if (lenis) lenis.destroy();
+      gsap.ticker.remove(raf);
+      lenis.destroy();
+      window.__lenis = null;
     };
-  }, []);
+  }, [isAdmin]);
 
   return (
     <HelmetProvider>
