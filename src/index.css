@@ -1944,7 +1944,7 @@ header * {
 
 /* ========== MOBILE POLISH ========== */
 @media (max-width: 767px) {
-  /* Touch-friendly buttons */
+  /* Touch-friendly buttons (min 48px tap target) */
   .hero__btn-primary,
   .hero__btn-secondary,
   .cta-banner__btn-primary,
@@ -1956,11 +1956,36 @@ header * {
     justify-content: center;
   }
 
-  /* Cap all h2 at 42px on mobile (hero h1 already 56px) */
+  /* Cap heading sizes on mobile to prevent overflow */
   .experiences__h2,
   .testimonials__h2,
   .cta-banner__h2 {
-    font-size: 42px;
+    font-size: 38px;
+    line-height: 1.05;
+  }
+
+  /* Hero refinement on mobile */
+  .hero__headline {
+    font-size: 48px;
+    letter-spacing: -0.01em;
+  }
+  .hero__sub {
+    font-size: 16px;
+    line-height: 1.65;
+    margin-top: 18px;
+    max-width: 100%;
+  }
+  .hero__cta {
+    gap: 12px;
+    margin-top: 28px;
+    width: 100%;
+  }
+  .hero__btn-primary,
+  .hero__btn-secondary {
+    width: 100%;
+    text-align: center;
+    padding: 16px 20px;
+    font-size: 13px;
   }
 
   /* Horizontal padding safety */
@@ -1970,7 +1995,38 @@ header * {
     padding-left: 20px;
     padding-right: 20px;
   }
+
+  /* Lighter visual effects on mobile (perceived speed) */
+  .hero__btn-shimmer,
+  .hero__btn-secondary::before,
+  .gem-logo-shimmer {
+    display: none !important;
+  }
+
+  /* Word-break long text safely */
+  h1, h2, h3, p { overflow-wrap: anywhere; }
 }
+
+/* ========== ACCESSIBILITY ========== */
+:focus-visible {
+  outline: 2px solid hsl(var(--gem-aqua, 188 60% 50%));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect reduced motion preferences globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero__bg { transform: none !important; }
+}
+
 
 /* ─── Rentals Hero ─── */
 .rentals-hero {
