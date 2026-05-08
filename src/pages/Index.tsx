@@ -46,8 +46,8 @@ const Index = () => {
   return (
     <div id="main-content" className="min-h-screen relative overflow-x-hidden flex flex-col bg-[#022c22]">
       <Helmet>
-        <title>Gemscape Travel & Tours | Private Tours, Rentals & Concierge — Antigua & Barbuda</title>
-        <meta name="description" content="Antigua & Barbuda's premier private travel experience. Island circumnavigation tours, luxury car rentals, VIP flight concierge, and signature planning packages. Crafted for those who demand the extraordinary." />
+        <title>Gemscape | Curated Caribbean Itineraries — Antigua & Barbuda</title>
+        <meta name="description" content="A boutique Caribbean experience concierge in Antigua & Barbuda. We design unhurried, personalised itineraries — private island days, arrival coordination, trusted island mobility. You arrive. We've handled the rest." />
         <link rel="canonical" href="https://gemscapetours.com/" />
       </Helmet>
       <div className="relative z-10 flex flex-col min-h-screen">

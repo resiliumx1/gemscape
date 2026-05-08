@@ -131,12 +131,12 @@ const Experiences = () => {
   return (
     <section ref={sectionRef} id="experiences" className="experiences">
       <div className="experiences__header">
-        <span className="eyebrow">Curated Experiences</span>
+        <span className="eyebrow">A Few Days We've Designed</span>
         <h2 className="experiences__h2">
-          <span className="hero-country-shimmer">Antigua &amp; Barbuda</span> Seen Differently<span className="experiences__dot">.</span>
+          <span className="hero-country-shimmer">Antigua &amp; Barbuda</span>, Slowly<span className="experiences__dot">.</span>
         </h2>
         <p className="experiences__intro">
-          Every journey we design is a private, unhurried encounter with the most beautiful islands in the Caribbean.
+          A glimpse of the kinds of days we plan — quiet, unhurried, woven around how you actually want to feel. Yours will look nothing like these, and that's the point.
         </p>
       </div>
 
