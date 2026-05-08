@@ -1,5 +1,5 @@
 import { motion, useScroll, AnimatePresence } from "framer-motion";
-import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail, Shield, Info } from "lucide-react";
+import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail, Shield, Info, Home, Route, Layers } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
@@ -229,8 +229,8 @@ const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; on
       ))}
 
       <div className="relative z-10 flex items-center gap-3">
-        <span className="text-[11px] font-body font-bold tracking-[0.3em] transition-colors" style={{ color: "#d4ad7c" }}>
-          BOOK NOW
+        <span className="text-[11px] font-body font-bold tracking-[0.25em] transition-colors whitespace-nowrap" style={{ color: "#d4ad7c" }}>
+          BUILD MY ITINERARY
         </span>
         <motion.div
           animate={{ opacity: [0.8, 1, 0.8], scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
@@ -387,16 +387,14 @@ export default function Navbar() {
           
           variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="hidden lg:flex items-center gap-2 ml-auto mr-4"
+          className="hidden lg:flex items-center gap-1 ml-auto mr-4"
         >
-          <NavItem icon={Gem} label="EXPERIENCES" href="/book" dropdownItems={experiencesSubs} onNavigate={handleNav} />
-          <NavItem icon={Diamond} label="RENTALS" href="/rentals" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Sparkles} label="CONCIERGE" href="/concierge" pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Home} label="HOME" href="/" pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Gem} label="EXPERIENCES" href="/experiences" pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Route} label="ITINERARIES" href="/build-itinerary" pulse={false} onNavigate={handleNav} />
+          <NavItem icon={Layers} label="SERVICES" href="/#services" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Info} label="ABOUT" href="/about" pulse={false} onNavigate={handleNav} />
           <NavItem icon={Mail} label="CONTACT" href="/contact" pulse={false} onNavigate={handleNav} />
-          {!location.pathname.startsWith("/admin") && (
-            <NavItem icon={Shield} label="ADMIN" href="/admin" pulse={false} onNavigate={handleNav} />
-          )}
         </motion.nav>
 
         {/* Right controls */}
@@ -409,7 +407,7 @@ export default function Navbar() {
             <CurrencyToggle />
           </div>
           <motion.div className="hidden md:block">
-            <BookNowButton onClick={() => navigateTo("/book")} />
+            <BookNowButton onClick={() => navigateTo("/build-itinerary")} />
           </motion.div>
           <SkyToggle checked={isDark} onChange={toggleTheme} />
 
