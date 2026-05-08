@@ -141,7 +141,7 @@ export default function CtaBanner() {
                 textTransform: "uppercase",
               }}
             >
-              Begin Your Journey
+              Your Itinerary, Quietly Handled
             </span>
             <div
               style={{
@@ -163,7 +163,7 @@ export default function CtaBanner() {
               margin: "0 0 20px",
             }}
           >
-            <span className="hero-country-shimmer">Antigua &amp; Barbuda</span> Are Waiting
+            Tell us how you want to feel.
             <br />
             <span
               style={{
@@ -171,7 +171,7 @@ export default function CtaBanner() {
                 color: "rgba(255,255,255,0.6)",
               }}
             >
-              for You.
+              We'll plan the rest.
             </span>
           </h2>
 
@@ -186,9 +186,9 @@ export default function CtaBanner() {
               margin: "0 auto 36px",
             }}
           >
-            Tell us your dream. We'll handle every detail —
+            Share a few details — dates, mood, who's travelling.
             <br />
-            from the moment you land to the last golden hour.
+            A real human writes back within two hours, not a form letter.
           </p>
 
           {/* CTA buttons */}
@@ -226,7 +226,7 @@ export default function CtaBanner() {
             >
               <span className="cta2-btn-shimmer" />
               <span className="cta2-btn-content">
-                Start Planning
+                Plan My Itinerary
                 <ArrowRight size={16} />
               </span>
             </button>
@@ -245,8 +245,8 @@ export default function CtaBanner() {
           {/* Trust signals */}
           <div className="cta2-trust">
             <span>✦ No upfront payment</span>
-            <span>✦ Reply within 2 hours</span>
-            <span>✦ Fully bespoke</span>
+            <span>✦ A human reply in 2 hours</span>
+            <span>✦ Designed entirely around you</span>
           </div>
         </div>
       </section>
