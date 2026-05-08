@@ -5989,3 +5989,9 @@ html:not(.dark) .hero-country-shimmer {
   0%, 70%, 100% { left: -100%; }
   85% { left: 150%; }
 }
+
+/* ─── Readability pass: stronger placeholders, inputs, helper text ─── */
+::placeholder { color: var(--text-tertiary) !important; opacity: 1 !important; }
+input, textarea, select { color: var(--input-text); }
+input::placeholder, textarea::placeholder { color: var(--text-tertiary) !important; opacity: 1 !important; }
+.text-muted-foreground { color: hsl(var(--muted-foreground)) !important; }
