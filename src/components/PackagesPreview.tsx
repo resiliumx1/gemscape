@@ -8,9 +8,9 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 gsap.registerPlugin(ScrollTrigger);
 
 const MINI_PACKAGES = [
-  { name: "Explorer", price: "$65", icon: Star, accent: "#2cb8a8" },
-  { name: "Experience", price: "$95", icon: Sparkles, accent: "#C9A84C" },
-  { name: "Elite Concierge", price: "$195+", icon: Crown, accent: "#b8956a" },
+  { name: "Day Itinerary", price: "$65", icon: Star, accent: "#2cb8a8" },
+  { name: "Curated Stay", price: "$95", icon: Sparkles, accent: "#C9A84C" },
+  { name: "Full Concierge", price: "$195+", icon: Crown, accent: "#b8956a" },
 ];
 
 const PackagesPreview = () => {
@@ -44,7 +44,7 @@ const PackagesPreview = () => {
       }}
     >
       <span className="eyebrow eyebrow--aqua" style={{ marginBottom: 16, display: "block" }}>
-        Signature Packages
+        Planning, Made Simple
       </span>
       <h2 style={{
         fontFamily: "'Cormorant Garamond', serif",
@@ -54,7 +54,7 @@ const PackagesPreview = () => {
         lineHeight: 1.15,
         marginBottom: 12,
       }}>
-        Let <span className="hero-country-shimmer">Gemscape</span> Plan Your Perfect Day.
+        Choose How Much <span className="hero-country-shimmer">We Plan</span> For You.
       </h2>
       <p style={{
         fontFamily: "'DM Sans', sans-serif",
@@ -64,7 +64,7 @@ const PackagesPreview = () => {
         margin: "0 auto 48px",
         lineHeight: 1.7,
       }}>
-        From quick itineraries to full concierge — choose the level of planning that fits your style.
+        From a single curated day to a fully coordinated stay — pick the level of care that fits how you travel.
       </p>
 
       <div
@@ -171,7 +171,7 @@ const PackagesPreview = () => {
           e.currentTarget.style.transform = "translateY(0)";
         }}
       >
-        View All Packages
+        See All Planning Levels
       </button>
     </section>
   );

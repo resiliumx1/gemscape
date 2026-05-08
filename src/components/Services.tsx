@@ -13,44 +13,44 @@ gsap.registerPlugin(ScrollTrigger);
 const SERVICES = [
   {
     id: "01",
-    category: "WATER & SEA",
-    title: "Island Circumnavigation",
-    headline: "Every cove. Every hidden bay.",
+    category: "ITINERARY PLANNING",
+    title: "Curated Day-by-Day Planning",
+    headline: "An itinerary shaped entirely around you.",
     description:
-      "A full-day private journey around Antigua's entire coastline — past secret beaches, historic forts, and fishing villages that no cruise ship ever reaches. Your guide, your pace, your island.",
-    image: catamaranImg,
+      "Tell us how you want to feel — peaceful, adventurous, romantic, restored — and we design the days around it. Hidden coves, slow lunches, the right beach at the right hour, and nothing you didn't ask for. No two Gemscape itineraries are the same.",
+    image: windmillImg,
     route: "/book",
     accent: "#2cb8a8",
   },
   {
     id: "02",
-    category: "LAND & CULTURE",
-    title: "Heritage & Discovery",
-    headline: "Roads no tourist map shows.",
+    category: "WATER & SEA",
+    title: "Private Island Days",
+    headline: "Every cove. Every quiet bay.",
     description:
-      "English Harbour. Shirley Heights. Local rum distilleries and colonial ruins. We take you through Antigua's living history with a guide who was born and raised in these stories.",
-    image: windmillImg,
+      "Unhurried days along Antigua's coastline — secret beaches, snorkelling stops, lunch on the water — at the pace of the breeze, not a schedule. Captain, vessel, and route, all coordinated for you.",
+    image: catamaranImg,
     route: "/book",
-    accent: "#b8956a",
-  },
-  {
-    id: "03",
-    category: "ARRIVAL & DEPARTURE",
-    title: "Flight Concierge",
-    headline: "From touchdown to your first sunset.",
-    description:
-      "VIP airport arrivals, private charter coordination, hotel transfers. We eliminate every point of friction between your plane seat and your first Antiguan sunset drink.",
-    image: airportImg,
-    route: "/concierge",
     accent: "#1a8a9e",
   },
   {
-    id: "04",
-    category: "PRIVATE RENTALS",
-    title: "Your Island, Your Wheels",
-    headline: "Freedom with no itinerary.",
+    id: "03",
+    category: "ARRIVAL & COORDINATION",
+    title: "Arrival & Concierge",
+    headline: "From wheels-down to fully looked after.",
     description:
-      "Premium SUVs, open-top Jeeps, sailing catamarans. Delivered to your hotel, airport, or marina. Full insurance, 24/7 support, and the freedom to find your own Antigua.",
+      "Airport meet-and-greet, transfers, dinner reservations, last-minute charters, the small things you forgot to think about. One number to call. We handle the rest, gently and quickly.",
+    image: airportImg,
+    route: "/concierge",
+    accent: "#b8956a",
+  },
+  {
+    id: "04",
+    category: "ISLAND MOBILITY",
+    title: "Cars, Coordinated",
+    headline: "A car waiting where you need it.",
+    description:
+      "From compact runabouts to open-air Jeeps — the right vehicle, delivered to your hotel, villa or the airport. Insurance, paperwork and roadside support all handled by us, so you only ever turn the key.",
     image: jeepImg,
     route: "/rentals",
     accent: "#C9A84C",
@@ -279,7 +279,7 @@ export default function Services() {
                 textTransform: "uppercase",
               }}
             >
-              Our Services
+              How Gemscape Works
             </span>
           </div>
 
@@ -469,7 +469,7 @@ export default function Services() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  Discover This Experience
+                  Begin With This
                   <ArrowRight size={14} />
                 </button>
               </div>
