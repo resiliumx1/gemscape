@@ -201,9 +201,10 @@ const HeroSection = () => {
               fontFamily: "'Cormorant Garamond', serif",
               color: "#fff",
               fontWeight: 400,
-              lineHeight: 1.12,
+              lineHeight: 1.18,
               margin: 0,
               maxWidth: 760,
+              paddingBottom: "0.15em",
             }}
           >
             Curated Caribbean Experiences
@@ -416,7 +417,7 @@ const HeroSection = () => {
           z-index: 3;
         }
         .hero-headline {
-          font-size: clamp(40px, 5vw, 72px);
+          font-size: clamp(36px, 4.6vw, 64px);
         }
 
         /* ═══ GEM — Desktop: absolute right side ═══ */

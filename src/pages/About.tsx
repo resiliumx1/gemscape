@@ -98,10 +98,10 @@ export default function About() {
         className="dark"
         style={{
           position: "relative",
-          minHeight: "78vh",
+          minHeight: "82vh",
           display: "flex",
           alignItems: "flex-end",
-          padding: "180px 24px 80px",
+          padding: "200px 24px 96px",
           overflow: "hidden",
           background: "#05181e",
         }}
@@ -169,12 +169,13 @@ export default function About() {
           <h1
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "clamp(40px, 6vw, 76px)",
-              lineHeight: 1.08,
+              fontSize: "clamp(38px, 5.4vw, 68px)",
+              lineHeight: 1.18,
               fontWeight: 400,
               letterSpacing: "-.015em",
               maxWidth: 880,
               marginBottom: 28,
+              paddingBottom: "0.15em",
             }}
           >
             Caribbean Travel,{" "}

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Menu, X, Mail, Shield, Info, Route, Layers, Gem, MessageCircle } from "lucide-react";
+import { Menu, X, Mail, Shield, MessageCircle } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
@@ -27,7 +27,7 @@ const NavLink = ({
       className="group relative px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-gem-teal/40 rounded-md"
     >
       <span
-        className={`text-[11px] font-body tracking-[0.32em] uppercase transition-colors duration-300 ${
+        className={`text-[11px] font-body tracking-[0.22em] uppercase transition-colors duration-300 ${
           active ? "text-[var(--nav-text-hover)]" : "text-[var(--nav-text)] group-hover:text-[var(--nav-text-hover)]"
         }`}
       >
@@ -53,10 +53,10 @@ const PrimaryCta = ({ fullWidth = false, onClick }: { fullWidth?: boolean; onCli
     whileHover={{ scale: 1.03 }}
     whileTap={{ scale: 0.97 }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    className={`relative overflow-hidden px-6 py-2.5 rounded-full group ${fullWidth ? "w-full" : ""}`}
+    className={`relative overflow-hidden px-5 py-2 rounded-full group ${fullWidth ? "w-full" : ""}`}
     style={{
-      border: "1px solid rgba(184,149,106,0.4)",
-      background: "linear-gradient(135deg, rgba(26,138,158,0.18) 0%, rgba(184,149,106,0.12) 100%)",
+      border: "1px solid rgba(184,149,106,0.42)",
+      background: "linear-gradient(135deg, rgba(26,138,158,0.16) 0%, rgba(184,149,106,0.10) 100%)",
     }}
   >
     <motion.div
@@ -65,11 +65,10 @@ const PrimaryCta = ({ fullWidth = false, onClick }: { fullWidth?: boolean; onCli
       whileHover={{ x: "150%" }}
       transition={{ duration: 1, ease: "easeOut" }}
     />
-    <span className="relative z-10 flex items-center justify-center gap-2.5">
-      <span className="text-[11px] font-body font-medium tracking-[0.28em] whitespace-nowrap" style={{ color: "#d4ad7c" }}>
-        BUILD MY ITINERARY
+    <span className="relative z-10 flex items-center justify-center">
+      <span className="text-[11px] font-body font-medium tracking-[0.22em] whitespace-nowrap" style={{ color: "#d4ad7c" }}>
+        Build My Itinerary
       </span>
-      <Sparkles size={14} style={{ color: "#d4ad7c" }} />
     </span>
   </motion.button>
 );
@@ -176,8 +175,8 @@ export default function Navbar() {
       }`}
       style={{
         backgroundColor: navSolid ? "var(--nav-glass-bg)" : "transparent",
-        paddingTop: isScrolled ? "0.5rem" : "1rem",
-        paddingBottom: isScrolled ? "0.5rem" : "1rem",
+        paddingTop: isScrolled ? "0.4rem" : "0.85rem",
+        paddingBottom: isScrolled ? "0.4rem" : "0.85rem",
       }}
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between gap-6">
@@ -197,7 +196,7 @@ export default function Navbar() {
               width={100}
               height={42}
               className={`w-auto object-contain gem-logo-img transition-all duration-500 ${
-                isScrolled ? "h-[32px] sm:h-[36px]" : "h-[38px] sm:h-[44px]"
+                isScrolled ? "h-[28px] sm:h-[32px]" : "h-[34px] sm:h-[38px]"
               }`}
               style={{ background: "transparent" }}
             />
