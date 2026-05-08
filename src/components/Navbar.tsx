@@ -474,36 +474,12 @@ export default function Navbar() {
                     Navigation
                   </motion.span>
                   <div className="flex flex-col gap-4">
-                    {/* Experiences with sub-items */}
-                    <motion.div
-                      variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                      whileHover={{ x: 8, backgroundColor: "rgba(44, 184, 168, 0.05)" }}
-                      whileTap={{ scale: 0.97 }}
-                      className="flex flex-col gap-2 p-3 rounded-xl transition-colors cursor-pointer group"
-                    >
-                      <button onClick={() => handleNav("/book")} className="flex items-center gap-4 text-white/80 group-hover:text-white w-full text-left">
-                        <Gem size={20} className="text-gem-teal group-hover:text-gem-aqua transition-colors" />
-                        <span className="text-sm font-body font-bold tracking-[0.2em]">EXPERIENCES</span>
-                      </button>
-                      <div className="pl-9 flex flex-col gap-3 mt-2">
-                        {experiencesSubs.map((sub) => (
-                          <motion.button
-                            key={sub.label}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => handleNav(sub.href, sub.isHash)}
-                            className="flex items-center gap-3 text-white/40 hover:text-gem-teal transition-colors text-left"
-                          >
-                            <sub.icon size={14} />
-                            <span className="text-[12px] font-body font-bold tracking-widest">{sub.label.toUpperCase()}</span>
-                          </motion.button>
-                        ))}
-                      </div>
-                    </motion.div>
-
-                    {/* Simple items */}
+                  <div className="flex flex-col gap-2">
                     {[
-                      { icon: Diamond, label: "RENTALS", href: "/rentals" },
-                      { icon: Sparkles, label: "CONCIERGE", href: "/concierge" },
+                      { icon: Home, label: "HOME", href: "/" },
+                      { icon: Gem, label: "EXPERIENCES", href: "/experiences" },
+                      { icon: Route, label: "ITINERARIES", href: "/build-itinerary" },
+                      { icon: Layers, label: "SERVICES", href: "/#services" },
                       { icon: Info, label: "ABOUT", href: "/about" },
                       { icon: Mail, label: "CONTACT", href: "/contact" },
                     ].map((item) => (
@@ -512,7 +488,7 @@ export default function Navbar() {
                         variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
                         whileHover={{ x: 8, backgroundColor: "rgba(44, 184, 168, 0.05)" }}
                         whileTap={{ scale: 0.97 }}
-                        onClick={() => handleNav(item.href)}
+                        onClick={() => handleNav(item.href, item.href.includes("#"))}
                         className="flex items-center gap-4 text-white/80 hover:text-white p-3 rounded-xl transition-colors cursor-pointer group w-full text-left"
                       >
                         <item.icon size={20} className="text-gem-teal group-hover:text-gem-aqua transition-colors" />
