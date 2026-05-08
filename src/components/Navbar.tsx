@@ -50,23 +50,38 @@ const NavLink = ({
 const PrimaryCta = ({ fullWidth = false, onClick }: { fullWidth?: boolean; onClick: () => void }) => (
   <motion.button
     onClick={onClick}
-    whileHover={{ scale: 1.03 }}
+    whileHover={{ scale: 1.04, y: -1 }}
     whileTap={{ scale: 0.97 }}
-    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    className={`relative overflow-hidden px-5 py-2 rounded-full group ${fullWidth ? "w-full" : ""}`}
+    transition={{ type: "spring", stiffness: 320, damping: 22 }}
+    className={`relative overflow-hidden px-6 py-2.5 rounded-full group nav-primary-cta ${fullWidth ? "w-full" : ""}`}
     style={{
-      border: "1px solid rgba(184,149,106,0.42)",
-      background: "linear-gradient(135deg, rgba(26,138,158,0.16) 0%, rgba(184,149,106,0.10) 100%)",
+      border: "1px solid rgba(184,149,106,0.55)",
+      background:
+        "linear-gradient(135deg, rgba(26,138,158,0.22) 0%, rgba(184,149,106,0.18) 100%)",
+      boxShadow:
+        "0 0 0 rgba(184,149,106,0), inset 0 1px 0 rgba(255,255,255,0.08)",
+      transition: "box-shadow 350ms ease, background 350ms ease",
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.boxShadow =
+        "0 8px 24px rgba(26,138,158,0.28), 0 0 22px rgba(212,173,124,0.30), inset 0 1px 0 rgba(255,255,255,0.12)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.boxShadow =
+        "0 0 0 rgba(184,149,106,0), inset 0 1px 0 rgba(255,255,255,0.08)";
     }}
   >
     <motion.div
-      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-25deg] pointer-events-none"
+      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-25deg] pointer-events-none"
       initial={{ x: "-150%" }}
       whileHover={{ x: "150%" }}
       transition={{ duration: 1, ease: "easeOut" }}
     />
     <span className="relative z-10 flex items-center justify-center">
-      <span className="text-[11px] font-body font-medium tracking-[0.22em] whitespace-nowrap" style={{ color: "#d4ad7c" }}>
+      <span
+        className="text-[12.5px] font-body font-semibold tracking-[0.22em] whitespace-nowrap"
+        style={{ color: "#e2bd8a" }}
+      >
         Build My Itinerary
       </span>
     </span>
