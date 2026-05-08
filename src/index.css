@@ -5995,3 +5995,59 @@ html:not(.dark) .hero-country-shimmer {
 input, textarea, select { color: var(--input-text); }
 input::placeholder, textarea::placeholder { color: var(--text-tertiary) !important; opacity: 1 !important; }
 .text-muted-foreground { color: hsl(var(--muted-foreground)) !important; }
+
+/* ─── Premium Currency Selector ─── */
+.gem-currency-trigger {
+  color: #e2bd8a;
+  background: linear-gradient(135deg, rgba(26,138,158,0.18) 0%, rgba(184,149,106,0.14) 100%);
+  border: 1px solid rgba(184,149,106,0.50);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 1px 3px rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+.gem-currency-trigger:hover {
+  background: linear-gradient(135deg, rgba(26,138,158,0.28) 0%, rgba(212,173,124,0.22) 100%);
+  border-color: rgba(212,173,124,0.75);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 0 18px rgba(212,173,124,0.22);
+}
+:root:not(.dark) .gem-currency-trigger {
+  color: #6b4a1f;
+  background: linear-gradient(135deg, rgba(255,255,255,0.78) 0%, rgba(244,234,216,0.78) 100%);
+  border-color: rgba(184,149,106,0.55);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 3px rgba(120,80,30,0.10);
+}
+:root:not(.dark) .gem-currency-trigger:hover {
+  border-color: rgba(184,149,106,0.85);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 0 14px rgba(184,149,106,0.25);
+}
+
+.gem-currency-menu {
+  background: rgba(10, 33, 40, 0.96) !important;
+  border-color: rgba(184,149,106,0.35) !important;
+  color: #f4ead8;
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,173,124,0.10) inset;
+}
+:root:not(.dark) .gem-currency-menu {
+  background: rgba(255, 253, 248, 0.98) !important;
+  border-color: rgba(184,149,106,0.40) !important;
+  color: #2a1a08;
+  box-shadow: 0 20px 50px rgba(40,20,5,0.18), 0 0 0 1px rgba(184,149,106,0.10) inset;
+}
+
+.gem-currency-item {
+  color: inherit;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.gem-currency-item:focus,
+.gem-currency-item[data-highlighted] {
+  background: linear-gradient(135deg, rgba(44,184,168,0.22) 0%, rgba(212,173,124,0.18) 100%) !important;
+  color: #fff !important;
+  outline: none;
+}
+:root:not(.dark) .gem-currency-item:focus,
+:root:not(.dark) .gem-currency-item[data-highlighted] {
+  background: linear-gradient(135deg, rgba(26,138,158,0.14) 0%, rgba(212,173,124,0.16) 100%) !important;
+  color: #1a1208 !important;
+}

@@ -1,6 +1,29 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-type Currency = 'USD' | 'XCD';
+export type Currency = 'XCD' | 'USD' | 'GBP' | 'EUR' | 'CAD' | 'TTD' | 'BBD';
+
+export interface CurrencyMeta {
+  code: Currency;
+  symbol: string;
+  name: string;
+  /**
+   * Placeholder static FX rates relative to 1 USD.
+   * NOTE: These are reference rates only — replace with a live FX provider
+   * (e.g. exchangerate.host, openexchangerates.org) before relying on
+   * displayed conversions for transactional pricing.
+   */
+  rateFromUSD: number;
+}
+
+export const CURRENCIES: CurrencyMeta[] = [
+  { code: 'XCD', symbol: 'EC$',  name: 'Eastern Caribbean Dollar', rateFromUSD: 2.70 },
+  { code: 'USD', symbol: '$',    name: 'US Dollar',                rateFromUSD: 1.00 },
+  { code: 'GBP', symbol: '£',    name: 'British Pound',            rateFromUSD: 0.79 },
+  { code: 'EUR', symbol: '€',    name: 'Euro',                     rateFromUSD: 0.92 },
+  { code: 'CAD', symbol: 'CA$',  name: 'Canadian Dollar',          rateFromUSD: 1.36 },
+  { code: 'TTD', symbol: 'TT$',  name: 'Trinidad & Tobago Dollar', rateFromUSD: 6.78 },
+  { code: 'BBD', symbol: 'Bds$', name: 'Barbados Dollar',          rateFromUSD: 2.00 },
+];
 
 interface CurrencyContextType {
   currency: Currency;
@@ -10,17 +33,31 @@ interface CurrencyContextType {
 }
 
 const CurrencyContext = createContext<CurrencyContextType | null>(null);
-const XCD_RATE = 2.70;
+const STORAGE_KEY = 'gem-currency';
+
+const isValidCurrency = (v: string | null): v is Currency =>
+  !!v && CURRENCIES.some((c) => c.code === v);
 
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
-  const [currency, setCurrency] = useState<Currency>('USD');
+  const [currency, setCurrencyState] = useState<Currency>(() => {
+    if (typeof window === 'undefined') return 'XCD';
+    const saved = window.localStorage.getItem(STORAGE_KEY);
+    return isValidCurrency(saved) ? saved : 'XCD';
+  });
+
+  const setCurrency = (c: Currency) => {
+    setCurrencyState(c);
+    try { window.localStorage.setItem(STORAGE_KEY, c); } catch {}
+  };
+
+  useEffect(() => {
+    try { window.localStorage.setItem(STORAGE_KEY, currency); } catch {}
+  }, [currency]);
 
   const format = (usdAmount: number): string => {
-    if (currency === 'XCD') {
-      const xcd = Math.round(usdAmount * XCD_RATE);
-      return `EC$${xcd.toLocaleString('en-US')}`;
-    }
-    return `$${usdAmount.toLocaleString('en-US')}`;
+    const meta = CURRENCIES.find((c) => c.code === currency) ?? CURRENCIES[0];
+    const converted = Math.round(usdAmount * meta.rateFromUSD);
+    return `${meta.symbol}${converted.toLocaleString('en-US')}`;
   };
 
   const formatRange = (min: number, max?: number): string => {
