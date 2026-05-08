@@ -124,7 +124,7 @@ textarea:focus-visible {
     --secondary: var(--gem-sand);
     --secondary-foreground: var(--gem-navy);
     --muted: var(--gem-sand);
-    --muted-foreground: var(--gem-teal);
+    --muted-foreground: 200 22% 26%;
     --accent: var(--gem-gold);
     --accent-foreground: var(--gem-navy);
     --destructive: var(--gem-coral);
