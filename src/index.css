@@ -67,34 +67,48 @@ textarea:focus-visible {
   }
 
   :root {
-    /* Gemscape Design System */
-    --gem-navy: 200 70% 14%;
-    --gem-teal: 180 62% 26%;
-    --gem-aqua: 180 56% 55%;
-    --gem-gold: 37 38% 54%;
-    --gem-gold-light: 40 38% 68%;
-    --gem-cream: 37 47% 92%;
-    --gem-sand: 34 48% 82%;
-    --gem-white: 40 60% 97%;
-    --gem-coral: 10 62% 53%;
+    /* ─────────────────────────────────────────────
+       GEMSCAPE BRAND PALETTE — shared HSL tokens
+       Used by both Light (peaceful, editorial) and
+       Dark (cinematic, immersive) themes.
+    ───────────────────────────────────────────── */
+    --gem-navy:        205 65% 12%;   /* deep ocean navy */
+    --gem-charcoal:    200 22% 16%;   /* rich charcoal */
+    --gem-teal:        185 48% 30%;   /* muted teal */
+    --gem-aqua:        184 52% 52%;   /* soft caribbean aqua */
+    --gem-ocean-blue:  208 38% 48%;   /* muted ocean blue */
+    --gem-earth-green: 150 18% 38%;   /* restrained earthy green */
+    --gem-gold:         37 42% 56%;   /* champagne gold */
+    --gem-gold-light:   40 44% 72%;   /* light champagne */
+    --gem-sunset:       22 70% 62%;   /* warm sunset accent (sparing) */
+    --gem-coral:        12 60% 64%;   /* warm coral (subtle accent only) */
+    --gem-ivory:        38 50% 96%;   /* warm ivory typography */
+    --gem-cream:        37 47% 93%;   /* warm cream background */
+    --gem-sand:         34 40% 84%;   /* sand neutral */
+    --gem-white:        40 60% 98%;   /* near-white card */
 
-    /* Theme variables */
-    --bg-primary:   #f4f1ee;
-    --bg-secondary: #ede9e4;
-    --bg-tertiary:  #f9f7f5;
-    --bg-elevated:  #ffffff;
-    --text-primary:   #05181e;
-    --text-secondary: rgba(5,24,30,0.65);
-    --text-tertiary:  rgba(5,24,30,0.4);
-    --border-color: rgba(5,24,30,0.1);
-    --border-hover: rgba(44,184,168,0.4);
-    --card-bg:      rgba(255,255,255,0.8);
-    --input-bg:     rgba(255,255,255,0.9);
-    --input-border: rgba(5,24,30,0.15);
-    --input-text:   #05181e;
-    --select-bg:    #ffffff;
+    /* ─── LIGHT THEME (peaceful, editorial, tropical chic) ─── */
+    --bg-primary:    #f6f1ea;   /* warm ivory */
+    --bg-secondary:  #ede4d6;   /* sand */
+    --bg-tertiary:   #faf6f0;   /* soft cream */
+    --bg-elevated:   #ffffff;
+    --text-primary:    #0e2630;          /* deep navy ink */
+    --text-secondary:  rgba(14,38,48,0.66);
+    --text-tertiary:   rgba(14,38,48,0.42);
+    --border-color:    rgba(14,38,48,0.10);
+    --border-hover:    rgba(58,138,154,0.40);
+    --card-bg:         rgba(255,255,255,0.86);
+    --input-bg:        rgba(255,255,255,0.94);
+    --input-border:    rgba(14,38,48,0.16);
+    --input-text:      #0e2630;
+    --select-bg:       #ffffff;
 
-    /* Map to shadcn tokens */
+    /* Brand gradients (shared shapes, theme-tinted) */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--gem-teal)) 0%, hsl(var(--gem-aqua)) 100%);
+    --gradient-gold:    linear-gradient(135deg, hsl(var(--gem-gold)) 0%, hsl(var(--gem-gold-light)) 100%);
+    --gradient-sunset:  linear-gradient(135deg, hsl(var(--gem-gold)) 0%, hsl(var(--gem-sunset)) 100%);
+
+    /* shadcn token mapping (light) */
     --background: var(--gem-cream);
     --foreground: var(--gem-navy);
     --card: var(--gem-white);
@@ -102,7 +116,7 @@ textarea:focus-visible {
     --popover: var(--gem-white);
     --popover-foreground: var(--gem-navy);
     --primary: var(--gem-navy);
-    --primary-foreground: var(--gem-cream);
+    --primary-foreground: var(--gem-ivory);
     --secondary: var(--gem-sand);
     --secondary-foreground: var(--gem-navy);
     --muted: var(--gem-sand);
@@ -110,7 +124,7 @@ textarea:focus-visible {
     --accent: var(--gem-gold);
     --accent-foreground: var(--gem-navy);
     --destructive: var(--gem-coral);
-    --destructive-foreground: var(--gem-white);
+    --destructive-foreground: var(--gem-ivory);
     --border: var(--gem-sand);
     --input: var(--gem-sand);
     --ring: var(--gem-gold);
@@ -119,48 +133,59 @@ textarea:focus-visible {
     --sidebar-background: var(--gem-white);
     --sidebar-foreground: var(--gem-navy);
     --sidebar-primary: var(--gem-navy);
-    --sidebar-primary-foreground: var(--gem-cream);
+    --sidebar-primary-foreground: var(--gem-ivory);
     --sidebar-accent: var(--gem-sand);
     --sidebar-accent-foreground: var(--gem-navy);
     --sidebar-border: var(--gem-sand);
     --sidebar-ring: var(--gem-gold);
 
-    /* Navbar Glass */
-    --nav-glass-bg: rgba(5, 24, 30, 0.65);
-    --nav-glass-border: rgba(44, 184, 168, 0.1);
-    --nav-text: rgba(255, 255, 255, 0.8);
-    --nav-text-hover: #ffffff;
-    --nav-dropdown-bg: rgba(5, 24, 30, 0.95);
+    /* Navbar Glass (defaults match dark hero — overridden when not over hero) */
+    --nav-glass-bg:        rgba(5, 24, 30, 0.65);
+    --nav-glass-border:    rgba(44, 184, 168, 0.10);
+    --nav-text:            rgba(255, 255, 255, 0.82);
+    --nav-text-hover:      #ffffff;
+    --nav-dropdown-bg:     rgba(5, 24, 30, 0.95);
     --nav-dropdown-border: rgba(44, 184, 168, 0.15);
   }
 
   .dark {
-    --nav-glass-bg: rgba(5, 24, 30, 0.65);
-    --nav-glass-border: rgba(44, 184, 168, 0.1);
-    --nav-text: rgba(255, 255, 255, 0.8);
-    --nav-text-hover: #ffffff;
-    --nav-dropdown-bg: rgba(5, 24, 30, 0.95);
-    --nav-dropdown-border: rgba(44, 184, 168, 0.15);
-    --bg-primary:   #05181e;
-    --bg-secondary: #071f27;
-    --bg-tertiary:  #0a2830;
-    --bg-elevated:  #0d3040;
-    --text-primary:   #ffffff;
-    --text-secondary: rgba(255,255,255,0.7);
-    --text-tertiary:  rgba(255,255,255,0.4);
-    --border-color: rgba(44,184,168,0.12);
-    --border-hover: rgba(44,184,168,0.4);
-    --card-bg:      rgba(255,255,255,0.04);
-    --input-bg:     rgba(255,255,255,0.06);
-    --input-border: rgba(255,255,255,0.12);
-    --input-text:   #ffffff;
-    --select-bg:    #0d3040;
+    /* ─── DARK THEME (luxury Caribbean insider, cinematic) ─── */
+    --bg-primary:    #04161d;   /* deep ocean navy */
+    --bg-secondary:  #061e26;
+    --bg-tertiary:   #08272f;
+    --bg-elevated:   #0c2f3a;
+    --text-primary:    #f3ecdc;          /* warm ivory typography */
+    --text-secondary:  rgba(243,236,220,0.72);
+    --text-tertiary:   rgba(243,236,220,0.45);
+    --border-color:    rgba(184,150,90,0.16);   /* champagne tint */
+    --border-hover:    rgba(184,150,90,0.45);
+    --card-bg:         rgba(243,236,220,0.04);
+    --input-bg:        rgba(243,236,220,0.06);
+    --input-border:    rgba(243,236,220,0.14);
+    --input-text:      #f3ecdc;
+    --select-bg:       #0c2f3a;
 
-    /* Remap shadcn tokens for dark */
-    --gem-cream: 207 47% 11%;
-    --gem-sand: 207 44% 14%;
-    --gem-white: 207 41% 16%;
+    /* Re-tune shared gradients for cinematic depth */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--gem-teal)) 0%, hsl(var(--gem-aqua)) 100%);
+    --gradient-gold:    linear-gradient(135deg, hsl(var(--gem-gold)) 0%, hsl(var(--gem-gold-light)) 100%);
+    --gradient-sunset:  linear-gradient(135deg, hsl(var(--gem-sunset) / 0.85) 0%, hsl(var(--gem-gold)) 100%);
+
+    /* shadcn token remap so cards/popovers feel native to dark */
+    --gem-cream: 205 50% 9%;
+    --gem-sand:  205 40% 13%;
+    --gem-white: 205 36% 16%;
+    --gem-ivory: 38 40% 90%;
+    --primary-foreground: var(--gem-ivory);
+    --destructive-foreground: var(--gem-ivory);
+
+    --nav-glass-bg:        rgba(4, 22, 29, 0.72);
+    --nav-glass-border:    rgba(184, 150, 90, 0.12);
+    --nav-text:            rgba(243,236,220,0.82);
+    --nav-text-hover:      #ffffff;
+    --nav-dropdown-bg:     rgba(4, 22, 29, 0.96);
+    --nav-dropdown-border: rgba(184, 150, 90, 0.18);
   }
+
 }
 
 /* When navbar is transparent (over dark hero), force light text regardless of theme */
