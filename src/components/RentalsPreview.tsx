@@ -42,8 +42,8 @@ const FALLBACK_IMAGES = [
 ];
 
 const STATS = [
-  { value: "12+", label: "Vehicles" },
-  { value: "3", label: "Pickup Points" },
+  { value: "Trusted", label: "Local Partners" },
+  { value: "Door-to-Door", label: "Coordination" },
   { value: "24/7", label: "Support" },
 ];
 
@@ -174,12 +174,12 @@ const RentalsPreview = () => {
       <div className="rentals-preview__grid">
         {/* Left column */}
         <div ref={leftRef} className="rentals-preview__left">
-          <span className="eyebrow eyebrow--aqua">Island Mobility</span>
-          <h2 className="rentals-preview__h2">A Car,<br />Quietly Arranged.</h2>
+          <span className="eyebrow eyebrow--aqua">Transportation Support</span>
+          <h2 className="rentals-preview__h2">Effortless Island<br />Travel, Coordinated.</h2>
           <p className="rentals-preview__body">
-            Part of nearly every Gemscape itinerary — the right vehicle, delivered where you
-            need it, with insurance, paperwork and roadside support all handled for you.
-            From compact and economical to open-air Jeeps for slow coastal mornings.
+            From airport arrivals to island movement, Gemscape helps coordinate reliable
+            transportation options that quietly support your curated Caribbean experience —
+            paperwork, insurance, and roadside support all handled for you.
           </p>
 
           <div className="rentals-preview__stats">
@@ -192,11 +192,11 @@ const RentalsPreview = () => {
           </div>
 
           <div className="rentals-preview__ctas">
-            <button className="rentals-preview__btn rentals-preview__btn--primary" onClick={() => navigateTo("/rentals#fleet")}>
-              See Available Cars
+            <button className="rentals-preview__btn rentals-preview__btn--primary" onClick={() => navigateTo("/build-itinerary?service=rental")}>
+              Add Transportation To My Itinerary
             </button>
-            <button className="rentals-preview__btn rentals-preview__btn--ghost" onClick={() => navigateTo("/book")}>
-              Add to My Itinerary
+            <button className="rentals-preview__btn rentals-preview__btn--ghost" onClick={() => navigateTo("/rentals#fleet")}>
+              See Vehicle Options
             </button>
           </div>
         </div>

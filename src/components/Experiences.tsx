@@ -19,7 +19,7 @@ const CARDS = [
     category: "Water & Sea",
     title: "Island Circumnavigation",
     desc: "Full-island private tour — every cove, every beach, every hidden bay.",
-    route: "/book",
+    route: "/build-itinerary?service=excursions",
     accent: "#2cb8a8",
     detail: {
       headline: "365 Beaches. One Unforgettable Day.",
@@ -37,7 +37,7 @@ const CARDS = [
     category: "Land & Culture",
     title: "Heritage & Discovery",
     desc: "History, local rum, and roads no tourist map would ever show you.",
-    route: "/book",
+    route: "/build-itinerary?service=excursions",
     accent: "#b8956a",
     detail: {
       headline: "The Real Antigua. Not the Brochure Version.",

@@ -9,6 +9,7 @@ import {
   Users,
   Leaf,
   Briefcase,
+  Sun,
   ArrowUpRight,
 } from "lucide-react";
 import gsap from "gsap";
@@ -23,7 +24,7 @@ const SERVICES = [
     title: "Personalized Itinerary Planning",
     description:
       "Custom Caribbean itineraries shaped around your travel style, pace, purpose, and desired feeling.",
-    route: "/book?service=itinerary",
+    route: "/build-itinerary?service=itinerary",
     accent: "#2cb8a8",
     featured: true,
     tag: "Signature Service",
@@ -34,7 +35,7 @@ const SERVICES = [
     title: "Airport Transfers",
     description:
       "Reliable arrival and departure coordination so your trip begins and ends smoothly.",
-    route: "/book?service=airport",
+    route: "/build-itinerary?service=airport",
     accent: "#1a8a9e",
   },
   {
@@ -43,7 +44,7 @@ const SERVICES = [
     title: "Transportation Coordination",
     description:
       "Island movement made easier through trusted vehicle, driver, and travel support options.",
-    route: "/rentals",
+    route: "/build-itinerary?service=transport",
     accent: "#1a8a9e",
   },
   {
@@ -52,7 +53,7 @@ const SERVICES = [
     title: "Island Excursions",
     description:
       "Curated experiences that help you discover beaches, culture, food, nature, and hidden gems.",
-    route: "/experiences",
+    route: "/build-itinerary?service=excursions",
     accent: "#b8956a",
   },
   {
@@ -61,35 +62,53 @@ const SERVICES = [
     title: "Cruise Passenger Experiences",
     description:
       "Thoughtfully planned island experiences designed around limited cruise stop timelines.",
-    route: "/book?service=cruise",
+    route: "/build-itinerary?service=cruise",
     accent: "#2cb8a8",
   },
   {
     id: "06",
-    icon: Users,
-    title: "Group Experiences",
+    icon: Sun,
+    title: "Caribbean Getaways",
     description:
-      "Coordinated travel support for families, friends, celebrations, retreats, and small groups.",
-    route: "/book?service=group",
-    accent: "#b8956a",
+      "Restorative multi-day escapes thoughtfully arranged across stays, dining, and island moments.",
+    route: "/build-itinerary?service=getaways",
+    accent: "#C9A84C",
   },
   {
     id: "07",
-    icon: Leaf,
-    title: "Wellness & Nature Escapes",
-    description:
-      "Peaceful experiences centered around nature, calm, beauty, restoration, and connection.",
-    route: "/book?service=wellness",
-    accent: "#2cb8a8",
-  },
-  {
-    id: "08",
     icon: Briefcase,
     title: "Business & Leisure Travel",
     description:
       "Support for travelers balancing work, meetings, transportation, and island exploration.",
-    route: "/book?service=business",
+    route: "/build-itinerary?service=business",
     accent: "#1a8a9e",
+  },
+  {
+    id: "08",
+    icon: Users,
+    title: "Curated Group Experiences",
+    description:
+      "Coordinated travel support for families, friends, celebrations, retreats, and small groups.",
+    route: "/build-itinerary?service=group",
+    accent: "#b8956a",
+  },
+  {
+    id: "09",
+    icon: Leaf,
+    title: "Peaceful Wellness Escapes",
+    description:
+      "Quiet, nature-centered escapes built around rest, restoration, beauty, and personal connection.",
+    route: "/build-itinerary?service=wellness",
+    accent: "#2cb8a8",
+  },
+  {
+    id: "10",
+    icon: Car,
+    title: "Vehicle Rental / Rental Coordination",
+    description:
+      "Trusted rental coordination — booked, delivered, and supported as part of your itinerary.",
+    route: "/build-itinerary?service=rental",
+    accent: "#b8956a",
   },
 ];
 
@@ -397,7 +416,7 @@ export default function Services() {
                   marginTop: "auto",
                 }}
               >
-                Explore
+                Add to My Itinerary
                 <ArrowUpRight size={14} strokeWidth={1.6} />
               </div>
             </article>

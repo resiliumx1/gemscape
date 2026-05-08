@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { useWaveNav } from "@/components/WavePageTransition";
-import { ArrowRight, Heart, Users, Leaf, Anchor, Sparkles, Briefcase } from "lucide-react";
+import { ArrowRight, Heart, Users, Leaf, Anchor, Sparkles, Briefcase, Map, Star } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -11,8 +11,7 @@ const EXPERIENCES = [
     icon: Heart,
     title: "Romantic Tropical Escape",
     desc: "Slow mornings, ocean views, private moments, and thoughtfully planned island experiences designed for two.",
-    image:
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=70&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=70&fm=webp&fit=crop",
     accent: "#d98a8a",
     tag: "For Two",
   },
@@ -20,8 +19,7 @@ const EXPERIENCES = [
     icon: Users,
     title: "Girls Island Getaway",
     desc: "Celebrate friendship with beautiful stays, beach days, dining, excursions, and effortless coordination.",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=70&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=70&fm=webp&fit=crop",
     accent: "#C9A84C",
     tag: "Group",
   },
@@ -29,8 +27,7 @@ const EXPERIENCES = [
     icon: Leaf,
     title: "Peaceful Solo Retreat",
     desc: "Reconnect with yourself through nature, stillness, wellness, and curated moments of calm.",
-    image:
-      "https://images.unsplash.com/photo-1545579133-99bb5ab189bd?w=900&q=70&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1545579133-99bb5ab189bd?w=900&q=70&fm=webp&fit=crop",
     accent: "#7fb89e",
     tag: "Solo",
   },
@@ -38,8 +35,7 @@ const EXPERIENCES = [
     icon: Anchor,
     title: "Cruise Stop VIP Experience",
     desc: "Make the most of your island stop with a seamless, personalized day designed around your arrival time.",
-    image:
-      "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=900&q=70&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=900&q=70&fm=webp&fit=crop",
     accent: "#1a8a9e",
     tag: "Day Trip",
   },
@@ -47,19 +43,33 @@ const EXPERIENCES = [
     icon: Sparkles,
     title: "Nature & Wellness Experience",
     desc: "Explore hidden gems, healing landscapes, quiet beaches, local culture, and restorative Caribbean beauty.",
-    image:
-      "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=900&q=70&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=900&q=70&fm=webp&fit=crop",
     accent: "#2cb8a8",
     tag: "Wellness",
+  },
+  {
+    icon: Map,
+    title: "Multi-Island Caribbean Journey",
+    desc: "A thoughtfully sequenced journey across more than one island — coordinated stays, transfers, and quiet discoveries.",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=70&fm=webp&fit=crop",
+    accent: "#1a8a9e",
+    tag: "Multi-Island",
   },
   {
     icon: Briefcase,
     title: "Business & Leisure Escape",
     desc: "Blend productivity and peaceful exploration with transportation, planning, and island support handled for you.",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=70&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=900&q=70&fm=webp&fit=crop",
     accent: "#b8956a",
     tag: "Bleisure",
+  },
+  {
+    icon: Star,
+    title: "Custom Caribbean Experience",
+    desc: "Have something specific in mind? Share your vision and we'll design a personalized journey from the ground up.",
+    image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=900&q=70&fm=webp&fit=crop",
+    accent: "#C9A84C",
+    tag: "Bespoke",
   },
 ];
 
@@ -174,7 +184,7 @@ export default function SignatureExperiences() {
                 <article
                   key={exp.title}
                   className="sigx-card"
-                  onClick={() => navigateTo(`/book?service=itinerary&experience=${encodeURIComponent(exp.title)}`)}
+                  onClick={() => navigateTo(`/build-itinerary?experience=${encodeURIComponent(exp.title)}`)}
                   style={{
                     position: "relative",
                     background: "var(--card-bg)",
