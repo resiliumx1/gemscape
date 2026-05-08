@@ -943,6 +943,93 @@ function StyleBlock() {
       #build-itinerary textarea::placeholder {
         color: rgba(255,255,255,0.32);
       }
+
+      /* Success panel */
+      .itin-success-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        max-width: 820px;
+        margin: 0 auto 40px;
+        text-align: left;
+      }
+      @media (max-width: 720px) {
+        .itin-success-steps { grid-template-columns: 1fr; }
+      }
+      .itin-success-card {
+        display: flex; gap: 14px; align-items: flex-start;
+        padding: 20px 18px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(201,168,76,0.18);
+        border-radius: 14px;
+        transition: all .3s ease;
+      }
+      .itin-success-card:hover {
+        border-color: rgba(44,184,168,0.4);
+        transform: translateY(-2px);
+      }
+      .itin-success-num {
+        flex-shrink: 0;
+        width: 30px; height: 30px; border-radius: 50%;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, #1a8a9e, #2cb8a8);
+        box-shadow: 0 6px 18px -8px rgba(44,184,168,0.55);
+      }
+      .itin-success-cta-row {
+        display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+        margin-top: 8px;
+      }
+      .itin-success-cta {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 13px; font-weight: 600;
+        letter-spacing: .14em; text-transform: uppercase;
+        color: rgba(255,255,255,0.78);
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.14);
+        text-decoration: none;
+        transition: all .3s ease;
+      }
+      .itin-success-cta:hover {
+        color: #fff;
+        border-color: rgba(44,184,168,0.5);
+        background: rgba(44,184,168,0.08);
+        transform: translateY(-1px);
+      }
+      .itin-success-cta--primary {
+        background: linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%);
+        color: #fff;
+        border-color: transparent;
+        box-shadow: 0 14px 36px -14px rgba(44,184,168,0.55);
+      }
+      .itin-success-cta--primary:hover {
+        background: linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%);
+        box-shadow: 0 18px 44px -14px rgba(44,184,168,0.7);
+      }
+
+      /* Calendar dark theming for itinerary date pickers */
+      .itin-cal { color: #fff; }
+      .itin-cal .rdp-caption_label { color: #fff; font-family: 'DM Sans', sans-serif; }
+      .itin-cal .rdp-head_cell { color: rgba(255,255,255,0.45); }
+      .itin-cal .rdp-day { color: rgba(255,255,255,0.85); border-radius: 8px; }
+      .itin-cal .rdp-day:hover:not([disabled]) {
+        background: rgba(44,184,168,0.18) !important; color: #fff !important;
+      }
+      .itin-cal .rdp-day_selected,
+      .itin-cal .rdp-day_selected:hover {
+        background: linear-gradient(135deg, #1a8a9e, #2cb8a8) !important;
+        color: #fff !important;
+      }
+      .itin-cal .rdp-day_today:not(.rdp-day_selected) {
+        color: #2cb8a8 !important; font-weight: 700;
+      }
+      .itin-cal .rdp-day_disabled { color: rgba(255,255,255,0.2) !important; }
+      .itin-cal .rdp-nav_button { color: #fff; border-color: rgba(255,255,255,0.18); }
+      .itin-cal .rdp-nav_button:hover { background: rgba(255,255,255,0.06); }
     `}</style>
   );
 }
