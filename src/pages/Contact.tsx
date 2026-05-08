@@ -170,8 +170,12 @@ const Contact = () => {
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                 opacity: loading ? 0.6 : 1, width: "100%", transition: "opacity 0.3s",
               }}>
-                <Send size={14} /> {loading ? "Sending..." : "Send Message →"}
+                <Send size={14} /> {loading ? "Sending..." : "Request My Experience →"}
               </button>
+              <p style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-tertiary)", letterSpacing: ".04em", marginTop: -4 }}>
+                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#2cb8a8" }} />
+                Personalized support from inquiry to arrival.
+              </p>
             </form>
           ) : (
             <div style={{
@@ -179,10 +183,10 @@ const Contact = () => {
             }}>
               <Check size={48} style={{ color: "#2cb8a8", margin: "0 auto 16px" }} />
               <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "var(--text-primary)", marginBottom: 12 }}>
-                Message Sent
+                Thank You — Request Received
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>
-                We'll be in touch within 2 hours. Check your inbox.
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.75, marginBottom: 24 }}>
+                Your Gemscape experience request has been received. We'll review your details and follow up with personalized support.
               </p>
               <a href="/" style={{
                 fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#2cb8a8",
