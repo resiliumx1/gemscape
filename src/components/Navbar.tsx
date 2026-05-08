@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Mail, Shield, MessageCircle } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { CurrencyToggle } from "@/components/CurrencyToggle";
+import { CurrencySelector } from "@/components/CurrencySelector";
 import SkyToggle from "@/components/ui/sky-toggle";
 import { useWaveNav } from "@/components/WavePageTransition";
 
@@ -244,8 +244,12 @@ export default function Navbar() {
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="flex items-center gap-3 sm:gap-4 shrink-0"
+          className="flex items-center gap-2 sm:gap-3 shrink-0"
         >
+          {/* Compact pill on mobile, full pill on sm+ */}
+          <span className="sm:hidden"><CurrencySelector compact /></span>
+          <span className="hidden sm:inline-flex"><CurrencySelector /></span>
+
           <SkyToggle checked={isDark} onChange={toggleTheme} />
 
           <div className="hidden md:block">
@@ -366,7 +370,7 @@ export default function Navbar() {
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] tracking-[0.28em] text-white/50 uppercase">Currency</span>
-                    <CurrencyToggle />
+                    <CurrencySelector />
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] tracking-[0.28em] text-white/50 uppercase">Theme</span>
