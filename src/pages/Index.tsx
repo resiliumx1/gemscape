@@ -66,6 +66,7 @@ const Index = () => {
           <WaveDivider variant="ocean" height={120} />
         </div>
         <WhyGemscape />
+        <ItineraryBuilder />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="teal" height={120} />
         </div>
