@@ -495,7 +495,7 @@ function ProgressBar({ step }: { step: number }) {
   );
 }
 
-function StepOne({ form, setForm }: any) {
+function StepOne({ form, setForm, arrivalDate, setArrivalDate, departureDate, setDepartureDate }: any) {
   return (
     <div className="itin-grid">
       <Field label="Full Name *">
@@ -514,15 +514,83 @@ function StepOne({ form, setForm }: any) {
         <input maxLength={120} placeholder="Antigua, Barbuda, both…" style={inputBase} value={form.destination}
           onChange={(e) => setForm({ ...form, destination: e.target.value })} />
       </Field>
-      <Field label="Travel Dates">
-        <input maxLength={120} placeholder="e.g. March 12–19, 2026" style={inputBase} value={form.travel_dates}
-          onChange={(e) => setForm({ ...form, travel_dates: e.target.value })} />
+      <Field label="Arrival Date">
+        <DatePickerField
+          value={arrivalDate}
+          onChange={setArrivalDate}
+          placeholder="Select arrival"
+          minDate={addDays(new Date(), 0)}
+          maxDate={addYears(new Date(), 2)}
+        />
+      </Field>
+      <Field label="Departure Date">
+        <DatePickerField
+          value={departureDate}
+          onChange={setDepartureDate}
+          placeholder="Select departure"
+          minDate={arrivalDate ? addDays(arrivalDate, 1) : addDays(new Date(), 1)}
+          maxDate={addYears(new Date(), 2)}
+        />
       </Field>
       <Field label="Number of Travelers">
         <input type="number" min={1} max={999} style={inputBase} value={form.travelers}
           onChange={(e) => setForm({ ...form, travelers: e.target.value })} />
       </Field>
     </div>
+  );
+}
+
+function DatePickerField({
+  value, onChange, placeholder, minDate, maxDate,
+}: {
+  value: Date | undefined;
+  onChange: (d: Date | undefined) => void;
+  placeholder: string;
+  minDate?: Date;
+  maxDate?: Date;
+}) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          style={{
+            ...inputBase,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 10,
+            cursor: "pointer",
+            textAlign: "left",
+            color: value ? "#fff" : "rgba(255,255,255,0.45)",
+          }}
+        >
+          <span>{value ? dateFormat(value, "EEE, d MMM yyyy") : placeholder}</span>
+          <CalendarIcon size={16} style={{ opacity: 0.55, flexShrink: 0 }} />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        align="start"
+        sideOffset={8}
+        className="w-auto p-0 z-[60] border-0"
+        style={{
+          background: "linear-gradient(180deg, #0a2530 0%, #05181e 100%)",
+          border: "1px solid rgba(201,168,76,0.28)",
+          borderRadius: 14,
+          boxShadow: "0 24px 60px -20px rgba(0,0,0,0.7)",
+          color: "#fff",
+        }}
+      >
+        <Calendar
+          mode="single"
+          selected={value}
+          onSelect={onChange}
+          disabled={(d) => (minDate ? d < minDate : false) || (maxDate ? d > maxDate : false)}
+          initialFocus
+          className={cn("p-3 pointer-events-auto itin-cal")}
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
 
