@@ -285,14 +285,11 @@ const HeroSection = () => {
                   <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" fill="rgba(255,255,255,0.15)" />
                   <path d="M2 9h20M12 2l5 7-5 11-5-11 5-7z" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
                 </svg>
-                Plan My Escape
+                Build My Itinerary
               </span>
             </button>
             <button
-              onClick={() => {
-                const el = document.getElementById('services');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => navigateTo("/experiences")}
               className="hero-btn-secondary"
               style={{
                 position: 'relative',
@@ -335,7 +332,7 @@ const HeroSection = () => {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(201,168,76,0.8)" strokeWidth="1.5" fill="rgba(201,168,76,0.1)" />
                 </svg>
-                How We Plan
+                Explore Experiences
               </span>
             </button>
           </div>
