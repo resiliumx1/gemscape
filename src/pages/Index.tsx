@@ -13,6 +13,7 @@ import Testimonials from "@/components/Testimonials";
 import PackagesPreview from "@/components/PackagesPreview";
 import WhyGemscape from "@/components/WhyGemscape";
 import CtaBanner from "@/components/CtaBanner";
+import ConsultationCta from "@/components/ConsultationCta";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import WaveDivider from "@/components/WaveDivider";
@@ -67,6 +68,7 @@ const Index = () => {
         </div>
         <WhyGemscape />
         <ItineraryBuilder />
+        <ConsultationCta />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="teal" height={120} />
         </div>

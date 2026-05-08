@@ -7,10 +7,14 @@ import WhatsAppFab from "@/components/WhatsAppFab";
 import { supabase } from "@/integrations/supabase/client";
 
 const SERVICE_OPTIONS = [
-  "Island Circumnavigation",
-  "Private Rentals",
-  "Flight Concierge",
-  "Private Charter",
+  "Personalized Itinerary Planning",
+  "Airport Transfer",
+  "Transportation Coordination",
+  "Island Excursions",
+  "Cruise Passenger Experience",
+  "Group Experience",
+  "Wellness & Nature Escape",
+  "Business & Leisure Travel",
   "Other",
 ];
 
@@ -50,21 +54,28 @@ const Contact = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       <Helmet>
-        <title>Contact Gemscape Travel & Tours | Get In Touch</title>
-        <meta name="description" content="Reach out to Gemscape Travel & Tours. We respond personally within 2 hours. Call, WhatsApp, or send us a message." />
+        <title>Begin Your Gemscape Experience | Contact</title>
+        <meta name="description" content="Begin your Gemscape Caribbean experience. Share a few details and we'll help shape a peaceful, beautiful, and seamless journey." />
       </Helmet>
       <Navbar />
 
       {/* Hero header */}
       <section style={{ padding: "160px 24px 60px", textAlign: "center" }}>
-        <span style={{ fontSize: 15, letterSpacing: ".18em", color: "rgba(201,168,76,0.75)", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>
-          GET IN TOUCH
+        <span style={{ fontSize: 13, letterSpacing: ".3em", color: "#2cb8a8", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>
+          Experience Request
         </span>
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 12 }}>
-          Get In Touch
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 60px)", fontWeight: 400, color: "var(--text-primary)", marginTop: 14, lineHeight: 1.15, letterSpacing: "-.01em" }}>
+          Begin Your{" "}
+          <span style={{ fontStyle: "italic", background: "linear-gradient(135deg, #b8956a 0%, #d4ad7c 50%, #b8956a 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            Gemscape Experience
+          </span>
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 500, margin: "16px auto 0" }}>
-          We respond to every enquiry personally, usually within 2 hours.
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.75, maxWidth: 620, margin: "20px auto 0" }}>
+          Share a few details with us and we'll help you shape a peaceful, beautiful, and seamless Caribbean journey.
+        </p>
+        <p style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 22, fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-tertiary)", letterSpacing: ".05em" }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2cb8a8", boxShadow: "0 0 12px rgba(44,184,168,0.6)" }} />
+          Personalized support from inquiry to arrival.
         </p>
       </section>
 
@@ -159,8 +170,12 @@ const Contact = () => {
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                 opacity: loading ? 0.6 : 1, width: "100%", transition: "opacity 0.3s",
               }}>
-                <Send size={14} /> {loading ? "Sending..." : "Send Message →"}
+                <Send size={14} /> {loading ? "Sending..." : "Request My Experience →"}
               </button>
+              <p style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "var(--text-tertiary)", letterSpacing: ".04em", marginTop: -4 }}>
+                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#2cb8a8" }} />
+                Personalized support from inquiry to arrival.
+              </p>
             </form>
           ) : (
             <div style={{
@@ -168,10 +183,10 @@ const Contact = () => {
             }}>
               <Check size={48} style={{ color: "#2cb8a8", margin: "0 auto 16px" }} />
               <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 28, color: "var(--text-primary)", marginBottom: 12 }}>
-                Message Sent
+                Thank You — Request Received
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>
-                We'll be in touch within 2 hours. Check your inbox.
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.75, marginBottom: 24 }}>
+                Your Gemscape experience request has been received. We'll review your details and follow up with personalized support.
               </p>
               <a href="/" style={{
                 fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#2cb8a8",

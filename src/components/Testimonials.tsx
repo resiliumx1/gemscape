@@ -1,53 +1,38 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Star, Quote } from "lucide-react";
 
+// NOTE: Replace these with real client testimonials when available.
+// Placeholders intentionally do not invent fake reviews.
 const REVIEWS = [
   {
     quote:
-      "The circumnavigation tour was the highlight of our entire Caribbean trip. Our guide knew every hidden cove — places no tourist map would ever show you.",
-    name: "Sarah M.",
-    origin: "New York, USA",
-    service: "Island Circumnavigation",
-    initials: "SM",
+      "Client testimonial coming soon — we're collecting reflections from recent Gemscape travelers and will share their words here.",
+    name: "Placeholder",
+    origin: "To be replaced",
+    service: "Curated Itinerary",
+    initials: "G",
     accent: "#2cb8a8",
   },
   {
     quote:
-      "Gemscape handled every detail of our arrival — car, hotel, first dinner. We felt like VIPs from the moment we landed in Antigua. Seamless from start to finish.",
-    name: "Priya & Rohan S.",
-    origin: "Toronto, Canada",
-    service: "Flight Concierge",
-    initials: "PS",
+      "Client testimonial coming soon — a thoughtful note from a recent traveler will live here.",
+    name: "Placeholder",
+    origin: "To be replaced",
+    service: "Airport Concierge",
+    initials: "G",
     accent: "#b8956a",
   },
   {
     quote:
-      "We rented a Jeep for the week and found our own Antigua. The pickup was seamless, the vehicle was immaculate. No tourist trap, just raw island freedom.",
-    name: "Carlos D.",
-    origin: "Miami, USA",
-    service: "Vehicle Rental",
-    initials: "CD",
-    accent: "#C9A84C",
-  },
-  {
-    quote:
-      "From Darkwood Beach to Devil's Bridge — they showed us an Antigua that most tourists never see. Absolute world-class guiding. We're already planning our return.",
-    name: "Emma & Liam T.",
-    origin: "Sydney, Australia",
-    service: "Beach Exploration",
-    initials: "ET",
+      "Client testimonial coming soon — real words from real Caribbean experiences, added as we receive them.",
+    name: "Placeholder",
+    origin: "To be replaced",
+    service: "Island Experience",
+    initials: "G",
     accent: "#1a8a9e",
   },
-  {
-    quote:
-      "Our private charter to Cades Reef was beyond anything we imagined. Every detail arranged, zero stress. Just us, the crew, and the most beautiful water on earth.",
-    name: "James K.",
-    origin: "London, UK",
-    service: "Private Charter",
-    initials: "JK",
-    accent: "#3cc8b8",
-  },
 ];
+
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);
