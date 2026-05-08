@@ -67,6 +67,10 @@ textarea:focus-visible {
   }
 
   :root {
+    /* Header heights — used by hero sections to avoid overlap */
+    --header-height-desktop: 88px;
+    --header-height-mobile: 68px;
+    --header-height: var(--header-height-desktop);
     /* ─────────────────────────────────────────────
        GEMSCAPE BRAND PALETTE — shared HSL tokens
        Used by both Light (peaceful, editorial) and
