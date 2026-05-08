@@ -97,12 +97,12 @@ const Hero = () => {
               Explore Experiences
             </a>
             <a
-              href="/book"
+              href="/build-itinerary"
               className="hero__btn-secondary book-now-btn"
-              onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/build-itinerary"); }}
               style={{ borderColor: 'hsl(var(--gem-gold))', color: 'hsl(var(--gem-gold))', background: 'rgba(184,150,90,0.1)' }}
             >
-              Book Now
+              Build My Itinerary
             </a>
           </div>
         </div>
