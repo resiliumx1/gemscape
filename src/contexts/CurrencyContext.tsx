@@ -16,8 +16,8 @@ export interface CurrencyMeta {
 }
 
 export const CURRENCIES: CurrencyMeta[] = [
-  { code: 'XCD', symbol: 'EC$',  name: 'Eastern Caribbean Dollar', rateFromUSD: 2.70 },
   { code: 'USD', symbol: '$',    name: 'US Dollar',                rateFromUSD: 1.00 },
+  { code: 'XCD', symbol: 'EC$',  name: 'Eastern Caribbean Dollar', rateFromUSD: 2.70 },
   { code: 'GBP', symbol: '£',    name: 'British Pound',            rateFromUSD: 0.79 },
   { code: 'EUR', symbol: '€',    name: 'Euro',                     rateFromUSD: 0.92 },
   { code: 'CAD', symbol: 'CA$',  name: 'Canadian Dollar',          rateFromUSD: 1.36 },
