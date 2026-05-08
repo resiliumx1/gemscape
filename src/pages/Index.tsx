@@ -49,9 +49,15 @@ const Index = () => {
   return (
     <div id="main-content" className="min-h-screen relative overflow-x-hidden flex flex-col bg-[#022c22]">
       <Helmet>
-        <title>Gemscape | Curated Caribbean Itineraries — Antigua & Barbuda</title>
-        <meta name="description" content="A boutique Caribbean experience concierge in Antigua & Barbuda. We design unhurried, personalised itineraries — private island days, arrival coordination, trusted island mobility. You arrive. We've handled the rest." />
+        <title>Gemscape | Curated Caribbean Itineraries — Antigua &amp; Barbuda</title>
+        <meta name="description" content="Curated Caribbean experiences designed around peace, beauty, and connection. Personalized itineraries, thoughtful coordination, and trusted island support across Antigua & Barbuda." />
         <link rel="canonical" href="https://gemscapetours.com/" />
+        <meta property="og:title" content="Gemscape | Curated Caribbean Itineraries" />
+        <meta property="og:description" content="Curated Caribbean experiences designed around peace, beauty, and connection." />
+        <meta property="og:url" content="https://gemscapetours.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://gemscapetours.com/images/hero-antigua-sunset.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
