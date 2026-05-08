@@ -363,7 +363,16 @@ export default function ItineraryBuilder() {
                     exit={{ opacity: 0, x: direction > 0 ? -24 : 24 }}
                     transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {step === 1 && <StepOne form={form} setForm={setForm} />}
+                    {step === 1 && (
+                      <StepOne
+                        form={form}
+                        setForm={setForm}
+                        arrivalDate={arrivalDate}
+                        setArrivalDate={setArrivalDate}
+                        departureDate={departureDate}
+                        setDepartureDate={setDepartureDate}
+                      />
+                    )}
                     {step === 2 && <StepTwo form={form} setForm={setForm} />}
                     {step === 3 && <StepThree form={form} toggleService={toggleService} />}
                     {step === 4 && <StepFour form={form} setForm={setForm} />}
