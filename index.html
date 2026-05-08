@@ -139,6 +139,17 @@
       ]
     }
     </script>
+    <!-- Theme: prevent flash of incorrect theme on load -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('gem-theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = saved ? saved === 'dark' : prefersDark;
+          if (isDark) document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body>
