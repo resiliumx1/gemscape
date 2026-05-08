@@ -174,12 +174,12 @@ const RentalsPreview = () => {
       <div className="rentals-preview__grid">
         {/* Left column */}
         <div ref={leftRef} className="rentals-preview__left">
-          <span className="eyebrow eyebrow--aqua">Private Rentals</span>
-          <h2 className="rentals-preview__h2">Your Island.<br />Your Wheels.</h2>
+          <span className="eyebrow eyebrow--aqua">Island Mobility</span>
+          <h2 className="rentals-preview__h2">A Car,<br />Quietly Arranged.</h2>
           <p className="rentals-preview__body">
-            From luxury SUVs built for Antigua's rugged interior to open-air Jeeps made for
-            chasing the coast — our fleet is hand-curated for the kind of freedom that no
-            tour bus can offer.
+            Part of nearly every Gemscape itinerary — the right vehicle, delivered where you
+            need it, with insurance, paperwork and roadside support all handled for you.
+            From compact and economical to open-air Jeeps for slow coastal mornings.
           </p>
 
           <div className="rentals-preview__stats">
@@ -193,10 +193,10 @@ const RentalsPreview = () => {
 
           <div className="rentals-preview__ctas">
             <button className="rentals-preview__btn rentals-preview__btn--primary" onClick={() => navigateTo("/rentals#fleet")}>
-              Browse the Fleet
+              See Available Cars
             </button>
-            <button className="rentals-preview__btn rentals-preview__btn--ghost" onClick={() => navigateTo("/rentals")}>
-              Book a Rental
+            <button className="rentals-preview__btn rentals-preview__btn--ghost" onClick={() => navigateTo("/book")}>
+              Add to My Itinerary
             </button>
           </div>
         </div>
