@@ -201,14 +201,14 @@ const HeroSection = () => {
               fontFamily: "'Cormorant Garamond', serif",
               color: "#fff",
               fontWeight: 400,
-              lineHeight: 1.1,
+              lineHeight: 1.12,
               margin: 0,
-              maxWidth: 700,
+              maxWidth: 760,
             }}
           >
-            Curated Caribbean
+            Curated Caribbean Experiences
             <br />
-            Days, Designed{" "}
+            Designed Around{" "}
             <span
               style={{
                 fontStyle: "italic",
@@ -220,22 +220,23 @@ const HeroSection = () => {
                 backgroundClip: "text",
               }}
             >
-              Around You.
+              Peace, Beauty &amp; Connection.
             </span>
           </h1>
 
           {/* Subtext */}
           <p
             style={{
-              fontSize: 15,
-              color: "rgba(255,255,255,0.55)",
-              lineHeight: 1.75,
-              maxWidth: 480,
-              marginTop: 16,
+              fontSize: 16,
+              color: "rgba(255,255,255,0.65)",
+              lineHeight: 1.8,
+              maxWidth: 540,
+              marginTop: 20,
               fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
             }}
           >
-            We plan the itinerary, coordinate every detail, and stay close from arrival to last sunset — so you simply arrive, exhale, and live the days we've shaped for you.
+            From personalized itineraries to island arrival, Gemscape thoughtfully coordinates the details — so you can experience the Caribbean beautifully, peacefully, and meaningfully.
           </p>
 
           {/* Animated star rating */}
