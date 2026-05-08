@@ -337,6 +337,27 @@ const HeroSection = () => {
             </button>
           </div>
 
+          {/* Trust line */}
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6, duration: 0.8 }}
+            style={{
+              marginTop: 18,
+              fontSize: 14,
+              color: "rgba(255,255,255,0.55)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              letterSpacing: ".04em",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <span aria-hidden="true" style={{ width: 6, height: 6, borderRadius: "50%", background: "#C9A84C", boxShadow: "0 0 8px rgba(201,168,76,0.6)" }} />
+            Personalized support from inquiry to arrival.
+          </motion.p>
+
           {/* Mobile stats row */}
           <div className="hero-mobile-stats">
             <div className="hero-mobile-stat">
