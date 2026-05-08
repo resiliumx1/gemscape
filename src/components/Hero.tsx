@@ -89,20 +89,20 @@ const Hero = () => {
 
           <div ref={ctaRef} className="hero__cta" style={{ opacity: 0 }}>
             <a
-              href="/book"
+              href="/build-itinerary"
               className="hero__btn-primary shimmer-button"
-              onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/build-itinerary"); }}
             >
               <span className="hero__btn-shimmer" />
-              Explore Experiences
+              Build My Itinerary
             </a>
             <a
-              href="/build-itinerary"
+              href="/experiences"
               className="hero__btn-secondary book-now-btn"
-              onClick={(e) => { e.preventDefault(); navigateTo("/build-itinerary"); }}
-              style={{ borderColor: 'hsl(var(--gem-gold))', color: 'hsl(var(--gem-gold))', background: 'rgba(184,150,90,0.1)' }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/experiences"); }}
+              style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'rgba(255,255,255,0.85)' }}
             >
-              Build My Itinerary
+              Explore Experiences
             </a>
           </div>
         </div>
