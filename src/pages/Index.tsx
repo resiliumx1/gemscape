@@ -55,6 +55,7 @@ const Index = () => {
         <Navbar />
         <HeroSection />
         <Services />
+        <SignatureExperiences />
         <Experiences />
         <RentalsPreview />
         <Manifesto />
