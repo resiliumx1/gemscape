@@ -40,9 +40,9 @@ const isValidCurrency = (v: string | null): v is Currency =>
 
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const [currency, setCurrencyState] = useState<Currency>(() => {
-    if (typeof window === 'undefined') return 'XCD';
+    if (typeof window === 'undefined') return 'USD';
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    return isValidCurrency(saved) ? saved : 'XCD';
+    return isValidCurrency(saved) ? saved : 'USD';
   });
 
   const setCurrency = (c: Currency) => {
