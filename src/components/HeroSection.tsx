@@ -406,8 +406,11 @@ const HeroSection = () => {
           max-width: 1280px;
           margin: 0 auto;
           padding: 0 48px;
-          height: 100%;
+          width: 100%;
           position: relative;
+        }
+        @media (max-width: 767px) {
+          :root { --header-height: var(--header-height-mobile); }
         }
         .hero-text-col {
           display: flex;
