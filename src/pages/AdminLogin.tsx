@@ -30,6 +30,10 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "hsl(var(--gem-navy))" }}>
+      <Helmet>
+        <title>Admin Login — Gemscape</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div style={{
         backgroundColor: "hsl(var(--gem-cream))",
         padding: "56px 64px",
