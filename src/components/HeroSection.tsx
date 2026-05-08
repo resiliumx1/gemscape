@@ -201,14 +201,14 @@ const HeroSection = () => {
               fontFamily: "'Cormorant Garamond', serif",
               color: "#fff",
               fontWeight: 400,
-              lineHeight: 1.1,
+              lineHeight: 1.12,
               margin: 0,
-              maxWidth: 700,
+              maxWidth: 760,
             }}
           >
-            Curated Caribbean
+            Curated Caribbean Experiences
             <br />
-            Days, Designed{" "}
+            Designed Around{" "}
             <span
               style={{
                 fontStyle: "italic",
@@ -220,22 +220,23 @@ const HeroSection = () => {
                 backgroundClip: "text",
               }}
             >
-              Around You.
+              Peace, Beauty &amp; Connection.
             </span>
           </h1>
 
           {/* Subtext */}
           <p
             style={{
-              fontSize: 15,
-              color: "rgba(255,255,255,0.55)",
-              lineHeight: 1.75,
-              maxWidth: 480,
-              marginTop: 16,
+              fontSize: 16,
+              color: "rgba(255,255,255,0.65)",
+              lineHeight: 1.8,
+              maxWidth: 540,
+              marginTop: 20,
               fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
             }}
           >
-            We plan the itinerary, coordinate every detail, and stay close from arrival to last sunset — so you simply arrive, exhale, and live the days we've shaped for you.
+            From personalized itineraries to island arrival, Gemscape thoughtfully coordinates the details — so you can experience the Caribbean beautifully, peacefully, and meaningfully.
           </p>
 
           {/* Animated star rating */}
@@ -284,14 +285,11 @@ const HeroSection = () => {
                   <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" fill="rgba(255,255,255,0.15)" />
                   <path d="M2 9h20M12 2l5 7-5 11-5-11 5-7z" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
                 </svg>
-                Plan My Escape
+                Build My Itinerary
               </span>
             </button>
             <button
-              onClick={() => {
-                const el = document.getElementById('services');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => navigateTo("/experiences")}
               className="hero-btn-secondary"
               style={{
                 position: 'relative',
@@ -334,10 +332,31 @@ const HeroSection = () => {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2L2 9l10 13 10-13L12 2z" stroke="rgba(201,168,76,0.8)" strokeWidth="1.5" fill="rgba(201,168,76,0.1)" />
                 </svg>
-                How We Plan
+                Explore Experiences
               </span>
             </button>
           </div>
+
+          {/* Trust line */}
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6, duration: 0.8 }}
+            style={{
+              marginTop: 18,
+              fontSize: 14,
+              color: "rgba(255,255,255,0.55)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              letterSpacing: ".04em",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <span aria-hidden="true" style={{ width: 6, height: 6, borderRadius: "50%", background: "#C9A84C", boxShadow: "0 0 8px rgba(201,168,76,0.6)" }} />
+            Personalized support from inquiry to arrival.
+          </motion.p>
 
           {/* Mobile stats row */}
           <div className="hero-mobile-stats">
