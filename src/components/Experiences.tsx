@@ -55,7 +55,7 @@ const CARDS = [
     category: "Arrival & Departure",
     title: "Flight Concierge",
     desc: "From wheels down to your first sunset drink. We handle everything.",
-    route: "/build-itinerary?service=airport",
+    route: "/concierge",
     accent: "#1a8a9e",
     detail: {
       headline: "Your Holiday Starts at the Gate. Not the Hotel.",
