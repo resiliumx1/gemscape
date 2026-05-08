@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -12,7 +12,14 @@ import {
   ArrowRight,
   ArrowLeft,
   Loader2,
+  CalendarIcon,
+  Home,
+  MessageCircle,
 } from "lucide-react";
+import { format as dateFormat, addDays, addYears } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -132,6 +139,9 @@ export default function ItineraryBuilder() {
     };
   }, [location.search]);
 
+  const [arrivalDate, setArrivalDate] = useState<Date | undefined>();
+  const [departureDate, setDepartureDate] = useState<Date | undefined>();
+
   const [form, setForm] = useState({
     full_name: "",
     email: "",
@@ -232,7 +242,16 @@ export default function ItineraryBuilder() {
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
-    const parsed = schema.safeParse(form);
+    if (submitting) return; // prevent duplicate submissions
+    // compose travel_dates from pickers if set
+    const composedDates =
+      arrivalDate && departureDate
+        ? `${dateFormat(arrivalDate, "PPP")} – ${dateFormat(departureDate, "PPP")}`
+        : arrivalDate
+          ? `Arriving ${dateFormat(arrivalDate, "PPP")}`
+          : form.travel_dates;
+    const formForValidation = { ...form, travel_dates: composedDates };
+    const parsed = schema.safeParse(formForValidation);
     if (!parsed.success) {
       toast.error(parsed.error.errors[0]?.message ?? "Please review the form");
       return;
@@ -262,6 +281,10 @@ export default function ItineraryBuilder() {
       return;
     }
     setSubmitted(true);
+    // smooth scroll to the form panel so user sees the thank-you state
+    requestAnimationFrame(() => {
+      document.getElementById("build-itinerary")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   };
 
   /* ─────────────────────────  RENDER  ──────────────────────────── */
@@ -340,7 +363,16 @@ export default function ItineraryBuilder() {
                     exit={{ opacity: 0, x: direction > 0 ? -24 : 24 }}
                     transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {step === 1 && <StepOne form={form} setForm={setForm} />}
+                    {step === 1 && (
+                      <StepOne
+                        form={form}
+                        setForm={setForm}
+                        arrivalDate={arrivalDate}
+                        setArrivalDate={setArrivalDate}
+                        departureDate={departureDate}
+                        setDepartureDate={setDepartureDate}
+                      />
+                    )}
                     {step === 2 && <StepTwo form={form} setForm={setForm} />}
                     {step === 3 && <StepThree form={form} toggleService={toggleService} />}
                     {step === 4 && <StepFour form={form} setForm={setForm} />}
@@ -463,7 +495,7 @@ function ProgressBar({ step }: { step: number }) {
   );
 }
 
-function StepOne({ form, setForm }: any) {
+function StepOne({ form, setForm, arrivalDate, setArrivalDate, departureDate, setDepartureDate }: any) {
   return (
     <div className="itin-grid">
       <Field label="Full Name *">
@@ -482,15 +514,83 @@ function StepOne({ form, setForm }: any) {
         <input maxLength={120} placeholder="Antigua, Barbuda, both…" style={inputBase} value={form.destination}
           onChange={(e) => setForm({ ...form, destination: e.target.value })} />
       </Field>
-      <Field label="Travel Dates">
-        <input maxLength={120} placeholder="e.g. March 12–19, 2026" style={inputBase} value={form.travel_dates}
-          onChange={(e) => setForm({ ...form, travel_dates: e.target.value })} />
+      <Field label="Arrival Date">
+        <DatePickerField
+          value={arrivalDate}
+          onChange={setArrivalDate}
+          placeholder="Select arrival"
+          minDate={addDays(new Date(), 0)}
+          maxDate={addYears(new Date(), 2)}
+        />
+      </Field>
+      <Field label="Departure Date">
+        <DatePickerField
+          value={departureDate}
+          onChange={setDepartureDate}
+          placeholder="Select departure"
+          minDate={arrivalDate ? addDays(arrivalDate, 1) : addDays(new Date(), 1)}
+          maxDate={addYears(new Date(), 2)}
+        />
       </Field>
       <Field label="Number of Travelers">
         <input type="number" min={1} max={999} style={inputBase} value={form.travelers}
           onChange={(e) => setForm({ ...form, travelers: e.target.value })} />
       </Field>
     </div>
+  );
+}
+
+function DatePickerField({
+  value, onChange, placeholder, minDate, maxDate,
+}: {
+  value: Date | undefined;
+  onChange: (d: Date | undefined) => void;
+  placeholder: string;
+  minDate?: Date;
+  maxDate?: Date;
+}) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          style={{
+            ...inputBase,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 10,
+            cursor: "pointer",
+            textAlign: "left",
+            color: value ? "#fff" : "rgba(255,255,255,0.45)",
+          }}
+        >
+          <span>{value ? dateFormat(value, "EEE, d MMM yyyy") : placeholder}</span>
+          <CalendarIcon size={16} style={{ opacity: 0.55, flexShrink: 0 }} />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        align="start"
+        sideOffset={8}
+        className="w-auto p-0 z-[60] border-0"
+        style={{
+          background: "linear-gradient(180deg, #0a2530 0%, #05181e 100%)",
+          border: "1px solid rgba(201,168,76,0.28)",
+          borderRadius: 14,
+          boxShadow: "0 24px 60px -20px rgba(0,0,0,0.7)",
+          color: "#fff",
+        }}
+      >
+        <Calendar
+          mode="single"
+          selected={value}
+          onSelect={onChange}
+          disabled={(d) => (minDate ? d < minDate : false) || (maxDate ? d > maxDate : false)}
+          initialFocus
+          className={cn("p-3 pointer-events-auto itin-cal")}
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -641,33 +741,95 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function SuccessPanel() {
+  const steps = [
+    { title: "We review your request", desc: "A real concierge reads through every detail you've shared." },
+    { title: "We personalize your recommendations", desc: "Curated experiences shaped around your pace and purpose." },
+    { title: "We follow up with next steps", desc: "Expect a thoughtful reply within a couple of hours." },
+  ];
   return (
-    <div style={{ textAlign: "center", padding: "32px 0" }}>
-      <div style={{
-        width: 72, height: 72, borderRadius: "50%",
-        background: "rgba(44,184,168,0.14)",
-        border: "1px solid rgba(44,184,168,0.45)",
-        display: "inline-flex", alignItems: "center", justifyContent: "center",
-        marginBottom: 26,
-      }}>
-        <Check size={30} color="#2cb8a8" />
-      </div>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      style={{ textAlign: "center", padding: "16px 0" }}
+    >
+      <motion.div
+        initial={{ scale: 0.6, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+        style={{
+          width: 78, height: 78, borderRadius: "50%",
+          background: "radial-gradient(circle at 30% 30%, rgba(44,184,168,0.35), rgba(44,184,168,0.08) 70%)",
+          border: "1px solid rgba(44,184,168,0.45)",
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          marginBottom: 28,
+          boxShadow: "0 0 36px -6px rgba(44,184,168,0.45)",
+        }}
+      >
+        <Check size={32} color="#fff" strokeWidth={2.4} />
+      </motion.div>
       <h3 style={{
         fontFamily: "'Cormorant Garamond', serif",
-        fontSize: "clamp(28px, 3.6vw, 40px)",
-        fontWeight: 400, color: "#fff", margin: "0 0 18px", lineHeight: 1.25,
+        fontSize: "clamp(28px, 3.8vw, 44px)",
+        fontWeight: 400, color: "#fff", margin: "0 0 18px",
+        lineHeight: 1.22, paddingBottom: "0.08em",
       }}>
-        Thank you.
+        Thank You — Your Gemscape{" "}
+        <span style={{ fontStyle: "italic", color: "#C9A84C" }}>Request Has Been Received</span>
       </h3>
       <p style={{
         fontFamily: "'DM Sans', sans-serif",
         fontSize: 16, lineHeight: 1.85,
-        color: "rgba(255,255,255,0.7)",
-        maxWidth: 540, margin: "0 auto",
+        color: "rgba(255,255,255,0.72)",
+        maxWidth: 580, margin: "0 auto 40px",
       }}>
-        Your Gemscape request has been received. We'll review your details and follow up with personalized support.
+        We'll review your details and follow up with personalized support to help shape your Caribbean experience.
       </p>
-    </div>
+
+      <div className="itin-success-steps">
+        {steps.map((s, i) => (
+          <motion.div
+            key={s.title}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.2 + i * 0.1 }}
+            className="itin-success-card"
+          >
+            <span className="itin-success-num">{i + 1}</span>
+            <div>
+              <h4 style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 14, fontWeight: 600,
+                letterSpacing: ".06em",
+                color: "#fff", margin: "0 0 6px",
+              }}>{s.title}</h4>
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 13.5, lineHeight: 1.65,
+                color: "rgba(255,255,255,0.6)", margin: 0,
+              }}>{s.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="itin-success-cta-row">
+        <Link to="/" className="itin-success-cta itin-success-cta--primary">
+          <Home size={15} /> Return Home
+        </Link>
+        <Link to="/experiences" className="itin-success-cta">
+          <Compass size={15} /> Explore Experiences
+        </Link>
+        <a
+          href="https://wa.me/12687805510?text=Hi%20Gemscape%2C%20I%20just%20submitted%20an%20itinerary%20request."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="itin-success-cta"
+        >
+          <MessageCircle size={15} /> Contact on WhatsApp
+        </a>
+      </div>
+    </motion.div>
   );
 }
 
@@ -781,6 +943,93 @@ function StyleBlock() {
       #build-itinerary textarea::placeholder {
         color: rgba(255,255,255,0.32);
       }
+
+      /* Success panel */
+      .itin-success-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        max-width: 820px;
+        margin: 0 auto 40px;
+        text-align: left;
+      }
+      @media (max-width: 720px) {
+        .itin-success-steps { grid-template-columns: 1fr; }
+      }
+      .itin-success-card {
+        display: flex; gap: 14px; align-items: flex-start;
+        padding: 20px 18px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(201,168,76,0.18);
+        border-radius: 14px;
+        transition: all .3s ease;
+      }
+      .itin-success-card:hover {
+        border-color: rgba(44,184,168,0.4);
+        transform: translateY(-2px);
+      }
+      .itin-success-num {
+        flex-shrink: 0;
+        width: 30px; height: 30px; border-radius: 50%;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, #1a8a9e, #2cb8a8);
+        box-shadow: 0 6px 18px -8px rgba(44,184,168,0.55);
+      }
+      .itin-success-cta-row {
+        display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+        margin-top: 8px;
+      }
+      .itin-success-cta {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 13px; font-weight: 600;
+        letter-spacing: .14em; text-transform: uppercase;
+        color: rgba(255,255,255,0.78);
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.14);
+        text-decoration: none;
+        transition: all .3s ease;
+      }
+      .itin-success-cta:hover {
+        color: #fff;
+        border-color: rgba(44,184,168,0.5);
+        background: rgba(44,184,168,0.08);
+        transform: translateY(-1px);
+      }
+      .itin-success-cta--primary {
+        background: linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%);
+        color: #fff;
+        border-color: transparent;
+        box-shadow: 0 14px 36px -14px rgba(44,184,168,0.55);
+      }
+      .itin-success-cta--primary:hover {
+        background: linear-gradient(135deg, #1a8a9e 0%, #2cb8a8 100%);
+        box-shadow: 0 18px 44px -14px rgba(44,184,168,0.7);
+      }
+
+      /* Calendar dark theming for itinerary date pickers */
+      .itin-cal { color: #fff; }
+      .itin-cal .rdp-caption_label { color: #fff; font-family: 'DM Sans', sans-serif; }
+      .itin-cal .rdp-head_cell { color: rgba(255,255,255,0.45); }
+      .itin-cal .rdp-day { color: rgba(255,255,255,0.85); border-radius: 8px; }
+      .itin-cal .rdp-day:hover:not([disabled]) {
+        background: rgba(44,184,168,0.18) !important; color: #fff !important;
+      }
+      .itin-cal .rdp-day_selected,
+      .itin-cal .rdp-day_selected:hover {
+        background: linear-gradient(135deg, #1a8a9e, #2cb8a8) !important;
+        color: #fff !important;
+      }
+      .itin-cal .rdp-day_today:not(.rdp-day_selected) {
+        color: #2cb8a8 !important; font-weight: 700;
+      }
+      .itin-cal .rdp-day_disabled { color: rgba(255,255,255,0.2) !important; }
+      .itin-cal .rdp-nav_button { color: #fff; border-color: rgba(255,255,255,0.18); }
+      .itin-cal .rdp-nav_button:hover { background: rgba(255,255,255,0.06); }
     `}</style>
   );
 }
