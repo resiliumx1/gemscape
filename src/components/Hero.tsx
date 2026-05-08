@@ -77,32 +77,32 @@ const Hero = () => {
           </h1>
 
           <p ref={subRef} className="hero__sub" style={{ opacity: 0 }}>
-            Private rentals, island circumnavigation, and flight concierge — crafted for those who demand the extraordinary.
+            Curated Caribbean experiences designed around peace, beauty, and connection — shaped with care from inquiry to arrival.
           </p>
 
-          <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
-            <span style={{ color: '#B8965A', fontSize: '13px', letterSpacing: '2px' }}>★★★★★</span>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '13px', color: 'rgba(255,255,255,0.62)' }}>
-              Rated 5 stars by over 500 travellers
+          <div ref={trustRef} style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B8965A', display: 'inline-block' }} />
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.65)', letterSpacing: '0.04em' }}>
+              Personalized Caribbean coordination · Local insight · Trusted support
             </span>
           </div>
 
           <div ref={ctaRef} className="hero__cta" style={{ opacity: 0 }}>
             <a
-              href="/book"
+              href="/build-itinerary"
               className="hero__btn-primary shimmer-button"
-              onClick={(e) => { e.preventDefault(); navigateTo("/book"); }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/build-itinerary"); }}
             >
               <span className="hero__btn-shimmer" />
-              Explore Experiences
+              Build My Itinerary
             </a>
             <a
-              href="/build-itinerary"
+              href="/experiences"
               className="hero__btn-secondary book-now-btn"
-              onClick={(e) => { e.preventDefault(); navigateTo("/build-itinerary"); }}
-              style={{ borderColor: 'hsl(var(--gem-gold))', color: 'hsl(var(--gem-gold))', background: 'rgba(184,150,90,0.1)' }}
+              onClick={(e) => { e.preventDefault(); navigateTo("/experiences"); }}
+              style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'rgba(255,255,255,0.85)' }}
             >
-              Build My Itinerary
+              Explore Experiences
             </a>
           </div>
         </div>
