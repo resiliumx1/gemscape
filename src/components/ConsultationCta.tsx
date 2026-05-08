@@ -44,7 +44,7 @@ export default function ConsultationCta() {
       ref={ref}
       style={{
         position: "relative",
-        padding: "clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px)",
+        padding: "clamp(96px, 11vw, 160px) clamp(20px, 5vw, 80px)",
         background:
           "radial-gradient(ellipse at top, rgba(26,138,158,0.08), transparent 60%), var(--bg-primary)",
         overflow: "hidden",
@@ -105,12 +105,13 @@ export default function ConsultationCta() {
           className="consult-reveal"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(32px, 4.6vw, 56px)",
+            fontSize: "clamp(30px, 4.2vw, 52px)",
             fontWeight: 400,
-            lineHeight: 1.15,
+            lineHeight: 1.22,
             letterSpacing: "-.01em",
             color: "var(--text-primary)",
             marginBottom: 24,
+            paddingBottom: "0.12em",
           }}
         >
           Not Sure Where{" "}
