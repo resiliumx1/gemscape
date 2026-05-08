@@ -139,6 +139,9 @@ export default function ItineraryBuilder() {
     };
   }, [location.search]);
 
+  const [arrivalDate, setArrivalDate] = useState<Date | undefined>();
+  const [departureDate, setDepartureDate] = useState<Date | undefined>();
+
   const [form, setForm] = useState({
     full_name: "",
     email: "",
