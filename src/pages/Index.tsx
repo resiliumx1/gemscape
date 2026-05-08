@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import Services from "@/components/Services";
 import Experiences from "@/components/Experiences";
 import SignatureExperiences from "@/components/SignatureExperiences";
+import ItineraryBuilder from "@/components/ItineraryBuilder";
 import RentalsPreview from "@/components/RentalsPreview";
 import Manifesto from "@/components/Manifesto";
 import Testimonials from "@/components/Testimonials";
@@ -65,6 +66,7 @@ const Index = () => {
           <WaveDivider variant="ocean" height={120} />
         </div>
         <WhyGemscape />
+        <ItineraryBuilder />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="teal" height={120} />
         </div>
