@@ -1,249 +1,78 @@
-import { motion, useScroll, AnimatePresence } from "framer-motion";
-import { Sparkles, Diamond, Gem, Menu, X, Palmtree, Map, Compass, Mail, Shield, Info, Home, Route, Layers } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles, Menu, X, Mail, Shield, Info, Route, Layers, Gem, MessageCircle } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
 import SkyToggle from "@/components/ui/sky-toggle";
 import { useWaveNav } from "@/components/WavePageTransition";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// ─── NavLink (minimal) ───────────────────────────────────────────────────────
 
-interface DropdownChild {
-  label: string;
-  icon: any;
-  href: string;
-  isHash?: boolean;
-}
-
-interface NavItemProps {
-  icon: any;
+const NavLink = ({
+  label,
+  href,
+  isHash,
+  active,
+  onNavigate,
+}: {
   label: string;
   href: string;
   isHash?: boolean;
-  dropdownItems?: DropdownChild[];
-  pulse?: boolean;
+  active?: boolean;
   onNavigate: (href: string, isHash?: boolean) => void;
-}
-
-// ─── NavItem ─────────────────────────────────────────────────────────────────
-
-const NavItem = ({ icon: Icon, label, href, isHash, dropdownItems, pulse = true, onNavigate }: NavItemProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-
+}) => {
   return (
-    <motion.div
-      className="flex items-center gap-3 cursor-pointer group relative px-4 py-2 rounded-xl transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gem-teal/50"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onFocus={() => setIsHovered(true)}
-      onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-          setIsHovered(false);
-        }
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Escape") {
-          setIsHovered(false);
-          e.currentTarget.blur();
-        } else if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          if (!dropdownItems) onNavigate(href, isHash);
-          else setIsHovered(!isHovered);
-        }
-      }}
-      onClick={() => { if (!dropdownItems) onNavigate(href, isHash); }}
-      tabIndex={0}
-      role="button"
-      aria-haspopup={dropdownItems ? "menu" : undefined}
-      aria-expanded={dropdownItems ? isHovered : undefined}
-      whileHover={{
-        backgroundColor: "rgba(184, 149, 106, 0.03)",
-        y: -0.5,
-      }}
-      transition={{ type: "spring", stiffness: 100, damping: 30 }}
+    <button
+      onClick={() => onNavigate(href, isHash)}
+      className="group relative px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-gem-teal/40 rounded-md"
     >
-      {isHovered && <div className="absolute top-full left-0 w-full h-6 z-50" />}
-
-      <div className="relative">
-        <motion.div
-          className="absolute inset-0 bg-gem-gold/20 blur-2xl rounded-full"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{
-            opacity: isHovered ? 0.4 : 0,
-            scale: isHovered ? 1.2 : 0.8,
-          }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        />
-
-        <motion.div
-          animate={
-            isHovered
-              ? { scale: [1.05, 1.1, 1.05], color: "#b8956a", opacity: 1 }
-              : pulse
-              ? { opacity: [0.6, 1, 0.6], scale: 1, color: "#2cb8a8" }
-              : { opacity: 1, scale: 1, color: "#2cb8a8" }
-          }
-          transition={{
-            duration: isHovered ? 3 : 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="relative z-10 transition-all duration-700"
-        >
-          <Icon size={20} strokeWidth={1} className="absolute inset-0 opacity-30 blur-[3px] translate-x-[1px] translate-y-[1px]" />
-          <Icon size={20} strokeWidth={1.1} className="relative drop-shadow-[0_0_10px_rgba(44,184,168,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(184,149,106,0.5)] transition-all duration-700" />
-        </motion.div>
-      </div>
-
-      <span className="text-[12px] font-body font-bold tracking-[0.3em] text-[var(--nav-text)] group-hover:text-[var(--nav-text-hover)] transition-all duration-300 relative">
+      <span
+        className={`text-[11px] font-body tracking-[0.32em] uppercase transition-colors duration-300 ${
+          active ? "text-[var(--nav-text-hover)]" : "text-[var(--nav-text)] group-hover:text-[var(--nav-text-hover)]"
+        }`}
+      >
         {label}
-        <motion.div
-          className="absolute -bottom-1 left-0 h-[1px] bg-gem-teal/50"
-          initial={{ width: 0 }}
-          animate={{ width: isHovered ? "100%" : 0 }}
-          transition={{ duration: 0.3 }}
-        />
       </span>
-
-      {/* Dropdown */}
-      {dropdownItems && (
-        <motion.div
-          role="menu"
-          aria-label={`${label} submenu`}
-          initial={{ opacity: 0, y: 15, scale: 0.95, rotateX: -20 }}
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            y: isHovered ? 0 : 15,
-            scale: isHovered ? 1 : 0.95,
-            rotateX: isHovered ? 0 : -20,
-            pointerEvents: isHovered ? ("auto" as const) : ("none" as const),
-          }}
-          style={{ originY: 0, perspective: 1000, background: "var(--nav-dropdown-bg)", borderColor: "var(--nav-dropdown-border)" }}
-          transition={{
-            duration: isHovered ? 0.6 : 0.5,
-            delay: isHovered ? 0.2 : 0,
-            ease: isHovered ? [0.23, 1, 0.32, 1] : [0.4, 0, 0.2, 1],
-          }}
-          className="absolute top-full left-0 mt-4 w-64 backdrop-blur-2xl border rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
-        >
-          <div className="py-3">
-            {dropdownItems.map((item, idx) => (
-              <motion.div
-                key={item.label}
-                role="menuitem"
-                tabIndex={isHovered ? 0 : -1}
-                onClick={() => { setIsHovered(false); onNavigate(item.href, item.isHash); }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setIsHovered(false);
-                    onNavigate(item.href, item.isHash);
-                  }
-                }}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -12 }}
-                transition={{
-                  delay: isHovered ? idx * 0.06 + 0.2 : 0,
-                  duration: 0.4,
-                  ease: "easeOut",
-                }}
-                whileHover={{ backgroundColor: "rgba(44, 184, 168, 0.1)" }}
-                className="px-6 py-3.5 text-[12px] font-body font-bold tracking-[0.2em] text-[var(--nav-text)] hover:text-gem-teal transition-all cursor-pointer flex items-center gap-4 group/item focus:outline-none focus:bg-gem-teal/10 focus:text-gem-teal"
-              >
-                <item.icon size={16} className="text-gem-teal/60 group-hover/item:text-gem-teal transition-colors" />
-                <span className="flex-1">{item.label.toUpperCase()}</span>
-                <motion.div className="opacity-0 group-hover/item:opacity-100 transition-opacity" whileHover={{ x: 3 }}>
-                  <Diamond size={10} className="text-gem-teal" />
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gem-teal/30 to-transparent" />
-        </motion.div>
-      )}
-    </motion.div>
-  );
-};
-
-// ─── BookNow Button ──────────────────────────────────────────────────────────
-
-const BookNowButton = ({ fullWidth = false, onClick }: { fullWidth?: boolean; onClick: () => void }) => {
-  const [ripples, setRipples] = useState<{ x: number; y: number; id: number }[]>([]);
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const id = Date.now();
-    setRipples((prev) => [...prev, { x, y, id }]);
-    setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 800);
-    onClick();
-  };
-
-  return (
-    <motion.button
-      onClick={handleClick}
-      initial="initial"
-      whileHover="hover"
-      whileTap="tap"
-      className={`relative overflow-hidden px-7 py-2.5 rounded-full group shadow-lg ${fullWidth ? "w-full" : ""}`}
-      style={{
-        border: "1px solid rgba(184,149,106,0.35)",
-        background: "linear-gradient(135deg, rgba(26,138,158,0.25) 0%, rgba(44,184,168,0.15) 100%)",
-        boxShadow: "0 4px 15px rgba(26,138,158,0.1)",
-      }}
-      variants={{
-        initial: { scale: 1 },
-        hover: {
-          scale: 1.05,
-          boxShadow: "0 0 40px rgba(44, 184, 168, 0.15)",
-        },
-        tap: { scale: 0.98 },
-      }}
-    >
-      {/* Shimmer */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-25deg] pointer-events-none"
-        variants={{
-          initial: { x: "-150%" },
-          hover: {
-            x: "150%",
-            transition: { duration: 1.2, repeat: Infinity, repeatDelay: 0.8, ease: "linear" },
-          },
-        }}
+      <motion.span
+        className="absolute left-3 right-3 -bottom-0.5 h-px bg-gem-gold/60 origin-center"
+        initial={false}
+        animate={{ scaleX: active ? 1 : 0 }}
+        whileHover={{ scaleX: 1 }}
+        transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+        style={{ transformOrigin: "center" }}
       />
-
-      {/* Hover bg */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(26,138,158,0.35) 0%, rgba(44,184,168,0.2) 100%)" }} />
-
-      {/* Ripples */}
-      {ripples.map((ripple) => (
-        <motion.span
-          key={ripple.id}
-          initial={{ scale: 0, opacity: 0.6 }}
-          animate={{ scale: 4, opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute rounded-full pointer-events-none z-0"
-          style={{ left: ripple.x - 30, top: ripple.y - 30, width: 60, height: 60, background: "rgba(44,184,168,0.3)" }}
-        />
-      ))}
-
-      <div className="relative z-10 flex items-center gap-3">
-        <span className="text-[11px] font-body font-bold tracking-[0.25em] transition-colors whitespace-nowrap" style={{ color: "#d4ad7c" }}>
-          BUILD MY ITINERARY
-        </span>
-        <motion.div
-          animate={{ opacity: [0.8, 1, 0.8], scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="relative z-10"
-          style={{ color: "#d4ad7c", filter: "drop-shadow(0 0 10px rgba(212,173,124,0.6))" }}
-        >
-          <Sparkles size={18} fill="currentColor" />
-        </motion.div>
-      </div>
-    </motion.button>
+    </button>
   );
 };
+
+// ─── Primary CTA ─────────────────────────────────────────────────────────────
+
+const PrimaryCta = ({ fullWidth = false, onClick }: { fullWidth?: boolean; onClick: () => void }) => (
+  <motion.button
+    onClick={onClick}
+    whileHover={{ scale: 1.03 }}
+    whileTap={{ scale: 0.97 }}
+    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    className={`relative overflow-hidden px-6 py-2.5 rounded-full group ${fullWidth ? "w-full" : ""}`}
+    style={{
+      border: "1px solid rgba(184,149,106,0.4)",
+      background: "linear-gradient(135deg, rgba(26,138,158,0.18) 0%, rgba(184,149,106,0.12) 100%)",
+    }}
+  >
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-25deg] pointer-events-none"
+      initial={{ x: "-150%" }}
+      whileHover={{ x: "150%" }}
+      transition={{ duration: 1, ease: "easeOut" }}
+    />
+    <span className="relative z-10 flex items-center justify-center gap-2.5">
+      <span className="text-[11px] font-body font-medium tracking-[0.28em] whitespace-nowrap" style={{ color: "#d4ad7c" }}>
+        BUILD MY ITINERARY
+      </span>
+      <Sparkles size={14} style={{ color: "#d4ad7c" }} />
+    </span>
+  </motion.button>
+);
 
 // ─── Main Navbar ─────────────────────────────────────────────────────────────
 
@@ -251,14 +80,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
-  const { scrollY } = useScroll();
   const location = useLocation();
   const { navigateTo } = useWaveNav();
 
   const isHomepage = location.pathname === "/";
 
-
-  // Dark mode init
   useEffect(() => {
     const saved = localStorage.getItem("gem-theme");
     if (saved === "dark") {
@@ -273,12 +99,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Lock body scroll but allow drawer to scroll
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -318,11 +142,11 @@ export default function Navbar() {
       if (location.pathname !== "/") {
         navigateTo("/");
         setTimeout(() => {
-          const id = href.replace("#", "");
+          const id = href.replace("/#", "").replace("#", "");
           document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
         }, 1600);
       } else {
-        const id = href.replace("#", "");
+        const id = href.replace("/#", "").replace("#", "");
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }
     } else {
@@ -332,41 +156,38 @@ export default function Navbar() {
 
   const navSolid = isScrolled || !isHomepage;
 
-  // Nav data
-  const experiencesSubs: DropdownChild[] = [
-    { label: "Island Adventures", icon: Palmtree, href: "/book" },
-    { label: "Cultural Tours", icon: Map, href: "/book" },
-    { label: "Circumnavigations", icon: Compass, href: "/book" },
-    { label: "Signature Packages", icon: Sparkles, href: "/packages" },
+  const navItems = [
+    { label: "Experiences", href: "/experiences" },
+    { label: "Itineraries", href: "/build-itinerary" },
+    { label: "Services", href: "/#services", isHash: true },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ];
+
+  const isActive = (href: string, isHash?: boolean) => {
+    if (isHash) return false;
+    return location.pathname === href;
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-        navSolid
-          ? "nav-solid backdrop-blur-2xl py-1.5 shadow-[0_4px_30px_rgba(0,0,0,0.15)]"
-          : "nav-transparent bg-transparent py-2 sm:py-3"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-out ${
+        navSolid ? "backdrop-blur-xl" : "bg-transparent"
       }`}
       style={{
         backgroundColor: navSolid ? "var(--nav-glass-bg)" : "transparent",
-        borderBottom: navSolid ? "1px solid var(--nav-glass-border)" : "none",
+        paddingTop: isScrolled ? "0.5rem" : "1rem",
+        paddingBottom: isScrolled ? "0.5rem" : "1rem",
       }}
     >
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-        }}
-        className={`max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between pb-1.5 ${navSolid ? "border-b border-gem-teal/10" : ""}`}
-      >
-        {/* Logo */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between gap-6">
+        {/* Logo (left) */}
         <motion.button
           onClick={() => navigateTo("/")}
-          variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0 gem-logo-wrap"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center shrink-0 gem-logo-wrap"
           aria-label="Gemscape home"
         >
           <div className="gem-logo-aura">
@@ -375,41 +196,47 @@ export default function Navbar() {
               alt="Gemscape Travel & Tours"
               width={100}
               height={42}
-              className="h-[36px] sm:h-[42px] w-auto object-contain gem-logo-img"
-              style={{ background: "transparent", minWidth: 100 }}
+              className={`w-auto object-contain gem-logo-img transition-all duration-500 ${
+                isScrolled ? "h-[32px] sm:h-[36px]" : "h-[38px] sm:h-[44px]"
+              }`}
+              style={{ background: "transparent" }}
             />
             <div className="gem-logo-shimmer" />
           </div>
         </motion.button>
 
-        {/* Desktop Nav */}
+        {/* Center nav (desktop) */}
         <motion.nav
-          
-          variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="hidden lg:flex items-center gap-1 ml-auto mr-4"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2"
+          aria-label="Primary"
         >
-          <NavItem icon={Home} label="HOME" href="/" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Gem} label="EXPERIENCES" href="/experiences" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Route} label="ITINERARIES" href="/build-itinerary" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Layers} label="SERVICES" href="/#services" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Info} label="ABOUT" href="/about" pulse={false} onNavigate={handleNav} />
-          <NavItem icon={Mail} label="CONTACT" href="/contact" pulse={false} onNavigate={handleNav} />
+          {navItems.map((item) => (
+            <NavLink
+              key={item.label}
+              label={item.label}
+              href={item.href}
+              isHash={item.isHash}
+              active={isActive(item.href, item.isHash)}
+              onNavigate={handleNav}
+            />
+          ))}
         </motion.nav>
 
         {/* Right controls */}
         <motion.div
-          variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-3 sm:gap-4"
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="flex items-center gap-3 sm:gap-4 ml-auto"
         >
-          <div className="hidden sm:block">
-            <CurrencyToggle />
-          </div>
-          <motion.div className="hidden md:block">
-            <BookNowButton onClick={() => navigateTo("/build-itinerary")} />
-          </motion.div>
           <SkyToggle checked={isDark} onChange={toggleTheme} />
+
+          <div className="hidden md:block">
+            <PrimaryCta onClick={() => navigateTo("/build-itinerary")} />
+          </div>
 
           <button
             onClick={() => setIsMenuOpen(true)}
@@ -417,10 +244,10 @@ export default function Navbar() {
             style={{ color: "#b8956a" }}
             aria-label="Open navigation menu"
           >
-            <Menu size={24} />
+            <Menu size={24} strokeWidth={1.5} />
           </button>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* ─── Mobile Drawer ─── */}
       <AnimatePresence>
@@ -439,19 +266,24 @@ export default function Navbar() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-[#05181e] border-l border-gem-teal/10 shadow-2xl flex flex-col p-8 overflow-y-auto"
+              transition={{ type: "spring", damping: 28, stiffness: 220 }}
+              className="absolute right-0 top-0 bottom-0 w-[88%] max-w-sm bg-[#05181e] shadow-2xl flex flex-col overflow-y-auto"
             >
               {/* Drawer header */}
-              <div className="flex items-center justify-between mb-12">
-                <img src="/images/gemscape-logo.webp" alt="Gemscape" className="h-8 w-auto" style={{ background: "transparent" }} />
+              <div className="flex items-center justify-between px-7 pt-7 pb-10">
+                <img
+                  src="/images/gemscape-logo.webp"
+                  alt="Gemscape"
+                  className="h-8 w-auto"
+                  style={{ background: "transparent" }}
+                />
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-gem-teal p-2 hover:bg-gem-teal/10 rounded-full transition-colors"
+                  className="text-gem-teal p-2 rounded-full transition-colors"
                   aria-label="Close menu"
                 >
-                  <X size={24} />
+                  <X size={22} strokeWidth={1.5} />
                 </motion.button>
               </div>
 
@@ -460,91 +292,81 @@ export default function Navbar() {
                 animate="open"
                 exit="closed"
                 variants={{
-                  open: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-                  closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+                  open: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
+                  closed: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
                 }}
-                className="flex flex-col gap-8 flex-1"
+                className="flex flex-col flex-1 px-7 pb-8"
               >
-                {/* Nav section */}
-                <div className="flex flex-col gap-4">
-                  <motion.span
-                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="text-[12px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
-                  >
-                    Navigation
-                  </motion.span>
-                  <div className="flex flex-col gap-2">
-                    {[
-                      { icon: Home, label: "HOME", href: "/" },
-                      { icon: Gem, label: "EXPERIENCES", href: "/experiences" },
-                      { icon: Route, label: "ITINERARIES", href: "/build-itinerary" },
-                      { icon: Layers, label: "SERVICES", href: "/#services" },
-                      { icon: Info, label: "ABOUT", href: "/about" },
-                      { icon: Mail, label: "CONTACT", href: "/contact" },
-                    ].map((item) => (
-                      <motion.button
-                        key={item.label}
-                        variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                        whileHover={{ x: 8, backgroundColor: "rgba(44, 184, 168, 0.05)" }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => handleNav(item.href, item.href.includes("#"))}
-                        className="flex items-center gap-4 text-white/80 hover:text-white p-3 rounded-xl transition-colors cursor-pointer group w-full text-left"
-                      >
-                        <item.icon size={20} className="text-gem-teal group-hover:text-gem-aqua transition-colors" />
-                        <span className="text-sm font-body font-bold tracking-[0.2em]">{item.label}</span>
-                      </motion.button>
-                    ))}
-                  </div>
+                {/* Nav links */}
+                <div className="flex flex-col gap-1">
+                  {navItems.map((item) => (
+                    <motion.button
+                      key={item.label}
+                      variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 16 } }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleNav(item.href, item.isHash)}
+                      className="text-left py-4 border-b border-white/5 group"
+                    >
+                      <span className="text-white/85 group-hover:text-white text-base font-display tracking-wide transition-colors">
+                        {item.label}
+                      </span>
+                    </motion.button>
+                  ))}
                 </div>
 
-                {/* Divider */}
+                {/* CTA */}
                 <motion.div
-                  variants={{ open: { opacity: 1, scaleX: 1 }, closed: { opacity: 0, scaleX: 0 } }}
-                  className="h-[1px] w-full bg-gem-teal/15 origin-left"
-                />
+                  variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 12 } }}
+                  className="mt-10"
+                >
+                  <PrimaryCta fullWidth onClick={() => handleNav("/build-itinerary")} />
+                </motion.div>
+
+                {/* Contact options */}
+                <motion.div
+                  variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 12 } }}
+                  className="mt-8 flex flex-col gap-3"
+                >
+                  <a
+                    href="https://wa.me/17675200000"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 py-3 px-4 rounded-xl border border-white/10 hover:border-gem-teal/30 transition-colors"
+                  >
+                    <MessageCircle size={18} className="text-gem-teal" strokeWidth={1.5} />
+                    <span className="text-white/80 text-sm tracking-wide">WhatsApp Concierge</span>
+                  </a>
+                  <button
+                    onClick={() => handleNav("/contact")}
+                    className="flex items-center gap-3 py-3 px-4 rounded-xl border border-white/10 hover:border-gem-teal/30 transition-colors text-left"
+                  >
+                    <Mail size={18} className="text-gem-teal" strokeWidth={1.5} />
+                    <span className="text-white/80 text-sm tracking-wide">Email Us</span>
+                  </button>
+                </motion.div>
 
                 {/* Settings */}
-                <div className="flex flex-col gap-6">
-                  <motion.span
-                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="text-[12px] font-body font-bold tracking-[0.3em] text-gem-teal/60 uppercase"
-                  >
-                    Settings
-                  </motion.span>
-                  <motion.div
-                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-sm font-body font-bold tracking-[0.2em] text-white/80">CURRENCY</span>
-                    <CurrencyToggle />
-                  </motion.div>
-                  <motion.div
-                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-sm font-body font-bold tracking-[0.2em] text-white/80">THEME</span>
-                    <SkyToggle checked={isDark} onChange={toggleTheme} />
-                  </motion.div>
-                </div>
-
-                {/* Admin */}
-                {!location.pathname.startsWith("/admin") && (
-                  <motion.div
-                    variants={{ open: { opacity: 1, x: 0 }, closed: { opacity: 0, x: 20 } }}
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => handleNav("/admin")}
-                  >
-                    <span className="text-sm font-body font-bold tracking-[0.2em] text-white/80">ADMIN</span>
-                    <Shield size={18} style={{ color: "#b8956a" }} />
-                  </motion.div>
-                )}
-
-                {/* Book Now */}
                 <motion.div
-                  variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }}
-                  className="mt-auto pt-8"
+                  variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 12 } }}
+                  className="mt-10 pt-6 border-t border-white/5 flex flex-col gap-5"
                 >
-                  <BookNowButton fullWidth onClick={() => handleNav("/build-itinerary")} />
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] tracking-[0.28em] text-white/50 uppercase">Currency</span>
+                    <CurrencyToggle />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] tracking-[0.28em] text-white/50 uppercase">Theme</span>
+                    <SkyToggle checked={isDark} onChange={toggleTheme} />
+                  </div>
+                  {!location.pathname.startsWith("/admin") && (
+                    <button
+                      onClick={() => handleNav("/admin")}
+                      className="flex items-center justify-between"
+                    >
+                      <span className="text-[11px] tracking-[0.28em] text-white/50 uppercase">Admin</span>
+                      <Shield size={16} style={{ color: "#b8956a" }} strokeWidth={1.5} />
+                    </button>
+                  )}
                 </motion.div>
               </motion.div>
             </motion.div>
