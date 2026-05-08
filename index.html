@@ -55,42 +55,87 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "TouristInformationCenter",
-      "name": "Gemscape Travel and Tours",
-      "description": "Private tour operator offering island circumnavigation, luxury car rentals, signature planning packages, and flight concierge in Antigua & Barbuda, Caribbean.",
-      "url": "https://gemscapetours.com",
-      "telephone": "+12680000000",
-      "email": "info@gemscapetours.com",
-      "image": "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=1200&q=80",
-      "priceRange": "$$-$$$",
-      "currenciesAccepted": "USD, XCD",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "St. John's",
-        "addressLocality": "St. John's",
-        "addressRegion": "Antigua & Barbuda",
-        "addressCountry": "AG"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 17.1274,
-        "longitude": -61.8468
-      },
-      "openingHours": "Mo-Su 07:00-20:00",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Gemscape Services",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Island Circumnavigation Tour" }},
-          { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Luxury Car Rental" }},
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Flight Concierge" }},
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Signature Planning Packages" }}
-        ]
-      },
-      "sameAs": [
-        "https://instagram.com/gemscapetours",
-        "https://facebook.com/gemscapetours",
-        "https://tripadvisor.com/gemscapetours"
+      "@graph": [
+        {
+          "@type": ["TravelAgency", "LocalBusiness"],
+          "@id": "https://gemscapetours.com/#organization",
+          "name": "Gemscape Travel & Tours",
+          "alternateName": "Gemscape",
+          "description": "Curated Caribbean experiences designed around peace, beauty, and connection. Personalized itineraries, thoughtful coordination, and trusted island support across Antigua & Barbuda.",
+          "url": "https://gemscapetours.com",
+          "logo": "https://gemscapetours.com/images/gemscape-logo.webp",
+          "image": "https://gemscapetours.com/images/hero-antigua-sunset.webp",
+          "telephone": "+1-268-780-5510",
+          "email": "info@gemscapetours.com",
+          "priceRange": "$$-$$$",
+          "currenciesAccepted": "USD, XCD",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "St. John's",
+            "addressRegion": "Saint John",
+            "addressCountry": "AG"
+          },
+          "geo": { "@type": "GeoCoordinates", "latitude": 17.1274, "longitude": -61.8468 },
+          "areaServed": [
+            { "@type": "Country", "name": "Antigua and Barbuda" },
+            { "@type": "Place", "name": "Caribbean" }
+          ],
+          "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "07:00", "closes": "20:00"
+          }],
+          "sameAs": [
+            "https://instagram.com/gemscapetours",
+            "https://facebook.com/gemscapetours"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Gemscape Services",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Personalized Itinerary Planning", "url": "https://gemscapetours.com/build-itinerary" }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport Transfers & Arrival Coordination", "url": "https://gemscapetours.com/concierge" }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Curated Island Experiences", "url": "https://gemscapetours.com/experiences" }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Signature Travel Packages", "url": "https://gemscapetours.com/packages" }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Vehicle Rentals", "url": "https://gemscapetours.com/rentals" }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Wellness & Nature Escapes" }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Group & Celebration Coordination" }}
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://gemscapetours.com/#website",
+          "url": "https://gemscapetours.com",
+          "name": "Gemscape Travel & Tours",
+          "publisher": { "@id": "https://gemscapetours.com/#organization" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What does Gemscape do?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Gemscape curates Caribbean travel experiences across Antigua & Barbuda — personalized itineraries, airport coordination, transportation, and trusted island support from inquiry to arrival." }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I start planning a trip with Gemscape?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Share your travel vision through the Build My Itinerary form and our team will follow up with a personalized plan shaped around your pace, style, and intentions." }
+            },
+            {
+              "@type": "Question",
+              "name": "Where does Gemscape operate?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Gemscape is based in Antigua & Barbuda and provides curated coordination across the Caribbean for travelers seeking peaceful, beautiful, and meaningful experiences." }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Gemscape arrange airport transfers?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. Our Flight Concierge service handles arrival, ground transportation, and onward coordination so guests step off the plane into a calm, organized experience." }
+            }
+          ]
+        }
       ]
     }
     </script>
