@@ -20,8 +20,26 @@ export type ExperienceDetail = {
   related: string[];
 };
 
+import romanceImg from "@/assets/exp-romance-dinner.png";
+import girlsImg from "@/assets/exp-girls-beach.png";
+import soloImg from "@/assets/exp-solo-forest.png";
+import cruiseImg from "@/assets/exp-cruise-driver.png";
+import yachtImg from "@/assets/exp-yacht.png";
+import pierImg from "@/assets/exp-pier-sunset.png";
+
 const img = (id: string, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+export const EXPERIENCE_IMAGES: Record<string, string> = {
+  "romantic-tropical-escape": romanceImg,
+  "girls-island-getaway": girlsImg,
+  "peaceful-solo-retreat": soloImg,
+  "cruise-stop-vip": cruiseImg,
+  "luxury-weekend-escape": pierImg,
+  "nature-wellness-retreat": soloImg,
+  "multi-island-journey": yachtImg,
+  "business-leisure-escape": pierImg,
+};
 
 export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
   "romantic-tropical-escape": {
