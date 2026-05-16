@@ -26,6 +26,7 @@ import soloImg from "@/assets/exp-solo-forest.png";
 import cruiseImg from "@/assets/exp-cruise-driver.png";
 import yachtImg from "@/assets/exp-yacht.png";
 import pierImg from "@/assets/exp-pier-sunset.png";
+import hammockImg from "@/assets/exp-hammock-sunset.png";
 
 const img = (id: string, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -33,7 +34,13 @@ const img = (id: string, w = 1200) =>
 export const EXPERIENCE_IMAGES: Record<string, string> = {
   "romantic-tropical-escape": romanceImg,
   "girls-island-getaway": girlsImg,
-  "peaceful-solo-retreat": soloImg,
+  "peaceful-solo-retreat": hammockImg,
+  "cruise-stop-vip": cruiseImg,
+  "luxury-weekend-escape": pierImg,
+  "nature-wellness-retreat": soloImg,
+  "multi-island-journey": yachtImg,
+  "business-leisure-escape": pierImg,
+};
   "cruise-stop-vip": cruiseImg,
   "luxury-weekend-escape": pierImg,
   "nature-wellness-retreat": soloImg,
