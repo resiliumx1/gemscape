@@ -61,6 +61,7 @@ function AnimatedRoutes() {
         <Route path="/services" element={<Services />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/build-itinerary" element={<BuildItinerary />} />
+        <Route path="/build-my-itinerary" element={<BuildItinerary />} />
         <Route path="/about" element={<About />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
