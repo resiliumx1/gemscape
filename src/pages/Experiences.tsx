@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import { useWaveNav } from "@/components/WavePageTransition";
+import { EXPERIENCE_IMAGES } from "@/data/experienceDetails";
 
 const NAVY = "#0d1b2a";
 const NAVY_DEEP = "#0a1622";
@@ -277,8 +278,13 @@ const Experiences = () => {
               <div
                 style={{
                   position: "relative",
-                  height: 130,
-                  background: exp.gradient,
+                  height: 160,
+                  background: `${exp.gradient}`,
+                  backgroundImage: EXPERIENCE_IMAGES[exp.slug]
+                    ? `linear-gradient(to top, rgba(13,27,42,0.45) 0%, rgba(13,27,42,0) 55%), url(${EXPERIENCE_IMAGES[exp.slug]})`
+                    : undefined,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
                 }}
               >
                 <span

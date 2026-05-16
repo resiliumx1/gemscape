@@ -20,8 +20,26 @@ export type ExperienceDetail = {
   related: string[];
 };
 
+import romanceImg from "@/assets/exp-romance-dinner.png";
+import girlsImg from "@/assets/exp-girls-beach.png";
+import soloImg from "@/assets/exp-solo-forest.png";
+import cruiseImg from "@/assets/exp-cruise-driver.png";
+import yachtImg from "@/assets/exp-yacht.png";
+import pierImg from "@/assets/exp-pier-sunset.png";
+
 const img = (id: string, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+export const EXPERIENCE_IMAGES: Record<string, string> = {
+  "romantic-tropical-escape": romanceImg,
+  "girls-island-getaway": girlsImg,
+  "peaceful-solo-retreat": soloImg,
+  "cruise-stop-vip": cruiseImg,
+  "luxury-weekend-escape": pierImg,
+  "nature-wellness-retreat": soloImg,
+  "multi-island-journey": yachtImg,
+  "business-leisure-escape": pierImg,
+};
 
 export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
   "romantic-tropical-escape": {
@@ -32,8 +50,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["2–3 Days", "Couples", "Fully Customizable"],
     desc: "Sunset dinners, secluded beaches, and private island moments designed entirely for two.",
     longDesc: "An intimate Caribbean escape choreographed for two — quiet coves, golden-hour sails, and dinners only you'll know about.",
-    heroImage: img("photo-1507525428034-b723cf961d3e"),
-    gallery: [img("photo-1507525428034-b723cf961d3e", 800), img("photo-1519046904884-53103b34b206", 800), img("photo-1505881502353-a1986add3762", 800), img("photo-1520454974749-611b7248ffdb", 800)],
+    heroImage: romanceImg,
+    gallery: [romanceImg, img("photo-1507525428034-b723cf961d3e", 800), img("photo-1519046904884-53103b34b206", 800), img("photo-1505881502353-a1986add3762", 800), img("photo-1520454974749-611b7248ffdb", 800)],
     gradient: "linear-gradient(135deg,#1a4a6b,#2a9d8f)",
     priceFrom: "USD $1,200",
     priceRange: "$1,200 – $3,500",
@@ -67,8 +85,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["3–4 Days", "Groups", "Fully Customizable"],
     desc: "Freedom, laughter, and curated island moments shared with the people you love most.",
     longDesc: "From poolside mornings to private yacht afternoons — a celebration weekend choreographed for your favorite people.",
-    heroImage: img("photo-1582719508461-905c673771fd"),
-    gallery: [img("photo-1582719508461-905c673771fd", 800), img("photo-1530541930197-ff16ac917b0e", 800), img("photo-1533174072545-7a4b6ad7a6c3", 800), img("photo-1551845041-63e8e76836ea", 800)],
+    heroImage: girlsImg,
+    gallery: [girlsImg, img("photo-1582719508461-905c673771fd", 800), img("photo-1530541930197-ff16ac917b0e", 800), img("photo-1533174072545-7a4b6ad7a6c3", 800), img("photo-1551845041-63e8e76836ea", 800)],
     gradient: "linear-gradient(135deg,#4a1a2a,#9e3d6e)",
     priceFrom: "USD $950",
     priceRange: "$950 – $2,800",
@@ -103,8 +121,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["Flexible", "Solo", "Fully Customizable"],
     desc: "Solitude, stillness, and the Caribbean at your own pace — no rush, no noise, no agenda.",
     longDesc: "A retreat shaped around how you want to feel, not what you want to do. Quiet hours, considered details, total flexibility.",
-    heroImage: img("photo-1559128010-7c1ad6e1b6a5"),
-    gallery: [img("photo-1559128010-7c1ad6e1b6a5", 800), img("photo-1571896349842-33c89424de2d", 800), img("photo-1542384557-0824d90731ee", 800), img("photo-1518684079-3c830dcef090", 800)],
+    heroImage: soloImg,
+    gallery: [soloImg, img("photo-1559128010-7c1ad6e1b6a5", 800), img("photo-1571896349842-33c89424de2d", 800), img("photo-1542384557-0824d90731ee", 800), img("photo-1518684079-3c830dcef090", 800)],
     gradient: "linear-gradient(135deg,#1a3a4a,#2a6b8f)",
     priceFrom: "USD $700",
     priceRange: "$700 – $2,200",
@@ -138,8 +156,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["Half Day", "Cruise Port", "Fully Customizable"],
     desc: "Make the most of your port stop with a private, expertly coordinated island discovery.",
     longDesc: "Skip the crowds. Step off the ship into a private vehicle and spend your hours on the island actually experiencing it.",
-    heroImage: img("photo-1599640842225-85d111c60e6b"),
-    gallery: [img("photo-1599640842225-85d111c60e6b", 800), img("photo-1544551763-46a013bb70d5", 800), img("photo-1507525428034-b723cf961d3e", 800), img("photo-1519046904884-53103b34b206", 800)],
+    heroImage: cruiseImg,
+    gallery: [cruiseImg, img("photo-1599640842225-85d111c60e6b", 800), img("photo-1544551763-46a013bb70d5", 800), img("photo-1507525428034-b723cf961d3e", 800), img("photo-1519046904884-53103b34b206", 800)],
     gradient: "linear-gradient(135deg,#3d1f5e,#6b4fac)",
     priceFrom: "USD $350",
     priceRange: "$350 – $900",
@@ -171,8 +189,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["2 Days", "Premium", "Fully Customizable"],
     desc: "Two nights curated to perfection — the best of Antigua in one seamless experience.",
     longDesc: "A short trip that feels long. Every transfer, table, and view pre-arranged so you can simply arrive.",
-    heroImage: img("photo-1520454974749-611b7248ffdb"),
-    gallery: [img("photo-1520454974749-611b7248ffdb", 800), img("photo-1505881502353-a1986add3762", 800), img("photo-1507525428034-b723cf961d3e", 800), img("photo-1530541930197-ff16ac917b0e", 800)],
+    heroImage: pierImg,
+    gallery: [pierImg, img("photo-1520454974749-611b7248ffdb", 800), img("photo-1505881502353-a1986add3762", 800), img("photo-1507525428034-b723cf961d3e", 800), img("photo-1530541930197-ff16ac917b0e", 800)],
     gradient: "linear-gradient(135deg,#2a1a0d,#8f5a2a)",
     priceFrom: "USD $1,100",
     priceRange: "$1,100 – $3,200",
@@ -205,8 +223,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["4–5 Days", "Wellness", "Fully Customizable"],
     desc: "Rain forests, hidden coves, and curated wellness moments across Antigua's terrain.",
     longDesc: "A grounded, slow-moving retreat. Movement, nature, and recovery — paced gently across four or five days.",
-    heroImage: img("photo-1518684079-3c830dcef090"),
-    gallery: [img("photo-1518684079-3c830dcef090", 800), img("photo-1542384557-0824d90731ee", 800), img("photo-1559128010-7c1ad6e1b6a5", 800), img("photo-1505881502353-a1986add3762", 800)],
+    heroImage: soloImg,
+    gallery: [soloImg, img("photo-1518684079-3c830dcef090", 800), img("photo-1542384557-0824d90731ee", 800), img("photo-1559128010-7c1ad6e1b6a5", 800), img("photo-1505881502353-a1986add3762", 800)],
     gradient: "linear-gradient(135deg,#1e4d40,#4a7c59)",
     priceFrom: "USD $1,400",
     priceRange: "$1,400 – $3,800",
@@ -242,8 +260,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["5–7 Days", "Multi-Island", "Fully Customizable"],
     desc: "Discover multiple islands — each with its own personality, culture, and hidden gems.",
     longDesc: "Two or three Caribbean islands, threaded together with private boats and short flights. One trip, many worlds.",
-    heroImage: img("photo-1505881502353-a1986add3762"),
-    gallery: [img("photo-1505881502353-a1986add3762", 800), img("photo-1520454974749-611b7248ffdb", 800), img("photo-1599640842225-85d111c60e6b", 800), img("photo-1530541930197-ff16ac917b0e", 800)],
+    heroImage: yachtImg,
+    gallery: [yachtImg, img("photo-1505881502353-a1986add3762", 800), img("photo-1520454974749-611b7248ffdb", 800), img("photo-1599640842225-85d111c60e6b", 800), img("photo-1530541930197-ff16ac917b0e", 800)],
     gradient: "linear-gradient(135deg,#0d2a4a,#1e6a8f)",
     priceFrom: "USD $2,400",
     priceRange: "$2,400 – $6,500",
@@ -278,8 +296,8 @@ export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
     tags: ["Flexible", "Business", "Fully Customizable"],
     desc: "Professional commitments handled, Caribbean experiences waiting — Gemscape bridges both.",
     longDesc: "For travelers extending a work trip into something more. We handle the work logistics and design the leisure half.",
-    heroImage: img("photo-1551845041-63e8e76836ea"),
-    gallery: [img("photo-1551845041-63e8e76836ea", 800), img("photo-1520454974749-611b7248ffdb", 800), img("photo-1505881502353-a1986add3762", 800), img("photo-1518684079-3c830dcef090", 800)],
+    heroImage: pierImg,
+    gallery: [pierImg, img("photo-1551845041-63e8e76836ea", 800), img("photo-1520454974749-611b7248ffdb", 800), img("photo-1505881502353-a1986add3762", 800), img("photo-1518684079-3c830dcef090", 800)],
     gradient: "linear-gradient(135deg,#1a1a2a,#3a3a6a)",
     priceFrom: "USD $900",
     priceRange: "$900 – $2,800",
