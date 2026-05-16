@@ -3,18 +3,20 @@ import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import Services from "@/components/Services";
-import Experiences from "@/components/Experiences";
-import SignatureExperiences from "@/components/SignatureExperiences";
-import ItineraryBuilder from "@/components/ItineraryBuilder";
 import RentalsPreview from "@/components/RentalsPreview";
 import Manifesto from "@/components/Manifesto";
-import Testimonials from "@/components/Testimonials";
 import PackagesPreview from "@/components/PackagesPreview";
-import WhyGemscape from "@/components/WhyGemscape";
-import CtaBanner from "@/components/CtaBanner";
+import ItineraryBuilder from "@/components/ItineraryBuilder";
 import ConsultationCta from "@/components/ConsultationCta";
+import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
+import {
+  HomeExperiencesPreview,
+  HomeServicesGrid,
+  HomeWhyGemscape,
+  HomeTestimonials,
+  HomeFooterCta,
+} from "@/components/home/HomeSections";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import WaveDivider from "@/components/WaveDivider";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
