@@ -25,6 +25,7 @@ const About = lazy(() => import("./pages/About.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin.tsx"));
 const Services = lazy(() => import("./pages/Services.tsx"));
+const ExperienceDetail = lazy(() => import("./pages/ExperienceDetail.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 gsap.registerPlugin(ScrollTrigger);
