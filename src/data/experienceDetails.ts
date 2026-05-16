@@ -41,12 +41,6 @@ export const EXPERIENCE_IMAGES: Record<string, string> = {
   "multi-island-journey": yachtImg,
   "business-leisure-escape": pierImg,
 };
-  "cruise-stop-vip": cruiseImg,
-  "luxury-weekend-escape": pierImg,
-  "nature-wellness-retreat": soloImg,
-  "multi-island-journey": yachtImg,
-  "business-leisure-escape": pierImg,
-};
 
 export const EXPERIENCE_DETAILS: Record<string, ExperienceDetail> = {
   "romantic-tropical-escape": {
