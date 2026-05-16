@@ -3,18 +3,20 @@ import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import Services from "@/components/Services";
-import Experiences from "@/components/Experiences";
-import SignatureExperiences from "@/components/SignatureExperiences";
-import ItineraryBuilder from "@/components/ItineraryBuilder";
 import RentalsPreview from "@/components/RentalsPreview";
 import Manifesto from "@/components/Manifesto";
-import Testimonials from "@/components/Testimonials";
 import PackagesPreview from "@/components/PackagesPreview";
-import WhyGemscape from "@/components/WhyGemscape";
-import CtaBanner from "@/components/CtaBanner";
+import ItineraryBuilder from "@/components/ItineraryBuilder";
 import ConsultationCta from "@/components/ConsultationCta";
+import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
+import {
+  HomeExperiencesPreview,
+  HomeServicesGrid,
+  HomeWhyGemscape,
+  HomeTestimonials,
+  HomeFooterCta,
+} from "@/components/home/HomeSections";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import WaveDivider from "@/components/WaveDivider";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -62,23 +64,23 @@ const Index = () => {
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         <HeroSection />
-        <Services />
-        <SignatureExperiences />
-        <Experiences />
+        <HomeExperiencesPreview />
+        <HomeServicesGrid />
         <RentalsPreview />
         <Manifesto />
-        <Testimonials />
+        <HomeWhyGemscape />
+        <HomeTestimonials />
         <PackagesPreview />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="ocean" height={120} />
         </div>
-        <WhyGemscape />
         <ItineraryBuilder />
         <ConsultationCta />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="teal" height={120} />
         </div>
         <CtaBanner />
+        <HomeFooterCta />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="ocean" height={120} />
         </div>
