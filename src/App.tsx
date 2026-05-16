@@ -24,6 +24,7 @@ const BuildItinerary = lazy(() => import("./pages/BuildItinerary.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin.tsx"));
+const Services = lazy(() => import("./pages/Services.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 gsap.registerPlugin(ScrollTrigger);
@@ -57,6 +58,7 @@ function AnimatedRoutes() {
         <Route path="/concierge" element={<Concierge />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/experiences" element={<Experiences />} />
+        <Route path="/services" element={<Services />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/build-itinerary" element={<BuildItinerary />} />
         <Route path="/about" element={<About />} />
