@@ -64,23 +64,23 @@ const Index = () => {
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         <HeroSection />
-        <Services />
-        <SignatureExperiences />
-        <Experiences />
+        <HomeExperiencesPreview />
+        <HomeServicesGrid />
         <RentalsPreview />
         <Manifesto />
-        <Testimonials />
+        <HomeWhyGemscape />
+        <HomeTestimonials />
         <PackagesPreview />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="ocean" height={120} />
         </div>
-        <WhyGemscape />
         <ItineraryBuilder />
         <ConsultationCta />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="teal" height={120} />
         </div>
         <CtaBanner />
+        <HomeFooterCta />
         <div style={{ position: "relative" }}>
           <WaveDivider variant="ocean" height={120} />
         </div>
