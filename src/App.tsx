@@ -26,6 +26,7 @@ const Admin = lazy(() => import("./pages/Admin.tsx"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin.tsx"));
 const Services = lazy(() => import("./pages/Services.tsx"));
 const ExperienceDetail = lazy(() => import("./pages/ExperienceDetail.tsx"));
+const StartPlanning = lazy(() => import("./pages/StartPlanning.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 gsap.registerPlugin(ScrollTrigger);
@@ -64,6 +65,7 @@ function AnimatedRoutes() {
         <Route path="/packages" element={<Packages />} />
         <Route path="/build-itinerary" element={<BuildItinerary />} />
         <Route path="/build-my-itinerary" element={<BuildItinerary />} />
+        <Route path="/start-planning" element={<StartPlanning />} />
         <Route path="/about" element={<About />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
